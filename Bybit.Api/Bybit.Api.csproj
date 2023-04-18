@@ -21,14 +21,14 @@
 		<PackageReleaseNotes>
 			Version 1.0.3 - 18 Apr 2023
 		</PackageReleaseNotes>
-		<PackageIcon>Bybit.Api.png</PackageIcon>
+		<PackageIcon>Bybit.png</PackageIcon>
 		<PackageIconUrl />
 		<PackageProjectUrl>https://github.com/burakoner/Bybit.Api</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/burakoner/Bybit.Api</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="Bybit.Api.png" Pack="true" PackagePath="" />
+		<None Include="Bybit.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 	<ItemGroup>
