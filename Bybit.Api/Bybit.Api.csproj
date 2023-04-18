@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>Bybit.Api</PackageId>
+		<Authors>Burak Öner</Authors>
+		<Version>1.0.3</Version>
+		<FileVersion>1.0.3</FileVersion>
+		<PackageVersion>1.0.3</PackageVersion>
+		<AssemblyVersion>1.0.3</AssemblyVersion>
+		<Description>Bybit API Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible Bybit Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageTags>Bybit;OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<NeutralLanguage>en</NeutralLanguage>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageReleaseNotes>
+			Version 1.0.3 - 18 Apr 2023
+		</PackageReleaseNotes>
+		<PackageIcon>Bybit.Api.png</PackageIcon>
+		<PackageIconUrl />
+		<PackageProjectUrl>https://github.com/burakoner/Bybit.Api</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/burakoner/Bybit.Api</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="Bybit.Api.png" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="ApiSharp" Version="1.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Models\Account\" />
+	  <Folder Include="Models\Asset\" />
+	  <Folder Include="Models\User\" />
+	  <Folder Include="Models\Position\" />
+	</ItemGroup>
+
+</Project>
