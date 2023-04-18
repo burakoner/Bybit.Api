@@ -11,7 +11,6 @@ internal class Program
         var api = new BybitRestApiClient(new BybitRestApiClientOptions
         {
             RawResponse = true,
-            ApiCredentials = new ApiSharp.Authentication.ApiCredentials("umJS2m8YS1otnCG0Kh", "vpHaAT71D5722stzrKbT1xzRr9PGMV21Oy6V")
         });
         // api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX");
         // var public_01 = await api.Server.GetServerTimeAsync();
