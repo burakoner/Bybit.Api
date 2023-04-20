@@ -1,4 +1,4 @@
-﻿using Bybit.Api.Stream.Spot;
+﻿using Bybit.Api.Stream.Updates;
 
 namespace Bybit.Api;
 
@@ -16,9 +16,9 @@ public class BybitStreamClient : StreamApiClient
         UnhandledMessageExpected = true;
         KeepAliveInterval = TimeSpan.Zero;
 
-        SendPeriodic("Ping", options.PingInterval, (connection) =>
-        {
-            return new BybitSpotPing() { Ping = DateTime.UtcNow.ConvertToMilliseconds() };
+        SendPeriodic("Ping", options.PingInterval, (connection) => new BybitStreamRequest { 
+            Operation = "ping", 
+            RequestId = Guid.NewGuid().ToString() 
         });
         AddGenericHandler("Heartbeat", (evnt) => { });
     }
@@ -157,11 +157,23 @@ public class BybitStreamClient : StreamApiClient
         isSuccess = isAuthOperation && auth == "True";
         return auth != null;
     }
+
+    private string GetStreamAddress(BybitCategory category, bool auth)
+    {
+        var options = (BybitStreamClientOptions)ClientOptions;
+        
+        if (auth) return options.WebSocketPrivateAddress;
+        if (category == BybitCategory.Spot) return options.WebSocketSpotAddress;
+        if (category == BybitCategory.Inverse) return options.WebSocketInverseAddress;
+        if (category == BybitCategory.Linear) return options.WebSocketPerpetualAddress;
+        if (category == BybitCategory.Option) return options.WebSocketOptionAddress;
+
+        throw new NotImplementedException("Endpoint is not found");
+    }
     #endregion
 
-    #region Spot Streams
-
-    public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(
+    #region Public Streams
+    public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookAsync(
         BybitCategory category, string symbol, int depth,
         Action<StreamDataEvent<BybitOrderBookUpdate>> handler, CancellationToken ct = default)
     {
@@ -183,23 +195,22 @@ public class BybitStreamClient : StreamApiClient
                 return;
             }
 
-            desResult.Data.Category = category;
+            //desResult.Data.Category = category;
             desResult.Data.StreamType = type.ToString().GetEnumByLabel<BybitStreamType>();
             handler(data.As(desResult.Data, topic.ToString()));
         });
 
-        return await SubscribeAsync(((BybitStreamClientOptions)ClientOptions).WebSocketSpotAddress, new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(category, false), new BybitStreamRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
-            Parameters = new[]
-            {
-                $"orderbook.{depth}.{symbol}"
-            }
+            Parameters = new[] { $"orderbook.{depth}.{symbol}" }
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(BybitCategory category, string symbol, Action<StreamDataEvent<BybitTradeUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<UpdateSubscription>> SubscribeToTradesAsync(
+        BybitCategory category, string symbol, 
+        Action<StreamDataEvent<BybitTradeStream>> handler, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
         {
@@ -207,61 +218,254 @@ public class BybitStreamClient : StreamApiClient
             var topic = data.Data["topic"]; if (topic == null) return;
             var internalData = data.Data["data"]; if (internalData == null) return;
 
-            var desResult = Deserialize<IEnumerable<BybitTradeUpdate>>(internalData);
+            var desResult = Deserialize<IEnumerable<BybitTradeStream>>(internalData);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitTradeUpdate)} object: " + desResult.Error);
+                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitTradeStream)} object: " + desResult.Error);
                 return;
             }
 
             foreach (var item in desResult.Data)
             {
-                item.Category = category;
-                item.StreamType = type.ToString().GetEnumByLabel<BybitStreamType>();
+                //item.Category = category;
+                //item.StreamType = type.ToString().GetEnumByLabel<BybitStreamType>();
                 handler(data.As(item, topic.ToString()));
             }
         });
 
-        return await SubscribeAsync(((BybitStreamClientOptions)ClientOptions).WebSocketSpotAddress, new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(category, false), new BybitStreamRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
-            Parameters = new[]
-            {
-                $"publicTrade.{symbol}"
-            }
+            Parameters = new[] { $"publicTrade.{symbol}" }
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, BybitKlineInterval interval, Action<StreamDataEvent<BybitSpotKlineUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<UpdateSubscription>> SubscribeToSpotTickersAsync(string symbol, Action<StreamDataEvent<BybitSpotTickerStream>> handler, CancellationToken ct = default)
+        => await SubscribeToTickersAsync(BybitCategory.Spot, symbol, handler, ct).ConfigureAwait(false);
+    public async Task<CallResult<UpdateSubscription>> SubscribeToLinearTickersAsync(string symbol, Action<StreamDataEvent<BybitFuturesTickerStream>> handler, CancellationToken ct = default)
+        => await SubscribeToTickersAsync(BybitCategory.Linear, symbol, handler, ct).ConfigureAwait(false);
+    public async Task<CallResult<UpdateSubscription>> SubscribeToInverseTickersAsync(string symbol, Action<StreamDataEvent<BybitFuturesTickerStream>> handler, CancellationToken ct = default)
+        => await SubscribeToTickersAsync(BybitCategory.Inverse, symbol, handler, ct).ConfigureAwait(false);
+    public async Task<CallResult<UpdateSubscription>> SubscribeToOptionTickersAsync(string symbol, Action<StreamDataEvent<BybitOptionTickerStream>> handler, CancellationToken ct = default)
+        => await SubscribeToTickersAsync(BybitCategory.Option, symbol, handler, ct).ConfigureAwait(false);
+
+    private async Task<CallResult<UpdateSubscription>> SubscribeToTickersAsync<T>(
+        BybitCategory category, string symbol, 
+        Action<StreamDataEvent<T>> handler, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
         {
-            var internalData = data.Data["data"];
-            if (internalData == null)
-                return;
+            var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
 
-            var desResult = Deserialize<BybitSpotKlineUpdate>(internalData);
+            var desResult = Deserialize<T>(internalData);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitSpotKlineUpdate)} object: " + desResult.Error);
+                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(T)} object: " + desResult.Error);
                 return;
             }
 
-            var topic = data.Data["topic"]!.ToString();
-            handler(data.As(desResult.Data, topic.Substring(topic.IndexOf('.') + 1)));
+            //desResult.Data.Category = category;
+            //desResult.Data.StreamType = type.ToString().GetEnumByLabel<BybitStreamType>();
+            handler(data.As(desResult.Data, topic.ToString()));
         });
 
-        return await SubscribeAsync(((BybitStreamClientOptions)ClientOptions).WebSocketSpotAddress, new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(category, false), new BybitStreamRequest
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
-            Parameters = new[]
-            {
-                $"kline.{interval.GetLabel()}.{symbol}"
-            }
+            Parameters = new[] { $"tickers.{symbol}" }
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
+
+    public async Task<CallResult<UpdateSubscription>> SubscribeToKlinesAsync(
+        BybitCategory category, string symbol, BybitKlineInterval interval,
+        Action<StreamDataEvent<BybitKlineStream>> handler, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        {
+            var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
+
+            var desResult = Deserialize<IEnumerable<BybitKlineStream>>(internalData);
+            if (!desResult)
+            {
+                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitKlineStream)} object: " + desResult.Error);
+                return;
+            }
+
+            foreach (var item in desResult.Data)
+            {
+                handler(data.As(item, topic.ToString()));
+            }
+        });
+
+        return await SubscribeAsync(GetStreamAddress(category, false), new BybitStreamRequest()
+        {
+            RequestId = Guid.NewGuid().ToString(),
+            Operation = "subscribe",
+            Parameters = new[] { $"kline.{interval.GetLabel()}.{symbol}" }
+        }, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    public async Task<CallResult<UpdateSubscription>> SubscribeToLiquidationsAsync(
+        BybitCategory category, string symbol,
+        Action<StreamDataEvent<BybitLiquidationStream>> handler, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        {
+            var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
+
+            var desResult = Deserialize<BybitLiquidationStream>(internalData);
+            if (!desResult)
+            {
+                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitKlineStream)} object: " + desResult.Error);
+                return;
+            }
+
+            handler(data.As(desResult.Data, topic.ToString()));
+        });
+
+        return await SubscribeAsync(GetStreamAddress(category, false), new BybitStreamRequest()
+        {
+            RequestId = Guid.NewGuid().ToString(),
+            Operation = "subscribe",
+            Parameters = new[] { $"liquidation.{symbol}" }
+        }, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    public async Task<CallResult<UpdateSubscription>> SubscribeToLeveragedTokenKlinesAsync(
+        string symbol, BybitKlineInterval interval,
+        Action<StreamDataEvent<BybitLeveragedTokenKlineStream>> handler, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        {
+            var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
+
+            var desResult = Deserialize<IEnumerable<BybitLeveragedTokenKlineStream>>(internalData);
+            if (!desResult)
+            {
+                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitLeveragedTokenKlineStream)} object: " + desResult.Error);
+                return;
+            }
+
+            foreach (var item in desResult.Data)
+            {
+                handler(data.As(item, topic.ToString()));
+            }
+        });
+
+        return await SubscribeAsync(GetStreamAddress(BybitCategory.Spot, false), new BybitStreamRequest()
+        {
+            RequestId = Guid.NewGuid().ToString(),
+            Operation = "subscribe",
+            Parameters = new[] { $"kline_lt.{interval.GetLabel()}.{symbol}" }
+        }, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    public async Task<CallResult<UpdateSubscription>> SubscribeToLeveragedTokenTickersAsync(
+        string symbol,
+        Action<StreamDataEvent<BybitLeveragedTokenTickerStream>> handler, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        {
+            var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
+
+            var desResult = Deserialize<BybitLeveragedTokenTickerStream>(internalData);
+            if (!desResult)
+            {
+                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitLeveragedTokenTickerStream)} object: " + desResult.Error);
+                return;
+            }
+
+            handler(data.As(desResult.Data, topic.ToString()));
+        });
+
+        return await SubscribeAsync(GetStreamAddress( BybitCategory.Spot, false), new BybitStreamRequest
+        {
+            RequestId = Guid.NewGuid().ToString(),
+            Operation = "subscribe",
+            Parameters = new[] { $"tickers_lt.{symbol}" }
+        }, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    public async Task<CallResult<UpdateSubscription>> SubscribeToLeveragedTokenNetAssetValuesAsync(
+        string symbol,
+        Action<StreamDataEvent<BybitNavStream>> handler, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        {
+            var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
+
+            var desResult = Deserialize<BybitNavStream>(internalData);
+            if (!desResult)
+            {
+                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitNavStream)} object: " + desResult.Error);
+                return;
+            }
+
+            handler(data.As(desResult.Data, topic.ToString()));
+        });
+
+        return await SubscribeAsync(GetStreamAddress( BybitCategory.Spot, false), new BybitStreamRequest
+        {
+            RequestId = Guid.NewGuid().ToString(),
+            Operation = "subscribe",
+            Parameters = new[] { $"lt.{symbol}" }
+        }, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*
     public async Task<CallResult<UpdateSubscription>> SubscribeToBookPriceUpdatesAsync(string symbol, Action<StreamDataEvent<BybitSpotBookPriceV3>> handler, CancellationToken ct = default)
@@ -292,36 +496,7 @@ public class BybitStreamClient : StreamApiClient
             }
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
-    */
-
-    public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<StreamDataEvent<BybitSpotTickerUpdate>> handler, CancellationToken ct = default)
-    {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
-        {
-            var internalData = data.Data["data"];
-            if (internalData == null)
-                return;
-
-            var desResult = Deserialize<BybitSpotTickerUpdate>(internalData);
-            if (!desResult)
-            {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitSpotTickerUpdate)} object: " + desResult.Error);
-                return;
-            }
-
-            handler(data.As(desResult.Data, data.Data["params"]?["symbol"]?.ToString()));
-        });
-
-        return await SubscribeAsync(((BybitStreamClientOptions)ClientOptions).WebSocketSpotAddress, new BybitStreamRequest
-        {
-            RequestId = Guid.NewGuid().ToString(),
-            Operation = "subscribe",
-            Parameters = new[]
-            {
-                $"tickers.{symbol}"
-            }
-        }, null, false, internalHandler, ct).ConfigureAwait(false);
-    }
+    * /
 
     public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<StreamDataEvent<BybitSpotAccountUpdate>> handler, CancellationToken ct = default)
     {
@@ -454,5 +629,6 @@ public class BybitStreamClient : StreamApiClient
             }
         }, null, true, internalHandler, ct).ConfigureAwait(false);
     }
+    */
     #endregion
 }

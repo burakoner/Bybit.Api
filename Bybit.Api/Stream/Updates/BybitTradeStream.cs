@@ -1,6 +1,6 @@
-﻿namespace Bybit.Api.Stream.Spot;
+﻿namespace Bybit.Api.Stream.Updates;
 
-public class BybitTradeUpdate : BybitCategoryStream
+public class BybitTradeStream
 {
     [JsonProperty("i")]
     public long Id { get; set; }

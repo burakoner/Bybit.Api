@@ -1,9 +1,12 @@
 ﻿using Bybit.Api.Models.Market;
 
-namespace Bybit.Api.Stream.Spot;
+namespace Bybit.Api.Stream.Updates;
 
-public class BybitOrderBookUpdate : BybitCategoryStream
+public class BybitOrderBookUpdate
 {
+    [JsonIgnore]
+    public BybitStreamType StreamType { get; set; }
+
     [JsonProperty("s")]
     public string Symbol { get; set; }
 

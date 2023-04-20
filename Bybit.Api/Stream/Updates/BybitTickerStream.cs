@@ -1,20 +1,9 @@
-﻿namespace Bybit.Api.Models.Market;
+﻿namespace Bybit.Api.Stream.Updates;
 
-public class BybitSpotTicker
+public class BybitSpotTickerStream
 {
+    [JsonProperty("symbol")]
     public string Symbol { get; set; }
-
-    [JsonProperty("bid1Price")]
-    public decimal BestBidPrice { get; set; }
-
-    [JsonProperty("bid1Size")]
-    public decimal BestBidSize { get; set; }
-
-    [JsonProperty("ask1Price")]
-    public decimal BestAskPrice { get; set; }
-
-    [JsonProperty("ask1Size")]
-    public decimal BestAskSize { get; set; }
 
     [JsonProperty("prevPrice24h")]
     public decimal OpenPrice24H { get; set; }
@@ -36,7 +25,7 @@ public class BybitSpotTicker
     public decimal PriceChange { get => LastPrice - OpenPrice24H; }
 }
 
-public class BybitFuturesTicker
+public class BybitFuturesTickerStream
 {
     [JsonProperty("symbol")]
     public string Symbol { get; set; }
@@ -93,26 +82,26 @@ public class BybitFuturesTicker
     public decimal BestAskSize { get; set; }
 }
 
-public class BybitOptionTicker
+public class BybitOptionTickerStream
 {
     public string Symbol { get; set; }
 
-    [JsonProperty("bid1Price")]
+    [JsonProperty("bidPrice")]
     public decimal BestBidPrice { get; set; }
 
-    [JsonProperty("bid1Size")]
+    [JsonProperty("bidSize")]
     public decimal BestBidSize { get; set; }
 
-    [JsonProperty("bid1Iv")]
+    [JsonProperty("bidIv")]
     public decimal BestBidIv { get; set; }
 
-    [JsonProperty("ask1Price")]
+    [JsonProperty("askPrice")]
     public decimal BestAskPrice { get; set; }
 
-    [JsonProperty("ask1Size")]
+    [JsonProperty("askSize")]
     public decimal BestAskSize { get; set; }
 
-    [JsonProperty("ask1Iv")]
+    [JsonProperty("askIv")]
     public decimal BestAskIv { get; set; }
 
     public decimal LastPrice { get; set; }
@@ -137,3 +126,22 @@ public class BybitOptionTicker
     public decimal PredictedDeliveryPrice { get; set; }
     public decimal Change24H { get; set; }
 }
+
+public class BybitLeveragedTokenTickerStream
+{
+    [JsonProperty("symbol")]
+    public string Symbol { get; set; }
+
+    [JsonProperty("prevPrice24h")]
+    public decimal OpenPrice24H { get; set; }
+    [JsonProperty("highPrice24h")]
+    public decimal HighPrice24H { get; set; }
+    [JsonProperty("lowPrice24h")]
+    public decimal LowPrice24H { get; set; }
+    [JsonProperty("lastPrice")]
+    public decimal LastPrice { get; set; }
+    [JsonProperty("price24hPcnt")]
+    public decimal PriceChangePercentage { get; set; }
+    public decimal PriceChange { get => LastPrice - OpenPrice24H; }
+}
+

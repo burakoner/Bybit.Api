@@ -212,7 +212,7 @@ public class BybitMarketRestApiClient
         if (!result) return result.As<IEnumerable<BybitSpotTicker>>(null);
         return result.As(result.Data.Payload);
     }
-    public async Task<RestCallResult<IEnumerable<BybitLinearInverseTicker>>> GetLinearTickersAsync(string symbol = null, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<BybitFuturesTicker>>> GetLinearTickersAsync(string symbol = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -220,11 +220,11 @@ public class BybitMarketRestApiClient
         };
         parameters.AddOptionalParameter("symbol", symbol);
 
-        var result = await MainClient.SendBybitRequest<BybitRestApiCategoryResponse<BybitLinearInverseTicker>>(MainClient.GetUri(v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitLinearInverseTicker>>(null);
+        var result = await MainClient.SendBybitRequest<BybitRestApiCategoryResponse<BybitFuturesTicker>>(MainClient.GetUri(v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<IEnumerable<BybitFuturesTicker>>(null);
         return result.As(result.Data.Payload);
     }
-    public async Task<RestCallResult<IEnumerable<BybitLinearInverseTicker>>> GetInverseTickersAsync(string symbol = null, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<BybitFuturesTicker>>> GetInverseTickersAsync(string symbol = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -232,8 +232,8 @@ public class BybitMarketRestApiClient
         };
         parameters.AddOptionalParameter("symbol", symbol);
 
-        var result = await MainClient.SendBybitRequest<BybitRestApiCategoryResponse<BybitLinearInverseTicker>>(MainClient.GetUri(v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitLinearInverseTicker>>(null);
+        var result = await MainClient.SendBybitRequest<BybitRestApiCategoryResponse<BybitFuturesTicker>>(MainClient.GetUri(v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<IEnumerable<BybitFuturesTicker>>(null);
         return result.As(result.Data.Payload);
     }
     public async Task<RestCallResult<IEnumerable<BybitOptionTicker>>> GetOptionTickersAsync(string symbol = null, string baseAsset = null, string expDate = null, CancellationToken ct = default)

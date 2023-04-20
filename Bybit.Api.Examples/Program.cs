@@ -1,155 +1,18 @@
-﻿using ApiSharp.Attributes;
-using ApiSharp.Converters;
-using Newtonsoft.Json;
+﻿using Bybit.Api.Enums;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bybit.Api.Examples;
 
-public enum BybitStreamOperation
-{
-    [Label("auth")]
-    Auth,
-
-    [Label("ping")]
-    Ping,
-
-    [Label("pong")]
-    Pong,
-
-    [Label("subscribe")]
-    Subscribe,
-
-    [Label("unsubscribe")]
-    Unsubscribe,
-}
-
-public class BybitStreamOperationConverter : BaseConverter<BybitStreamOperation>
-{
-    public BybitStreamOperationConverter() : this(true) { }
-    public BybitStreamOperationConverter(bool quotes) : base(quotes) { }
-
-    protected override List<KeyValuePair<BybitStreamOperation, string>> Mapping => new List<KeyValuePair<BybitStreamOperation, string>>
-        {
-            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Auth, "auth"),
-            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Ping, "ping"),
-            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Pong, "pong"),
-            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Subscribe, "subscribe"),
-            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Unsubscribe, "unsubscribe"),
-        };
-}
-
-
-
-
-public class BybitStreamOperationConverterConst : BaseConverter<BybitStreamOperation>
-{
-    public static readonly List<KeyValuePair<BybitStreamOperation, string>> list = new List<KeyValuePair<BybitStreamOperation, string>>
-        {
-            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Auth, "auth"),
-            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Ping, "ping"),
-            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Pong, "pong"),
-            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Subscribe, "subscribe"),
-            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Unsubscribe, "unsubscribe"),
-        };
-
-    public BybitStreamOperationConverterConst() : this(true) { }
-    public BybitStreamOperationConverterConst(bool quotes) : base(quotes) { }
-
-    protected override List<KeyValuePair<BybitStreamOperation, string>> Mapping => list;
-}
-
-public class Payload00
-{
-    [JsonConverter(typeof(BybitStreamOperationConverterConst))]
-    public BybitStreamOperation StreamOperation { get; set; }
-}
-
-public class Payload01
-{
-    [JsonConverter(typeof(BybitStreamOperationConverter))]
-    public BybitStreamOperation StreamOperation { get; set; }
-}
-
-public class Payload02
-{
-    [JsonConverter(typeof(LabelConverter<BybitStreamOperation>))]
-    public BybitStreamOperation StreamOperation { get; set; }
-}
 
 internal class Program
 {
     static async Task Main(string[] args)
     {
-        var payload00 = new Payload00 { StreamOperation = BybitStreamOperation.Subscribe };
-        var payload01 = new Payload01 { StreamOperation = BybitStreamOperation.Subscribe };
-        var payload02 = new Payload02 { StreamOperation = BybitStreamOperation.Subscribe };
-        var json00 = JsonConvert.SerializeObject(payload00);
-        var json01 = JsonConvert.SerializeObject(payload01);
-        var json02 = JsonConvert.SerializeObject(payload02);
-
-        JsonConvert.SerializeObject(payload00);
-        JsonConvert.DeserializeObject<Payload01>(json00);
-        JsonConvert.SerializeObject(payload01);
-        JsonConvert.DeserializeObject<Payload01>(json01);
-        JsonConvert.SerializeObject(payload02);
-        JsonConvert.DeserializeObject<Payload02>(json02);
-
-        var sw01 = Stopwatch.StartNew();
-        for (var i = 0; i < 100000; i++)
-        {
-            JsonConvert.SerializeObject(payload00);
-        }
-        sw01.Stop();
-
-        var sw02 = Stopwatch.StartNew();
-        for (var i = 0; i < 100000; i++)
-        {
-            JsonConvert.DeserializeObject<Payload00>(json00);
-        }
-        sw02.Stop();
-
-        var sw11 = Stopwatch.StartNew();
-        for (var i = 0; i < 100000; i++)
-        {
-            JsonConvert.SerializeObject(payload01);
-        }
-        sw11.Stop();
-
-        var sw12 = Stopwatch.StartNew();
-        for (var i = 0; i < 100000; i++)
-        {
-            JsonConvert.DeserializeObject<Payload01>(json01);
-        }
-        sw12.Stop();
-
-        var sw21 = Stopwatch.StartNew();
-        for (var i = 0; i < 100000; i++)
-        {
-            JsonConvert.SerializeObject(payload02);
-        }
-        sw21.Stop();
-
-        var sw22 = Stopwatch.StartNew();
-        for (var i = 0; i < 100000; i++)
-        {
-            JsonConvert.DeserializeObject<Payload02>(json02);
-        }
-        sw22.Stop();
-
-
-
-
-
-
-
-
-
-
         #region Rest Api Client Examples
+
         var api = new BybitRestApiClient(new BybitRestApiClientOptions
         {
             RawResponse = true,
@@ -184,18 +47,17 @@ internal class Program
         });
 
         // Sample Pairs
-        var pairs = new List<string> { "BTCUSDT", "LTCUSDT", "ETHUSDT", "XRPUSDT", "BCHUSDT", "EOSUSDT", "OKBUSDT", "ETCUSDT", "TRXUSDT", "BSVUSDT", "DASHUSDT", "NEOUSDT", "QTUMUSDT", "XLMUSDT", "ADAUSDT", "AEUSDT", "BLOCUSDT", "EGTUSDT", "IOTAUSDT", "SCUSDT", "WXTUSDT", "ZECUSDT", };
+        var pairs = new List<string> { "BTCUSDT", "LTCUSDT", "ETHUSDT", "XRPUSDT", "BCHUSDT", "EOSUSDT", "ETCUSDT", "TRXUSDT", "QTUMUSDT", "XLMUSDT", "ADAUSDT" };
 
         Console.WriteLine("Being subscribed...");
         foreach (var pair in pairs)
         {
-            await ws.SubscribeToTradeUpdatesAsync(Enums.BybitCategory.Spot, pair, (data) =>
+            await ws.SubscribeToTradesAsync(BybitCategory.Spot, pair, (data) =>
             {
                 if (data != null)
                 {
                     // ... Your logic here
                     Console.WriteLine($"[ TRADE ] " +
-                        $" {data.Data.StreamType} " +
                         $" {data.Data.Symbol} " +
                         $" Id:{data.Data.Id} " +
                         $" Timestamp:{data.Data.Timestamp} " +
@@ -215,7 +77,7 @@ internal class Program
         Console.WriteLine("Being subscribed...");
         foreach (var pair in pairs)
         {
-            await ws.SubscribeToOrderBookUpdatesAsync( Enums.BybitCategory.Spot, pair, 1, (data) =>
+            await ws.SubscribeToOrderBookAsync(BybitCategory.Spot, pair, 1, (data) =>
             {
                 if (data != null)
                 {
@@ -237,274 +99,120 @@ internal class Program
         Console.WriteLine("Subscribed!..");
         Console.ReadLine();
 
-        /* Instruments (Public) */
         Console.WriteLine("Being subscribed...");
-        foreach (var pair in pairs) {
-            await ws.SubscribeToTickerUpdatesAsync(pair, (data) =>
+        foreach (var pair in pairs)
+        {
+            await ws.SubscribeToSpotTickersAsync(pair, (data) =>
             {
                 if (data != null)
                 {
                     // ... Your logic here
-                    Console.WriteLine($"[ TICKER ] {data.Data.Symbol} O:{data.Data.Open} H:{data.Data.High} L:{data.Data.Low} C:{data.Data.Last} V:{data.Data.Volume}");
+                    Console.WriteLine($"[ TICKER ] " +
+                        $" S:{data.Data.Symbol} " +
+                        $" O:{data.Data.OpenPrice24H} " +
+                        $" H:{data.Data.HighPrice24H} " +
+                        $" L:{data.Data.LowPrice24H} " +
+                        $" C:{data.Data.LastPrice} " +
+                        $" V:{data.Data.Volume24H}");
                 }
             });
         }
         Console.WriteLine("Subscribed!..");
-
         Console.ReadLine();
 
+        Console.WriteLine("Being subscribed...");
+        foreach (var pair in pairs)
+        {
+            await ws.SubscribeToKlinesAsync( BybitCategory.Spot, pair, BybitKlineInterval.OneHour, (data) =>
+            {
+                if (data != null)
+                {
+                    // ... Your logic here
+                    Console.WriteLine($"[ KLINE ] " +
+                        $" TS:{data.Data.Timestamp} " +
+                        $" T:{data.Data.Time} " +
+                        $" OTS:{data.Data.OpenTimestamp} " +
+                        $" OT:{data.Data.OpenTime} " +
+                        $" CTS:{data.Data.CloseTimestamp} " +
+                        $" CT:{data.Data.CloseTime} " +
+                        $" I:{data.Data.Interval} " +
+                        $" O:{data.Data.Open} " +
+                        $" H:{data.Data.High} " +
+                        $" L:{data.Data.Low} " +
+                        $" C:{data.Data.Close} " +
+                        $" V:{data.Data.Volume} " +
+                        $" T:{data.Data.Turnover} " +
+                        $" C:{data.Data.Confirm} ");
+                }
+            });
+        }
+        Console.WriteLine("Subscribed!..");
+        Console.ReadLine();
 
+        Console.WriteLine("Being subscribed...");
+        foreach (var pair in pairs)
+        {
+            await ws.SubscribeToLiquidationsAsync(BybitCategory.Inverse, pair, (data) =>
+            {
+                if (data != null)
+                {
+                    // ... Your logic here
+                    Console.WriteLine($"[ LIQ ] " +
+                        $" {data.Data.UpdateTimestamp} " +
+                        $" {data.Data.UpdateTime} " +
+                        $" {data.Data.Symbol} " +
+                        $" {data.Data.Side} " +
+                        $" {data.Data.Size} " +
+                        $" {data.Data.Price} ");
+                }
+            });
+        }
+        Console.WriteLine("Subscribed!..");
+        Console.ReadLine();
 
-        var abc = 0;
+        Console.WriteLine("Being subscribed...");
+        foreach (var pair in pairs)
+        {
+            await ws.SubscribeToLeveragedTokenKlinesAsync(pair, BybitKlineInterval.OneHour, (data) =>
+            {
+                if (data != null)
+                {
+                    // ... Your logic here
+                }
+            });
+        }
+        Console.WriteLine("Subscribed!..");
+        Console.ReadLine();
+
+        Console.WriteLine("Being subscribed...");
+        foreach (var pair in pairs)
+        {
+            await ws.SubscribeToLeveragedTokenTickersAsync(pair, (data) =>
+            {
+                if (data != null)
+                {
+                    // ... Your logic here
+                }
+            });
+        }
+        Console.WriteLine("Subscribed!..");
+        Console.ReadLine();
+
+        Console.WriteLine("Being subscribed...");
+        foreach (var pair in pairs)
+        {
+            await ws.SubscribeToLeveragedTokenNetAssetValuesAsync(pair, (data) =>
+            {
+                if (data != null)
+                {
+                    // ... Your logic here
+                }
+            });
+        }
+        Console.WriteLine("Subscribed!..");
+        Console.ReadLine();
+
         #endregion
-
-#if FALSE
-        #region WebSocket Api Client Examples
-        /* OKX Socket Client */
-        var ws = new BybitStreamClient();
-        ws.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
-
-        /* Sample Pairs */
-        var sample_pairs = new List<string> { "BTC-USDT", "LTC-USDT", "ETH-USDT", "XRP-USDT", "BCH-USDT", "EOS-USDT", "OKB-USDT", "ETC-USDT", "TRX-USDT", "BSV-USDT", "DASH-USDT", "NEO-USDT", "QTUM-USDT", "XLM-USDT", "ADA-USDT", "AE-USDT", "BLOC-USDT", "EGT-USDT", "IOTA-USDT", "SC-USDT", "WXT-USDT", "ZEC-USDT", };
-
-        /* WS Subscriptions */
-        var subs = new List<UpdateSubscription>();
-
-        /* Instruments (Public) */
-        await ws.SubscribeToInstrumentsAsync(OkxInstrumentType.Spot, (data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-                Console.WriteLine($"Instrument {data.Instrument} BaseCurrency:{data.BaseCurrency} Category:{data.Category}");
-            }
-        });
-
-        /* Tickers (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            var subscription = await ws.SubscribeToTickersAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                    Console.WriteLine($"Ticker {data.Instrument} Ask:{data.AskPrice} Bid:{data.BidPrice}");
-                }
-            });
-            subs.Add(subscription.Data);
-        }
-
-        /* Unsubscribe */
-        foreach (var sub in subs)
-        {
-            _ = ws.UnsubscribeAsync(sub);
-        }
-
-        /* Interests (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToInterestsAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* Candlesticks (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToCandlesticksAsync(pair, OkxPeriod.FiveMinutes, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* Trades (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToTradesAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* Estimated Price (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToTradesAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* Mark Price (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToMarkPriceAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* Mark Price Candlesticks (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToMarkPriceCandlesticksAsync(pair, OkxPeriod.FiveMinutes, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* Limit Price (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToPriceLimitAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* Order Book (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToOrderBookAsync(pair, OkxOrderBookType.OrderBook, (data) =>
-            {
-                if (data != null && data.Asks != null && data.Asks.Count() > 0 && data.Bids != null && data.Bids.Count() > 0)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* Option Summary (Public) */
-        await ws.SubscribeToOptionSummaryAsync("USD", (data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
-        });
-
-        /* Funding Rates (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToFundingRatesAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* Index Candlesticks (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToIndexCandlesticksAsync(pair, OkxPeriod.FiveMinutes, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* Index Tickers (Public) */
-        foreach (var pair in sample_pairs)
-        {
-            await ws.SubscribeToIndexTickersAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-
-        /* System Status (Public) */
-        await ws.SubscribeToSystemStatusAsync((data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
-        });
-
-        /* Account Updates (Private) */
-        await ws.SubscribeToAccountUpdatesAsync((data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
-        });
-
-        /* Position Updates (Private) */
-        await ws.SubscribeToPositionUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
-        });
-
-        /* Balance And Position Updates (Private) */
-        await ws.SubscribeToBalanceAndPositionUpdatesAsync((data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
-        });
-
-        /* Order Updates (Private) */
-        await ws.SubscribeToOrderUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
-        });
-
-        /* Algo Order Updates (Private) */
-        await ws.SubscribeToAlgoOrderUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
-        });
-
-        /* Advance Algo Order Updates (Private) */
-        await ws.SubscribeToAdvanceAlgoOrderUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
-        });
-        #endregion
-#endif
 
     }
 }
