@@ -1,15 +1,5 @@
 ﻿namespace Bybit.Api.Models.Market;
 
-public class BybitKlineContainer<T>
-{
-    public string Symbol { get; set; }
-
-    [JsonConverter(typeof(LabelConverter<BybitCategory>))]
-    public BybitCategory Category { get; set; }
-
-    public IEnumerable<T> List { get; set; }
-}
-
 [JsonConverter(typeof(ArrayConverter))]
 public class BybitPriceKline
 {

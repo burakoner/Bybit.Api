@@ -1,12 +1,154 @@
-﻿using Bybit.Api.Enums;
+﻿using ApiSharp.Attributes;
+using ApiSharp.Converters;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bybit.Api.Examples;
+
+public enum BybitStreamOperation
+{
+    [Label("auth")]
+    Auth,
+
+    [Label("ping")]
+    Ping,
+
+    [Label("pong")]
+    Pong,
+
+    [Label("subscribe")]
+    Subscribe,
+
+    [Label("unsubscribe")]
+    Unsubscribe,
+}
+
+public class BybitStreamOperationConverter : BaseConverter<BybitStreamOperation>
+{
+    public BybitStreamOperationConverter() : this(true) { }
+    public BybitStreamOperationConverter(bool quotes) : base(quotes) { }
+
+    protected override List<KeyValuePair<BybitStreamOperation, string>> Mapping => new List<KeyValuePair<BybitStreamOperation, string>>
+        {
+            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Auth, "auth"),
+            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Ping, "ping"),
+            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Pong, "pong"),
+            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Subscribe, "subscribe"),
+            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Unsubscribe, "unsubscribe"),
+        };
+}
+
+
+
+
+public class BybitStreamOperationConverterConst : BaseConverter<BybitStreamOperation>
+{
+    public static readonly List<KeyValuePair<BybitStreamOperation, string>> list = new List<KeyValuePair<BybitStreamOperation, string>>
+        {
+            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Auth, "auth"),
+            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Ping, "ping"),
+            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Pong, "pong"),
+            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Subscribe, "subscribe"),
+            new KeyValuePair<BybitStreamOperation, string>(BybitStreamOperation.Unsubscribe, "unsubscribe"),
+        };
+
+    public BybitStreamOperationConverterConst() : this(true) { }
+    public BybitStreamOperationConverterConst(bool quotes) : base(quotes) { }
+
+    protected override List<KeyValuePair<BybitStreamOperation, string>> Mapping => list;
+}
+
+public class Payload00
+{
+    [JsonConverter(typeof(BybitStreamOperationConverterConst))]
+    public BybitStreamOperation StreamOperation { get; set; }
+}
+
+public class Payload01
+{
+    [JsonConverter(typeof(BybitStreamOperationConverter))]
+    public BybitStreamOperation StreamOperation { get; set; }
+}
+
+public class Payload02
+{
+    [JsonConverter(typeof(LabelConverter<BybitStreamOperation>))]
+    public BybitStreamOperation StreamOperation { get; set; }
+}
 
 internal class Program
 {
     static async Task Main(string[] args)
     {
+        var payload00 = new Payload00 { StreamOperation = BybitStreamOperation.Subscribe };
+        var payload01 = new Payload01 { StreamOperation = BybitStreamOperation.Subscribe };
+        var payload02 = new Payload02 { StreamOperation = BybitStreamOperation.Subscribe };
+        var json00 = JsonConvert.SerializeObject(payload00);
+        var json01 = JsonConvert.SerializeObject(payload01);
+        var json02 = JsonConvert.SerializeObject(payload02);
+
+        JsonConvert.SerializeObject(payload00);
+        JsonConvert.DeserializeObject<Payload01>(json00);
+        JsonConvert.SerializeObject(payload01);
+        JsonConvert.DeserializeObject<Payload01>(json01);
+        JsonConvert.SerializeObject(payload02);
+        JsonConvert.DeserializeObject<Payload02>(json02);
+
+        var sw01 = Stopwatch.StartNew();
+        for (var i = 0; i < 100000; i++)
+        {
+            JsonConvert.SerializeObject(payload00);
+        }
+        sw01.Stop();
+
+        var sw02 = Stopwatch.StartNew();
+        for (var i = 0; i < 100000; i++)
+        {
+            JsonConvert.DeserializeObject<Payload00>(json00);
+        }
+        sw02.Stop();
+
+        var sw11 = Stopwatch.StartNew();
+        for (var i = 0; i < 100000; i++)
+        {
+            JsonConvert.SerializeObject(payload01);
+        }
+        sw11.Stop();
+
+        var sw12 = Stopwatch.StartNew();
+        for (var i = 0; i < 100000; i++)
+        {
+            JsonConvert.DeserializeObject<Payload01>(json01);
+        }
+        sw12.Stop();
+
+        var sw21 = Stopwatch.StartNew();
+        for (var i = 0; i < 100000; i++)
+        {
+            JsonConvert.SerializeObject(payload02);
+        }
+        sw21.Stop();
+
+        var sw22 = Stopwatch.StartNew();
+        for (var i = 0; i < 100000; i++)
+        {
+            JsonConvert.DeserializeObject<Payload02>(json02);
+        }
+        sw22.Stop();
+
+
+
+
+
+
+
+
+
+
         #region Rest Api Client Examples
         var api = new BybitRestApiClient(new BybitRestApiClientOptions
         {
@@ -33,7 +175,84 @@ internal class Program
         //var market_15 = await api.Market.GetRiskLimitAsync(BybitCategory.Linear);
         //var market_16 = await api.Market.GetDeliveryPriceAsync(BybitCategory.Linear);
 
-        var order = await api.Trade.PlaceOrderAsync(BybitCategory.Spot, "XRPUSDT", BybitOrderSide.Buy, BybitOrderType.Market, 100.0m);
+        //var order = await api.Trading.PlaceOrderAsync(BybitCategory.Spot, "XRPUSDT", BybitOrderSide.Buy, BybitOrderType.Market, 100.0m,,,,,);
+
+
+        var ws = new BybitStreamClient(new BybitStreamClientOptions
+        {
+            RawResponse = true,
+        });
+
+        // Sample Pairs
+        var pairs = new List<string> { "BTCUSDT", "LTCUSDT", "ETHUSDT", "XRPUSDT", "BCHUSDT", "EOSUSDT", "OKBUSDT", "ETCUSDT", "TRXUSDT", "BSVUSDT", "DASHUSDT", "NEOUSDT", "QTUMUSDT", "XLMUSDT", "ADAUSDT", "AEUSDT", "BLOCUSDT", "EGTUSDT", "IOTAUSDT", "SCUSDT", "WXTUSDT", "ZECUSDT", };
+
+        Console.WriteLine("Being subscribed...");
+        foreach (var pair in pairs)
+        {
+            await ws.SubscribeToTradeUpdatesAsync(Enums.BybitCategory.Spot, pair, (data) =>
+            {
+                if (data != null)
+                {
+                    // ... Your logic here
+                    Console.WriteLine($"[ TRADE ] " +
+                        $" {data.Data.StreamType} " +
+                        $" {data.Data.Symbol} " +
+                        $" Id:{data.Data.Id} " +
+                        $" Timestamp:{data.Data.Timestamp} " +
+                        $" Time:{data.Data.Time} " +
+                        $" Symbol:{data.Data.Symbol} " +
+                        $" Side:{data.Data.Side} " +
+                        $" Price:{data.Data.Price} " +
+                        $" Quantity:{data.Data.Quantity} " +
+                        $" Direction:{data.Data.Direction} " +
+                        $" BlockTrade:{data.Data.BlockTrade} ");
+                }
+            });
+        }
+        Console.WriteLine("Subscribed!..");
+        Console.ReadLine();
+
+        Console.WriteLine("Being subscribed...");
+        foreach (var pair in pairs)
+        {
+            await ws.SubscribeToOrderBookUpdatesAsync( Enums.BybitCategory.Spot, pair, 1, (data) =>
+            {
+                if (data != null)
+                {
+                    // ... Your logic here
+                    var ask = data.Data.Asks.FirstOrDefault();
+                    var bid = data.Data.Bids.FirstOrDefault();
+                    Console.WriteLine($"[ ORDERBOOK ] " +
+                        $" {data.Data.StreamType} " +
+                        $" {data.Data.Symbol} " +
+                        $" BAP:{(ask != null ? ask.Price.ToString() : "")} " +
+                        $" BAS:{(ask != null ? ask.Size.ToString() : "")} " +
+                        $" BBP:{(bid != null ? bid.Price.ToString() : "")} " +
+                        $" BBS:{(bid != null ? bid.Size.ToString() : "")} " +
+                        $" U:{data.Data.UpdateId} " +
+                        $" S:{data.Data.CrossSequence} ");
+                }
+            });
+        }
+        Console.WriteLine("Subscribed!..");
+        Console.ReadLine();
+
+        /* Instruments (Public) */
+        Console.WriteLine("Being subscribed...");
+        foreach (var pair in pairs) {
+            await ws.SubscribeToTickerUpdatesAsync(pair, (data) =>
+            {
+                if (data != null)
+                {
+                    // ... Your logic here
+                    Console.WriteLine($"[ TICKER ] {data.Data.Symbol} O:{data.Data.Open} H:{data.Data.High} L:{data.Data.Low} C:{data.Data.Last} V:{data.Data.Volume}");
+                }
+            });
+        }
+        Console.WriteLine("Subscribed!..");
+
+        Console.ReadLine();
+
 
 
         var abc = 0;

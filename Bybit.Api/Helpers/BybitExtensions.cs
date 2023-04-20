@@ -127,49 +127,6 @@ public static class BybitExtensions
     }
     #endregion
 
-    #region Epoch TimeStamp
-    public static DateTime FromUnixTimeSeconds(this int @this)
-    {
-        var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        return epoch.AddSeconds(@this);
-    }
-
-    public static DateTime FromUnixTimeSeconds(this long @this)
-    {
-        var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        return epoch.AddSeconds(@this);
-    }
-
-    public static long ToUnixTimeSeconds(this DateTime @this)
-    {
-        var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        return Convert.ToInt64((@this - epoch).TotalSeconds);
-    }
-    public static DateTime FromUnixTimeMilliSeconds(this long @this)
-    {
-        var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        return epoch.AddSeconds(@this / 1000);
-    }
-
-    public static long ToUnixTimeMilliSeconds(this DateTime @this)
-    {
-        var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        return Convert.ToInt64((@this - epoch).TotalSeconds) * 1000 + @this.Millisecond;
-    }
-    #endregion
-
-    #region ISO 8601 DateTime
-    public static string DateTimeToIso8601String(this DateTime @this)
-    {
-        return @this.ToString(BybitGlobals.BybitDatetimeFormat);
-    }
-
-    public static DateTime Iso8601StringToDateTime(this string @this)
-    {
-        return DateTime.ParseExact(@this, BybitGlobals.BybitDatetimeFormat, CultureInfo.InvariantCulture);
-    }
-    #endregion
-
     #region String IsOneOf
     public static bool IsOneOf(this string @this, params string[] values)
     {

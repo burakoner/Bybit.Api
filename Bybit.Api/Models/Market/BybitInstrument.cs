@@ -5,7 +5,10 @@ public class BybitSpotInstrument
     public string Symbol { get; set; }
     public string BaseCoin { get; set; }
     public string QuoteCoin { get; set; }
+
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Innovation { get; set; }
+
     public BybitSpotInstrumentLotSizeFilter LotSizeFilter { get; set; }
     public BybitSpotInstrumentPriceFilter PriceFilter { get; set; }
 }
@@ -57,6 +60,7 @@ public class BybitLinearInverseInstrument
     public BybitLinearInverseInstrumentLeverageFilter Leverage { get; set; }
     public BybitLinearInverseInstrumentPriceFilter PriceFilter { get; set; }
     public BybitLinearInverseInstrumentLotSizeFilter LotSizeFilter { get; set; }
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? UnifiedMarginTrade { get; set; }
     public int? FundingInterval { get; set; }
     public string SettleCoin { get; set; }

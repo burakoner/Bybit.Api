@@ -1,0 +1,19 @@
+﻿namespace Bybit.Api.Enums;
+
+public enum BybitPositionStatus
+{
+    [Label("Normal")]
+    Normal,
+
+    /// <summary>
+    /// in the liquidation progress
+    /// </summary>
+    [Label("Liq")]
+    Liq,
+
+    /// <summary>
+    /// in the auto-deleverage progress
+    /// </summary>
+    [Label("Adl")]
+    Adl,
+}

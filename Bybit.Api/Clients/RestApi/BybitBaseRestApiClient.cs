@@ -64,24 +64,94 @@ public class BybitBaseRestApiClient : RestApiClient
         SetApiCredentials(new ApiCredentials(apiKey, apiSecret));
     }
 
-    internal async Task<RestCallResult<T>> SendBybitRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    internal async Task<RestCallResult> SendBybitRequest(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1)
     {
+        // Get Original Cultures
+        var currentCulture = Thread.CurrentThread.CurrentCulture;
+        var currentUICulture = Thread.CurrentThread.CurrentUICulture;
+
+        // Set Cultures
         Thread.CurrentThread.CurrentCulture = CI;
         Thread.CurrentThread.CurrentUICulture = CI;
+
+        // Do Request
+        var result = await SendRequestAsync<BybitRestApiResponse>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+
+        // Set Orifinal Cultures
+        Thread.CurrentThread.CurrentCulture = currentCulture;
+        Thread.CurrentThread.CurrentUICulture = currentUICulture;
+
+        // Return
+        if (!result.Success || result.Data == null) return new RestCallResult(result.Request, result.Response, result.Error);
+        if (result.Data.ReturnCode > 0) return new RestCallResult(result.Request, result.Response, new ServerError(result.Data.ReturnCode, result.Data.ReturnMessage));
+        return new RestCallResult(result.Request, result.Response, result.Error);
+    }
+
+    internal async Task<RestCallResult<T>> SendBybitRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1)
+    {
+        // Get Original Cultures
+        var currentCulture = Thread.CurrentThread.CurrentCulture;
+        var currentUICulture = Thread.CurrentThread.CurrentUICulture;
+
+        // Set Cultures
+        Thread.CurrentThread.CurrentCulture = CI;
+        Thread.CurrentThread.CurrentUICulture = CI;
+
+        // Do Request
         var result = await SendRequestAsync<BybitRestApiResponse<T>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+
+        // Set Orifinal Cultures
+        Thread.CurrentThread.CurrentCulture = currentCulture;
+        Thread.CurrentThread.CurrentUICulture = currentUICulture;
+
+        // Return
         if (!result.Success || result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Error);
         if (result.Data.ReturnCode > 0) return new RestCallResult<T>(result.Request, result.Response, new ServerError(result.Data.ReturnCode, result.Data.ReturnMessage));
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Result, result.Raw, result.Error);
     }
 
-    internal async Task<RestCallResult<BybitRestApiResponse<T1, T2>>> SendBybitRequest<T1, T2>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T1 : class
+    internal async Task<RestCallResult<BybitRestApiResponse<T1, T2>>> SendBybitRequest<T1, T2>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1)
     {
+        // Get Original Cultures
+        var currentCulture = Thread.CurrentThread.CurrentCulture;
+        var currentUICulture = Thread.CurrentThread.CurrentUICulture;
+
+        // Set Cultures
         Thread.CurrentThread.CurrentCulture = CI;
         Thread.CurrentThread.CurrentUICulture = CI;
+
+        // Do Request
         var result = await SendRequestAsync<BybitRestApiResponse<T1, T2>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+
+        // Set Orifinal Cultures
+        Thread.CurrentThread.CurrentCulture = currentCulture;
+        Thread.CurrentThread.CurrentUICulture = currentUICulture;
+
+        // Return
         if (!result.Success || result.Data == null) return new RestCallResult<BybitRestApiResponse<T1, T2>>(result.Request, result.Response, result.Error);
         if (result.Data.ReturnCode > 0) return new RestCallResult<BybitRestApiResponse<T1, T2>>(result.Request, result.Response, new ServerError(result.Data.ReturnCode, result.Data.ReturnMessage));
         return new RestCallResult<BybitRestApiResponse<T1, T2>>(result.Request, result.Response, result.Data, result.Raw, result.Error);
+    }
+
+    internal async Task<RestCallResult<T>> SendRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    {
+        // Get Original Cultures
+        var currentCulture = Thread.CurrentThread.CurrentCulture;
+        var currentUICulture = Thread.CurrentThread.CurrentUICulture;
+
+        // Set Cultures
+        Thread.CurrentThread.CurrentCulture = CI;
+        Thread.CurrentThread.CurrentUICulture = CI;
+
+        // Do Request
+        var result = await SendRequestAsync<T>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+
+        // Set Orifinal Cultures
+        Thread.CurrentThread.CurrentCulture = currentCulture;
+        Thread.CurrentThread.CurrentUICulture = currentUICulture;
+
+        // Return
+        return result;
     }
 
     internal Uri GetUri(string endpoint, string[] parameters = null)

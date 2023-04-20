@@ -7,6 +7,7 @@ public class BybitRiskLimit
     public decimal RiskLimitValue { get; set; }
     public decimal MaintenanceMargin { get; set; }
     public decimal InitialMargin { get; set; }
+    [JsonConverter(typeof(BooleanConverter))]
     public bool IsLowestRisk { get; set; }
     public decimal MaxLeverage { get; set; }
 }
