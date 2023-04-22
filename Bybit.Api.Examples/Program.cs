@@ -44,7 +44,7 @@ internal class Program
         var ws = new BybitStreamClient(new BybitStreamClientOptions
         {
             RawResponse = true,
-            ApiCredentials = new ApiSharp.Authentication.ApiCredentials("ETZkpQukNbNTFxNeFX", "NawFm7VvkoNVZTDjpg4Shqrco0t2epePBqpD"),
+            ApiCredentials = new ApiSharp.Authentication.ApiCredentials("-----API-KEY-----", "-----API-SECRET-----"),
         });
 
 
