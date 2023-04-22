@@ -1,6 +1,6 @@
 ﻿namespace Bybit.Api.Enums;
 
-public enum BybitStopOrderType
+public enum BybitOrderStopType
 {
     [Label("TakeProfit")]
     TakeProfit,

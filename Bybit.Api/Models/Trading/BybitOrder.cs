@@ -54,8 +54,8 @@ public class BybitOrder
     [JsonProperty("orderType"), JsonConverter(typeof(LabelConverter<BybitOrderType>))]
     public BybitOrderType? OrderType { get; set; }
 
-    [JsonProperty("stopOrderType"), JsonConverter(typeof(LabelConverter<BybitStopOrderType>))]
-    public BybitStopOrderType? StopOrderType { get; set; }
+    [JsonProperty("stopOrderType"), JsonConverter(typeof(LabelConverter<BybitOrderStopType>))]
+    public BybitOrderStopType? StopOrderType { get; set; }
 
     [JsonProperty("orderIv")]
     public decimal? ImpliedVolatility { get; set; }

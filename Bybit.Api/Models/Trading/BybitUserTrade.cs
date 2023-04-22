@@ -22,8 +22,8 @@ public class BybitUserTrade
     [JsonConverter(typeof(LabelConverter<BybitOrderType>))]
     public BybitOrderType? OrderType { get; set; }
 
-    [JsonConverter(typeof(LabelConverter<BybitStopOrderType>))]
-    public BybitStopOrderType? StopOrderType { get; set; }
+    [JsonConverter(typeof(LabelConverter<BybitOrderStopType>))]
+    public BybitOrderStopType? StopOrderType { get; set; }
 
     [JsonProperty("execFee")]
     public decimal? Fee { get; set; }

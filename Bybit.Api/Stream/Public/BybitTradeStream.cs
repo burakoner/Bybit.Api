@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Stream.Updates;
+﻿namespace Bybit.Api.Helpers.Public;
 
 public class BybitTradeStream
 {

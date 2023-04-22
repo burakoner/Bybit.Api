@@ -1,4 +1,5 @@
-﻿using Bybit.Api.Stream.Updates;
+﻿using Bybit.Api.Helpers.Private;
+using Bybit.Api.Helpers.Public;
 
 namespace Bybit.Api;
 
@@ -16,6 +17,7 @@ public class BybitStreamClient : StreamApiClient
         UnhandledMessageExpected = true;
         KeepAliveInterval = TimeSpan.Zero;
 
+        if(options.ApiCredentials!=null) options.AuthenticationProvider = CreateAuthenticationProvider(options.ApiCredentials);
         SendPeriodic("Ping", options.PingInterval, (connection) => new BybitStreamRequest { 
             Operation = "ping", 
             RequestId = Guid.NewGuid().ToString() 
@@ -34,7 +36,7 @@ public class BybitStreamClient : StreamApiClient
 
         var expireTime = DateTime.UtcNow.AddSeconds(30).ConvertToMilliseconds();
         var key = connection.ApiClient.ClientOptions.AuthenticationProvider.Credentials.Key!.GetString();
-        var signature = connection.ApiClient.ClientOptions.AuthenticationProvider.Sign($"GET/realtime{expireTime}");
+        var signature = ((BybitAuthenticationProvider)connection.ApiClient.ClientOptions.AuthenticationProvider).StreamApiSignature($"GET/realtime{expireTime}");
 
         var authRequest = new BybitStreamRequest()
         {
@@ -42,16 +44,23 @@ public class BybitStreamClient : StreamApiClient
             Parameters = new object[] { key, expireTime, signature }
         };
 
+        var json = JsonConvert.SerializeObject(authRequest);
+
         var result = false;
-        var error = "unspecified error";
         await connection.SendAndWaitAsync(authRequest, ClientOptions.ResponseTimeout, data =>
         {
             if (data.Type != JTokenType.Object)
                 return false;
 
-            return CheckAuth(data, ref result);
+            var isAuthOperation = data["op"]?.ToString() == "auth";
+            var auth = data["success"]?.ToString();
+            result = isAuthOperation && auth == "True";
+            return auth != null;
         }).ConfigureAwait(false);
-        return result ? new CallResult<bool>(result) : new CallResult<bool>(new ServerError(error));
+
+        return result 
+            ? new CallResult<bool>(result) 
+            : new CallResult<bool>(new ServerError("Unspecified Error"));
     }
 
     protected override bool HandleQueryResponse<T>(StreamConnection connection, object request, JToken data, out CallResult<T> callResult)
@@ -143,21 +152,6 @@ public class BybitStreamClient : StreamApiClient
     #endregion
 
     #region Private Methods
-    /// <summary>
-    /// Check auth data for valid
-    /// </summary>
-    /// <param name="data"> Response data </param>
-    /// <param name="isSuccess"> Flag if auth is succeeded </param>
-    /// <returns> Flag if response is valid </returns>
-    public bool CheckAuth(JToken data, ref bool isSuccess)
-    {
-        var isAuthOperation = data["op"]?.ToString() == "auth";
-
-        var auth = data["success"]?.ToString();
-        isSuccess = isAuthOperation && auth == "True";
-        return auth != null;
-    }
-
     private string GetStreamAddress(BybitCategory category, bool auth)
     {
         var options = (BybitStreamClientOptions)ClientOptions;
@@ -426,209 +420,158 @@ public class BybitStreamClient : StreamApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    public async Task<CallResult<UpdateSubscription>> SubscribeToBookPriceUpdatesAsync(string symbol, Action<StreamDataEvent<BybitSpotBookPriceV3>> handler, CancellationToken ct = default)
-    {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
-        {
-            var internalData = data.Data["data"];
-            if (internalData == null)
-                return;
-
-            var desResult = Deserialize<BybitSpotBookPriceV3>(internalData);
-            if (!desResult)
-            {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitSpotBookPriceV3)} object: " + desResult.Error);
-                return;
-            }
-
-            handler(data.As(desResult.Data, data.Data["params"]?["symbol"]?.ToString()));
-        });
-
-        return await SubscribeAsync(((BybitStreamClientOptions)ClientOptions).WebSocketSpotAddress, new BybitSpotRequestMessageV3
-        {
-            RequestId = Guid.NewGuid().ToString(),
-            Operation = "subscribe",
-            Parameters = new[]
-            {
-                $"bookticker.{symbol}"
-            }
-        }, null, false, internalHandler, ct).ConfigureAwait(false);
-    }
-    * /
-
-    public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<StreamDataEvent<BybitSpotAccountUpdate>> handler, CancellationToken ct = default)
-    {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
-        {
-            var internalData = data.Data["data"];
-            if (internalData == null)
-                return;
-
-            var jArray = (JArray)internalData;
-            foreach (var item in jArray)
-            {
-                var desResult = Deserialize<BybitSpotAccountUpdate>(item);
-                if (!desResult)
-                {
-                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitSpotAccountUpdate)} object: " + desResult.Error);
-                    return;
-                }
-
-                handler(data.As(desResult.Data));
-            }
-        });
-
-        return await SubscribeAsync(((BybitStreamClientOptions)ClientOptions).WebSocketPrivateAddress, new BybitStreamRequest()
-        {
-            RequestId = Guid.NewGuid().ToString(),
-            Operation = "subscribe",
-            Parameters = new[]
-            {
-                "outboundAccountInfo"
-            }
-        }, null, true, internalHandler, ct).ConfigureAwait(false);
-    }
-
-    public async Task<CallResult<UpdateSubscription>> SubscribeToUserOrdersUpdatesAsync(Action<StreamDataEvent<BybitSpotOrderUpdate>> handler, CancellationToken ct = default)
-    {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
-        {
-            var internalData = data.Data["data"];
-            if (internalData == null)
-                return;
-
-            var jArray = (JArray)internalData;
-            foreach (var item in jArray)
-            {
-                var desResult = Deserialize<BybitSpotOrderUpdate>(item);
-                if (!desResult)
-                {
-                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitSpotOrderUpdate)} object: " + desResult.Error);
-                    return;
-                }
-
-                handler(data.As(desResult.Data));
-            }
-        });
-
-        return await SubscribeAsync(((BybitStreamClientOptions)ClientOptions).WebSocketPrivateAddress, new BybitStreamRequest()
-        {
-            RequestId = Guid.NewGuid().ToString(),
-            Operation = "subscribe",
-            Parameters = new[]
-            {
-                "order"
-            }
-        }, null, true, internalHandler, ct).ConfigureAwait(false);
-    }
-
-    public async Task<CallResult<UpdateSubscription>> SubscribeToUserStopOrdersUpdatesAsync(Action<StreamDataEvent<BybitSpotStopOrderUpdate>> handler, CancellationToken ct = default)
-    {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
-        {
-            var internalData = data.Data["data"];
-            if (internalData == null)
-                return;
-
-            var jArray = (JArray)internalData;
-            foreach (var item in jArray)
-            {
-                var desResult = Deserialize<BybitSpotStopOrderUpdate>(item);
-                if (!desResult)
-                {
-                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitSpotStopOrderUpdate)} object: " + desResult.Error);
-                    return;
-                }
-
-                handler(data.As(desResult.Data));
-            }
-        });
-
-        return await SubscribeAsync(((BybitStreamClientOptions)ClientOptions).WebSocketPrivateAddress, new BybitStreamRequest()
-        {
-            RequestId = Guid.NewGuid().ToString(),
-            Operation = "subscribe",
-            Parameters = new[]
-            {
-                "stopOrder"
-            }
-        }, null, true, internalHandler, ct).ConfigureAwait(false);
-    }
-
-    public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradesUpdatesAsync(Action<StreamDataEvent<BybitSpotUserTradeUpdate>> handler, CancellationToken ct = default)
-    {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
-        {
-            var internalData = data.Data["data"];
-            if (internalData == null)
-                return;
-
-            var jArray = (JArray)internalData;
-            foreach (var item in jArray)
-            {
-                var desResult = Deserialize<BybitSpotUserTradeUpdate>(item);
-                if (!desResult)
-                {
-                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitSpotUserTradeUpdate)} object: " + desResult.Error);
-                    return;
-                }
-
-                handler(data.As(desResult.Data));
-            }
-        });
-
-        return await SubscribeAsync(((BybitStreamClientOptions)ClientOptions).WebSocketPrivateAddress, new BybitStreamRequest()
-        {
-            RequestId = Guid.NewGuid().ToString(),
-            Operation = "subscribe",
-            Parameters = new[]
-            {
-                    "ticketInfo"
-            }
-        }, null, true, internalHandler, ct).ConfigureAwait(false);
-    }
-    */
     #endregion
+
+    #region Private Updates
+    public async Task<CallResult<UpdateSubscription>> SubscribeToWalletUpdatesAsync(Action<StreamDataEvent<BybitWalletUpdate>> handler, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        {
+            // var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
+
+            var jArray = (JArray)internalData;
+            foreach (var item in jArray)
+            {
+                var desResult = Deserialize<BybitWalletUpdate>(item);
+                if (!desResult)
+                {
+                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitWalletUpdate)} object: " + desResult.Error);
+                    return;
+                }
+
+                handler(data.As(desResult.Data));
+            }
+        });
+
+        return await SubscribeAsync(GetStreamAddress(default, true), new BybitStreamRequest()
+        {
+            RequestId = Guid.NewGuid().ToString(),
+            Operation = "subscribe",
+            Parameters = new[] { "wallet" }
+        }, null, true, internalHandler, ct).ConfigureAwait(false);
+    }
+    
+    public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<StreamDataEvent<BybitPositionUpdate>> handler, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        {
+            // var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
+
+            var jArray = (JArray)internalData;
+            foreach (var item in jArray)
+            {
+                var desResult = Deserialize<BybitPositionUpdate>(item);
+                if (!desResult)
+                {
+                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitPositionUpdate)} object: " + desResult.Error);
+                    return;
+                }
+
+                handler(data.As(desResult.Data));
+            }
+        });
+
+        return await SubscribeAsync(GetStreamAddress(default, true), new BybitStreamRequest()
+        {
+            RequestId = Guid.NewGuid().ToString(),
+            Operation = "subscribe",
+            Parameters = new[] { "position" }
+        }, null, true, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    public async Task<CallResult<UpdateSubscription>> SubscribeToExecutionUpdatesAsync(Action<StreamDataEvent<BybitExecutionUpdate>> handler, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        {
+            // var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
+
+            var jArray = (JArray)internalData;
+            foreach (var item in jArray)
+            {
+                var desResult = Deserialize<BybitExecutionUpdate>(item);
+                if (!desResult)
+                {
+                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitExecutionUpdate)} object: " + desResult.Error);
+                    return;
+                }
+
+                handler(data.As(desResult.Data));
+            }
+        });
+
+        return await SubscribeAsync(GetStreamAddress(default, true), new BybitStreamRequest()
+        {
+            RequestId = Guid.NewGuid().ToString(),
+            Operation = "subscribe",
+            Parameters = new[] { "execution" }
+        }, null, true, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<StreamDataEvent<BybitOrderUpdate>> handler, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        {
+            // var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
+
+            var jArray = (JArray)internalData;
+            foreach (var item in jArray)
+            {
+                var desResult = Deserialize<BybitOrderUpdate>(item);
+                if (!desResult)
+                {
+                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitOrderUpdate)} object: " + desResult.Error);
+                    return;
+                }
+
+                handler(data.As(desResult.Data));
+            }
+        });
+
+        return await SubscribeAsync(GetStreamAddress(default, true), new BybitStreamRequest()
+        {
+            RequestId = Guid.NewGuid().ToString(),
+            Operation = "subscribe",
+            Parameters = new[] { "order" }
+        }, null, true, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    public async Task<CallResult<UpdateSubscription>> SubscribeToGreekUpdatesAsync(Action<StreamDataEvent<BybitGreekUpdate>> handler, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        {
+            // var type = data.Data["type"]; if (type == null) return;
+            var topic = data.Data["topic"]; if (topic == null) return;
+            var internalData = data.Data["data"]; if (internalData == null) return;
+
+            var jArray = (JArray)internalData;
+            foreach (var item in jArray)
+            {
+                var desResult = Deserialize<BybitGreekUpdate>(item);
+                if (!desResult)
+                {
+                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitGreekUpdate)} object: " + desResult.Error);
+                    return;
+                }
+
+                handler(data.As(desResult.Data));
+            }
+        });
+
+        return await SubscribeAsync(GetStreamAddress(default, true), new BybitStreamRequest()
+        {
+            RequestId = Guid.NewGuid().ToString(),
+            Operation = "subscribe",
+            Parameters = new[] { "order" }
+        }, null, true, internalHandler, ct).ConfigureAwait(false);
+    }
+    #endregion
+
 }

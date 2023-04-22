@@ -44,7 +44,20 @@ internal class Program
         var ws = new BybitStreamClient(new BybitStreamClientOptions
         {
             RawResponse = true,
+            ApiCredentials = new ApiSharp.Authentication.ApiCredentials("ETZkpQukNbNTFxNeFX", "NawFm7VvkoNVZTDjpg4Shqrco0t2epePBqpD"),
         });
+
+
+        Console.WriteLine("Being subscribed...");
+        await ws.SubscribeToWalletUpdatesAsync((data) =>
+        {
+            if (data != null)
+            {
+                // ... Your logic here
+            }
+        });
+        Console.WriteLine("Subscribed!..");
+        Console.ReadLine();
 
         // Sample Pairs
         var pairs = new List<string> { "BTCUSDT", "LTCUSDT", "ETHUSDT", "XRPUSDT", "BCHUSDT", "EOSUSDT", "ETCUSDT", "TRXUSDT", "QTUMUSDT", "XLMUSDT", "ADAUSDT" };
