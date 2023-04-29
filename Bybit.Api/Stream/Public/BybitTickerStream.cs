@@ -64,7 +64,7 @@ public class BybitFuturesTickerStream
     public long DeliveryTimestamp { get; set; }
     public DateTime DeliveryTime { get => DeliveryTimestamp.ConvertFromMilliseconds(); }
 
-    public decimal PredictedDeliveryPrice { get; set; }
+    public decimal? PredictedDeliveryPrice { get; set; }
     public decimal BasisRate { get; set; }
     public decimal Basis { get; set; }
     public decimal DeliveryFeeRate { get; set; }
@@ -123,7 +123,7 @@ public class BybitOptionTickerStream
     public decimal Gamma { get; set; }
     public decimal Vega { get; set; }
     public decimal Theta { get; set; }
-    public decimal PredictedDeliveryPrice { get; set; }
+    public decimal? PredictedDeliveryPrice { get; set; }
     public decimal Change24H { get; set; }
 }
 
