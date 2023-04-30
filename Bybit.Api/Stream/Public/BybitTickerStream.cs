@@ -65,9 +65,9 @@ public class BybitFuturesTickerStream
     public DateTime DeliveryTime { get => DeliveryTimestamp.ConvertFromMilliseconds(); }
 
     public decimal? PredictedDeliveryPrice { get; set; }
-    public decimal BasisRate { get; set; }
-    public decimal Basis { get; set; }
-    public decimal DeliveryFeeRate { get; set; }
+    public decimal? BasisRate { get; set; }
+    public decimal? Basis { get; set; }
+    public decimal? DeliveryFeeRate { get; set; }
 
     [JsonProperty("bid1Price")]
     public decimal BestBidPrice { get; set; }
