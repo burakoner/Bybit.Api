@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitLendingRestApiClient
+public class BybitInstitutionalLendingRestApiClient
 {
     // Institutional Lending Endpoints
     protected const string v5InsLoanProductInfosEndpoint = "v5/ins-loan/product-infos";
@@ -12,10 +12,10 @@ public class BybitLendingRestApiClient
     protected const string v5InsLoanLtvEndpoint = "v5/ins-loan/ltv";
 
     // Internal
-    internal BybitBaseRestApiClient MainClient { get; }
+    internal BaseRestApiClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitLendingRestApiClient(BybitRestApiClient root)
+    internal BybitInstitutionalLendingRestApiClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }
@@ -39,6 +39,8 @@ public class BybitLendingRestApiClient
         if (!result) return result.As<IEnumerable<BybitLendingToken>>(null);
         return result.As(result.Data.Payload);
     }
+
+    // TODO: Get Margin Coin Info With Conversion Rate
 
     public async Task<RestCallResult<IEnumerable<BybitLendingLoanOrder>>> GetLoanOrdersAsync(string orderId=null, long? startTime=null, long? endTime= null, int? limit=null, CancellationToken ct = default)
     {
@@ -77,4 +79,5 @@ public class BybitLendingRestApiClient
         return result.As(result.Data.Payload);
     }
 
+    // TODO: Get LTV with Ladder Conversion Rate
 }

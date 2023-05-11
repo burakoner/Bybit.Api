@@ -12,7 +12,7 @@ public class BybitLeveragedTokensRestApiClient
     protected const string v5SpotLeverTokenOrderRecordEndpoint = "v5/spot-lever-token/order-record";
 
     // Internal
-    internal BybitBaseRestApiClient MainClient { get; }
+    internal BaseRestApiClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitLeveragedTokensRestApiClient(BybitRestApiClient root)

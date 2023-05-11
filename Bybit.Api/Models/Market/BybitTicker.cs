@@ -65,7 +65,7 @@ public class BybitFuturesTicker
     public decimal OpenInterestValue { get; set; }
     public decimal Turnover24H { get; set; }
     public decimal Volume24H { get; set; }
-    public decimal FundingRate { get; set; }
+    public decimal? FundingRate { get; set; }
 
     [JsonProperty("nextFundingTime")]
     public long NextFundingTimestamp { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace Bybit.Api.Clients.RestApi;
 
-public class BybitBaseRestApiClient : RestApiClient
+internal class BaseRestApiClient : RestApiClient
 {
     // Internal
     internal Log Log { get => this.log; }
@@ -11,7 +11,7 @@ public class BybitBaseRestApiClient : RestApiClient
     internal CultureInfo CI { get { return RootClient.CI; } }
     internal new BybitRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
 
-    internal BybitBaseRestApiClient(BybitRestApiClient root) : base("Bybit RestApi", root.ClientOptions)
+    internal BaseRestApiClient(BybitRestApiClient root) : base("Bybit RestApi", root.ClientOptions)
     {
         RootClient = root;
 

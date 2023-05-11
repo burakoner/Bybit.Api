@@ -9,7 +9,7 @@ public class BybitUnifiedMarginRestApiClient
     protected const string v5SpotMarginTradeSetLeverageEndpoint = "v5/spot-margin-trade/set-leverage";
 
     // Internal
-    internal BybitBaseRestApiClient MainClient { get; }
+    internal BaseRestApiClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitUnifiedMarginRestApiClient(BybitRestApiClient root)

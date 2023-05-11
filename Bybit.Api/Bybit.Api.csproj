@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>Bybit.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>1.1.2</Version>
-		<FileVersion>1.1.2</FileVersion>
-		<PackageVersion>1.1.2</PackageVersion>
-		<AssemblyVersion>1.1.2</AssemblyVersion>
+		<Version>1.1.3</Version>
+		<FileVersion>1.1.3</FileVersion>
+		<PackageVersion>1.1.3</PackageVersion>
+		<AssemblyVersion>1.1.3</AssemblyVersion>
 		<Description>Bybit API v5 Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible Bybit Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>Bybit;V5;OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -19,6 +19,11 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
+			Version 1.1.3 - 11 May 2023
+			- Fixed some model properties
+			- Edited RestClient Structure. Synced with Bybit Api docs structure.
+			- Synced with Bybit Api 2023-05-10 version
+
 			Version 1.1.2 - 30 Apr 2023
 			- Fixed some property types in ticker models
 		</PackageReleaseNotes>
@@ -33,7 +38,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="ApiSharp" Version="1.3.1" />
+	  <PackageReference Include="ApiSharp" Version="1.3.3" />
 	</ItemGroup>
 
 </Project>

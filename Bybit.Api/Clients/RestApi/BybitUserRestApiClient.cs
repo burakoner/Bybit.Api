@@ -16,7 +16,7 @@ public class BybitUserRestApiClient
     protected const string v5UserDeleteSubApiEndpoint = "v5/user/delete-sub-api";
 
     // Internal
-    internal BybitBaseRestApiClient MainClient { get; }
+    internal BaseRestApiClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitUserRestApiClient(BybitRestApiClient root)

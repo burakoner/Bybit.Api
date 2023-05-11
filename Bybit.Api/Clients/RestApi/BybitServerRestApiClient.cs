@@ -8,7 +8,7 @@ public class BybitServerRestApiClient
     protected const string v3PublicTimeEndpoint = "v3/public/time";
 
     // Internal
-    internal BybitBaseRestApiClient MainClient { get; }
+    internal BaseRestApiClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitServerRestApiClient(BybitRestApiClient root)

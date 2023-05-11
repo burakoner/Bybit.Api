@@ -21,7 +21,7 @@ public class BybitMarketRestApiClient
     protected const string v5MarketDeliveryPriceEndpoint = "v5/market/delivery-price";
 
     // Internal
-    internal BybitBaseRestApiClient MainClient { get; }
+    internal BaseRestApiClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitMarketRestApiClient(BybitRestApiClient root)

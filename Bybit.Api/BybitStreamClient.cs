@@ -17,7 +17,7 @@ public class BybitStreamClient : StreamApiClient
         UnhandledMessageExpected = true;
         KeepAliveInterval = TimeSpan.Zero;
 
-        if(options.ApiCredentials!=null) options.AuthenticationProvider = CreateAuthenticationProvider(options.ApiCredentials);
+        if (options.ApiCredentials != null) options.AuthenticationProvider = CreateAuthenticationProvider(options.ApiCredentials);
         SendPeriodic("Ping", options.PingInterval, (connection) => new BybitStreamRequest { 
             Operation = "ping", 
             RequestId = Guid.NewGuid().ToString() 

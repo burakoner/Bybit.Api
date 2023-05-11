@@ -16,7 +16,7 @@ public class BybitNormalMarginRestApiClient
     protected const string v5SpotCrossMarginTradeSwitchEndpoint = "v5/spot-cross-margin-trade/switch";
 
     // Internal
-    internal BybitBaseRestApiClient MainClient { get; }
+    internal BaseRestApiClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitNormalMarginRestApiClient(BybitRestApiClient root)
