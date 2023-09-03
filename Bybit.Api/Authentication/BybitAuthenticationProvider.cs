@@ -38,13 +38,12 @@ internal class BybitAuthenticationProvider : AuthenticationProvider
         headers.Add("X-BAPI-TIMESTAMP", timestamp);
         headers.Add("X-BAPI-RECV-WINDOW", receiveWindow);
     }
-
-    public override void AuthenticateSocketApi()
+    public override void AuthenticateTcpSocketApi()
     {
         throw new NotImplementedException();
     }
 
-    public override void AuthenticateStreamApi()
+    public override void AuthenticateWebSocketApi()
     {
         throw new NotImplementedException();
     }
@@ -57,4 +56,5 @@ internal class BybitAuthenticationProvider : AuthenticationProvider
     public static string Base64Encode(byte[] plainBytes) => Convert.ToBase64String(plainBytes);
     public static string Base64Encode(string plainText) => Convert.ToBase64String(Encoding.UTF8.GetBytes(plainText));
     public static string Base64Decode(string base64EncodedData) => Encoding.UTF8.GetString(Convert.FromBase64String(base64EncodedData));
+
 }

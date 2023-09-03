@@ -3,7 +3,7 @@ using Bybit.Api.Helpers.Public;
 
 namespace Bybit.Api;
 
-public class BybitStreamClient : StreamApiClient
+public class BybitStreamClient : WebSocketApiClient
 {
     internal bool IsAuthendicated { get; private set; }
 
@@ -29,7 +29,7 @@ public class BybitStreamClient : StreamApiClient
     protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
         => new BybitAuthenticationProvider(credentials);
 
-    protected override async Task<CallResult<bool>> AuthenticateAsync(StreamConnection connection)
+    protected override async Task<CallResult<bool>> AuthenticateAsync(WebSocketConnection connection)
     {
         if (connection.ApiClient.ClientOptions.AuthenticationProvider == null)
             return new CallResult<bool>(new NoApiCredentialsError());
@@ -63,12 +63,12 @@ public class BybitStreamClient : StreamApiClient
             : new CallResult<bool>(new ServerError("Unspecified Error"));
     }
 
-    protected override bool HandleQueryResponse<T>(StreamConnection connection, object request, JToken data, out CallResult<T> callResult)
+    protected override bool HandleQueryResponse<T>(WebSocketConnection connection, object request, JToken data, out CallResult<T> callResult)
     {
         throw new NotImplementedException();
     }
 
-    protected override bool HandleSubscriptionResponse(StreamConnection connection, StreamSubscription subscription, object request, JToken data, out CallResult<object> callResult)
+    protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object> callResult)
     {
         callResult = null;
         if (data.Type != JTokenType.Object)
@@ -86,7 +86,7 @@ public class BybitStreamClient : StreamApiClient
         return true;
     }
 
-    protected override bool MessageMatchesHandler(StreamConnection connection, JToken message, object request)
+    protected override bool MessageMatchesHandler(WebSocketConnection connection, JToken message, object request)
     {
         if (message.Type != JTokenType.Object)
             return false;
@@ -98,7 +98,7 @@ public class BybitStreamClient : StreamApiClient
         return (request as BybitStreamRequest)?.MatchReponse(message) ?? false;
     }
 
-    protected override bool MessageMatchesHandler(StreamConnection connection, JToken message, string identifier)
+    protected override bool MessageMatchesHandler(WebSocketConnection connection, JToken message, string identifier)
     {
         if (identifier == "Heartbeat")
         {
@@ -128,7 +128,7 @@ public class BybitStreamClient : StreamApiClient
         return false;
     }
 
-    protected override async Task<bool> UnsubscribeAsync(StreamConnection connection, StreamSubscription subscription)
+    protected override async Task<bool> UnsubscribeAsync(WebSocketConnection connection, WebSocketSubscription subscription)
     {
         var bRequest = ((BybitStreamRequest)subscription.Request!);
         var message = new BybitStreamRequest
@@ -167,16 +167,16 @@ public class BybitStreamClient : StreamApiClient
     #endregion
 
     #region Public Streams
-    public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderBookAsync(
         BybitCategory category, string symbol, int depth,
-        Action<StreamDataEvent<BybitOrderBookUpdate>> handler, CancellationToken ct = default)
+        Action<WebSocketDataEvent<BybitOrderBookUpdate>> handler, CancellationToken ct = default)
     {
         if (category == BybitCategory.Spot) depth.ValidateIntValues(nameof(category), 1, 50);
         if (category == BybitCategory.Inverse) depth.ValidateIntValues(nameof(category), 1, 50,200,500);
         if (category == BybitCategory.Linear) depth.ValidateIntValues(nameof(category), 1, 50,200,500);
         if (category == BybitCategory.Option) depth.ValidateIntValues(nameof(category), 25, 100);
 
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             var type = data.Data["type"];  if (type == null)  return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -202,11 +202,11 @@ public class BybitStreamClient : StreamApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToTradesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAsync(
         BybitCategory category, string symbol, 
-        Action<StreamDataEvent<BybitTradeStream>> handler, CancellationToken ct = default)
+        Action<WebSocketDataEvent<BybitTradeStream>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -235,20 +235,20 @@ public class BybitStreamClient : StreamApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToSpotTickersAsync(string symbol, Action<StreamDataEvent<BybitSpotTickerStream>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSpotTickersAsync(string symbol, Action<WebSocketDataEvent<BybitSpotTickerStream>> handler, CancellationToken ct = default)
         => await SubscribeToTickersAsync(BybitCategory.Spot, symbol, handler, ct).ConfigureAwait(false);
-    public async Task<CallResult<UpdateSubscription>> SubscribeToLinearTickersAsync(string symbol, Action<StreamDataEvent<BybitFuturesTickerStream>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLinearTickersAsync(string symbol, Action<WebSocketDataEvent<BybitFuturesTickerStream>> handler, CancellationToken ct = default)
         => await SubscribeToTickersAsync(BybitCategory.Linear, symbol, handler, ct).ConfigureAwait(false);
-    public async Task<CallResult<UpdateSubscription>> SubscribeToInverseTickersAsync(string symbol, Action<StreamDataEvent<BybitFuturesTickerStream>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToInverseTickersAsync(string symbol, Action<WebSocketDataEvent<BybitFuturesTickerStream>> handler, CancellationToken ct = default)
         => await SubscribeToTickersAsync(BybitCategory.Inverse, symbol, handler, ct).ConfigureAwait(false);
-    public async Task<CallResult<UpdateSubscription>> SubscribeToOptionTickersAsync(string symbol, Action<StreamDataEvent<BybitOptionTickerStream>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOptionTickersAsync(string symbol, Action<WebSocketDataEvent<BybitOptionTickerStream>> handler, CancellationToken ct = default)
         => await SubscribeToTickersAsync(BybitCategory.Option, symbol, handler, ct).ConfigureAwait(false);
 
-    private async Task<CallResult<UpdateSubscription>> SubscribeToTickersAsync<T>(
+    private async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTickersAsync<T>(
         BybitCategory category, string symbol, 
-        Action<StreamDataEvent<T>> handler, CancellationToken ct = default)
+        Action<WebSocketDataEvent<T>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -274,11 +274,11 @@ public class BybitStreamClient : StreamApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToKlinesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToKlinesAsync(
         BybitCategory category, string symbol, BybitKlineInterval interval,
-        Action<StreamDataEvent<BybitKlineStream>> handler, CancellationToken ct = default)
+        Action<WebSocketDataEvent<BybitKlineStream>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -305,11 +305,11 @@ public class BybitStreamClient : StreamApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToLiquidationsAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLiquidationsAsync(
         BybitCategory category, string symbol,
-        Action<StreamDataEvent<BybitLiquidationStream>> handler, CancellationToken ct = default)
+        Action<WebSocketDataEvent<BybitLiquidationStream>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -333,11 +333,11 @@ public class BybitStreamClient : StreamApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToLeveragedTokenKlinesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeveragedTokenKlinesAsync(
         string symbol, BybitKlineInterval interval,
-        Action<StreamDataEvent<BybitLeveragedTokenKlineStream>> handler, CancellationToken ct = default)
+        Action<WebSocketDataEvent<BybitLeveragedTokenKlineStream>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -364,11 +364,11 @@ public class BybitStreamClient : StreamApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToLeveragedTokenTickersAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeveragedTokenTickersAsync(
         string symbol,
-        Action<StreamDataEvent<BybitLeveragedTokenTickerStream>> handler, CancellationToken ct = default)
+        Action<WebSocketDataEvent<BybitLeveragedTokenTickerStream>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -392,11 +392,11 @@ public class BybitStreamClient : StreamApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToLeveragedTokenNetAssetValuesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeveragedTokenNetAssetValuesAsync(
         string symbol,
-        Action<StreamDataEvent<BybitNavStream>> handler, CancellationToken ct = default)
+        Action<WebSocketDataEvent<BybitNavStream>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -423,9 +423,9 @@ public class BybitStreamClient : StreamApiClient
     #endregion
 
     #region Private Updates
-    public async Task<CallResult<UpdateSubscription>> SubscribeToWalletUpdatesAsync(Action<StreamDataEvent<BybitWalletUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToWalletUpdatesAsync(Action<WebSocketDataEvent<BybitWalletUpdate>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             // var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -453,9 +453,9 @@ public class BybitStreamClient : StreamApiClient
         }, null, true, internalHandler, ct).ConfigureAwait(false);
     }
     
-    public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<StreamDataEvent<BybitPositionUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<WebSocketDataEvent<BybitPositionUpdate>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             // var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -483,9 +483,9 @@ public class BybitStreamClient : StreamApiClient
         }, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToExecutionUpdatesAsync(Action<StreamDataEvent<BybitExecutionUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToExecutionUpdatesAsync(Action<WebSocketDataEvent<BybitExecutionUpdate>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             // var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -513,9 +513,9 @@ public class BybitStreamClient : StreamApiClient
         }, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<StreamDataEvent<BybitOrderUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<WebSocketDataEvent<BybitOrderUpdate>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             // var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;
@@ -543,9 +543,9 @@ public class BybitStreamClient : StreamApiClient
         }, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
-    public async Task<CallResult<UpdateSubscription>> SubscribeToGreekUpdatesAsync(Action<StreamDataEvent<BybitGreekUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToGreekUpdatesAsync(Action<WebSocketDataEvent<BybitGreekUpdate>> handler, CancellationToken ct = default)
     {
-        var internalHandler = new Action<StreamDataEvent<JToken>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             // var type = data.Data["type"]; if (type == null) return;
             var topic = data.Data["topic"]; if (topic == null) return;

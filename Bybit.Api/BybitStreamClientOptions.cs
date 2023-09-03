@@ -1,6 +1,6 @@
 ﻿namespace Bybit.Api;
 
-public class BybitStreamClientOptions : StreamApiClientOptions
+public class BybitStreamClientOptions : WebSocketApiClientOptions
 {
     // Demo
     public bool DemoTradingService { get; set; } = false;
