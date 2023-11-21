@@ -3,6 +3,7 @@
 public sealed class BybitRestApiClient
 {
     // Internal
+    internal ILogger Logger { get; }
     internal BaseRestApiClient MainClient { get; }
     internal BybitRestApiClientOptions ClientOptions { get; }
     internal CultureInfo CI { get; } = CultureInfo.InvariantCulture;
@@ -22,11 +23,15 @@ public sealed class BybitRestApiClient
     public BybitInstitutionalLendingRestApiClient InstitutionalLending { get; }
     // TODO: C2C Lending
 
-    public BybitRestApiClient() : this(new BybitRestApiClientOptions())
+    public BybitRestApiClient() : this(null, new BybitRestApiClientOptions())
     {
     }
 
-    public BybitRestApiClient(BybitRestApiClientOptions options)
+    public BybitRestApiClient(BybitRestApiClientOptions options) : this(null, options)
+    {
+    }
+
+    public BybitRestApiClient(ILogger logger, BybitRestApiClientOptions options)
     {
         this.ClientOptions = options;
         this.MainClient = new BaseRestApiClient(this);

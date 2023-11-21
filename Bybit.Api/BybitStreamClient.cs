@@ -7,11 +7,15 @@ public class BybitStreamClient : WebSocketApiClient
 {
     internal bool IsAuthendicated { get; private set; }
 
-    public BybitStreamClient() : this(new BybitStreamClientOptions())
+    public BybitStreamClient() : this(null, new BybitStreamClientOptions())
     {
     }
 
-    public BybitStreamClient(BybitStreamClientOptions options) : base("Bybit Stream", options)
+    public BybitStreamClient(BybitStreamClientOptions options) : this(null, options)
+    {
+    }
+
+    public BybitStreamClient(ILogger logger, BybitStreamClientOptions options) : base(logger, options)
     {
         ContinueOnQueryResponse = true;
         UnhandledMessageExpected = true;
@@ -41,7 +45,7 @@ public class BybitStreamClient : WebSocketApiClient
         var authRequest = new BybitStreamRequest()
         {
             Operation = "auth",
-            Parameters = new object[] { key, expireTime, signature }
+            Parameters = [key, expireTime, signature]
         };
 
         var json = JsonConvert.SerializeObject(authRequest);
@@ -185,7 +189,7 @@ public class BybitStreamClient : WebSocketApiClient
             var desResult = Deserialize<BybitOrderBookUpdate>(internalData);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitOrderBookUpdate)} object: " + desResult.Error);
+                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitOrderBookUpdate)} object: " + desResult.Error);
                 return;
             }
 
@@ -215,7 +219,7 @@ public class BybitStreamClient : WebSocketApiClient
             var desResult = Deserialize<IEnumerable<BybitTradeStream>>(internalData);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitTradeStream)} object: " + desResult.Error);
+                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitTradeStream)} object: " + desResult.Error);
                 return;
             }
 
@@ -257,7 +261,7 @@ public class BybitStreamClient : WebSocketApiClient
             var desResult = Deserialize<T>(internalData);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(T)} object: " + desResult.Error);
+                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(T)} object: " + desResult.Error);
                 return;
             }
 
@@ -287,7 +291,7 @@ public class BybitStreamClient : WebSocketApiClient
             var desResult = Deserialize<IEnumerable<BybitKlineStream>>(internalData);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitKlineStream)} object: " + desResult.Error);
+                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitKlineStream)} object: " + desResult.Error);
                 return;
             }
 
@@ -318,7 +322,7 @@ public class BybitStreamClient : WebSocketApiClient
             var desResult = Deserialize<BybitLiquidationStream>(internalData);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitKlineStream)} object: " + desResult.Error);
+                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitKlineStream)} object: " + desResult.Error);
                 return;
             }
 
@@ -346,7 +350,7 @@ public class BybitStreamClient : WebSocketApiClient
             var desResult = Deserialize<IEnumerable<BybitLeveragedTokenKlineStream>>(internalData);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitLeveragedTokenKlineStream)} object: " + desResult.Error);
+                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitLeveragedTokenKlineStream)} object: " + desResult.Error);
                 return;
             }
 
@@ -377,7 +381,7 @@ public class BybitStreamClient : WebSocketApiClient
             var desResult = Deserialize<BybitLeveragedTokenTickerStream>(internalData);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitLeveragedTokenTickerStream)} object: " + desResult.Error);
+                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitLeveragedTokenTickerStream)} object: " + desResult.Error);
                 return;
             }
 
@@ -405,7 +409,7 @@ public class BybitStreamClient : WebSocketApiClient
             var desResult = Deserialize<BybitNavStream>(internalData);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitNavStream)} object: " + desResult.Error);
+                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitNavStream)} object: " + desResult.Error);
                 return;
             }
 
@@ -437,7 +441,7 @@ public class BybitStreamClient : WebSocketApiClient
                 var desResult = Deserialize<BybitWalletUpdate>(item);
                 if (!desResult)
                 {
-                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitWalletUpdate)} object: " + desResult.Error);
+                    this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitWalletUpdate)} object: " + desResult.Error);
                     return;
                 }
 
@@ -467,7 +471,7 @@ public class BybitStreamClient : WebSocketApiClient
                 var desResult = Deserialize<BybitPositionUpdate>(item);
                 if (!desResult)
                 {
-                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitPositionUpdate)} object: " + desResult.Error);
+                    this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitPositionUpdate)} object: " + desResult.Error);
                     return;
                 }
 
@@ -497,7 +501,7 @@ public class BybitStreamClient : WebSocketApiClient
                 var desResult = Deserialize<BybitExecutionUpdate>(item);
                 if (!desResult)
                 {
-                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitExecutionUpdate)} object: " + desResult.Error);
+                    this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitExecutionUpdate)} object: " + desResult.Error);
                     return;
                 }
 
@@ -527,7 +531,7 @@ public class BybitStreamClient : WebSocketApiClient
                 var desResult = Deserialize<BybitOrderUpdate>(item);
                 if (!desResult)
                 {
-                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitOrderUpdate)} object: " + desResult.Error);
+                    this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitOrderUpdate)} object: " + desResult.Error);
                     return;
                 }
 
@@ -557,7 +561,7 @@ public class BybitStreamClient : WebSocketApiClient
                 var desResult = Deserialize<BybitGreekUpdate>(item);
                 if (!desResult)
                 {
-                    log.Write(LogLevel.Warning, $"Failed to deserialize {nameof(BybitGreekUpdate)} object: " + desResult.Error);
+                    this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitGreekUpdate)} object: " + desResult.Error);
                     return;
                 }
 

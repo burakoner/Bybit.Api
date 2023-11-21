@@ -3,7 +3,7 @@
 internal class BaseRestApiClient : RestApiClient
 {
     // Internal
-    internal Log Log { get => this.log; }
+    internal ILogger Log { get => this._logger; }
     internal TimeSyncState TimeSyncState = new("Bybit RestApi");
 
     // Root Client
@@ -11,7 +11,7 @@ internal class BaseRestApiClient : RestApiClient
     internal CultureInfo CI { get { return RootClient.CI; } }
     internal new BybitRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
 
-    internal BaseRestApiClient(BybitRestApiClient root) : base("Bybit RestApi", root.ClientOptions)
+    internal BaseRestApiClient(BybitRestApiClient root) : base(root.Logger, root.ClientOptions)
     {
         RootClient = root;
 
@@ -47,7 +47,7 @@ internal class BaseRestApiClient : RestApiClient
     }
 
     protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
+        => new(this._logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
 
     protected override TimeSpan GetTimeOffset()
         => TimeSyncState.TimeOffset;

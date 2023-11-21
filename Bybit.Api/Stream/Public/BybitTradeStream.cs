@@ -3,7 +3,7 @@
 public class BybitTradeStream
 {
     [JsonProperty("i")]
-    public long Id { get; set; }
+    public string Id { get; set; }
 
     [JsonProperty("T")]
     public long Timestamp { get; set; }
