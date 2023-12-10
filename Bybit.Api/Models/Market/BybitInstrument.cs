@@ -42,7 +42,7 @@ public class BybitLinearInverseInstrument
     [JsonConverter(typeof(LabelConverter<BybitContractType>))]
     public BybitContractType ContractType { get; set; }
 
-    [JsonConverter(typeof(LabelConverter<BybitCategory>))]
+    [JsonConverter(typeof(LabelConverter<BybitInstrumentStatus>))]
     public BybitInstrumentStatus Status { get; set; }
 
     public string BaseCoin { get; set; }
@@ -109,7 +109,7 @@ public class BybitOptionInstrument
     [JsonConverter(typeof(LabelConverter<BybitOptionType>))]
     public BybitOptionType OptionsType { get; set; }
 
-    [ JsonConverter(typeof(LabelConverter<BybitCategory>))]
+    [ JsonConverter(typeof(LabelConverter<BybitInstrumentStatus>))]
     public BybitInstrumentStatus Status { get; set; }
 
     public string BaseCoin { get; set; }

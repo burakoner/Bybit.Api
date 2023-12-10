@@ -16,5 +16,6 @@ public class BybitBatchPlaceOrderResponse
 
     [JsonProperty("createAt"), JsonConverter(typeof(DateTimeConverter))]
     public long CreateAtTimestamp { get; set; }
+
     public DateTime CreateAtTime { get => CreateAtTimestamp.ConvertFromMilliseconds(); }
 }

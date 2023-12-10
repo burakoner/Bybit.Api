@@ -231,7 +231,7 @@ public class BybitPositionRestApiClient
     {
         var parameters = new Dictionary<string, object>
         {
-            { "category", EnumConverter.GetString(category) }
+            { "category", category.GetLabel() },
         };
 
         parameters.AddOptionalParameter("symbol", symbol);
