@@ -11,8 +11,6 @@ internal class Program
 {
     static async Task Main(string[] args)
     {
-        #region Rest Api Client Examples
-
         var api = new BybitRestApiClient(new BybitRestApiClientOptions
         {
             RawResponse = true,
@@ -47,7 +45,7 @@ internal class Program
             ApiCredentials = new ApiSharp.Authentication.ApiCredentials("-----API-KEY-----", "-----API-SECRET-----"),
         });
 
-
+        /*
         Console.WriteLine("Being subscribed...");
         await ws.SubscribeToWalletUpdatesAsync((data) =>
         {
@@ -58,9 +56,30 @@ internal class Program
         });
         Console.WriteLine("Subscribed!..");
         Console.ReadLine();
+        */
 
         // Sample Pairs
         var pairs = new List<string> { "BTCUSDT", "LTCUSDT", "ETHUSDT", "XRPUSDT", "BCHUSDT", "EOSUSDT", "ETCUSDT", "TRXUSDT", "QTUMUSDT", "XLMUSDT", "ADAUSDT" };
+
+        await ws.SubscribeToSpotTickersAsync(pairs, (data) =>
+        {
+            if (data != null)
+            {
+                // ... Your logic here
+                Console.WriteLine($"[ TICKER ] " +
+                    $" S:{data.Data.Symbol} " +
+                    $" O:{data.Data.OpenPrice24H} " +
+                    $" H:{data.Data.HighPrice24H} " +
+                    $" L:{data.Data.LowPrice24H} " +
+                    $" C:{data.Data.LastPrice} " +
+                    $" V:{data.Data.Volume24H}");
+            }
+        });
+
+
+        Console.WriteLine("opps subscribed...");
+        Console.ReadLine();
+
 
         Console.WriteLine("Being subscribed...");
         foreach (var pair in pairs)
@@ -224,8 +243,5 @@ internal class Program
         }
         Console.WriteLine("Subscribed!..");
         Console.ReadLine();
-
-        #endregion
-
     }
 }

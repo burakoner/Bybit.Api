@@ -1,5 +1,6 @@
 ﻿using Bybit.Api.Helpers.Private;
 using Bybit.Api.Helpers.Public;
+using System.Linq;
 
 namespace Bybit.Api;
 
@@ -240,18 +241,29 @@ public class BybitStreamClient : WebSocketApiClient
     }
 
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSpotTickersAsync(string symbol, Action<WebSocketDataEvent<BybitSpotTickerStream>> handler, CancellationToken ct = default)
-        => await SubscribeToTickersAsync(BybitCategory.Spot, symbol, handler, ct).ConfigureAwait(false);
+        => await SubscribeToTickersAsync(BybitCategory.Spot, [symbol], handler, ct).ConfigureAwait(false);
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLinearTickersAsync(string symbol, Action<WebSocketDataEvent<BybitFuturesTickerStream>> handler, CancellationToken ct = default)
-        => await SubscribeToTickersAsync(BybitCategory.Linear, symbol, handler, ct).ConfigureAwait(false);
+        => await SubscribeToTickersAsync(BybitCategory.Linear, [symbol], handler, ct).ConfigureAwait(false);
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToInverseTickersAsync(string symbol, Action<WebSocketDataEvent<BybitFuturesTickerStream>> handler, CancellationToken ct = default)
-        => await SubscribeToTickersAsync(BybitCategory.Inverse, symbol, handler, ct).ConfigureAwait(false);
+        => await SubscribeToTickersAsync(BybitCategory.Inverse, [symbol], handler, ct).ConfigureAwait(false);
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOptionTickersAsync(string symbol, Action<WebSocketDataEvent<BybitOptionTickerStream>> handler, CancellationToken ct = default)
-        => await SubscribeToTickersAsync(BybitCategory.Option, symbol, handler, ct).ConfigureAwait(false);
+        => await SubscribeToTickersAsync(BybitCategory.Option, [symbol], handler, ct).ConfigureAwait(false);
+
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSpotTickersAsync(IEnumerable<string> symbols, Action<WebSocketDataEvent<BybitSpotTickerStream>> handler, CancellationToken ct = default)
+        => await SubscribeToTickersAsync(BybitCategory.Spot, symbols, handler, ct).ConfigureAwait(false);
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLinearTickersAsync(IEnumerable<string> symbols, Action<WebSocketDataEvent<BybitFuturesTickerStream>> handler, CancellationToken ct = default)
+    => await SubscribeToTickersAsync(BybitCategory.Linear, symbols, handler, ct).ConfigureAwait(false);
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToInverseTickersAsync(IEnumerable<string> symbols, Action<WebSocketDataEvent<BybitFuturesTickerStream>> handler, CancellationToken ct = default)
+        => await SubscribeToTickersAsync(BybitCategory.Inverse, symbols, handler, ct).ConfigureAwait(false);
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOptionTickersAsync(IEnumerable<string> symbols, Action<WebSocketDataEvent<BybitOptionTickerStream>> handler, CancellationToken ct = default)
+        => await SubscribeToTickersAsync(BybitCategory.Option, symbols, handler, ct).ConfigureAwait(false);
 
     private async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTickersAsync<T>(
-        BybitCategory category, string symbol, 
+        BybitCategory category, IEnumerable<string> symbols,
         Action<WebSocketDataEvent<T>> handler, CancellationToken ct = default)
     {
+        if (symbols.Count() > 10) throw new ArgumentException("Maximum 10 symbols per request");
+
         var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
             var type = data.Data["type"]; if (type == null) return;
@@ -265,8 +277,6 @@ public class BybitStreamClient : WebSocketApiClient
                 return;
             }
 
-            //desResult.Data.Category = category;
-            //desResult.Data.StreamType = type.ToString().GetEnumByLabel<BybitStreamType>();
             handler(data.As(desResult.Data, topic.ToString()));
         });
 
@@ -274,7 +284,7 @@ public class BybitStreamClient : WebSocketApiClient
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
-            Parameters = new[] { $"tickers.{symbol}" }
+            Parameters = symbols.Select(x=> $"tickers.{x}").ToArray(),
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
