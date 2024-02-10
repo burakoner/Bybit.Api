@@ -39,6 +39,7 @@ public sealed class BybitRestApiClient
         this.Server = new BybitServerRestApiClient(this);
         this.User = new BybitUserRestApiClient(this);
         this.Account = new BybitAccountRestApiClient(this);
+        this.Asset = new BybitAssetRestApiClient(this);
         this.Market = new BybitMarketRestApiClient(this);
         this.Trade = new BybitTradeRestApiClient(this);
         this.Position = new BybitPositionRestApiClient(this);

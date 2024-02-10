@@ -26,8 +26,8 @@ public class BybitSpotInstrumentLotSizeFilter
     [JsonProperty("maxOrderAmt")]
     public decimal MaximumOrderAmount { get; set; }
 
-    public int BasePrecision { get; set; }
-    public int QuotePrecision { get; set; }
+    public decimal BasePrecision { get; set; }
+    public decimal QuotePrecision { get; set; }
 }
 public class BybitSpotInstrumentPriceFilter
 {
