@@ -19,6 +19,7 @@ public class BybitMarketRestApiClient
     protected const string v5MarketInsuranceEndpoint = "v5/market/insurance";
     protected const string v5MarketRiskLimitEndpoint = "v5/market/risk-limit";
     protected const string v5MarketDeliveryPriceEndpoint = "v5/market/delivery-price";
+    protected const string v5MarketAccountRatioEndpoint = "/v5/market/account-ratio"; // TODO
 
     // Internal
     internal BaseRestApiClient MainClient { get; }

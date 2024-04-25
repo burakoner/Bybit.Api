@@ -32,7 +32,7 @@ internal class BybitAuthenticationProvider : AuthenticationProvider
         var signature = SignHMACSHA256(signtext).ToLower();
 
         // Headers
-        headers.Add("Referer", options.BrokerId);
+        headers.Add("Referer", BybitConstants.BrokerId);
         headers.Add("X-BAPI-SIGN", signature);
         headers.Add("X-BAPI-API-KEY", apikey);
         headers.Add("X-BAPI-TIMESTAMP", timestamp);

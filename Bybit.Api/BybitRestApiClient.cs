@@ -1,6 +1,6 @@
 ﻿namespace Bybit.Api;
 
-public sealed class BybitRestApiClient
+public class BybitRestApiClient
 {
     // Internal
     internal ILogger Logger { get; }
@@ -9,7 +9,7 @@ public sealed class BybitRestApiClient
     internal CultureInfo CI { get; } = CultureInfo.InvariantCulture;
 
     // Section Clients
-    internal BybitServerRestApiClient Server { get; }
+    public BybitServerRestApiClient Server { get; }
     public BybitMarketRestApiClient Market { get; }
     public BybitTradeRestApiClient Trade { get; }
     public BybitPositionRestApiClient Position { get; }

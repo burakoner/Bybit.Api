@@ -105,8 +105,8 @@ internal class BaseRestApiClient : RestApiClient
         Thread.CurrentThread.CurrentUICulture = currentUICulture;
 
         // Return
-        if (!result.Success || result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data.ReturnCode > 0) return new RestCallResult<T>(result.Request, result.Response, new ServerError(result.Data.ReturnCode, result.Data.ReturnMessage));
+        if (!result.Success || result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data.ReturnCode > 0) return new RestCallResult<T>(result.Request, result.Response,  result.Raw, new ServerError(result.Data.ReturnCode, result.Data.ReturnMessage));
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Result, result.Raw, result.Error);
     }
 
@@ -128,8 +128,8 @@ internal class BaseRestApiClient : RestApiClient
         Thread.CurrentThread.CurrentUICulture = currentUICulture;
 
         // Return
-        if (!result.Success || result.Data == null) return new RestCallResult<BybitRestApiResponse<T1, T2>>(result.Request, result.Response, result.Error);
-        if (result.Data.ReturnCode > 0) return new RestCallResult<BybitRestApiResponse<T1, T2>>(result.Request, result.Response, new ServerError(result.Data.ReturnCode, result.Data.ReturnMessage));
+        if (!result.Success || result.Data == null) return new RestCallResult<BybitRestApiResponse<T1, T2>>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data.ReturnCode > 0) return new RestCallResult<BybitRestApiResponse<T1, T2>>(result.Request, result.Response,  result.Raw, new ServerError(result.Data.ReturnCode, result.Data.ReturnMessage));
         return new RestCallResult<BybitRestApiResponse<T1, T2>>(result.Request, result.Response, result.Data, result.Raw, result.Error);
     }
 

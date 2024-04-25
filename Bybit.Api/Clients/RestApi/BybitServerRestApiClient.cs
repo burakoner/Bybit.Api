@@ -5,7 +5,7 @@ namespace Bybit.Api.Clients.RestApi;
 public class BybitServerRestApiClient
 {
     // Endpoints
-    protected const string v3PublicTimeEndpoint = "v3/public/time";
+    protected const string v3PublicTimeEndpoint = "v5/public/time";
 
     // Internal
     internal BaseRestApiClient MainClient { get; }

@@ -10,11 +10,14 @@ public class BybitPositionRestApiClient
     protected const string v5PositionSwitchIsolatedEndpoint = "v5/position/switch-isolated";
     protected const string v5PositionSetTpslModeEndpoint = "v5/position/set-tpsl-mode";
     protected const string v5PositionSwitchModeEndpoint = "v5/position/switch-mode";
-    protected const string v5PositionSetRiskLimitEndpoint = "v5/position/set-risk-limit";
+    protected const string v5PositionSetRiskLimitEndpoint = "v5/position/set-risk-limit"; // Deprecated
     protected const string v5PositionTradingStopEndpoint = "v5/position/trading-stop";
     protected const string v5PositionSetAutoAddMarginEndpoint = "v5/position/set-auto-add-margin";
-    protected const string v5ExecutionListEndpoint = "v5/execution/list";
+    protected const string v5PositionAddMarginEndpoint = "v5/position/add-margin"; // TODO
     protected const string v5PositionClosedPnlEndpoint = "v5/position/closed-pnl";
+    protected const string v5PositionMovePositionsEndpoint = "v5/position/move-positions"; // TODO
+    protected const string v5PositionMoveHistoryEndpoint = "v5/position/move-history"; // TODO
+    protected const string v5PositionConfirmPendingMmrEndpoint = "v5/position/confirm-pending-mmr"; // TODO
 
     // Internal
     internal BaseRestApiClient MainClient { get; }
@@ -187,37 +190,6 @@ public class BybitPositionRestApiClient
 
         parameters.AddOptionalParameter("positionIdx", positionIndex?.GetLabel());
         return await MainClient.SendBybitRequest(MainClient.GetUri(v5PositionSetAutoAddMarginEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-    }
-
-    public async Task<RestCallResult<BybitRestApiCursorResponse<BybitUserTrade>>> GetUserTradesAsync(
-        BybitCategory category,
-        string symbol = null,
-        string baseAsset = null,
-        string orderId = null,
-        string clientOrderId = null,
-        long? startTime = null,
-        long? endTime = null,
-        BybitExecutionType? executionType = null,
-        int? limit = null,
-        string cursor = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new Dictionary<string, object>()
-        {
-            { "category", category.GetLabel() },
-        };
-
-        parameters.AddOptionalParameter("symbol", symbol);
-        parameters.AddOptionalParameter("baseCoin", baseAsset);
-        parameters.AddOptionalParameter("orderId", orderId);
-        parameters.AddOptionalParameter("orderLinkId", clientOrderId);
-        parameters.AddOptionalParameter("startTime", startTime);
-        parameters.AddOptionalParameter("endTime", endTime);
-        parameters.AddOptionalParameter("execType", executionType?.GetLabel());
-        parameters.AddOptionalParameter("limit", limit);
-        parameters.AddOptionalParameter("cursor", cursor);
-
-        return await MainClient.SendBybitRequest<BybitRestApiCursorResponse<BybitUserTrade>>(MainClient.GetUri(v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitRestApiCursorResponse<BybitProfitAndLoss>>> GetClosedProfitLossAsync(

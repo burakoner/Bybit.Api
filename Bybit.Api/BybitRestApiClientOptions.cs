@@ -13,11 +13,6 @@ public class BybitRestApiClientOptions : RestApiClientOptions
     public bool DemoTradingService { get; set; } = false;
     public bool SignPublicRequests { get; set; } = false;
 
-    /// <summary>
-    /// Bybit API Broker Id
-    /// </summary>
-    public string BrokerId { get; }
-
     public BybitRestApiClientOptions() : this(null)
     {
         BaseAddress = BybitApiAddresses.MainNet.RestApiAddress;
@@ -47,9 +42,6 @@ public class BybitRestApiClientOptions : RestApiClientOptions
             EncodeQueryString = true,
             BodyFormat = RestBodyFormat.Json,
         };
-
-        // Broker Id
-        BrokerId = "Ey000284";
 
         // Request Body
         RequestBodyParameterKey = "BODY";

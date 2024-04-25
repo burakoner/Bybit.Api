@@ -11,6 +11,7 @@ public class BybitTradeRestApiClient
     protected const string v5OrderRealtimeEndpoint = "v5/order/realtime";
     protected const string v5OrderCancelAllEndpoint = "v5/order/cancel-all";
     protected const string v5OrderHistoryEndpoint = "v5/order/history";
+    protected const string v5ExecutionListEndpoint = "/v5/execution/list";
     protected const string v5OrderCreateBatchEndpoint = "v5/order/create-batch";
     protected const string v5OrderAmendBatchEndpoint = "v5/order/amend-batch";
     protected const string v5OrderCancelBatchEndpoint = "v5/order/cancel-batch";
@@ -268,6 +269,37 @@ public class BybitTradeRestApiClient
         parameters.AddOptionalParameter("cursor", cursor);
 
         return await MainClient.SendBybitRequest<BybitRestApiCursorResponse<BybitOrder>>(MainClient.GetUri(v5OrderHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+    }
+    
+    public async Task<RestCallResult<BybitRestApiCursorResponse<BybitUserTrade>>> GetTradeHistoryAsync(
+        BybitCategory category,
+        string symbol = null,
+        string baseAsset = null,
+        string orderId = null,
+        string clientOrderId = null,
+        long? startTime = null,
+        long? endTime = null,
+        BybitExecutionType? executionType = null,
+        int? limit = null,
+        string cursor = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>()
+        {
+            { "category", category.GetLabel() },
+        };
+
+        parameters.AddOptionalParameter("symbol", symbol);
+        parameters.AddOptionalParameter("baseCoin", baseAsset);
+        parameters.AddOptionalParameter("orderId", orderId);
+        parameters.AddOptionalParameter("orderLinkId", clientOrderId);
+        parameters.AddOptionalParameter("startTime", startTime);
+        parameters.AddOptionalParameter("endTime", endTime);
+        parameters.AddOptionalParameter("execType", executionType?.GetLabel());
+        parameters.AddOptionalParameter("limit", limit);
+        parameters.AddOptionalParameter("cursor", cursor);
+
+        return await MainClient.SendBybitRequest<BybitRestApiCursorResponse<BybitUserTrade>>(MainClient.GetUri(v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchOrderError>>>> PlaceBatchOrdersAsync(
