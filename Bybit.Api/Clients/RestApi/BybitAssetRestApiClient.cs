@@ -15,7 +15,6 @@ public class BybitAssetRestApiClient
     protected const string v5AssetTransferInterTransferEndpoint = "v5/asset/transfer/inter-transfer";
     protected const string v5AssetTransferQueryInterTransferListEndpoint = "v5/asset/transfer/query-inter-transfer-list";
     protected const string v5AssetTransferQuerySubMemberListEndpoint = "v5/asset/transfer/query-sub-member-list";
-    protected const string v5AssetTransferSaveTransferSubMemberEndpoint = "v5/asset/transfer/save-transfer-sub-member";
     protected const string v5AssetTransferUniversalTransferEndpoint = "v5/asset/transfer/universal-transfer";
     protected const string v5AssetTransferQueryUniversalTransferListEndpoint = "v5/asset/transfer/query-universal-transfer-list";
     protected const string v5AssetDepositQueryAllowedListEndpoint = "v5/asset/deposit/query-allowed-list";
@@ -175,16 +174,6 @@ public class BybitAssetRestApiClient
     public async Task<RestCallResult<BybitSubUserIds>> GetSubUsersAsync(CancellationToken ct = default)
     {
         return await MainClient.SendBybitRequest<BybitSubUserIds>(MainClient.GetUri(v5AssetTransferQuerySubMemberListEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
-    }
-
-    public async Task<RestCallResult> EnableUniversalTransferForSubUsersAsync(IEnumerable<string> subUserIds, CancellationToken ct = default)
-    {
-        var parameters = new Dictionary<string, object>
-        {
-            { "subMemberIds", new List<string> { string.Join(",", subUserIds) } },
-        };
-
-        return await MainClient.SendBybitRequest(MainClient.GetUri(v5AssetTransferSaveTransferSubMemberEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitTransferId>> CreateUniversalTransferAsync(string asset, decimal quantity, string fromUserId, string toUserId, BybitAccount fromAccount, BybitAccount toAccount, string transferId = null, CancellationToken ct = default)

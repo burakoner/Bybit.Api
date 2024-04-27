@@ -42,7 +42,7 @@ internal class BaseRestApiClient : RestApiClient
 
     protected override async Task<RestCallResult<DateTime>> GetServerTimestampAsync()
     {
-        var serverTime = await RootClient.Server.GetServerTimeAsync();
+        var serverTime = await RootClient.Market.GetServerTimeAsync();
         return serverTime.As(serverTime.Data.Time);
     }
 

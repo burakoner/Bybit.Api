@@ -8,12 +8,17 @@ public class BybitUserRestApiClient
     protected const string v5UserCreateSubMemberEndpoint = "v5/user/create-sub-member";
     protected const string v5UserCreateSubApiEndpoint = "v5/user/create-sub-api";
     protected const string v5UserQuerySubMembersEndpoint = "v5/user/query-sub-members";
+    protected const string v5UserSubMembersEndpoint = "v5/user/submembers"; // TODO
     protected const string v5UserFrozenSubMemberEndpoint = "v5/user/frozen-sub-member";
     protected const string v5UserQueryApiEndpoint = "v5/user/query-api";
+    protected const string v5UserSubApikeysEndpoint = "v5/user/sub-apikeys"; // TODO
+    protected const string v5UserGetMemberTypeEndpoint = "v5/user/get-member-type"; // TODO
     protected const string v5UserUpdateApiEndpoint = "v5/user/update-api";
     protected const string v5UserUpdateSubApiEndpoint = "v5/user/update-sub-api";
+    protected const string v5UserDelSubMemberEndpoint = "v5/user/del-submember"; // TODO
     protected const string v5UserDeleteApiEndpoint = "v5/user/delete-api";
     protected const string v5UserDeleteSubApiEndpoint = "v5/user/delete-sub-api";
+    protected const string v5UserAffCustomerInfoEndpoint = "v5/user/aff-customer-info"; // TODO
 
     // Internal
     internal BaseRestApiClient MainClient { get; }

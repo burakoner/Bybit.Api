@@ -2,20 +2,22 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitInstitutionalLendingRestApiClient
+public class BybitLendingRestApiClient
 {
     // Institutional Lending Endpoints
     protected const string v5InsLoanProductInfosEndpoint = "v5/ins-loan/product-infos";
-    protected const string v5InsLoanEnsureTokensEndpoint = "v5/ins-loan/ensure-tokens";
+    protected const string v5InsLoanEnsureTokensEndpoint = "v5/ins-loan/ensure-tokens"; // TODO: Remove
+    protected const string v5InsLoanEnsureTokensConvertEndpoint = "v5/ins-loan/ensure-tokens-convert";
     protected const string v5InsLoanLoanOrderEndpoint = "v5/ins-loan/loan-order";
     protected const string v5InsLoanRepaidHistoryEndpoint = "v5/ins-loan/repaid-history";
-    protected const string v5InsLoanLtvEndpoint = "v5/ins-loan/ltv";
+    protected const string v5InsLoanLtvConvertEndpoint = "v5/ins-loan/ltv-convert";
+    protected const string v5InsLoanAssociationUidEndpoint = "v5/ins-loan/association-uid";
 
     // Internal
     internal BaseRestApiClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitInstitutionalLendingRestApiClient(BybitRestApiClient root)
+    internal BybitLendingRestApiClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }
@@ -39,8 +41,6 @@ public class BybitInstitutionalLendingRestApiClient
         if (!result) return result.As<IEnumerable<BybitLendingToken>>(null);
         return result.As(result.Data.Payload);
     }
-
-    // TODO: Get Margin Coin Info With Conversion Rate
 
     public async Task<RestCallResult<IEnumerable<BybitLendingLoanOrder>>> GetLoanOrdersAsync(string orderId=null, long? startTime=null, long? endTime= null, int? limit=null, CancellationToken ct = default)
     {
@@ -72,12 +72,5 @@ public class BybitInstitutionalLendingRestApiClient
     }
 
     // LTV: Customer Lifetime Value
-    public async Task<RestCallResult<IEnumerable<BybitLendingLifetimeValue>>> GetCustomerLifetimeValueAsync(CancellationToken ct = default)
-    {
-        var result = await MainClient.SendBybitRequest<BybitLendingLifetimeValueContainer>(MainClient.GetUri(v5InsLoanLtvEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitLendingLifetimeValue>>(null);
-        return result.As(result.Data.Payload);
-    }
 
-    // TODO: Get LTV with Ladder Conversion Rate
 }

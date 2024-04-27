@@ -9,7 +9,6 @@ public class BybitRestApiClient
     internal CultureInfo CI { get; } = CultureInfo.InvariantCulture;
 
     // Section Clients
-    public BybitServerRestApiClient Server { get; }
     public BybitMarketRestApiClient Market { get; }
     public BybitTradeRestApiClient Trade { get; }
     public BybitPositionRestApiClient Position { get; }
@@ -18,10 +17,9 @@ public class BybitRestApiClient
     public BybitAssetRestApiClient Asset { get; }
     public BybitUserRestApiClient User { get; }
     public BybitLeveragedTokensRestApiClient LeveragedTokens { get; }
-    public BybitUnifiedMarginRestApiClient UnifiedMargin { get; }
-    public BybitNormalMarginRestApiClient NormalMargin { get; }
-    public BybitInstitutionalLendingRestApiClient InstitutionalLending { get; }
-    // TODO: C2C Lending
+    public BybitMarginRestApiClient Margin { get; }
+    public BybitLendingRestApiClient Lending { get; }
+    // TODO: Broker
 
     public BybitRestApiClient() : this(null, new BybitRestApiClientOptions())
     {
@@ -36,7 +34,6 @@ public class BybitRestApiClient
         this.ClientOptions = options;
         this.MainClient = new BaseRestApiClient(this);
 
-        this.Server = new BybitServerRestApiClient(this);
         this.User = new BybitUserRestApiClient(this);
         this.Account = new BybitAccountRestApiClient(this);
         this.Asset = new BybitAssetRestApiClient(this);
@@ -44,9 +41,8 @@ public class BybitRestApiClient
         this.Trade = new BybitTradeRestApiClient(this);
         this.Position = new BybitPositionRestApiClient(this);
         this.LeveragedTokens = new BybitLeveragedTokensRestApiClient(this);
-        this.UnifiedMargin = new BybitUnifiedMarginRestApiClient(this);
-        this.NormalMargin = new BybitNormalMarginRestApiClient(this);
-        this.InstitutionalLending = new BybitInstitutionalLendingRestApiClient(this);
+        this.Margin = new BybitMarginRestApiClient(this);
+        this.Lending = new BybitLendingRestApiClient(this);
     }
 
     public void SetApiCredentials(ApiCredentials credentials)
