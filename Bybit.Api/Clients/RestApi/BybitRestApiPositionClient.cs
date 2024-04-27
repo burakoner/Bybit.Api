@@ -25,7 +25,7 @@ public class BybitRestApiPositionClient
 
     internal BybitRestApiPositionClient(BybitRestApiClient root)
     {
-        this.MainClient = root.MainClient;
+        this.MainClient = root.BaseClient;
     }
 
     #region Position Methods
@@ -46,7 +46,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitRestApiListResponse<BybitPosition>>(MainClient.GetUri(v5PositionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitPosition>>(MainClient.GetUri(v5PositionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitPosition>>(null);
         return result.As(result.Data.Payload);
     }
@@ -192,7 +192,7 @@ public class BybitRestApiPositionClient
         return await MainClient.SendBybitRequest(MainClient.GetUri(v5PositionSetAutoAddMarginEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<BybitRestApiCursorResponse<BybitProfitAndLoss>>> GetClosedProfitLossAsync(
+    public async Task<RestCallResult<BybitCursorResponse<BybitProfitAndLoss>>> GetClosedProfitLossAsync(
         BybitCategory category,
         string symbol = null,
         long? startTime = null,
@@ -212,7 +212,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitRestApiCursorResponse<BybitProfitAndLoss>>(MainClient.GetUri(v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitProfitAndLoss>>(MainClient.GetUri(v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
     #endregion
 

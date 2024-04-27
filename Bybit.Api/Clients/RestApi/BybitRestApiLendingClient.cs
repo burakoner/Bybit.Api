@@ -19,7 +19,7 @@ public class BybitRestApiLendingClient
 
     internal BybitRestApiLendingClient(BybitRestApiClient root)
     {
-        this.MainClient = root.MainClient;
+        this.MainClient = root.BaseClient;
     }
 
     public async Task<RestCallResult<IEnumerable<BybitLendingProduct>>> GetLendingProductsAsync(string productId = null, CancellationToken ct = default)

@@ -16,7 +16,7 @@ public class BybitRestApiMarginClient
 
     internal BybitRestApiMarginClient(BybitRestApiClient root)
     {
-        this.MainClient = root.MainClient;
+        this.MainClient = root.BaseClient;
     }
 
     public async Task<RestCallResult<BybitSpotMarginMode>> SwitchMarginTradeAsync(bool spotMarginMode, CancellationToken ct = default)

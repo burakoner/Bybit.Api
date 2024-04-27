@@ -7,7 +7,7 @@ public class BybitRestApiClient
 {
     // Internal
     internal ILogger Logger { get; }
-    internal BybitRestApiBaseClient MainClient { get; }
+    internal BybitRestApiBaseClient BaseClient { get; }
     internal BybitRestApiClientOptions ClientOptions { get; }
     internal CultureInfo CI { get; } = CultureInfo.InvariantCulture;
 
@@ -83,14 +83,14 @@ public class BybitRestApiClient
     public BybitRestApiClient(ILogger logger, BybitRestApiClientOptions options)
     {
         this.ClientOptions = options;
-        this.MainClient = new BybitRestApiBaseClient(this);
+        this.BaseClient = new BybitRestApiBaseClient(this);
 
-        this.User = new BybitRestApiUserClient(this);
-        this.Account = new BybitRestApiAccountClient(this);
-        this.Asset = new BybitRestApiAssetClient(this);
         this.Market = new BybitRestApiMarketClient(this);
         this.Trade = new BybitRestApiTradeClient(this);
         this.Position = new BybitRestApiPositionClient(this);
+        this.Account = new BybitRestApiAccountClient(this);
+        this.Asset = new BybitRestApiAssetClient(this);
+        this.User = new BybitRestApiUserClient(this);
         this.LeveragedTokens = new BybitRestApiLeveragedTokensClient(this);
         this.Margin = new BybitRestApiMarginClient(this);
         this.Lending = new BybitRestApiLendingClient(this);
@@ -101,7 +101,7 @@ public class BybitRestApiClient
     /// </summary>
     /// <param name="credentials"></param>
     public void SetApiCredentials(ApiCredentials credentials)
-        => this.MainClient.SetApiCredentials(credentials);
+        => this.BaseClient.SetApiCredentials(credentials);
 
     /// <summary>
     /// Set the API Credentials

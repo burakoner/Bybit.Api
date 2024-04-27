@@ -1,5 +1,8 @@
 ﻿namespace Bybit.Api.Enums;
 
+/// <summary>
+/// Bybit Category
+/// </summary>
 public enum BybitCategory
 {
     /// <summary>

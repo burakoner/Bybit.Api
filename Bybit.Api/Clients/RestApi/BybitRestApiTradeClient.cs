@@ -24,7 +24,7 @@ public class BybitRestApiTradeClient
 
     internal BybitRestApiTradeClient(BybitRestApiClient root)
     {
-        this.MainClient = root.MainClient;
+        this.MainClient = root.BaseClient;
     }
 
     #region Trade Methods
@@ -185,7 +185,7 @@ public class BybitRestApiTradeClient
         return await MainClient.SendBybitRequest<BybitOrderResponse>(MainClient.GetUri(v5OrderCancelEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<BybitRestApiCursorResponse<BybitOrder>>> GetOpenOrdersAsync(
+    public async Task<RestCallResult<BybitCursorResponse<BybitOrder>>> GetOpenOrdersAsync(
         BybitCategory category,
         string symbol = null,
         string baseAsset = null,
@@ -213,7 +213,7 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitRestApiCursorResponse<BybitOrder>>(MainClient.GetUri(v5OrderRealtimeEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.GetUri(v5OrderRealtimeEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<IEnumerable<BybitOrderResponse>>> CancelAllOrdersAsync(
@@ -233,12 +233,12 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("settleCoin", settleAsset);
         parameters.AddOptionalParameter("orderFilter", orderFilter?.GetLabel());
 
-        var result = await MainClient.SendBybitRequest<BybitRestApiListResponse<BybitOrderResponse>>(MainClient.GetUri(v5OrderCancelAllEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitOrderResponse>>(MainClient.GetUri(v5OrderCancelAllEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitOrderResponse>>(null);
         return result.As(result.Data.Payload);
     }
 
-    public async Task<RestCallResult<BybitRestApiCursorResponse<BybitOrder>>> GetOrderHistoryAsync(
+    public async Task<RestCallResult<BybitCursorResponse<BybitOrder>>> GetOrderHistoryAsync(
         BybitCategory category,
         string symbol = null,
         string baseAsset = null,
@@ -268,10 +268,10 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitRestApiCursorResponse<BybitOrder>>(MainClient.GetUri(v5OrderHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.GetUri(v5OrderHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
     
-    public async Task<RestCallResult<BybitRestApiCursorResponse<BybitUserTrade>>> GetTradeHistoryAsync(
+    public async Task<RestCallResult<BybitCursorResponse<BybitUserTrade>>> GetTradeHistoryAsync(
         BybitCategory category,
         string symbol = null,
         string baseAsset = null,
@@ -299,7 +299,7 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitRestApiCursorResponse<BybitUserTrade>>(MainClient.GetUri(v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitUserTrade>>(MainClient.GetUri(v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchOrderError>>>> PlaceBatchOrdersAsync(
@@ -313,7 +313,7 @@ public class BybitRestApiTradeClient
             { "request", requests },
         };
 
-        var result = await MainClient.SendBybitRequest<BybitRestApiListResponse<BybitBatchPlaceOrderResponse>, BybitRestApiListResponse<BybitBatchOrderError>>(MainClient.GetUri(v5OrderCreateBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchPlaceOrderResponse>, BybitListResponse<BybitBatchOrderError>>(MainClient.GetUri(v5OrderCreateBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchOrderError>>>(null);
         return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchOrderError>>
         {
@@ -333,7 +333,7 @@ public class BybitRestApiTradeClient
             { "request", requests },
         };
 
-        var result = await MainClient.SendBybitRequest<BybitRestApiListResponse<BybitBatchAmendOrderResponse>, BybitRestApiListResponse<BybitBatchOrderError>>(MainClient.GetUri(v5OrderAmendBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchAmendOrderResponse>, BybitListResponse<BybitBatchOrderError>>(MainClient.GetUri(v5OrderAmendBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchOrderError>>>(null);
         return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchOrderError>>
         {
@@ -353,7 +353,7 @@ public class BybitRestApiTradeClient
             { "request", requests },
         };
 
-        var result = await MainClient.SendBybitRequest<BybitRestApiListResponse<BybitBatchCancelOrderResponse>, BybitRestApiListResponse<BybitBatchOrderError>>(MainClient.GetUri(v5OrderCancelBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchCancelOrderResponse>, BybitListResponse<BybitBatchOrderError>>(MainClient.GetUri(v5OrderCancelBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchOrderError>>>(null);
         return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchOrderError>>
         {

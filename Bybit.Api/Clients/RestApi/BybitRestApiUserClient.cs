@@ -26,7 +26,7 @@ public class BybitRestApiUserClient
 
     internal BybitRestApiUserClient(BybitRestApiClient root)
     {
-        this.MainClient = root.MainClient;
+        this.MainClient = root.BaseClient;
     }
 
     public async Task<RestCallResult<BybitSubAccount>> CreateSubAccountAsync(BybitSubAccountType type, string username, string password = null, bool? quickLogin = null, string label = null, CancellationToken ct = default)
@@ -59,7 +59,7 @@ public class BybitRestApiUserClient
 
     public async Task<RestCallResult<IEnumerable<BybitSubAccount>>> GetSubAccountsAsync(CancellationToken ct = default)
     {
-        var result = await MainClient.SendBybitRequest<BybitRestApiListResponse<BybitSubAccount>>(MainClient.GetUri(v5UserQuerySubMembersEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitSubAccount>>(MainClient.GetUri(v5UserQuerySubMembersEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitSubAccount>>(null);
         return result.As(result.Data.Payload);
     }

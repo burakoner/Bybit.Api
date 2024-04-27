@@ -1,33 +1,55 @@
 ﻿namespace Bybit.Api.Models;
 
-public class BybitRestApiListResponse<T>
+/// <summary>
+/// List Response
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class BybitListResponse<T>
 {
+    /// <summary>
+    /// Payload
+    /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public IEnumerable<T> Payload { get; set; }
 
+    /// <summary>
+    /// Config List
+    /// </summary>
     [JsonProperty("configList", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    protected IEnumerable<T> configList { set => Payload = value; get => Payload; }
+    protected IEnumerable<T> ConfigList { set => Payload = value; get => Payload; }
 
+    /// <summary>
+    /// Data
+    /// </summary>
     [JsonProperty("list", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    protected IEnumerable<T> list { set => Payload = value; get => Payload; }
+    protected IEnumerable<T> List { set => Payload = value; get => Payload; }
 
+    /// <summary>
+    /// Order Body
+    /// </summary>
     [JsonProperty("orderBody", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    protected IEnumerable<T> orderBody { set => Payload = value; get => Payload; }
+    protected IEnumerable<T> OrderBody { set => Payload = value; get => Payload; }
 
+    /// <summary>
+    /// Rows
+    /// </summary>
     [JsonProperty("rows", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    protected IEnumerable<T> rows { set => Payload = value; get => Payload; }
+    protected IEnumerable<T> Rows { set => Payload = value; get => Payload; }
 
+    /// <summary>
+    /// Sub Members
+    /// </summary>
     [JsonProperty("subMembers", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    protected IEnumerable<T> subMembers { set => Payload = value; get => Payload; }
+    protected IEnumerable<T> SubMembers { set => Payload = value; get => Payload; }
 }
 
-internal class BybitRestApiResultResponse<T>
+internal class BybitResultResponse<T>
 {
     [JsonProperty("result")]
     public IEnumerable<T> Payload { get; set; }
 }
 
-internal class BybitRestApiCategoryResponse<T>
+internal class BybitCategoryResponse<T>
 {
     [JsonProperty("category"), JsonConverter(typeof(LabelConverter<BybitCategory>))]
     public BybitCategory Category { get; set; }
@@ -36,7 +58,7 @@ internal class BybitRestApiCategoryResponse<T>
     public IEnumerable<T> Payload { get; set; }
 }
 
-internal class BybitRestApiUpdateResponse<T>
+internal class BybitUpdateResponse<T>
 {
     [JsonProperty("updatedTime")]
     public long Timestamp { get; set; }
@@ -46,8 +68,15 @@ internal class BybitRestApiUpdateResponse<T>
     public IEnumerable<T> Payload { get; set; }
 }
 
-public class BybitRestApiCursorResponse<T> : BybitRestApiListResponse<T>
+/// <summary>
+/// Cursor Response
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class BybitCursorResponse<T> : BybitListResponse<T>
 {
+    /// <summary>
+    /// Next Page Cursor
+    /// </summary>
     [JsonProperty("nextPageCursor")]
     public string NextPageCursor { get; set; }
 }

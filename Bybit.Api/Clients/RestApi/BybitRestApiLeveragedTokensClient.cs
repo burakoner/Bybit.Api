@@ -17,7 +17,7 @@ public class BybitRestApiLeveragedTokensClient
 
     internal BybitRestApiLeveragedTokensClient(BybitRestApiClient root)
     {
-        this.MainClient = root.MainClient;
+        this.MainClient = root.BaseClient;
     }
 
     public async Task<RestCallResult<IEnumerable<BybitLeveragedTokenInformation>>> GetLeveragedTokensAsync(string token = null, CancellationToken ct = default)
@@ -25,7 +25,7 @@ public class BybitRestApiLeveragedTokensClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);
 
-        var result = await MainClient.SendBybitRequest<BybitRestApiListResponse<BybitLeveragedTokenInformation>>(MainClient.GetUri(v5SpotLeverTokenInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLeveragedTokenInformation>>(MainClient.GetUri(v5SpotLeverTokenInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitLeveragedTokenInformation>>(null);
         return result.As(result.Data.Payload);
     }
@@ -35,7 +35,7 @@ public class BybitRestApiLeveragedTokensClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);
 
-        var result = await MainClient.SendBybitRequest<BybitRestApiListResponse<BybitLeveragedTokenMarket>>(MainClient.GetUri(v5SpotLeverTokenReferenceEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLeveragedTokenMarket>>(MainClient.GetUri(v5SpotLeverTokenReferenceEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitLeveragedTokenMarket>>(null);
         return result.As(result.Data.Payload);
     }
@@ -75,7 +75,7 @@ public class BybitRestApiLeveragedTokensClient
         parameters.AddOptionalParameter("endTime", endTime);
         parameters.AddOptionalParameter("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitRestApiListResponse<BybitLeveragedTokenOrder>>(MainClient.GetUri(v5SpotLeverTokenOrderRecordEndpoint), HttpMethod.Post, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLeveragedTokenOrder>>(MainClient.GetUri(v5SpotLeverTokenOrderRecordEndpoint), HttpMethod.Post, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitLeveragedTokenOrder>>(null);
         return result.As(result.Data.Payload);
     }
