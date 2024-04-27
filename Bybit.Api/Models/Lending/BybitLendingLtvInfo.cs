@@ -1,6 +1,6 @@
 ﻿namespace Bybit.Api.Models.Lending;
 
-internal class BybitLendingLifetimeValueContainer
+internal class BybitLendingLtvInfo
 {
     [JsonProperty("ltvInfo")]
     public IEnumerable<BybitLendingLifetimeValue> Payload { get; set; }

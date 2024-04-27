@@ -7,11 +7,11 @@ public class BybitLendingRestApiClient
     // Institutional Lending Endpoints
     protected const string v5InsLoanProductInfosEndpoint = "v5/ins-loan/product-infos";
     protected const string v5InsLoanEnsureTokensEndpoint = "v5/ins-loan/ensure-tokens"; // TODO: Remove
-    protected const string v5InsLoanEnsureTokensConvertEndpoint = "v5/ins-loan/ensure-tokens-convert";
+    protected const string v5InsLoanEnsureTokensConvertEndpoint = "v5/ins-loan/ensure-tokens-convert"; // TODO
     protected const string v5InsLoanLoanOrderEndpoint = "v5/ins-loan/loan-order";
     protected const string v5InsLoanRepaidHistoryEndpoint = "v5/ins-loan/repaid-history";
-    protected const string v5InsLoanLtvConvertEndpoint = "v5/ins-loan/ltv-convert";
-    protected const string v5InsLoanAssociationUidEndpoint = "v5/ins-loan/association-uid";
+    protected const string v5InsLoanLtvConvertEndpoint = "v5/ins-loan/ltv-convert"; // TODO
+    protected const string v5InsLoanAssociationUidEndpoint = "v5/ins-loan/association-uid"; // TODO
 
     // Internal
     internal BaseRestApiClient MainClient { get; }

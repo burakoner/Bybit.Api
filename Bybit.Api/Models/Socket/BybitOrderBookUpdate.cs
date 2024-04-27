@@ -1,6 +1,6 @@
 ﻿using Bybit.Api.Models.Market;
 
-namespace Bybit.Api.Helpers.Public;
+namespace Bybit.Api.Models.Socket;
 
 public class BybitOrderBookUpdate
 {

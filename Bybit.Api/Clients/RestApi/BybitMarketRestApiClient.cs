@@ -1,5 +1,4 @@
 ﻿using Bybit.Api.Models.Market;
-using Bybit.Api.Models.Server;
 
 namespace Bybit.Api.Clients.RestApi;
 
@@ -32,8 +31,8 @@ public class BybitMarketRestApiClient
         this.MainClient = root.MainClient;
     }
     
-    public async Task<RestCallResult<BybitServerTime>> GetServerTimeAsync(CancellationToken ct = default)
-        => await MainClient.SendBybitRequest<BybitServerTime>(MainClient.GetUri(v3PublicTimeEndpoint), HttpMethod.Get, ct).ConfigureAwait(false);
+    public async Task<RestCallResult<BybitTime>> GetServerTimeAsync(CancellationToken ct = default)
+        => await MainClient.SendBybitRequest<BybitTime>(MainClient.GetUri(v3PublicTimeEndpoint), HttpMethod.Get, ct).ConfigureAwait(false);
 
     public async Task<RestCallResult<IEnumerable<BybitPriceKline>>> GetKlinesAsync(BybitCategory category, string symbol, BybitKlineInterval interval, DateTime start, DateTime end, int limit = 200, CancellationToken ct = default)
         => await GetKlinesAsync(category, symbol, interval, start.ConvertToMilliseconds(), end.ConvertToMilliseconds(), limit, ct).ConfigureAwait(false);

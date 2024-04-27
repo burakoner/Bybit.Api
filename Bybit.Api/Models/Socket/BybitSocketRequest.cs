@@ -1,6 +1,6 @@
-﻿namespace Bybit.Api.Stream;
+﻿namespace Bybit.Api.Models.Socket;
 
-internal class BybitStreamRequest
+internal class BybitSocketRequest
 {
     [JsonProperty("req_id")]
     public string RequestId { get; set; }

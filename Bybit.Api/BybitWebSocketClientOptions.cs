@@ -1,6 +1,6 @@
 ﻿namespace Bybit.Api;
 
-public class BybitStreamClientOptions : WebSocketApiClientOptions
+public class BybitWebSocketClientOptions : WebSocketApiClientOptions
 {
     // Demo
     public bool DemoTradingService { get; set; } = false;
@@ -15,7 +15,7 @@ public class BybitStreamClientOptions : WebSocketApiClientOptions
     // Heartbeat
     public TimeSpan PingInterval { get; set; }
 
-    public BybitStreamClientOptions()
+    public BybitWebSocketClientOptions()
     {
         this.WebSocketSpotAddress = BybitApiAddresses.MainNet.WebSocketSpotAddress;
         this.WebSocketPerpetualAddress = BybitApiAddresses.MainNet.WebSocketPerpetualAddress;

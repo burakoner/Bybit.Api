@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Helpers.Public;
+﻿namespace Bybit.Api.Models.Socket;
 
 public class BybitKlineStream
 {

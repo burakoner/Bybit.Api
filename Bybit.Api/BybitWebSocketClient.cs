@@ -1,29 +1,27 @@
-﻿using Bybit.Api.Helpers.Private;
-using Bybit.Api.Helpers.Public;
-using System.Linq;
+﻿using Bybit.Api.Models.Socket;
 
 namespace Bybit.Api;
 
-public class BybitStreamClient : WebSocketApiClient
+public class BybitWebSocketClient : WebSocketApiClient
 {
     internal bool IsAuthendicated { get; private set; }
 
-    public BybitStreamClient() : this(null, new BybitStreamClientOptions())
+    public BybitWebSocketClient() : this(null, new BybitWebSocketClientOptions())
     {
     }
 
-    public BybitStreamClient(BybitStreamClientOptions options) : this(null, options)
+    public BybitWebSocketClient(BybitWebSocketClientOptions options) : this(null, options)
     {
     }
 
-    public BybitStreamClient(ILogger logger, BybitStreamClientOptions options) : base(logger, options)
+    public BybitWebSocketClient(ILogger logger, BybitWebSocketClientOptions options) : base(logger, options)
     {
         ContinueOnQueryResponse = true;
         UnhandledMessageExpected = true;
         KeepAliveInterval = TimeSpan.Zero;
 
         if (options.ApiCredentials != null) options.AuthenticationProvider = CreateAuthenticationProvider(options.ApiCredentials);
-        SendPeriodic("Ping", options.PingInterval, (connection) => new BybitStreamRequest { 
+        SendPeriodic("Ping", options.PingInterval, (connection) => new BybitSocketRequest { 
             Operation = "ping", 
             RequestId = Guid.NewGuid().ToString() 
         });
@@ -43,7 +41,7 @@ public class BybitStreamClient : WebSocketApiClient
         var key = connection.ApiClient.ClientOptions.AuthenticationProvider.Credentials.Key!.GetString();
         var signature = ((BybitAuthenticationProvider)connection.ApiClient.ClientOptions.AuthenticationProvider).StreamApiSignature($"GET/realtime{expireTime}");
 
-        var authRequest = new BybitStreamRequest()
+        var authRequest = new BybitSocketRequest()
         {
             Operation = "auth",
             Parameters = [key, expireTime, signature]
@@ -79,7 +77,7 @@ public class BybitStreamClient : WebSocketApiClient
         if (data.Type != JTokenType.Object)
             return false;
 
-        var bRequest = (BybitStreamRequest)request;
+        var bRequest = (BybitSocketRequest)request;
         var forcedExit = false;
 
         var success = bRequest.ValidateResponse(data, ref forcedExit);
@@ -100,7 +98,7 @@ public class BybitStreamClient : WebSocketApiClient
         if (topic == null)
             return false;
 
-        return (request as BybitStreamRequest)?.MatchReponse(message) ?? false;
+        return (request as BybitSocketRequest)?.MatchReponse(message) ?? false;
     }
 
     protected override bool MessageMatchesHandler(WebSocketConnection connection, JToken message, string identifier)
@@ -135,8 +133,8 @@ public class BybitStreamClient : WebSocketApiClient
 
     protected override async Task<bool> UnsubscribeAsync(WebSocketConnection connection, WebSocketSubscription subscription)
     {
-        var bRequest = ((BybitStreamRequest)subscription.Request!);
-        var message = new BybitStreamRequest
+        var bRequest = ((BybitSocketRequest)subscription.Request!);
+        var message = new BybitSocketRequest
         {
             Operation = "unsubscribe",
             Parameters = bRequest.Parameters,
@@ -159,7 +157,7 @@ public class BybitStreamClient : WebSocketApiClient
     #region Private Methods
     private string GetStreamAddress(BybitCategory category, bool auth)
     {
-        var options = (BybitStreamClientOptions)ClientOptions;
+        var options = (BybitWebSocketClientOptions)ClientOptions;
         
         if (auth) return options.WebSocketPrivateAddress;
         if (category == BybitCategory.Spot) return options.WebSocketSpotAddress;
@@ -199,7 +197,7 @@ public class BybitStreamClient : WebSocketApiClient
             handler(data.As(desResult.Data, topic.ToString()));
         });
 
-        return await SubscribeAsync(GetStreamAddress(category, false), new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(category, false), new BybitSocketRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -232,7 +230,7 @@ public class BybitStreamClient : WebSocketApiClient
             }
         });
 
-        return await SubscribeAsync(GetStreamAddress(category, false), new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(category, false), new BybitSocketRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -280,7 +278,7 @@ public class BybitStreamClient : WebSocketApiClient
             handler(data.As(desResult.Data, topic.ToString()));
         });
 
-        return await SubscribeAsync(GetStreamAddress(category, false), new BybitStreamRequest
+        return await SubscribeAsync(GetStreamAddress(category, false), new BybitSocketRequest
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -311,7 +309,7 @@ public class BybitStreamClient : WebSocketApiClient
             }
         });
 
-        return await SubscribeAsync(GetStreamAddress(category, false), new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(category, false), new BybitSocketRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -339,7 +337,7 @@ public class BybitStreamClient : WebSocketApiClient
             handler(data.As(desResult.Data, topic.ToString()));
         });
 
-        return await SubscribeAsync(GetStreamAddress(category, false), new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(category, false), new BybitSocketRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -370,7 +368,7 @@ public class BybitStreamClient : WebSocketApiClient
             }
         });
 
-        return await SubscribeAsync(GetStreamAddress(BybitCategory.Spot, false), new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(BybitCategory.Spot, false), new BybitSocketRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -398,7 +396,7 @@ public class BybitStreamClient : WebSocketApiClient
             handler(data.As(desResult.Data, topic.ToString()));
         });
 
-        return await SubscribeAsync(GetStreamAddress( BybitCategory.Spot, false), new BybitStreamRequest
+        return await SubscribeAsync(GetStreamAddress( BybitCategory.Spot, false), new BybitSocketRequest
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -426,7 +424,7 @@ public class BybitStreamClient : WebSocketApiClient
             handler(data.As(desResult.Data, topic.ToString()));
         });
 
-        return await SubscribeAsync(GetStreamAddress( BybitCategory.Spot, false), new BybitStreamRequest
+        return await SubscribeAsync(GetStreamAddress( BybitCategory.Spot, false), new BybitSocketRequest
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -459,7 +457,7 @@ public class BybitStreamClient : WebSocketApiClient
             }
         });
 
-        return await SubscribeAsync(GetStreamAddress(default, true), new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(default, true), new BybitSocketRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -489,7 +487,7 @@ public class BybitStreamClient : WebSocketApiClient
             }
         });
 
-        return await SubscribeAsync(GetStreamAddress(default, true), new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(default, true), new BybitSocketRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -519,7 +517,7 @@ public class BybitStreamClient : WebSocketApiClient
             }
         });
 
-        return await SubscribeAsync(GetStreamAddress(default, true), new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(default, true), new BybitSocketRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -549,7 +547,7 @@ public class BybitStreamClient : WebSocketApiClient
             }
         });
 
-        return await SubscribeAsync(GetStreamAddress(default, true), new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(default, true), new BybitSocketRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
@@ -579,7 +577,7 @@ public class BybitStreamClient : WebSocketApiClient
             }
         });
 
-        return await SubscribeAsync(GetStreamAddress(default, true), new BybitStreamRequest()
+        return await SubscribeAsync(GetStreamAddress(default, true), new BybitSocketRequest()
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",

@@ -1,6 +1,6 @@
-﻿namespace Bybit.Api.Models.Server;
+﻿namespace Bybit.Api.Models.Market;
 
-public class BybitServerTime
+public class BybitTime
 {
     [JsonProperty("timeSecond")]
     public long EpochSeconds { get; set; }

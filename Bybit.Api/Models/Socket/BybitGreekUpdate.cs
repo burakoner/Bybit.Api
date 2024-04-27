@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Helpers.Private;
+﻿namespace Bybit.Api.Models.Socket;
 
 public class BybitGreekUpdate
 {

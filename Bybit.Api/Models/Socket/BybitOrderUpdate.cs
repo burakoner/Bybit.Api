@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Helpers.Private;
+﻿namespace Bybit.Api.Models.Socket;
 
 public class BybitOrderUpdate
 {
@@ -17,7 +17,7 @@ public class BybitOrderUpdate
     public string BlockTradeId { get; set; }
     public string Symbol { get; set; }
     public decimal? Price { get; set; }
-    
+
     [JsonProperty("qty")]
     public decimal? Quantity { get; set; }
 
@@ -62,7 +62,7 @@ public class BybitOrderUpdate
 
     [JsonProperty("stopOrderType"), JsonConverter(typeof(LabelConverter<BybitOrderStopType>))]
     public BybitOrderStopType? OrderStopType { get; set; }
-    
+
     public decimal? OrderIv { get; set; }
     public decimal? TriggerPrice { get; set; }
     public decimal? TakeProfit { get; set; }

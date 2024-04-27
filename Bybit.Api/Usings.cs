@@ -14,7 +14,6 @@ global using Bybit.Api.Clients.RestApi;
 global using Bybit.Api.Enums;
 global using Bybit.Api.Helpers;
 global using Bybit.Api.Models;
-global using Bybit.Api.Stream;
 global using Microsoft.Extensions.Logging;
 global using Newtonsoft.Json;
 global using Newtonsoft.Json.Linq;

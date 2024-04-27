@@ -39,7 +39,7 @@ internal class Program
         //var order = await api.Trading.PlaceOrderAsync(BybitCategory.Spot, "XRPUSDT", BybitOrderSide.Buy, BybitOrderType.Market, 100.0m,,,,,);
 
 
-        var ws = new BybitStreamClient(new BybitStreamClientOptions
+        var ws = new BybitWebSocketClient(new BybitWebSocketClientOptions
         {
             RawResponse = true,
             ApiCredentials = new ApiSharp.Authentication.ApiCredentials("-----API-KEY-----", "-----API-SECRET-----"),
