@@ -1,9 +1,9 @@
 ﻿namespace Bybit.Api.Models.Market;
 
 /// <summary>
-/// Bybit Delivery Price
+/// Bybit Long Short Ratio
 /// </summary>
-public class BybitDeliveryPrice
+public class BybitLongShortRatio
 {
     /// <summary>
     /// Symbol
@@ -11,14 +11,18 @@ public class BybitDeliveryPrice
     public string Symbol { get; set; }
 
     /// <summary>
-    /// Delivery Price
+    /// The ratio of users with net long position
     /// </summary>
-    public decimal DeliveryPrice { get; set; }
+    public decimal BuyRatio { get; set; }
 
     /// <summary>
-    /// Delivery Time
+    /// The ratio of users with net short position
     /// </summary>
-    [JsonProperty("deliveryTime")]
+    public decimal SellRatio { get; set; }
+
+    /// <summary>
+    /// Timestamp (ms)
+    /// </summary>
     public long Timestamp { get; set; }
 
     /// <summary>

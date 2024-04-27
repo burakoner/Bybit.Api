@@ -1,9 +1,9 @@
 ﻿namespace Bybit.Api.Models.Market;
 
 /// <summary>
-/// Bybit Delivery Price
+/// Bybit Funding History
 /// </summary>
-public class BybitDeliveryPrice
+public class BybitFundingHistory
 {
     /// <summary>
     /// Symbol
@@ -11,18 +11,18 @@ public class BybitDeliveryPrice
     public string Symbol { get; set; }
 
     /// <summary>
-    /// Delivery Price
+    /// Funding Rate
     /// </summary>
-    public decimal DeliveryPrice { get; set; }
+    public decimal FundingRate { get; set; }
 
     /// <summary>
-    /// Delivery Time
+    /// Funding Timestamp
     /// </summary>
-    [JsonProperty("deliveryTime")]
+    [JsonProperty("fundingRateTimestamp")]
     public long Timestamp { get; set; }
 
     /// <summary>
-    /// Delivery Time
+    /// Funding Time
     /// </summary>
     public DateTime Time { get => Timestamp.ConvertFromMilliseconds(); }
 }

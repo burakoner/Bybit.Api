@@ -1,28 +1,29 @@
 ﻿namespace Bybit.Api.Models.Market;
 
 /// <summary>
-/// Bybit Delivery Price
+/// Bybit Volatility
 /// </summary>
-public class BybitDeliveryPrice
+public class BybitVolatility
 {
     /// <summary>
-    /// Symbol
+    /// Period
     /// </summary>
-    public string Symbol { get; set; }
+    [JsonConverter(typeof(LabelConverter<BybitOptionPeriod>))]
+    public BybitOptionPeriod Period { get; set; }
 
     /// <summary>
-    /// Delivery Price
+    /// Volatility
     /// </summary>
-    public decimal DeliveryPrice { get; set; }
+    public decimal Value { get; set; }
 
     /// <summary>
-    /// Delivery Time
+    /// Timestamp (ms)
     /// </summary>
-    [JsonProperty("deliveryTime")]
+    [JsonProperty("time")]
     public long Timestamp { get; set; }
 
     /// <summary>
-    /// Delivery Time
+    /// Time
     /// </summary>
     public DateTime Time { get => Timestamp.ConvertFromMilliseconds(); }
 }

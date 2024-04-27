@@ -23,7 +23,7 @@ public class BybitRestApiMarketClient
     private const string _v5MarketInsuranceEndpoint = "v5/market/insurance";
     private const string _v5MarketRiskLimitEndpoint = "v5/market/risk-limit";
     private const string _v5MarketDeliveryPriceEndpoint = "v5/market/delivery-price";
-    private const string _v5MarketAccountRatioEndpoint = "/v5/market/account-ratio"; // TODO
+    private const string _v5MarketAccountRatioEndpoint = "/v5/market/account-ratio";
 
     // Internal
     internal BybitRestApiBaseClient MainClient { get; }
@@ -33,7 +33,7 @@ public class BybitRestApiMarketClient
     {
         this.MainClient = root.BaseClient;
     }
-    
+
     /// <summary>
     /// Get Bybit Server Time
     /// </summary>
@@ -184,7 +184,7 @@ public class BybitRestApiMarketClient
     }
 
     /// <summary>
-    /// 
+    /// Query for historical premium index klines. Charts are returned in groups based on the requested interval.
     /// </summary>
     /// <param name="category">Product type. linear</param>
     /// <param name="symbol">Symbol name</param>
@@ -196,7 +196,7 @@ public class BybitRestApiMarketClient
     /// <returns></returns>
     public async Task<RestCallResult<IEnumerable<BybitPremiumIndexPriceKline>>> GetPremiumIndexKlinesAsync(BybitCategory category, string symbol, BybitKlineInterval interval, DateTime start, DateTime end, int limit = 200, CancellationToken ct = default)
         => await GetPremiumIndexKlinesAsync(category, symbol, interval, start.ConvertToMilliseconds(), end.ConvertToMilliseconds(), limit, ct).ConfigureAwait(false);
-    
+
     /// <summary>
     /// Query for historical premium index klines. Charts are returned in groups based on the requested interval.
     /// </summary>
@@ -276,7 +276,7 @@ public class BybitRestApiMarketClient
 
         return await MainClient.SendBybitRequest<BybitCursorResponse<BybitLinearInverseInstrument>>(MainClient.GetUri(_v5InstrumentsInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
-    
+
     /// <summary>
     /// Query for the instrument specification of online trading pairs.
     /// </summary>
@@ -381,7 +381,7 @@ public class BybitRestApiMarketClient
         if (!result) return result.As<IEnumerable<BybitSpotTicker>>(null);
         return result.As(result.Data.Payload);
     }
-    
+
     /// <summary>
     /// Query for the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
     /// Covers: Spot / USDT perpetual / USDC contract / Inverse contract / Option
@@ -402,7 +402,7 @@ public class BybitRestApiMarketClient
         if (!result) return result.As<IEnumerable<BybitLinearInverseTicker>>(null);
         return result.As(result.Data.Payload);
     }
-    
+
     /// <summary>
     /// Query for the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
     /// Covers: Spot / USDT perpetual / USDC contract / Inverse contract / Option
@@ -423,7 +423,7 @@ public class BybitRestApiMarketClient
         if (!result) return result.As<IEnumerable<BybitLinearInverseTicker>>(null);
         return result.As(result.Data.Payload);
     }
-    
+
     /// <summary>
     /// Query for the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
     /// Covers: Spot / USDT perpetual / USDC contract / Inverse contract / Option
@@ -449,10 +449,45 @@ public class BybitRestApiMarketClient
         return result.As(result.Data.Payload);
     }
 
+    /// <summary>
+    /// Query for historical funding rates. Each symbol has a different funding interval. For example, if the interval is 8 hours and the current time is UTC 12, then it returns the last funding rate, which settled at UTC 8.
+    /// To query the funding rate interval, please refer to the instruments-info endpoint.
+    /// Covers: USDT and USDC perpetual / Inverse perpetual
+    /// 
+    /// INFO
+    /// Passing only startTime returns an error.
+    /// Passing only endTime returns 200 records up till endTime.
+    /// Passing neither returns 200 records up till the current time.
+    /// </summary>
+    /// <param name="category">Product type. linear,inverse</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="startTime">The start timestamp (ms)</param>
+    /// <param name="endTime">The end timestamp (ms)</param>
+    /// <param name="limit">Limit for data size per page. [1, 200]. Default: 200</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<IEnumerable<BybitFundingHistory>>> GetFundingHistoryAsync(BybitCategory category, string symbol, DateTime startTime, DateTime endTime, int limit = 200, CancellationToken ct = default)
+        => await GetFundingHistoryAsync(category, symbol, startTime.ConvertToMilliseconds(), endTime.ConvertToMilliseconds(), limit, ct).ConfigureAwait(false);
 
-    public async Task<RestCallResult<IEnumerable<BybitFundingRate>>> GetFundingRateHistoryAsync(BybitCategory category, string symbol, DateTime startTime, DateTime endTime, int limit = 200, CancellationToken ct = default)
-        => await GetFundingRateHistoryAsync(category, symbol, startTime.ConvertToMilliseconds(), endTime.ConvertToMilliseconds(), limit, ct).ConfigureAwait(false);
-    public async Task<RestCallResult<IEnumerable<BybitFundingRate>>> GetFundingRateHistoryAsync(BybitCategory category, string symbol, long? startTime = null, long? endTime = null, int? limit = null, CancellationToken ct = default)
+    /// <summary>
+    /// Query for historical funding rates. Each symbol has a different funding interval. For example, if the interval is 8 hours and the current time is UTC 12, then it returns the last funding rate, which settled at UTC 8.
+    /// To query the funding rate interval, please refer to the instruments-info endpoint.
+    /// Covers: USDT and USDC perpetual / Inverse perpetual
+    /// 
+    /// INFO
+    /// Passing only startTime returns an error.
+    /// Passing only endTime returns 200 records up till endTime.
+    /// Passing neither returns 200 records up till the current time.
+    /// </summary>
+    /// <param name="category">Product type. linear,inverse</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="startTime">The start timestamp (ms)</param>
+    /// <param name="endTime">The end timestamp (ms)</param>
+    /// <param name="limit">Limit for data size per page. [1, 200]. Default: 200</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<RestCallResult<IEnumerable<BybitFundingHistory>>> GetFundingHistoryAsync(BybitCategory category, string symbol, long? startTime = null, long? endTime = null, int? limit = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -467,13 +502,30 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("endTime", endTime);
         parameters.AddOptionalParameter("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitCategoryResponse<BybitFundingRate>>(MainClient.GetUri(_v5MarketFundingHistoryEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitFundingRate>>(null);
+        var result = await MainClient.SendBybitRequest<BybitCategoryResponse<BybitFundingHistory>>(MainClient.GetUri(_v5MarketFundingHistoryEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<IEnumerable<BybitFundingHistory>>(null);
         return result.As(result.Data.Payload);
     }
 
-
-    public async Task<RestCallResult<IEnumerable<BybitTrade>>> GetPublicTradingHistoryAsync(BybitCategory category, string symbol = null, string baseAsset = null, BybitOptionType? optionType = null, int? limit = null, CancellationToken ct = default)
+    /// <summary>
+    /// Query recent public trading data in Bybit.
+    /// Covers: Spot / USDT perpetual / USDC contract / Inverse contract / Option
+    /// You can download archived historical trades from the website
+    /// </summary>
+    /// <param name="category">Product type. spot,linear,inverse,option</param>
+    /// <param name="symbol">Symbol name
+    /// required for spot/linear/inverse
+    /// optional for option</param>
+    /// <param name="baseAsset">Base coin
+    /// Apply to option only
+    /// If the field is not passed, return BTC data by default</param>
+    /// <param name="optionType">Option type. Call or Put. Apply to option only</param>
+    /// <param name="limit">Limit for data size per page
+    /// spot: [1,60], default: 60
+    /// others: [1,1000], default: 500</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<IEnumerable<BybitTrade>>> GetTradingHistoryAsync(BybitCategory category, string symbol = null, string baseAsset = null, BybitOptionType? optionType = null, int? limit = null, CancellationToken ct = default)
     {
         if (category == BybitCategory.Spot) limit?.ValidateIntBetween(nameof(limit), 1, 60);
         if (category == BybitCategory.Linear) limit?.ValidateIntBetween(nameof(limit), 1, 1000);
@@ -494,10 +546,43 @@ public class BybitRestApiMarketClient
         return result.As(result.Data.Payload);
     }
 
+    /// <summary>
+    /// Get the open interest of each symbol.
+    /// Covers: USDT perpetual / USDC contract / Inverse contract
+    /// 
+    /// INFO
+    /// The upper limit time you can query is the launch time of the symbol.
+    /// </summary>
+    /// <param name="category">Product type. linear,inverse</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="period">Interval time. 5min,15min,30min,1h,4h,1d</param>
+    /// <param name="startTime">The start timestamp (ms)</param>
+    /// <param name="endTime">The end timestamp (ms)</param>
+    /// <param name="limit">Limit for data size per page. [1, 200]. Default: 50</param>
+    /// <param name="cursor">Cursor. Used to paginate</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<BybitCursorResponse<BybitOpenInterest>>> GetOpenInterestAsync(BybitCategory category, string symbol, BybitRecordPeriod period, DateTime startTime, DateTime endTime, int limit = 50, string cursor = null, CancellationToken ct = default)
+        => await GetOpenInterestAsync(category, symbol, period, startTime.ConvertToMilliseconds(), endTime.ConvertToMilliseconds(), limit, cursor, ct).ConfigureAwait(false);
 
-    public async Task<RestCallResult<BybitCursorResponse<BybitOpenInterest>>> GetOpenInterestAsync(BybitCategory category, string symbol, BybitInterestInterval interval, DateTime startTime, DateTime endTime, int limit = 200, string cursor = null, CancellationToken ct = default)
-        => await GetOpenInterestAsync(category, symbol, interval, startTime.ConvertToMilliseconds(), endTime.ConvertToMilliseconds(), limit, cursor, ct).ConfigureAwait(false);
-    public async Task<RestCallResult<BybitCursorResponse<BybitOpenInterest>>> GetOpenInterestAsync(BybitCategory category, string symbol, BybitInterestInterval interval, long? startTime = null, long? endTime = null, int limit = 200, string cursor = null, CancellationToken ct = default)
+    /// <summary>
+    /// Get the open interest of each symbol.
+    /// Covers: USDT perpetual / USDC contract / Inverse contract
+    /// 
+    /// INFO
+    /// The upper limit time you can query is the launch time of the symbol.
+    /// </summary>
+    /// <param name="category">Product type. linear,inverse</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="period">Interval time. 5min,15min,30min,1h,4h,1d</param>
+    /// <param name="startTime">The start timestamp (ms)</param>
+    /// <param name="endTime">The end timestamp (ms)</param>
+    /// <param name="limit">Limit for data size per page. [1, 200]. Default: 50</param>
+    /// <param name="cursor">Cursor. Used to paginate</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<RestCallResult<BybitCursorResponse<BybitOpenInterest>>> GetOpenInterestAsync(BybitCategory category, string symbol, BybitRecordPeriod period, long? startTime = null, long? endTime = null, int limit = 50, string cursor = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -507,20 +592,58 @@ public class BybitRestApiMarketClient
         {
             { "category", category.GetLabel() },
             { "symbol", symbol },
-            { "intervalTime", interval.GetLabel() },
-            { "limit", limit },
+            { "intervalTime", period.GetLabel() },
         };
         parameters.AddOptionalParameter("startTime", startTime);
         parameters.AddOptionalParameter("endTime", endTime);
         parameters.AddOptionalParameter("cursor", cursor);
+        parameters.AddOptionalParameter("limit", limit);
 
         return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOpenInterest>>(MainClient.GetUri(_v5MarketOpenInterestEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Get Historical Volatility
+    /// Query option historical volatility
+    /// 
+    /// Covers: Option
+    /// 
+    /// INFO
+    /// The data is hourly.
+    /// If both startTime and endTime are not specified, it will return the most recent 1 hours worth of data.
+    /// startTime and endTime are a pair of params. Either both are passed or they are not passed at all.
+    /// This endpoint can query the last 2 years worth of data, but make sure [endTime - startTime] &lt;= 30 days.
+    /// </summary>
+    /// <param name="category">Product type. option</param>
+    /// <param name="startTime"></param>
+    /// <param name="endTime"></param>
+    /// <param name="baseAsset">Base coin. Default: return BTC data</param>
+    /// <param name="period">Period. If not specified, it will return data with a 7-day average by default</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<IEnumerable<BybitVolatility>>> GetVolatilityAsync(BybitCategory category, DateTime startTime, DateTime endTime, string baseAsset = null, BybitOptionPeriod? period = null, CancellationToken ct = default)
+        => await GetVolatilityAsync(category, startTime.ConvertToMilliseconds(), endTime.ConvertToMilliseconds(), baseAsset, period, ct).ConfigureAwait(false);
 
-    public async Task<RestCallResult<IEnumerable<BybitHistoricalVolatility>>> GetHistoricalVolatilityAsync(BybitCategory category, DateTime startTime, DateTime endTime, string baseAsset = null, BybitPeriod? period = null, CancellationToken ct = default)
-        => await GetHistoricalVolatilityAsync(category, baseAsset, period, startTime.ConvertToMilliseconds(), endTime.ConvertToMilliseconds(), ct).ConfigureAwait(false);
-    public async Task<RestCallResult<IEnumerable<BybitHistoricalVolatility>>> GetHistoricalVolatilityAsync(BybitCategory category, string baseAsset = null, BybitPeriod? period = null, long? startTime = null, long? endTime = null, CancellationToken ct = default)
+    /// <summary>
+    /// Get Historical Volatility
+    /// Query option historical volatility
+    /// 
+    /// Covers: Option
+    /// 
+    /// INFO
+    /// The data is hourly.
+    /// If both startTime and endTime are not specified, it will return the most recent 1 hours worth of data.
+    /// startTime and endTime are a pair of params. Either both are passed or they are not passed at all.
+    /// This endpoint can query the last 2 years worth of data, but make sure [endTime - startTime] &lt;= 30 days.
+    /// </summary>
+    /// <param name="category">Product type. option</param>
+    /// <param name="startTime"></param>
+    /// <param name="endTime"></param>
+    /// <param name="baseAsset">Base coin. Default: return BTC data</param>
+    /// <param name="period">Period. If not specified, it will return data with a 7-day average by default</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<IEnumerable<BybitVolatility>>> GetVolatilityAsync(BybitCategory category, long? startTime = null, long? endTime = null, string baseAsset = null, BybitOptionPeriod? period = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Option))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -534,10 +657,18 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("startTime", startTime);
         parameters.AddOptionalParameter("endTime", endTime);
 
-        return await MainClient.SendBybitRequest<IEnumerable<BybitHistoricalVolatility>>(MainClient.GetUri(_v5MarketHistoricalVolatilityEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<IEnumerable<BybitVolatility>>(MainClient.GetUri(_v5MarketHistoricalVolatilityEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
 
-
+    /// <summary>
+    /// Query for Bybit insurance pool data (BTC/USDT/USDC etc). The data is updated every 24 hours.
+    /// 
+    /// INFO
+    /// Since the insurance pool data is updated every 24 hours, it is possible that you get ADL trade but the insruance pool still has sufficient funds.
+    /// </summary>
+    /// <param name="asset">coin. Default: return all insurance coins</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public async Task<RestCallResult<IEnumerable<BybitInsurance>>> GetInsuranceAsync(string asset = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -548,7 +679,16 @@ public class BybitRestApiMarketClient
         return result.As(result.Data.Payload);
     }
 
-
+    /// <summary>
+    /// Get Risk Limit
+    /// Query for the risk limit.
+    /// Covers: USDT perpetual / USDC contract / Inverse contract
+    /// </summary>
+    /// <param name="category">Product type. linear,inverse</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
     public async Task<RestCallResult<IEnumerable<BybitRiskLimit>>> GetRiskLimitAsync(BybitCategory category, string symbol = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
@@ -565,7 +705,21 @@ public class BybitRestApiMarketClient
         return result.As(result.Data.Payload);
     }
 
-
+    /// <summary>
+    /// Get the delivery price.
+    /// Covers: USDC futures / Inverse futures / Option
+    /// 
+    /// INFO
+    /// Option: only returns those symbols are being "DELIVERING" (UTC8~UTC12) when "symbol" is not specified;
+    /// </summary>
+    /// <param name="category">Product type. linear, inverse, option</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="baseAsset">Base coin. Default: BTC. valid for option only</param>
+    /// <param name="limit">Limit for data size per page. [1, 200]. Default: 50</param>
+    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
     public async Task<RestCallResult<BybitCursorResponse<BybitDeliveryPrice>>> GetDeliveryPriceAsync(BybitCategory category, string symbol = null, string baseAsset = null, int? limit = null, string cursor = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse, BybitCategory.Option))
@@ -582,6 +736,35 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("cursor", cursor);
 
         return await MainClient.SendBybitRequest<BybitCursorResponse<BybitDeliveryPrice>>(MainClient.GetUri(_v5MarketDeliveryPriceEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Long Short Ratio
+    /// </summary>
+    /// <param name="category">Product type. linear(USDT Perpetual),inverse</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="period">Data recording period. 5min, 15min, 30min, 1h, 4h, 1d</param>
+    /// <param name="limit">Limit for data size per page. [1, 500]. Default: 50</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<RestCallResult<IEnumerable<BybitLongShortRatio>>> GetLongShortRatioAsync(BybitCategory category, string symbol, BybitRecordPeriod period, int limit = 50, CancellationToken ct = default)
+    {
+        if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
+            throw new NotSupportedException($"{category} is not supported for this endpoint.");
+
+        limit.ValidateIntBetween(nameof(limit), 1, 500);
+        var parameters = new Dictionary<string, object>
+        {
+            { "category", category.GetLabel() },
+            { "symbol", symbol },
+            { "period", period.GetLabel() },
+            { "limit", limit },
+        };
+
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLongShortRatio>>(MainClient.GetUri(_v5MarketAccountRatioEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<IEnumerable<BybitLongShortRatio>>(null);
+        return result.As(result.Data.Payload);
     }
 
 }
