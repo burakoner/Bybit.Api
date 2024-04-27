@@ -9,7 +9,6 @@ public class BybitRestApiClient
     internal ILogger Logger { get; }
     internal BybitRestApiBaseClient BaseClient { get; }
     internal BybitRestApiClientOptions ClientOptions { get; }
-    internal CultureInfo CI { get; } = CultureInfo.InvariantCulture;
 
     /// <summary>
     /// Market Client

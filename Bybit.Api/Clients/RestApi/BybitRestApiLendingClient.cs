@@ -15,7 +15,6 @@ public class BybitRestApiLendingClient
 
     // Internal
     internal BybitRestApiBaseClient MainClient { get; }
-    internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitRestApiLendingClient(BybitRestApiClient root)
     {

@@ -21,7 +21,6 @@ public class BybitRestApiPositionClient
 
     // Internal
     internal BybitRestApiBaseClient MainClient { get; }
-    internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitRestApiPositionClient(BybitRestApiClient root)
     {
@@ -60,8 +59,8 @@ public class BybitRestApiPositionClient
         {
             { "category", category.GetLabel() },
             { "symbol", symbol },
-            { "buyLeverage", buyLeverage.ToString(CI) },
-            { "sellLeverage", sellLeverage.ToString(CI) }
+            { "buyLeverage", buyLeverage.ToString(BybitConstants.BybitCultureInfo) },
+            { "sellLeverage", sellLeverage.ToString(BybitConstants.BybitCultureInfo) }
         };
 
         return await MainClient.SendBybitRequest(MainClient.GetUri(v5PositionSetLeverageEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
@@ -77,8 +76,8 @@ public class BybitRestApiPositionClient
             { "category", category.GetLabel() },
             { "symbol", symbol },
             { "tradeMode", tradeMode.GetLabel() },
-            { "buyLeverage", buyLeverage.ToString(CI) },
-            { "sellLeverage", sellLeverage.ToString(CI) }
+            { "buyLeverage", buyLeverage.ToString(BybitConstants.BybitCultureInfo) },
+            { "sellLeverage", sellLeverage.ToString(BybitConstants.BybitCultureInfo) }
         };
 
         return await MainClient.SendBybitRequest(MainClient.GetUri(v5PositionSwitchIsolatedEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
@@ -162,14 +161,14 @@ public class BybitRestApiPositionClient
             { "positionIdx", positionIndex.GetLabel() }
         };
 
-        parameters.AddOptionalParameter("takeProfit", takeProfit?.ToString(CI));
-        parameters.AddOptionalParameter("stopLoss", stopLoss?.ToString(CI));
-        parameters.AddOptionalParameter("trailingStop", trailingStop?.ToString(CI));
+        parameters.AddOptionalParameter("takeProfit", takeProfit?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("stopLoss", stopLoss?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("trailingStop", trailingStop?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("tpTriggerBy", takeProfitTrigger?.GetLabel());
         parameters.AddOptionalParameter("slTriggerBy", stopLossTrigger?.GetLabel());
-        parameters.AddOptionalParameter("activePrice", activePrice?.ToString(CI));
-        parameters.AddOptionalParameter("tpSize", takeProfitQuantity?.ToString(CI));
-        parameters.AddOptionalParameter("slSize", stopLossQuantity?.ToString(CI));
+        parameters.AddOptionalParameter("activePrice", activePrice?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("tpSize", takeProfitQuantity?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("slSize", stopLossQuantity?.ToString(BybitConstants.BybitCultureInfo));
 
         return await MainClient.SendBybitRequest(MainClient.GetUri(v5PositionTradingStopEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }

@@ -20,7 +20,6 @@ public class BybitRestApiTradeClient
 
     // Internal
     internal BybitRestApiBaseClient MainClient { get; }
-    internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitRestApiTradeClient(BybitRestApiClient root)
     {
@@ -101,20 +100,20 @@ public class BybitRestApiTradeClient
             { "symbol", symbol },
             { "side", side.GetLabel() },
             { "orderType", type.GetLabel() },
-            { "qty", quantity.ToString(CI) },
+            { "qty", quantity.ToString(BybitConstants.BybitCultureInfo) },
         };
         parameters.AddOptionalParameter("isLeverage", isLeverage != null ? isLeverage == true ? 1 : 0 : null);
-        parameters.AddOptionalParameter("price", price?.ToString(CI));
+        parameters.AddOptionalParameter("price", price?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("triggerDirection", triggerDirection?.GetLabel());
         parameters.AddOptionalParameter("orderFilter", orderFilter?.GetLabel());
-        parameters.AddOptionalParameter("triggerPrice", triggerPrice?.ToString(CI));
+        parameters.AddOptionalParameter("triggerPrice", triggerPrice?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("triggerBy", triggerBy?.GetLabel());
-        parameters.AddOptionalParameter("orderIv", orderImpliedVolatility?.ToString(CI));
+        parameters.AddOptionalParameter("orderIv", orderImpliedVolatility?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("timeInForce", timeInForce?.GetLabel());
         parameters.AddOptionalParameter("positionIdx", positionIndex?.GetLabel());
         parameters.AddOptionalParameter("orderLinkId", clientOrderId);
-        parameters.AddOptionalParameter("takeProfit", takeProfitPrice?.ToString(CI));
-        parameters.AddOptionalParameter("stopLoss", stopLossPrice?.ToString(CI));
+        parameters.AddOptionalParameter("takeProfit", takeProfitPrice?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("stopLoss", stopLossPrice?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("tpTriggerBy", takeProfitTriggerBy?.GetLabel());
         parameters.AddOptionalParameter("slTriggerBy", stopLossTriggerBy?.GetLabel());
         parameters.AddOptionalParameter("reduceOnly", reduceOnly);
@@ -151,12 +150,12 @@ public class BybitRestApiTradeClient
         };
         parameters.AddOptionalParameter("orderId", orderId);
         parameters.AddOptionalParameter("orderLinkId", clientOrderId);
-        parameters.AddOptionalParameter("qty", quantity?.ToString(CI));
-        parameters.AddOptionalParameter("price", price?.ToString(CI));
-        parameters.AddOptionalParameter("orderIv", orderImpliedVolatility?.ToString(CI));
-        parameters.AddOptionalParameter("triggerPrice", triggerPrice?.ToString(CI));
-        parameters.AddOptionalParameter("takeProfit", takeProfitPrice?.ToString(CI));
-        parameters.AddOptionalParameter("stopLoss", stopLossPrice?.ToString(CI));
+        parameters.AddOptionalParameter("qty", quantity?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("price", price?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("orderIv", orderImpliedVolatility?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("triggerPrice", triggerPrice?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("takeProfit", takeProfitPrice?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("stopLoss", stopLossPrice?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("tpTriggerBy", takeProfitTriggerBy?.GetLabel());
         parameters.AddOptionalParameter("slTriggerBy", stopLossTriggerBy?.GetLabel());
         parameters.AddOptionalParameter("triggerBy", triggerBy?.GetLabel());

@@ -22,7 +22,6 @@ public class BybitRestApiUserClient
 
     // Internal
     internal BybitRestApiBaseClient MainClient { get; }
-    internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitRestApiUserClient(BybitRestApiClient root)
     {

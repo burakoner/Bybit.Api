@@ -13,7 +13,6 @@ public class BybitRestApiLeveragedTokensClient
 
     // Internal
     internal BybitRestApiBaseClient MainClient { get; }
-    internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitRestApiLeveragedTokensClient(BybitRestApiClient root)
     {
@@ -45,7 +44,7 @@ public class BybitRestApiLeveragedTokensClient
         var parameters = new Dictionary<string, object>
         {
             { "ltCoin", symbol },
-            { "ltAmount", quantity.ToString(CI) },
+            { "ltAmount", quantity.ToString(BybitConstants.BybitCultureInfo) },
         };
         parameters.AddOptionalParameter("serialNo", clientOrderId);
 
@@ -57,7 +56,7 @@ public class BybitRestApiLeveragedTokensClient
         var parameters = new Dictionary<string, object>
         {
             { "ltCoin", symbol },
-            { "ltAmount", quantity.ToString(CI) },
+            { "ltAmount", quantity.ToString(BybitConstants.BybitCultureInfo) },
         };
         parameters.AddOptionalParameter("serialNo", clientOrderId);
 

@@ -12,7 +12,6 @@ public class BybitRestApiMarginClient
 
     // Internal
     internal BybitRestApiBaseClient MainClient { get; }
-    internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitRestApiMarginClient(BybitRestApiClient root)
     {
@@ -33,7 +32,7 @@ public class BybitRestApiMarginClient
     {
         var parameters = new Dictionary<string, object>
         {
-            { "leverage", leverage.ToString(CI) },
+            { "leverage", leverage.ToString(BybitConstants.BybitCultureInfo) },
         };
 
         return await MainClient.SendBybitRequest(MainClient.GetUri(v5SpotMarginTradeSetLeverageEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);

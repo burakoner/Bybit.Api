@@ -8,7 +8,6 @@ internal class BybitRestApiBaseClient : RestApiClient
 
     // Root Client
     internal BybitRestApiClient RootClient { get; }
-    internal CultureInfo CI { get { return RootClient.CI; } }
     internal new BybitRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
 
     internal BybitRestApiBaseClient(BybitRestApiClient root) : base(root.Logger, root.ClientOptions)
@@ -18,8 +17,8 @@ internal class BybitRestApiBaseClient : RestApiClient
         RequestBodyFormat = RestRequestBodyFormat.Json;
         ArraySerialization = ArraySerialization.MultipleValues;
 
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
+        Thread.CurrentThread.CurrentCulture = BybitConstants.BybitCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = BybitConstants.BybitCultureInfo;
     }
 
     #region Override Methods
@@ -71,8 +70,8 @@ internal class BybitRestApiBaseClient : RestApiClient
         var currentUICulture = Thread.CurrentThread.CurrentUICulture;
 
         // Set Cultures
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
+        Thread.CurrentThread.CurrentCulture = BybitConstants.BybitCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = BybitConstants.BybitCultureInfo;
 
         // Do Request
         var result = await SendRequestAsync<BybitRestApiResponse>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
@@ -94,8 +93,8 @@ internal class BybitRestApiBaseClient : RestApiClient
         var currentUICulture = Thread.CurrentThread.CurrentUICulture;
 
         // Set Cultures
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
+        Thread.CurrentThread.CurrentCulture = BybitConstants.BybitCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = BybitConstants.BybitCultureInfo;
 
         // Do Request
         var result = await SendRequestAsync<BybitRestApiResponse<T>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
@@ -117,8 +116,8 @@ internal class BybitRestApiBaseClient : RestApiClient
         var currentUICulture = Thread.CurrentThread.CurrentUICulture;
 
         // Set Cultures
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
+        Thread.CurrentThread.CurrentCulture = BybitConstants.BybitCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = BybitConstants.BybitCultureInfo;
 
         // Do Request
         var result = await SendRequestAsync<BybitRestApiResponse<T1, T2>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
@@ -140,8 +139,8 @@ internal class BybitRestApiBaseClient : RestApiClient
         var currentUICulture = Thread.CurrentThread.CurrentUICulture;
 
         // Set Cultures
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
+        Thread.CurrentThread.CurrentCulture = BybitConstants.BybitCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = BybitConstants.BybitCultureInfo;
 
         // Do Request
         var result = await SendRequestAsync<T>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);

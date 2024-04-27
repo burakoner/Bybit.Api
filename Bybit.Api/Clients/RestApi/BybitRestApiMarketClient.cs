@@ -27,7 +27,6 @@ public class BybitRestApiMarketClient
 
     // Internal
     internal BybitRestApiBaseClient MainClient { get; }
-    internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitRestApiMarketClient(BybitRestApiClient root)
     {
@@ -225,7 +224,7 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("end", end);
         parameters.AddOptionalParameter("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitPremiumIndexPriceKline>>(MainClient.GetUri(_v5MarketIndexPriceKlineEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitPremiumIndexPriceKline>>(MainClient.GetUri(_v5MarketPremiumIndexPriceKlineEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitPremiumIndexPriceKline>>(null);
         return result.As(result.Data.Payload);
     }

@@ -2,7 +2,7 @@
 
 internal static class BybitConstants
 {
-    public const string BrokerId = "Ey000284";
-    public static CultureInfo BybitCultureInfo = new CultureInfo("en-US");
+    public static CultureInfo BybitCultureInfo = CultureInfo.InvariantCulture;
     public static string BybitDatetimeFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
+    public static string BrokerId = "Ey000284";
 }

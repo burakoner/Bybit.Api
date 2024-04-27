@@ -32,7 +32,6 @@ public class BybitRestApiAssetClient
 
     // Internal
     internal BybitRestApiBaseClient MainClient { get; }
-    internal CultureInfo CI { get { return MainClient.CI; } }
 
     internal BybitRestApiAssetClient(BybitRestApiClient root)
     {
@@ -149,7 +148,7 @@ public class BybitRestApiAssetClient
         {
             { "transferId", transferId ?? Guid.NewGuid().ToString() },
             { "coin", asset },
-            { "amount", quantity.ToString(CI) },
+            { "amount", quantity.ToString(BybitConstants.BybitCultureInfo) },
             { "fromAccountType", fromAccount.GetLabel() },
             { "toAccountType", toAccount.GetLabel() },
         };
@@ -182,7 +181,7 @@ public class BybitRestApiAssetClient
         {
             { "transferId", transferId ?? Guid.NewGuid().ToString() },
             { "coin", asset },
-            { "amount", quantity.ToString(CI) },
+            { "amount", quantity.ToString(BybitConstants.BybitCultureInfo) },
             { "fromMemberId", fromUserId },
             { "toMemberId", toUserId },
             { "fromAccountType", fromAccount.GetLabel() },
@@ -332,7 +331,7 @@ public class BybitRestApiAssetClient
             { "coin", asset },
             { "chain", network },
             { "address", address },
-            { "amount", quantity.ToString(CI) },
+            { "amount", quantity.ToString(BybitConstants.BybitCultureInfo) },
             { "timestamp", DateTime.UtcNow.ConvertToMilliseconds() }
         };
 
