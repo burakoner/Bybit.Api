@@ -1,4 +1,8 @@
 ﻿using Bybit.Api.Models.Trade;
+using Microsoft.Extensions.Options;
+using System;
+using System.Net;
+using System.Numerics;
 
 namespace Bybit.Api.Clients.RestApi;
 
@@ -133,7 +137,7 @@ public class BybitRestApiTradeClient
     /// <param name="takeProfitPrice">Take profit price</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitOrderResponse>> PlaceOrderAsync(
+    public async Task<RestCallResult<BybitOrderId>> PlaceOrderAsync(
         BybitCategory category,
         string symbol,
 
@@ -191,7 +195,7 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("orderIv", orderIv?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("timeInForce", timeInForce?.GetLabel());
         parameters.AddOptionalParameter("positionIdx", positionIndex?.GetLabel());
-        
+
         parameters.AddOptionalParameter("reduceOnly", reduceOnly);
         parameters.AddOptionalParameter("closeOnTrigger", closeOnTrigger);
         parameters.AddOptionalParameter("mmp", mmp);
@@ -208,26 +212,69 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("stopLoss", stopLossPrice?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("slLimitPrice", stopLossLimitPrice?.ToString(BybitConstants.BybitCultureInfo));
 
-        return await MainClient.SendBybitRequest<BybitOrderResponse>(MainClient.GetUri(_v5OrderCreateEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitOrderId>(MainClient.GetUri(_v5OrderCreateEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<BybitOrderResponse>> AmendOrderAsync(
+    /// <summary>
+    /// Amend Order
+    /// Unified account covers: Spot / USDT perpetual / USDC contract / Inverse contract / Option
+    /// Classic account covers: Spot / USDT perpetual / Inverse contract
+    /// 
+    /// IMPORTANT
+    /// You can only modify unfilled or partially filled orders.
+    /// 
+    /// WEBSOCKET LOGIC FOR SPOT
+    /// Classic account: if the original Spot order is a PostOnly order, and after the modification, the order becomes a taker order, then you will receive orderStatus="New" ws message first, followed by orderStatus="Rejected" ws message.
+    /// Unified account: if the original Spot order is a PostOnly order, and after the modification, the order becomes a taker order, then you will directly receive orderStatus="Rejected" ws message.
+    /// </summary>
+    /// <param name="category">Product type
+    /// Unified account: linear, inverse, spot, option
+    /// Classic account: linear, inverse, spot</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="orderId">Order ID. Either orderId or clientOrderId is required</param>
+    /// <param name="clientOrderId">User customised order ID. Either orderId or clientOrderId is required</param>
+    /// <param name="orderIv">Implied volatility. option only. Pass the real value, e.g for 10%, 0.1 should be passed</param>
+    /// <param name="quantity">Order quantity after modification. Do not pass it if not modify the qty</param>
+    /// <param name="price">Order price after modification. Do not pass it if not modify the price</param>
+    /// <param name="triggerPrice">For Perps & Futures, it is the conditional order trigger price. If you expect the price to rise to trigger your conditional order, make sure:
+    /// triggerPrice > market price
+    /// Else, triggerPrice &lt; market price
+    /// For spot, it is the TP/SL and Conditional order trigger price</param>
+    /// <param name="triggerBy">Trigger price type</param>
+    /// <param name="takeProfitStopLossMode">TP/SL mode
+    /// Full: entire position for TP/SL. Then, tpOrderType or slOrderType must be Market
+    /// Partial: partial position tp/sl. Limit TP/SL order are supported. Note: When create limit tp/sl, tpslMode is required and it must be Partial
+    /// Valid for linear & inverse</param>
+    /// <param name="takeProfitTriggerBy">The price type to trigger take profit. When set a take profit, this param is required if no initial value for the order</param>
+    /// <param name="takeProfitPrice">Take profit price after modification. If pass "0", it means cancel the existing take profit of the order. Do not pass it if you do not want to modify the take profit. valid for spot(UTA), linear, inverse</param>
+    /// <param name="takeProfitLimitPrice">Limit order price when take profit is triggered. Only working when original order sets partial limit tp/sl. valid for spot(UTA), linear, inverse</param>
+    /// <param name="stopLossTriggerBy">The price type to trigger stop loss. When set a take profit, this param is required if no initial value for the order</param>
+    /// <param name="stopLossPrice">Stop loss price after modification. If pass "0", it means cancel the existing stop loss of the order. Do not pass it if you do not want to modify the stop loss. valid for spot(UTA), linear, inverse</param>
+    /// <param name="stopLossLimitPrice">Limit order price when stop loss is triggered. Only working when original order sets partial limit tp/sl. valid for spot(UTA), linear, inverse</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<BybitOrderId>> AmendOrderAsync(
         BybitCategory category,
         string symbol,
         string orderId = null,
         string clientOrderId = null,
 
-        decimal? orderImpliedVolatility = null,
-        decimal? triggerPrice = null,
+        decimal? orderIv = null,
         decimal? quantity = null,
         decimal? price = null,
 
-        decimal? takeProfitPrice = null,
-        decimal? stopLossPrice = null,
+        decimal? triggerPrice = null,
+        BybitTriggerPrice? triggerBy = null,
+        BybitTakeProfitStopLossMode? takeProfitStopLossMode = null,
 
         BybitTriggerPrice? takeProfitTriggerBy = null,
+        decimal? takeProfitPrice = null,
+        decimal? takeProfitLimitPrice = null,
+
         BybitTriggerPrice? stopLossTriggerBy = null,
-        BybitTriggerPrice? triggerBy = null,
+        decimal? stopLossPrice = null,
+        decimal? stopLossLimitPrice = null,
+
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -237,20 +284,45 @@ public class BybitRestApiTradeClient
         };
         parameters.AddOptionalParameter("orderId", orderId);
         parameters.AddOptionalParameter("orderLinkId", clientOrderId);
+        parameters.AddOptionalParameter("orderIv", orderIv?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("qty", quantity?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("price", price?.ToString(BybitConstants.BybitCultureInfo));
-        parameters.AddOptionalParameter("orderIv", orderImpliedVolatility?.ToString(BybitConstants.BybitCultureInfo));
-        parameters.AddOptionalParameter("triggerPrice", triggerPrice?.ToString(BybitConstants.BybitCultureInfo));
-        parameters.AddOptionalParameter("takeProfit", takeProfitPrice?.ToString(BybitConstants.BybitCultureInfo));
-        parameters.AddOptionalParameter("stopLoss", stopLossPrice?.ToString(BybitConstants.BybitCultureInfo));
-        parameters.AddOptionalParameter("tpTriggerBy", takeProfitTriggerBy?.GetLabel());
-        parameters.AddOptionalParameter("slTriggerBy", stopLossTriggerBy?.GetLabel());
-        parameters.AddOptionalParameter("triggerBy", triggerBy?.GetLabel());
 
-        return await MainClient.SendBybitRequest<BybitOrderResponse>(MainClient.GetUri(_v5OrderAmendEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        parameters.AddOptionalParameter("triggerPrice", triggerPrice?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("triggerBy", triggerBy?.GetLabel());
+        parameters.AddOptionalParameter("tpslMode", takeProfitStopLossMode?.GetLabel());
+
+        parameters.AddOptionalParameter("tpTriggerBy", takeProfitTriggerBy?.GetLabel());
+        parameters.AddOptionalParameter("takeProfit", takeProfitPrice?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("tpLimitPrice", takeProfitLimitPrice?.ToString(BybitConstants.BybitCultureInfo));
+
+        parameters.AddOptionalParameter("slTriggerBy", stopLossTriggerBy?.GetLabel());
+        parameters.AddOptionalParameter("stopLoss", stopLossPrice?.ToString(BybitConstants.BybitCultureInfo));
+        parameters.AddOptionalParameter("slLimitPrice", stopLossLimitPrice?.ToString(BybitConstants.BybitCultureInfo));
+
+        return await MainClient.SendBybitRequest<BybitOrderId>(MainClient.GetUri(_v5OrderAmendEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<BybitOrderResponse>> CancelOrderAsync(
+    /// <summary>
+    /// Cancel Order
+    /// Unified account covers: Spot / USDT perpetual / USDC contract / Inverse contract / Options
+    /// Classic account covers: Spot / USDT perpetual / Inverse contract
+    /// 
+    /// IMPORTANT
+    /// You must specify orderId or orderLinkId to cancel the order.
+    /// If orderId and orderLinkId do not match, the system will process orderId first.
+    /// You can only cancel unfilled or partially filled orders.
+    /// </summary>
+    /// <param name="category">Product type
+    /// Unified account: spot, linear, inverse, option
+    /// Classic account: spot, linear, inverse</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="orderId">Order ID. Either orderId or orderLinkId is required</param>
+    /// <param name="clientOrderId">User customised order ID. Either orderId or orderLinkId is required</param>
+    /// <param name="orderFilter">Valid for spot only. Order,tpslOrder,StopOrder. If not passed, Order by default</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<BybitOrderId>> CancelOrderAsync(
         BybitCategory category,
         string symbol,
         string orderId = null,
@@ -268,9 +340,49 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("orderLinkId", clientOrderId);
         parameters.AddOptionalParameter("orderFilter", orderFilter?.GetLabel());
 
-        return await MainClient.SendBybitRequest<BybitOrderResponse>(MainClient.GetUri(_v5OrderCancelEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitOrderId>(MainClient.GetUri(_v5OrderCancelEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Get Open Orders
+    /// Query unfilled or partially filled orders in real-time. To query older order records, please use the order history interface.
+    /// 
+    /// Unified account covers: Spot / USDT perpetual / USDC contract / Inverse contract / Options
+    /// Classic account covers: Spot / USDT perpetual / Inverse contract
+    /// 
+    /// TIP
+    /// This endpoint also allows for querying filled, canceled, and rejected orders to the most recent 500 orders for spot, linear, and option categories. The inverse category is not subject to this limitation.
+    /// You can query by symbol, baseCoin, orderId and orderLinkId, and if you pass multiple params, the system will process them according to this priority: orderId > orderLinkId > symbol > baseCoin.
+    /// The records are sorted by the createdTime from newest to oldest.
+    /// 
+    /// INFO
+    /// Classic account spot can return open orders only
+    /// After a server release or restart, filled, canceled, and rejected orders of Unified account should only be queried through order history.
+    /// </summary>
+    /// <param name="category">Product type
+    /// Unified account: spot, linear, inverse, option
+    /// Classic account: spot, linear, inverse</param>
+    /// <param name="symbol">Symbol name. For linear, either symbol, baseCoin, settleCoin is required</param>
+    /// <param name="baseAsset">Base coin
+    /// Supports linear, inverse & option
+    /// option: it returns all option open orders by default</param>
+    /// <param name="settleAsset">Settle coin
+    /// linear: either symbol, baseCoin or settleCoin is required
+    /// spot: not supported</param>
+    /// <param name="orderId">Order ID</param>
+    /// <param name="clientOrderId">User customised order ID</param>
+    /// <param name="openOnly">Unified account & Classic account: 0(default) - query open orders only
+    /// Unified account - spot / linear / option: 1
+    /// Unified account - inverse & Classic account - linear / inverse: 2
+    /// return cancelled, rejected or totally filled orders, a maximum of 500 records are kept under each account. If the Bybit service is restarted due to an update, this part of the data will be cleared and accumulated again, but the order records will still be queried in order history
+    /// Classic spot: not supported</param>
+    /// <param name="orderFilter">Order: active order, StopOrder: conditional order for Futures and Spot, tpslOrder: spot TP/SL order, OcoOrder: Spot oco order, BidirectionalTpslOrder: Spot bidirectional TPSL order
+    /// Classic account spot: return Order active order by default
+    /// Others: all kinds of orders by default</param>
+    /// <param name="limit">Limit for data size per page. [1, 50]. Default: 20</param>
+    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public async Task<RestCallResult<BybitCursorResponse<BybitOrder>>> GetOpenOrdersAsync(
         BybitCategory category,
         string symbol = null,
@@ -302,7 +414,7 @@ public class BybitRestApiTradeClient
         return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.GetUri(_v5OrderRealtimeEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<IEnumerable<BybitOrderResponse>>> CancelAllOrdersAsync(
+    public async Task<RestCallResult<IEnumerable<BybitOrderId>>> CancelAllOrdersAsync(
         BybitCategory category,
         string symbol = null,
         string baseAsset = null,
@@ -319,8 +431,8 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("settleCoin", settleAsset);
         parameters.AddOptionalParameter("orderFilter", orderFilter?.GetLabel());
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitOrderResponse>>(MainClient.GetUri(_v5OrderCancelAllEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitOrderResponse>>(null);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitOrderId>>(MainClient.GetUri(_v5OrderCancelAllEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<IEnumerable<BybitOrderId>>(null);
         return result.As(result.Data.Payload);
     }
 

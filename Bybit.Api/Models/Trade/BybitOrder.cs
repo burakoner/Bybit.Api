@@ -2,6 +2,7 @@
 
 public class BybitOrder
 {
+    ------------
     public string OrderId { get; set; }
     [JsonProperty("orderLinkId")]
     public string ClientOrderId { get; set; }
