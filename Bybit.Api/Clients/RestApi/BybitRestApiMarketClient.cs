@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitMarketRestApiClient
+public class BybitRestApiMarketClient
 {
     // Market Endpoints
     protected const string v3PublicTimeEndpoint = "v5/public/time";
@@ -23,10 +23,10 @@ public class BybitMarketRestApiClient
     protected const string v5MarketAccountRatioEndpoint = "/v5/market/account-ratio"; // TODO
 
     // Internal
-    internal BaseRestApiClient MainClient { get; }
+    internal BybitRestApiBaseClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitMarketRestApiClient(BybitRestApiClient root)
+    internal BybitRestApiMarketClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }

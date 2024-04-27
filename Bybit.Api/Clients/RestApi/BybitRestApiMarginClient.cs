@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitMarginRestApiClient
+public class BybitRestApiMarginClient
 {
     // Spot Margin Trade (UTA) Endpoints
     protected const string v5SpotMarginTradeDataModeEndpoint = "v5/spot-margin-trade/data"; // TODO
@@ -11,10 +11,10 @@ public class BybitMarginRestApiClient
     protected const string v5SpotMarginTradeDataStateEndpoint = "v5/spot-margin-trade/state"; // TODO
 
     // Internal
-    internal BaseRestApiClient MainClient { get; }
+    internal BybitRestApiBaseClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitMarginRestApiClient(BybitRestApiClient root)
+    internal BybitRestApiMarginClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }

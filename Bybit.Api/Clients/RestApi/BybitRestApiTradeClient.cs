@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitTradeRestApiClient
+public class BybitRestApiTradeClient
 {
     // Trade Endpoints
     protected const string v5OrderCreateEndpoint = "v5/order/create";
@@ -19,10 +19,10 @@ public class BybitTradeRestApiClient
     protected const string v5OrderDisconnectedCancelAllEndpoint = "v5/order/disconnected-cancel-all";
 
     // Internal
-    internal BaseRestApiClient MainClient { get; }
+    internal BybitRestApiBaseClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitTradeRestApiClient(BybitRestApiClient root)
+    internal BybitRestApiTradeClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }

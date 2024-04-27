@@ -1,53 +1,113 @@
 ﻿namespace Bybit.Api;
 
+/// <summary>
+/// Bybit Rest API Client
+/// </summary>
 public class BybitRestApiClient
 {
     // Internal
     internal ILogger Logger { get; }
-    internal BaseRestApiClient MainClient { get; }
+    internal BybitRestApiBaseClient MainClient { get; }
     internal BybitRestApiClientOptions ClientOptions { get; }
     internal CultureInfo CI { get; } = CultureInfo.InvariantCulture;
 
-    // Section Clients
-    public BybitMarketRestApiClient Market { get; }
-    public BybitTradeRestApiClient Trade { get; }
-    public BybitPositionRestApiClient Position { get; }
+    /// <summary>
+    /// Market Client
+    /// </summary>
+    public BybitRestApiMarketClient Market { get; }
+
+    /// <summary>
+    /// Trade Client
+    /// </summary>
+    public BybitRestApiTradeClient Trade { get; }
+
+    /// <summary>
+    /// Position Client
+    /// </summary>
+    public BybitRestApiPositionClient Position { get; }
+
     // TODO: Pre-Upgrade
-    public BybitAccountRestApiClient Account { get; }
-    public BybitAssetRestApiClient Asset { get; }
-    public BybitUserRestApiClient User { get; }
-    public BybitLeveragedTokensRestApiClient LeveragedTokens { get; }
-    public BybitMarginRestApiClient Margin { get; }
-    public BybitLendingRestApiClient Lending { get; }
+
+    /// <summary>
+    /// Account Client
+    /// </summary>
+    public BybitRestApiAccountClient Account { get; }
+
+    /// <summary>
+    /// Asset Client
+    /// </summary>
+    public BybitRestApiAssetClient Asset { get; }
+
+    /// <summary>
+    /// User Client
+    /// </summary>
+    public BybitRestApiUserClient User { get; }
+
+    /// <summary>
+    /// Leveraged Tokens Client
+    /// </summary>
+    public BybitRestApiLeveragedTokensClient LeveragedTokens { get; }
+
+    /// <summary>
+    /// Margin Client
+    /// </summary>
+    public BybitRestApiMarginClient Margin { get; }
+
+    /// <summary>
+    /// Lending Client
+    /// </summary>
+    public BybitRestApiLendingClient Lending { get; }
+
     // TODO: Broker
 
+    /// <summary>
+    /// Create a new instance of the Bybit Rest API Client
+    /// </summary>
     public BybitRestApiClient() : this(null, new BybitRestApiClientOptions())
     {
     }
 
+    /// <summary>
+    /// Create a new instance of the Bybit Rest API Client
+    /// </summary>
+    /// <param name="options"></param>
     public BybitRestApiClient(BybitRestApiClientOptions options) : this(null, options)
     {
     }
 
+    /// <summary>
+    /// Create a new instance of the Bybit Rest API Client
+    /// </summary>
+    /// <param name="logger"></param>
+    /// <param name="options"></param>
     public BybitRestApiClient(ILogger logger, BybitRestApiClientOptions options)
     {
         this.ClientOptions = options;
-        this.MainClient = new BaseRestApiClient(this);
+        this.MainClient = new BybitRestApiBaseClient(this);
 
-        this.User = new BybitUserRestApiClient(this);
-        this.Account = new BybitAccountRestApiClient(this);
-        this.Asset = new BybitAssetRestApiClient(this);
-        this.Market = new BybitMarketRestApiClient(this);
-        this.Trade = new BybitTradeRestApiClient(this);
-        this.Position = new BybitPositionRestApiClient(this);
-        this.LeveragedTokens = new BybitLeveragedTokensRestApiClient(this);
-        this.Margin = new BybitMarginRestApiClient(this);
-        this.Lending = new BybitLendingRestApiClient(this);
+        this.User = new BybitRestApiUserClient(this);
+        this.Account = new BybitRestApiAccountClient(this);
+        this.Asset = new BybitRestApiAssetClient(this);
+        this.Market = new BybitRestApiMarketClient(this);
+        this.Trade = new BybitRestApiTradeClient(this);
+        this.Position = new BybitRestApiPositionClient(this);
+        this.LeveragedTokens = new BybitRestApiLeveragedTokensClient(this);
+        this.Margin = new BybitRestApiMarginClient(this);
+        this.Lending = new BybitRestApiLendingClient(this);
     }
 
+    /// <summary>
+    /// Set the API Credentials
+    /// </summary>
+    /// <param name="credentials"></param>
     public void SetApiCredentials(ApiCredentials credentials)
         => this.MainClient.SetApiCredentials(credentials);
 
+    /// <summary>
+    /// Set the API Credentials
+    /// </summary>
+    /// <param name="apiKey"></param>
+    /// <param name="apiSecret"></param>
     public void SetApiCredentials(string apiKey, string apiSecret)
         => this.SetApiCredentials(new ApiCredentials(apiKey, apiSecret));
 }

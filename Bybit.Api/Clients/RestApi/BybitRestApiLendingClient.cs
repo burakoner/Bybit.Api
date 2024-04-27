@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitLendingRestApiClient
+public class BybitRestApiLendingClient
 {
     // Institutional Lending Endpoints
     protected const string v5InsLoanProductInfosEndpoint = "v5/ins-loan/product-infos";
@@ -14,10 +14,10 @@ public class BybitLendingRestApiClient
     protected const string v5InsLoanAssociationUidEndpoint = "v5/ins-loan/association-uid"; // TODO
 
     // Internal
-    internal BaseRestApiClient MainClient { get; }
+    internal BybitRestApiBaseClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitLendingRestApiClient(BybitRestApiClient root)
+    internal BybitRestApiLendingClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }

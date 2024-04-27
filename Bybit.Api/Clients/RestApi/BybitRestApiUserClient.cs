@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitUserRestApiClient
+public class BybitRestApiUserClient
 {
     // User Endpoints
     protected const string v5UserCreateSubMemberEndpoint = "v5/user/create-sub-member";
@@ -21,10 +21,10 @@ public class BybitUserRestApiClient
     protected const string v5UserAffCustomerInfoEndpoint = "v5/user/aff-customer-info"; // TODO
 
     // Internal
-    internal BaseRestApiClient MainClient { get; }
+    internal BybitRestApiBaseClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitUserRestApiClient(BybitRestApiClient root)
+    internal BybitRestApiUserClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }

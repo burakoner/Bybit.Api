@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitLeveragedTokensRestApiClient
+public class BybitRestApiLeveragedTokensClient
 {
     // Spot Leverage Token Endpoints
     protected const string v5SpotLeverTokenInfoEndpoint = "v5/spot-lever-token/info";
@@ -12,10 +12,10 @@ public class BybitLeveragedTokensRestApiClient
     protected const string v5SpotLeverTokenOrderRecordEndpoint = "v5/spot-lever-token/order-record";
 
     // Internal
-    internal BaseRestApiClient MainClient { get; }
+    internal BybitRestApiBaseClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitLeveragedTokensRestApiClient(BybitRestApiClient root)
+    internal BybitRestApiLeveragedTokensClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }

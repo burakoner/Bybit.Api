@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitAssetRestApiClient
+public class BybitRestApiAssetClient
 {
     // Asset Endpoints
     protected const string v5AssetExchangeOrderRecordEndpoint = "v5/asset/exchange/order-record";
@@ -31,10 +31,10 @@ public class BybitAssetRestApiClient
     protected const string v5AssetWithdrawCancelEndpoint = "v5/asset/withdraw/cancel";
 
     // Internal
-    internal BaseRestApiClient MainClient { get; }
+    internal BybitRestApiBaseClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitAssetRestApiClient(BybitRestApiClient root)
+    internal BybitRestApiAssetClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }

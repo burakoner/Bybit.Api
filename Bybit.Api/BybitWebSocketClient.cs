@@ -2,6 +2,9 @@
 
 namespace Bybit.Api;
 
+/// <summary>
+/// Bybit WebSocket Client
+/// </summary>
 public class BybitWebSocketClient : WebSocketApiClient
 {
     internal bool IsAuthendicated { get; private set; }

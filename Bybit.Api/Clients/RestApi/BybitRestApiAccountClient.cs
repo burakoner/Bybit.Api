@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitAccountRestApiClient
+public class BybitRestApiAccountClient
 {
     // Account Endpoints
     protected const string v5AccountWalletBalanceEndpoint = "v5/account/wallet-balance";
@@ -25,10 +25,10 @@ public class BybitAccountRestApiClient
     protected const string v5AccountMmpStateEndpoint = "v5/account/mmp-state";
 
     // Internal
-    internal BaseRestApiClient MainClient { get; }
+    internal BybitRestApiBaseClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitAccountRestApiClient(BybitRestApiClient root)
+    internal BybitRestApiAccountClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }

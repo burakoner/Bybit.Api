@@ -1,30 +1,49 @@
 ﻿namespace Bybit.Api;
 
+/// <summary>
+/// Bybit Rest API Client Options
+/// </summary>
 public class BybitRestApiClientOptions : RestApiClientOptions
 {
-    // Receive Window
+    /// <summary>
+    /// Receive Window 
+    /// </summary>
     public TimeSpan ReceiveWindow { get; set; }
 
-    // Auto Timestamp
+    /// <summary>
+    /// Auto Timestamp
+    /// </summary>
     public bool AutoTimestamp { get; set; }
+
+    /// <summary>
+    /// Auto Timestamp Recalculation Interval
+    /// </summary>
     public TimeSpan TimestampRecalculationInterval { get; set; }
 
-    // Demo
-    public bool DemoTradingService { get; set; } = false;
+    /// <summary>
+    /// Sign Public Requests
+    /// </summary>
     public bool SignPublicRequests { get; set; } = false;
 
+    /// <summary>
+    /// Creates an instance of Bybit Rest API Client Options
+    /// </summary>
     public BybitRestApiClientOptions() : this(null)
     {
-        BaseAddress = BybitApiAddresses.MainNet.RestApiAddress;
+        BaseAddress = BybitAddress.MainNet.RestApiAddress;
     }
 
+    /// <summary>
+    /// Creates an instance of Bybit Rest API Client Options
+    /// </summary>
+    /// <param name="credentials"></param>
     public BybitRestApiClientOptions(ApiCredentials credentials)
     {
         // API Credentials
         ApiCredentials = credentials;
 
         // Api Addresses
-        BaseAddress = BybitApiAddresses.MainNet.RestApiAddress;
+        BaseAddress = BybitAddress.MainNet.RestApiAddress;
 
         // Receive Window
         ReceiveWindow = TimeSpan.FromSeconds(30);

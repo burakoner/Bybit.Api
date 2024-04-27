@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitPositionRestApiClient
+public class BybitRestApiPositionClient
 {
     // Position Endpoints
     protected const string v5PositionListEndpoint = "v5/position/list";
@@ -20,10 +20,10 @@ public class BybitPositionRestApiClient
     protected const string v5PositionConfirmPendingMmrEndpoint = "v5/position/confirm-pending-mmr"; // TODO
 
     // Internal
-    internal BaseRestApiClient MainClient { get; }
+    internal BybitRestApiBaseClient MainClient { get; }
     internal CultureInfo CI { get { return MainClient.CI; } }
 
-    internal BybitPositionRestApiClient(BybitRestApiClient root)
+    internal BybitRestApiPositionClient(BybitRestApiClient root)
     {
         this.MainClient = root.MainClient;
     }
