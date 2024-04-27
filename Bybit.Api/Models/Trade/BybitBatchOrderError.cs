@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Trading;
+﻿namespace Bybit.Api.Models.Trade;
 
 public class BybitBatchOrderError
 {

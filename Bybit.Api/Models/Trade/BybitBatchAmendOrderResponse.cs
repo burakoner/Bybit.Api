@@ -1,6 +1,6 @@
-﻿namespace Bybit.Api.Models.Trading;
+﻿namespace Bybit.Api.Models.Trade;
 
-public class BybitBatchCancelOrderResponse
+public class BybitBatchAmendOrderResponse
 {
     [JsonProperty("orderId")]
     public string OrderId { get; set; }

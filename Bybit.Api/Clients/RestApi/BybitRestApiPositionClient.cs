@@ -1,4 +1,4 @@
-﻿using Bybit.Api.Models.Trading;
+﻿using Bybit.Api.Models.Trade;
 
 namespace Bybit.Api.Clients.RestApi;
 
