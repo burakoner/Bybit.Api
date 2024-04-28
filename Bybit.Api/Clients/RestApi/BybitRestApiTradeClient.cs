@@ -613,7 +613,25 @@ public class BybitRestApiTradeClient
         return await MainClient.SendBybitRequest<BybitCursorResponse<BybitExecution>>(MainClient.GetUri(_v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchOrderError>>>> PlaceBatchOrdersAsync(
+    /// <summary>
+    /// Batch Place Order
+    /// Covers: Spot (UTA, UTA Pro) / Option (UTA, UTA Pro) / USDT Perpetual, USDC Perpetual, USDC Futures (UTA Pro)
+    /// 
+    /// TIP
+    /// This endpoint allows you to place more than one order in a single request.
+    /// - Make sure you have sufficient funds in your account when placing an order. Once an order is placed, according to the funds required by the order, the funds in your account will be frozen by the corresponding amount during the life cycle of the order.
+    /// - A maximum of 20 orders (option) & 10 orders (linear) & 10 orders (spot) can be placed per request. The returned data list is divided into two lists. The first list indicates whether or not the order creation was successful and the second list details the created order information. The structure of the two lists are completely consistent.
+    /// 
+    /// INFO
+    /// Check the rate limit instruction when category=linear or spot here
+    /// Risk control limit notice:
+    /// Bybit will monitor on your API requests. When the total number of orders of a single user (aggregated the number of orders across main account and sub-accounts) within a day (UTC 0 - UTC 24) exceeds a certain upper limit, the platform will reserve the right to remind, warn, and impose necessary restrictions. Customers who use API default to acceptance of these terms and have the obligation to cooperate with adjustments.
+    /// </summary>
+    /// <param name="category">Product type. linear, option, spot</param>
+    /// <param name="requests">Order Requests</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchError>>>> PlaceBatchOrdersAsync(
         BybitCategory category,
         IEnumerable<BybitBatchPlaceOrderRequest> requests,
         CancellationToken ct = default)
@@ -624,16 +642,16 @@ public class BybitRestApiTradeClient
             { "request", requests },
         };
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchPlaceOrderResponse>, BybitListResponse<BybitBatchOrderError>>(MainClient.GetUri(_v5OrderCreateBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchOrderError>>>(null);
-        return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchOrderError>>
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchPlaceOrderResponse>, BybitListResponse<BybitBatchError>>(MainClient.GetUri(_v5OrderCreateBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchError>>>(null);
+        return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchError>>
         {
             Result = result.Data.Result.Payload,
             ReturnExtraInfo = result.Data.ReturnExtraInfo.Payload
         });
     }
 
-    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchOrderError>>>> AmendBatchOrdersAsync(
+    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchError>>>> AmendBatchOrdersAsync(
         BybitCategory category,
         IEnumerable<BybitBatchAmendOrderRequest> requests,
         CancellationToken ct = default)
@@ -644,16 +662,16 @@ public class BybitRestApiTradeClient
             { "request", requests },
         };
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchAmendOrderResponse>, BybitListResponse<BybitBatchOrderError>>(MainClient.GetUri(_v5OrderAmendBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchOrderError>>>(null);
-        return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchOrderError>>
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchAmendOrderResponse>, BybitListResponse<BybitBatchError>>(MainClient.GetUri(_v5OrderAmendBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchError>>>(null);
+        return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchError>>
         {
             Result = result.Data.Result.Payload,
             ReturnExtraInfo = result.Data.ReturnExtraInfo.Payload
         });
     }
 
-    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchOrderError>>>> CancelBatchOrdersAsync(
+    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchError>>>> CancelBatchOrdersAsync(
         BybitCategory category,
         IEnumerable<BybitBatchCancelOrderRequest> requests,
         CancellationToken ct = default)
@@ -664,9 +682,9 @@ public class BybitRestApiTradeClient
             { "request", requests },
         };
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchCancelOrderResponse>, BybitListResponse<BybitBatchOrderError>>(MainClient.GetUri(_v5OrderCancelBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchOrderError>>>(null);
-        return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchOrderError>>
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchCancelOrderResponse>, BybitListResponse<BybitBatchError>>(MainClient.GetUri(_v5OrderCancelBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchError>>>(null);
+        return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchError>>
         {
             Result = result.Data.Result.Payload,
             ReturnExtraInfo = result.Data.ReturnExtraInfo.Payload

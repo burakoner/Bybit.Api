@@ -11,6 +11,7 @@ global using ApiSharp.Throttling.Interfaces;
 global using ApiSharp.WebSocket;
 global using Bybit.Api.Authentication;
 global using Bybit.Api.Clients.RestApi;
+global using Bybit.Api.Converters;
 global using Bybit.Api.Enums;
 global using Bybit.Api.Helpers;
 global using Bybit.Api.Models;
