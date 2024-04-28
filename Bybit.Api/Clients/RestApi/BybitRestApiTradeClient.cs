@@ -1,8 +1,4 @@
 ﻿using Bybit.Api.Models.Trade;
-using Microsoft.Extensions.Options;
-using System;
-using System.Net;
-using System.Numerics;
 
 namespace Bybit.Api.Clients.RestApi;
 
@@ -414,12 +410,46 @@ public class BybitRestApiTradeClient
         return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.GetUri(_v5OrderRealtimeEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<IEnumerable<BybitOrderId>>> CancelAllOrdersAsync(
+    /// <summary>
+    /// Cancel all open orders
+    /// Unified account covers: Spot / USDT perpetual / USDC contract / Inverse contract / Options
+    /// Classic account covers: Spot / USDT perpetual / Inverse contract
+    /// 
+    /// INFO
+    /// Support cancel orders by symbol/baseCoin/settleCoin. If you pass multiple of these params, the system will process one of param, which priority is symbol > baseCoin > settleCoin.
+    /// NOTE: category=option, you can cancel all option open orders without passing any of those three params. However, for linear and inverse, you must specify one of those three params
+    /// NOTE: category=spot, you can cancel all spot open orders (normal order by default) without passing other params.
+    /// 
+    /// INFO
+    /// Spot: Classic account - cancel up to 500 orders; Unified account - no limit
+    /// Futures: Classic account - cancel up to 500 orders; Unified account - cancel up to 500 orders
+    /// Options: Unified account - no limit
+    /// </summary>
+    /// <param name="category">Product type
+    /// Unified account: spot, linear, inverse, option
+    /// Classic account: spot, linear, inverse</param>
+    /// <param name="symbol">Symbol name. linear & inverse: Required if not passing baseCoin or settleCoin</param>
+    /// <param name="baseAsset">Base coin
+    /// linear &amp; inverse(Classic account): If cancel all by baseCoin, it will cancel all linear & inverse orders. Required if not passing symbol or settleCoin
+    /// linear &amp; inverse(Unified account): If cancel all by baseCoin, it will cancel all corresponding category orders. Required if not passing symbol or settleCoin
+    /// Classic spot: invalid</param>
+    /// <param name="settleAsset">Settle coin
+    /// linear &amp; inverse: Required if not passing symbol or baseCoin
+    /// Does not support spot</param>
+    /// <param name="orderFilter">category=spot, you can pass Order, tpslOrder, StopOrder, OcoOrder, BidirectionalTpslOrder. If not passed, Order by default
+    /// category=linear or inverse, you can pass Order, StopOrder. If not passed, all kinds of orders will be cancelled, like active order, conditional order, TP/SL order and trailing stop order
+    /// category=option, you can pass Order. No matter it is passed or not, always cancel all orders</param>
+    /// <param name="stopOrderType">Stop order type Stop
+    /// Only used for category=linear or inverse and orderFilter=StopOrder,you can cancel conditional orders except TP/SL order and Trailing stop orders with this param</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<IEnumerable<BybitOrderId>>> CancelOrdersAsync(
         BybitCategory category,
         string symbol = null,
         string baseAsset = null,
         string settleAsset = null,
         BybitOrderFilter? orderFilter = null,
+        BybitStopOrderType? stopOrderType = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -430,22 +460,67 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("baseCoin", baseAsset);
         parameters.AddOptionalParameter("settleCoin", settleAsset);
         parameters.AddOptionalParameter("orderFilter", orderFilter?.GetLabel());
+        parameters.AddOptionalParameter("stopOrderType", stopOrderType?.GetLabel());
 
         var result = await MainClient.SendBybitRequest<BybitListResponse<BybitOrderId>>(MainClient.GetUri(_v5OrderCancelAllEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitOrderId>>(null);
         return result.As(result.Data.Payload);
     }
 
+    /// <summary>
+    /// Get Order History
+    /// Query order history. As order creation/cancellation is asynchronous, the data returned from this endpoint may delay. If you want to get real-time order information, you could query this endpoint or rely on the websocket stream (recommended).
+    /// 
+    /// Unified account covers: Spot / USDT perpetual / USDC contract / Inverse contract / Options
+    /// Classic account covers: Spot / USDT perpetual / Inverse contract
+    /// 
+    /// TIP
+    /// The orders in the last 7 days: UTA(linear,spot,option) supports querying all closed status except "Cancelled", "Rejected", "Deactivated" status, UTA(inverse) and Classic account supports querying all status
+    /// 24 hours: UTA(linear,spot,option) for the orders with "Cancelled" (fully cancelled order), "Rejected", "Deactivated" can query last 24 hours data
+    /// The orders beyond 7 days: supports querying orders which have fills only, i.e., fully filled, partial filled but cancelled finally orders can be queried.
+    /// You can query by symbol, baseCoin, orderId and orderLinkId, and if you pass multiple params, the system will process them according to this priority: orderId > orderLinkId > symbol > baseCoin.
+    /// 
+    /// INFO
+    /// Classic Spot: can get closed order status only
+    /// Classic Spot: market maker can only get recent 3 days order history, please go to web to export. Retail client can get up to 180 days data
+    /// Classic Spot: Cancelled, Rejected, Deactivated orders save up to 7 days
+    /// Unified account (linear, spot, option) supports getting the past 730 days historical data
+    /// </summary>
+    /// <param name="category">Product type
+    /// Unified account: spot, linear, inverse, option
+    /// Classic account: spot, linear, inverse</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="baseAsset">Base coin. Unified account - inverse & Classic account does not support this param</param>
+    /// <param name="settleAsset">Settle coin. Unified account - inverse & Classic account does not support this param</param>
+    /// <param name="orderId">Order ID</param>
+    /// <param name="clientOrderId">User customised order ID</param>
+    /// <param name="orderFilter">Order: active order, StopOrder: conditional order for Futures and Spot, tpslOrder: spot TP/SL order, OcoOrder: Spot OCO orders, BidirectionalTpslOrder: Bidirectional TPSL order
+    /// Classic account spot: return Order active order by default
+    /// Others: all kinds of orders by default</param>
+    /// <param name="orderStatus">Classic spot: not supported
+    /// UTA(linear,spot,option): return all closed status orders if not passed
+    /// UTA(inverse) and classic account: return all status orders if not passed</param>
+    /// <param name="startTime">The start timestamp (ms). Classic spot trading does not support startTime and endTime
+    /// startTime and endTime are not passed, return 7 days by default
+    /// Only startTime is passed, return range between startTime and startTime+7 days
+    /// Only endTime is passed, return range between endTime-7 days and endTime
+    /// If both are passed, the rule is endTime - startTime <= 7 days</param>
+    /// <param name="endTime">The end timestamp (ms)</param>
+    /// <param name="limit">Limit for data size per page. [1, 50]. Default: 20</param>
+    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public async Task<RestCallResult<BybitCursorResponse<BybitOrder>>> GetOrderHistoryAsync(
         BybitCategory category,
         string symbol = null,
         string baseAsset = null,
+        string settleAsset = null,
         string orderId = null,
         string clientOrderId = null,
         BybitOrderFilter? orderFilter = null,
         BybitOrderStatus? orderStatus = null,
-        long? startTimestamp = null,
-        long? endTimestamp = null,
+        long? startTime = null,
+        long? endTime = null,
         int? limit = null,
         string cursor = null,
         CancellationToken ct = default)
@@ -457,24 +532,61 @@ public class BybitRestApiTradeClient
         };
         parameters.AddOptionalParameter("symbol", symbol);
         parameters.AddOptionalParameter("baseCoin", baseAsset);
+        parameters.AddOptionalParameter("settleCoin", settleAsset);
         parameters.AddOptionalParameter("orderId", orderId);
         parameters.AddOptionalParameter("orderLinkId", clientOrderId);
         parameters.AddOptionalParameter("orderFilter", orderFilter?.GetLabel());
         parameters.AddOptionalParameter("orderStatus", orderStatus?.GetLabel());
-        parameters.AddOptionalParameter("startTime", startTimestamp);
-        parameters.AddOptionalParameter("endTime", endTimestamp);
+        parameters.AddOptionalParameter("startTime", startTime);
+        parameters.AddOptionalParameter("endTime", endTime);
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
         return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.GetUri(_v5OrderHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<BybitCursorResponse<BybitUserTrade>>> GetTradeHistoryAsync(
+    /// <summary>
+    /// Get Trade History
+    /// Query users' execution records, sorted by execTime in descending order. However, for Classic spot, they are sorted by execId in descending order.
+    /// 
+    /// Unified account covers: Spot / USDT perpetual / USDC contract / Inverse contract / Options
+    /// Classic account covers: Spot / USDT perpetual / Inverse contract
+    /// 
+    /// TIP
+    /// Response items will have sorting issues When 'execTime' is the same, it is recommended to sort according to execId+OrderId+leavesQty. This issue is currently being optimized and will be released. If you want to receive real-time execution information, Use the websocket stream (recommended).
+    /// You may have multiple executions in a single order.
+    /// You can query by symbol, baseCoin, orderId and orderLinkId, and if you pass multiple params, the system will process them according to this priority: orderId > orderLinkId > symbol > baseCoin.
+    /// 
+    /// INFO
+    /// Classic Spot supports getting the past 180 days historical data
+    /// Unified account (linear, spot, option) supports getting the past 730 days historical data
+    /// </summary>
+    /// <param name="category">Product type
+    /// Unified account: spot, linear, inverse, option
+    /// Classic account: spot, linear, inverse</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="orderId">Order ID</param>
+    /// <param name="clientOrderId">User customised order ID. Classic account does not support this param</param>
+    /// <param name="baseAsset">Base coin. Unified account - inverse and Classic account do not support this param</param>
+    /// <param name="startTime">The start timestamp (ms)
+    /// Classic Spot: supports the interval up to 180 days
+    /// Others:
+    /// - startTime and endTime are not passed, return 7 days by default;
+    /// - Only startTime is passed, return range between startTime and startTime+7 days;
+    /// - Only endTime is passed, return range between endTime-7 days and endTime;
+    /// - If both are passed, the rule is endTime - startTime <= 7 days</param>
+    /// <param name="endTime">The end timestamp (ms)</param>
+    /// <param name="executionType">Execution type. Classic spot is not supported</param>
+    /// <param name="limit">Limit for data size per page. [1, 100]. Default: 50</param>
+    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<BybitCursorResponse<BybitExecution>>> GetTradeHistoryAsync(
         BybitCategory category,
         string symbol = null,
-        string baseAsset = null,
         string orderId = null,
         string clientOrderId = null,
+        string baseAsset = null,
         long? startTime = null,
         long? endTime = null,
         BybitExecutionType? executionType = null,
@@ -482,6 +594,7 @@ public class BybitRestApiTradeClient
         string cursor = null,
         CancellationToken ct = default)
     {
+        limit?.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>()
         {
             { "category", category.GetLabel() },
@@ -497,7 +610,7 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitUserTrade>>(MainClient.GetUri(_v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitExecution>>(MainClient.GetUri(_v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchOrderError>>>> PlaceBatchOrdersAsync(

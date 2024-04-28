@@ -13,7 +13,7 @@ public class BybitLiquidationStream
     public BybitOrderSide Side { get; set; }
 
     [JsonProperty("size")]
-    public decimal Size { get; set; }
+    public decimal Quantity { get; set; }
 
     [JsonProperty("price")]
     public decimal Price { get; set; }

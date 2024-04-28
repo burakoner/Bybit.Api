@@ -16,4 +16,10 @@ public enum BybitOrderType
     /// </summary>
     [Label("Market")]
     Market,
+
+    /// <summary>
+    /// Unknwn is not a valid request parameter value. Is only used in some responses. Mainly, it is used when execType is Funding.
+    /// </summary>
+    [Label("UNKNOWN")]
+    Unknown,
 }

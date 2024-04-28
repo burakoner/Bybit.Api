@@ -73,13 +73,13 @@ public class BybitFuturesTickerStream
     public decimal BestBidPrice { get; set; }
 
     [JsonProperty("bid1Size")]
-    public decimal BestBidSize { get; set; }
+    public decimal BestBidQuantity { get; set; }
 
     [JsonProperty("ask1Price")]
     public decimal BestAskPrice { get; set; }
 
     [JsonProperty("ask1Size")]
-    public decimal BestAskSize { get; set; }
+    public decimal BestAskQuantity { get; set; }
 }
 
 public class BybitOptionTickerStream
@@ -90,7 +90,7 @@ public class BybitOptionTickerStream
     public decimal BestBidPrice { get; set; }
 
     [JsonProperty("bidSize")]
-    public decimal BestBidSize { get; set; }
+    public decimal BestBidQuantity { get; set; }
 
     [JsonProperty("bidIv")]
     public decimal BestBidIv { get; set; }
@@ -99,7 +99,7 @@ public class BybitOptionTickerStream
     public decimal BestAskPrice { get; set; }
 
     [JsonProperty("askSize")]
-    public decimal BestAskSize { get; set; }
+    public decimal BestAskQuantity { get; set; }
 
     [JsonProperty("askIv")]
     public decimal BestAskIv { get; set; }

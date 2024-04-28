@@ -119,10 +119,10 @@ internal class Program
                     Console.WriteLine($"[ ORDERBOOK ] " +
                         $" {data.Data.StreamType} " +
                         $" {data.Data.Symbol} " +
-                        $" BAP:{(ask != null ? ask.Price.ToString() : "")} " +
-                        $" BAS:{(ask != null ? ask.Size.ToString() : "")} " +
-                        $" BBP:{(bid != null ? bid.Price.ToString() : "")} " +
-                        $" BBS:{(bid != null ? bid.Size.ToString() : "")} " +
+                        $" BAP:{(ask != null ? ask.Price : "")} " +
+                        $" BAS:{(ask != null ? ask.Quantity : "")} " +
+                        $" BBP:{(bid != null ? bid.Price : "")} " +
+                        $" BBS:{(bid != null ? bid.Quantity : "")} " +
                         $" U:{data.Data.UpdateId} " +
                         $" S:{data.Data.CrossSequence} ");
                 }

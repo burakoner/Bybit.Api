@@ -67,5 +67,5 @@ public class BybitOrderbookRow
     /// Size
     /// </summary>
     [ArrayProperty(1)]
-    public decimal Size { get; set; }
+    public decimal Quantity { get; set; }
 }

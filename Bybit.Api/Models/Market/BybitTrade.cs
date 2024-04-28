@@ -24,7 +24,8 @@ public class BybitTrade
     /// <summary>
     /// Quantity of the trade
     /// </summary>
-    public decimal Size { get; set; }
+    [JsonProperty("size")]
+    public decimal Quantity { get; set; }
 
     /// <summary>
     /// Side

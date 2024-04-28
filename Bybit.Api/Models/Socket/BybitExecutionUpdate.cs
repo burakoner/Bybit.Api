@@ -65,5 +65,7 @@ public class BybitExecutionUpdate
     public decimal? IndexPrice { get; set; }
     public decimal? UnderlyingPrice { get; set; }
     public string BlockTradeId { get; set; }
-    public decimal? ClosedSize { get; set; }
+
+    [JsonProperty("closedSize")]
+    public decimal? ClosedQuantity { get; set; }
 }

@@ -22,4 +22,16 @@ public enum BybitOrderFilter
     /// </summary>
     [Label("StopOrder")]
     StopOrder,
+
+    /// <summary>
+    /// OCO Order
+    /// </summary>
+    [Label("OcoOrder")]
+    OcoOrder,
+
+    /// <summary>
+    /// Bidirectional Take Profit Stop Loss Order
+    /// </summary>
+    [Label("BidirectionalTpslOrder")]
+    BidirectionalTpslOrder,
 }

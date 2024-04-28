@@ -20,7 +20,7 @@ public class BybitSpotTicker
     /// Best bid quantity
     /// </summary>
     [JsonProperty("bid1Size")]
-    public decimal? BestBidSize { get; set; }
+    public decimal? BestBidQuantity { get; set; }
 
     /// <summary>
     /// Best ask price
@@ -32,7 +32,7 @@ public class BybitSpotTicker
     /// Best ask quantity
     /// </summary>
     [JsonProperty("ask1Size")]
-    public decimal? BestAskSize { get; set; }
+    public decimal? BestAskQuantity { get; set; }
 
     /// <summary>
     /// Last trade price
@@ -107,7 +107,7 @@ public class BybitLinearInverseTicker
     /// Best bid quantity
     /// </summary>
     [JsonProperty("bid1Size")]
-    public decimal? BestBidSize { get; set; }
+    public decimal? BestBidQuantity { get; set; }
 
     /// <summary>
     /// Best ask price
@@ -119,7 +119,7 @@ public class BybitLinearInverseTicker
     /// Best ask quantity
     /// </summary>
     [JsonProperty("ask1Size")]
-    public decimal? BestAskSize { get; set; }
+    public decimal? BestAskQuantity { get; set; }
 
     /// <summary>
     /// Last trade price
@@ -256,7 +256,7 @@ public class BybitOptionTicker
     /// Best bid quantity
     /// </summary>
     [JsonProperty("bid1Size")]
-    public decimal BestBidSize { get; set; }
+    public decimal BestBidQuantity { get; set; }
 
     /// <summary>
     /// Best bid IV
@@ -274,7 +274,7 @@ public class BybitOptionTicker
     /// Best ask quantity
     /// </summary>
     [JsonProperty("ask1Size")]
-    public decimal BestAskSize { get; set; }
+    public decimal BestAskQuantity { get; set; }
 
     /// <summary>
     /// Best ask IV

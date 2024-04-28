@@ -14,7 +14,8 @@ public class BybitProfitAndLoss
     [JsonProperty("execType")]
     [JsonConverter(typeof(LabelConverter<BybitExecutionType>))]
     public BybitExecutionType TradeType { get; set; }
-    public decimal ClosedSize { get; set; }
+    [JsonProperty("closedSize")]
+    public decimal ClosedQuantity { get; set; }
     [JsonProperty("cumEntryValue")]
     public decimal CumulatedEntryValue { get; set; }
     [JsonProperty("avgEntryPrice")]
