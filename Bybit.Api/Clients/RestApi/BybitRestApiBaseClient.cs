@@ -153,7 +153,7 @@ internal class BybitRestApiBaseClient : RestApiClient
         return result;
     }
 
-    internal Uri GetUri(string endpoint, string[] parameters = null)
+    internal Uri BuildUri(string endpoint, string[] parameters = null)
     {
         return new Uri($"{ClientOptions.BaseAddress.TrimEnd('/')}/{endpoint.TrimStart('/')}");
     }

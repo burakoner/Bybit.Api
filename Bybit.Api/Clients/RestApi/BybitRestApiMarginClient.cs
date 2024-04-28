@@ -25,7 +25,7 @@ public class BybitRestApiMarginClient
             { "spotMarginMode", spotMarginMode ? "1" : "0" },
         };
 
-        return await MainClient.SendBybitRequest<BybitSpotMarginMode>(MainClient.GetUri(v5SpotMarginTradeSwitchModeEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitSpotMarginMode>(MainClient.BuildUri(v5SpotMarginTradeSwitchModeEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult> SetLeverageAsync(decimal leverage, CancellationToken ct = default)
@@ -35,7 +35,7 @@ public class BybitRestApiMarginClient
             { "leverage", leverage.ToString(BybitConstants.BybitCultureInfo) },
         };
 
-        return await MainClient.SendBybitRequest(MainClient.GetUri(v5SpotMarginTradeSetLeverageEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(v5SpotMarginTradeSetLeverageEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
 }

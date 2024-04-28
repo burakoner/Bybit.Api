@@ -26,7 +26,7 @@ public class BybitRestApiLendingClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("productId", productId);
 
-        var result = await MainClient.SendBybitRequest<BybitLendingProductContainer>(MainClient.GetUri(v5InsLoanProductInfosEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitLendingProductContainer>(MainClient.BuildUri(v5InsLoanProductInfosEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitLendingProduct>>(null);
         return result.As(result.Data.Payload);
     }
@@ -36,7 +36,7 @@ public class BybitRestApiLendingClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);
 
-        var result = await MainClient.SendBybitRequest<BybitLendingTokenContainer>(MainClient.GetUri(v5InsLoanEnsureTokensEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitLendingTokenContainer>(MainClient.BuildUri(v5InsLoanEnsureTokensEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitLendingToken>>(null);
         return result.As(result.Data.Payload);
     }
@@ -51,7 +51,7 @@ public class BybitRestApiLendingClient
         parameters.AddOptionalParameter("endTime", endTime);
         parameters.AddOptionalParameter("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitLendingLoanOrderContainer>(MainClient.GetUri(v5InsLoanLoanOrderEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitLendingLoanOrderContainer>(MainClient.BuildUri(v5InsLoanLoanOrderEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitLendingLoanOrder>>(null);
         return result.As(result.Data.Payload);
     }
@@ -65,7 +65,7 @@ public class BybitRestApiLendingClient
         parameters.AddOptionalParameter("endTime", endTime);
         parameters.AddOptionalParameter("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitLendingRepayOrderContainer>(MainClient.GetUri(v5InsLoanRepaidHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitLendingRepayOrderContainer>(MainClient.BuildUri(v5InsLoanRepaidHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitLendingRepayOrder>>(null);
         return result.As(result.Data.Payload);
     }

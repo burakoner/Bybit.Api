@@ -45,7 +45,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitPosition>>(MainClient.GetUri(v5PositionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitPosition>>(MainClient.BuildUri(v5PositionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<BybitPosition>>(null);
         return result.As(result.Data.Payload);
     }
@@ -63,7 +63,7 @@ public class BybitRestApiPositionClient
             { "sellLeverage", sellLeverage.ToString(BybitConstants.BybitCultureInfo) }
         };
 
-        return await MainClient.SendBybitRequest(MainClient.GetUri(v5PositionSetLeverageEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(v5PositionSetLeverageEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult> SwitchCrossIsolatedMarginAsync(BybitCategory category, string symbol, BybitTradeMode tradeMode, decimal buyLeverage, decimal sellLeverage, CancellationToken ct = default)
@@ -80,7 +80,7 @@ public class BybitRestApiPositionClient
             { "sellLeverage", sellLeverage.ToString(BybitConstants.BybitCultureInfo) }
         };
 
-        return await MainClient.SendBybitRequest(MainClient.GetUri(v5PositionSwitchIsolatedEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(v5PositionSwitchIsolatedEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitTakeProfitStopLoss>> SetTakeProfitStopLossModeAsync(BybitCategory category, string symbol, BybitTakeProfitStopLossMode tpSlMode, CancellationToken ct = default)
@@ -95,7 +95,7 @@ public class BybitRestApiPositionClient
             { "tpSlMode", tpSlMode.GetLabel() },
         };
 
-        return await MainClient.SendBybitRequest<BybitTakeProfitStopLoss>(MainClient.GetUri(v5PositionSetTpslModeEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitTakeProfitStopLoss>(MainClient.BuildUri(v5PositionSetTpslModeEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult> SwitchPositionModeAsync(BybitCategory category, BybitPositionMode mode, string symbol = null, string asset = null, CancellationToken ct = default)
@@ -112,7 +112,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("symbol", symbol);
         parameters.AddOptionalParameter("coin", asset);
 
-        return await MainClient.SendBybitRequest(MainClient.GetUri(v5PositionSwitchModeEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(v5PositionSwitchModeEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitRiskLimit>> SetRiskLimitAsync(
@@ -134,7 +134,7 @@ public class BybitRestApiPositionClient
 
         parameters.AddOptionalParameter("positionIdx", positionIndex.GetLabel());
 
-        return await MainClient.SendBybitRequest<BybitRiskLimit>(MainClient.GetUri(v5PositionSetRiskLimitEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitRiskLimit>(MainClient.BuildUri(v5PositionSetRiskLimitEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult> SetTradingStopAsync(
@@ -170,7 +170,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("tpSize", takeProfitQuantity?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("slSize", stopLossQuantity?.ToString(BybitConstants.BybitCultureInfo));
 
-        return await MainClient.SendBybitRequest(MainClient.GetUri(v5PositionTradingStopEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(v5PositionTradingStopEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult> SetAutoAddMarginAsync(
@@ -188,7 +188,7 @@ public class BybitRestApiPositionClient
         };
 
         parameters.AddOptionalParameter("positionIdx", positionIndex?.GetLabel());
-        return await MainClient.SendBybitRequest(MainClient.GetUri(v5PositionSetAutoAddMarginEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(v5PositionSetAutoAddMarginEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCursorResponse<BybitProfitAndLoss>>> GetClosedProfitLossAsync(
@@ -211,7 +211,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitProfitAndLoss>>(MainClient.GetUri(v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitProfitAndLoss>>(MainClient.BuildUri(v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
     #endregion
 

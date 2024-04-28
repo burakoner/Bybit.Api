@@ -47,7 +47,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitAssetExchange>>(MainClient.GetUri(v5AssetExchangeOrderRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitAssetExchange>>(MainClient.BuildUri(v5AssetExchangeOrderRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCursorResponse<BybitDelivery>>> GetDeliveryHistoryAsync(BybitCategory category, string symbol = null, long? expiryDate = null, int? limit = null, string cursor = null, CancellationToken ct = default)
@@ -64,7 +64,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitDelivery>>(MainClient.GetUri(v5AssetDeliveryRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitDelivery>>(MainClient.BuildUri(v5AssetDeliveryRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCursorResponse<BybitSettlement>>> GetSettlementHistoryAsync(BybitCategory category, string symbol = null, int? limit = null, string cursor = null, CancellationToken ct = default)
@@ -80,7 +80,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitSettlement>>(MainClient.GetUri(v5AssetSettlementRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitSettlement>>(MainClient.BuildUri(v5AssetSettlementRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCategoryAssetBalance>> GetSpotAssetBalancesAsync(BybitAccount account, string asset = null, CancellationToken ct = default)
@@ -94,7 +94,7 @@ public class BybitRestApiAssetClient
         };
         parameters.AddOptionalParameter("coin", asset);
 
-        var result = await MainClient.SendBybitRequest<BybitCategoryAssetBalances>(MainClient.GetUri(v5AssetTransferQueryAssetInfoEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitCategoryAssetBalances>(MainClient.BuildUri(v5AssetTransferQueryAssetInfoEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<BybitCategoryAssetBalance>(null);
         return result.As(result.Data.Spot);
     }
@@ -112,7 +112,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("memberId", userId);
         parameters.AddOptionalParameter("withBonus", withBonus != null ? withBonus == true ? "1" : "0" : null);
 
-        return await MainClient.SendBybitRequest<BybitAssetBalances>(MainClient.GetUri(v5AssetTransferQueryAccountCoinsBalanceEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitAssetBalances>(MainClient.BuildUri(v5AssetTransferQueryAccountCoinsBalanceEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitAssetBalances>> GetAssetBalanceAsync(BybitAccount account, string asset, string userId = null, bool? withBonus = null, bool? withTransferSafeAmount = null, CancellationToken ct = default)
@@ -126,7 +126,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("withBonus", withBonus != null ? withBonus == true ? "1" : "0" : null);
         parameters.AddOptionalParameter("withTransferSafeAmount", withTransferSafeAmount != null ? withTransferSafeAmount == true ? "1" : "0" : null);
 
-        return await MainClient.SendBybitRequest<BybitAssetBalances>(MainClient.GetUri(v5AssetTransferQueryAccountCoinBalanceEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitAssetBalances>(MainClient.BuildUri(v5AssetTransferQueryAccountCoinBalanceEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<IEnumerable<string>>> GetTransferableAssetsAsync(BybitAccount fromAccount, BybitAccount toAccount, CancellationToken ct = default)
@@ -137,7 +137,7 @@ public class BybitRestApiAssetClient
             { "toAccountType", toAccount.GetLabel() },
         };
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<string>>(MainClient.GetUri(v5AssetTransferQueryTransferCoinListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<string>>(MainClient.BuildUri(v5AssetTransferQueryTransferCoinListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<IEnumerable<string>>(null);
         return result.As(result.Data.Payload);
     }
@@ -153,7 +153,7 @@ public class BybitRestApiAssetClient
             { "toAccountType", toAccount.GetLabel() },
         };
 
-        return await MainClient.SendBybitRequest<BybitTransferId>(MainClient.GetUri(v5AssetTransferInterTransferEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitTransferId>(MainClient.BuildUri(v5AssetTransferInterTransferEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCursorResponse<BybitTransfer>>> GetInternalTransfersAsync(string transferId = null, string asset = null, BybitTransferStatus? status = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
@@ -167,12 +167,12 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitTransfer>>(MainClient.GetUri(v5AssetTransferQueryInterTransferListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitTransfer>>(MainClient.BuildUri(v5AssetTransferQueryInterTransferListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitSubUserIds>> GetSubUsersAsync(CancellationToken ct = default)
     {
-        return await MainClient.SendBybitRequest<BybitSubUserIds>(MainClient.GetUri(v5AssetTransferQuerySubMemberListEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitSubUserIds>(MainClient.BuildUri(v5AssetTransferQuerySubMemberListEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitTransferId>> CreateUniversalTransferAsync(string asset, decimal quantity, string fromUserId, string toUserId, BybitAccount fromAccount, BybitAccount toAccount, string transferId = null, CancellationToken ct = default)
@@ -188,7 +188,7 @@ public class BybitRestApiAssetClient
             { "toAccountType", toAccount.GetLabel() },
         };
 
-        return await MainClient.SendBybitRequest<BybitTransferId>(MainClient.GetUri(v5AssetTransferUniversalTransferEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitTransferId>(MainClient.BuildUri(v5AssetTransferUniversalTransferEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCursorResponse<BybitTransfer>>> GetUniversalTransfersAsync(string transferId = null, string asset = null, BybitTransferStatus? transferStatus = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
@@ -202,7 +202,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitTransfer>>(MainClient.GetUri(v5AssetTransferQueryUniversalTransferListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitTransfer>>(MainClient.BuildUri(v5AssetTransferQueryUniversalTransferListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCursorResponse<BybitDepositAllowedAsset>>> GetDepositAllowedAssetsAsync(string asset = null, string network = null, int? limit = null, string cursor = null, CancellationToken ct = default)
@@ -213,7 +213,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitDepositAllowedAsset>>(MainClient.GetUri(v5AssetDepositQueryAllowedListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitDepositAllowedAsset>>(MainClient.BuildUri(v5AssetDepositQueryAllowedListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<bool?>> SetDepositAccountAsync(BybitAccount account, CancellationToken ct = default)
@@ -226,7 +226,7 @@ public class BybitRestApiAssetClient
             { "accountType", account.GetLabel() }
         };
 
-        var result = await MainClient.SendBybitRequest<BybitProcess>(MainClient.GetUri(v5AssetDepositDepositToAccountEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitProcess>(MainClient.BuildUri(v5AssetDepositDepositToAccountEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<bool?>(null);
         return result.As((bool?)result.Data.Success);
     }
@@ -240,7 +240,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOnchainDeposit>>(MainClient.GetUri(v5AssetDepositQueryRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOnchainDeposit>>(MainClient.BuildUri(v5AssetDepositQueryRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCursorResponse<BybitOnchainDeposit>>> GetSubUserDepositsAsync(string subUserId, string asset = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
@@ -255,7 +255,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOnchainDeposit>>(MainClient.GetUri(v5AssetDepositQuerySubMemberRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOnchainDeposit>>(MainClient.BuildUri(v5AssetDepositQuerySubMemberRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCursorResponse<BybitInternalDeposit>>> GetInternalDepositsAsync(string asset = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
@@ -267,7 +267,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitInternalDeposit>>(MainClient.GetUri(v5AssetDepositQueryInternalRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitInternalDeposit>>(MainClient.BuildUri(v5AssetDepositQueryInternalRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitDepositAddress>> GetMainUserDepositAddressAsync(string asset, string network = null, CancellationToken ct = default)
@@ -278,7 +278,7 @@ public class BybitRestApiAssetClient
         };
         parameters.AddOptionalParameter("chainType", network);
 
-        return await MainClient.SendBybitRequest<BybitDepositAddress>(MainClient.GetUri(v5AssetDepositQueryAddressEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitDepositAddress>(MainClient.BuildUri(v5AssetDepositQueryAddressEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitDepositAddressSingle>> GetSubUserDepositAddressAsync(string subUserId, string asset, string network = null, CancellationToken ct = default)
@@ -289,7 +289,7 @@ public class BybitRestApiAssetClient
             { "chainType", network },
             { "subMemberId", subUserId },
         };
-        return await MainClient.SendBybitRequest<BybitDepositAddressSingle>(MainClient.GetUri(v5AssetDepositQuerySubMemberAddressEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitDepositAddressSingle>(MainClient.BuildUri(v5AssetDepositQuerySubMemberAddressEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCursorResponse<BybitAssetInformation>>> GetAssetInformationAsync(string asset = null, CancellationToken ct = default)
@@ -297,7 +297,7 @@ public class BybitRestApiAssetClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("coin", asset);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitAssetInformation>>(MainClient.GetUri(v5AssetCoinQueryInfoEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitAssetInformation>>(MainClient.BuildUri(v5AssetCoinQueryInfoEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitCursorResponse<BybitWithdrawal>>> GetWithdrawalsAsync(string withdrawId = null, string asset = null, BybitWithdrawalType? type = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
@@ -311,7 +311,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitWithdrawal>>(MainClient.GetUri(v5AssetWithdrawQueryRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitWithdrawal>>(MainClient.BuildUri(v5AssetWithdrawQueryRecordEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<BybitDelayedWithdrawal>> GetDelayedWithdrawQuantityAsync(string asset, CancellationToken ct = default)
@@ -321,7 +321,7 @@ public class BybitRestApiAssetClient
             { "coin", asset }
         };
 
-        return await MainClient.SendBybitRequest<BybitDelayedWithdrawal>(MainClient.GetUri(v5AssetWithdrawWithdrawableAmountEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitDelayedWithdrawal>(MainClient.BuildUri(v5AssetWithdrawWithdrawableAmountEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<string>> WithdrawAsync(string asset, string network, decimal quantity, string address, string tag = null, bool? forceNetwork = null, BybitAccount? account = null, CancellationToken ct = default)
@@ -339,7 +339,7 @@ public class BybitRestApiAssetClient
         parameters.AddOptionalParameter("accountType", account?.GetLabel());
         parameters.AddOptionalParameter("forceChain", forceNetwork == null ? null : forceNetwork.Value ? 1 : 0);
 
-        var result = await MainClient.SendBybitRequest<BybitId>(MainClient.GetUri(v5AssetWithdrawCreateEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitId>(MainClient.BuildUri(v5AssetWithdrawCreateEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<string>(null);
         return result.As(result.Data.Id);
     }
@@ -351,7 +351,7 @@ public class BybitRestApiAssetClient
             { "id", id },
         };
 
-        var result = await MainClient.SendBybitRequest<BybitProcess>(MainClient.GetUri(v5AssetWithdrawCancelEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitProcess>(MainClient.BuildUri(v5AssetWithdrawCancelEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<bool?>(null);
         return result.As((bool?)result.Data.Success);
     }
