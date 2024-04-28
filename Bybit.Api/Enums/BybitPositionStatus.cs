@@ -1,7 +1,13 @@
 ﻿namespace Bybit.Api.Enums;
 
+/// <summary>
+/// Bybit Position Status
+/// </summary>
 public enum BybitPositionStatus
 {
+    /// <summary>
+    /// Normal
+    /// </summary>
     [Label("Normal")]
     Normal,
 
