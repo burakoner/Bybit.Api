@@ -113,7 +113,7 @@ public class BybitBatchPlaceOrderRequest
     /// - required param
     /// - always unique
     /// </summary>
-    [JsonProperty("orderLinkId")]
+    [JsonProperty("orderLinkId", NullValueHandling = NullValueHandling.Ignore)]
     public string ClientOrderId { get; set; }
 
     /// <summary>

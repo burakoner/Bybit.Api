@@ -109,7 +109,7 @@ public class BybitRestApiTradeClient
     /// Partial: partial position tp/sl (as there is no size option, so it will create tp/sl orders with the qty you actually fill). Limit TP/SL order are supported. Note: When create limit tp/sl, tpslMode is required and it must be Partial
     /// Valid for linear &amp; inverse</param>
     /// <param name="takeProfitOrderType">The order type when take profit is triggered
-    /// linear & inverse: Market(default), Limit. For tpslMode=Full, it only supports tpOrderType=Market
+    /// linear &amp; inverse: Market(default), Limit. For tpslMode=Full, it only supports tpOrderType=Market
     /// Spot(UTA):
     /// Market: when you set "takeProfit",
     /// Limit: when you set "takeProfit" and "tpLimitPrice"</param>
@@ -118,7 +118,7 @@ public class BybitRestApiTradeClient
     /// linear &amp; inverse: support UTA and classic account
     /// spot(UTA): Spot Limit order supports take profit, stop loss or limit take profit, limit stop loss when creating an order</param>
     /// <param name="takeProfitLimitPrice">The limit order price when take profit price is triggered
-    /// linear & inverse: only works when tpslMode=Partial and tpOrderType=Limit
+    /// linear &amp; inverse: only works when tpslMode=Partial and tpOrderType=Limit
     /// Spot(UTA): it is required when the order has takeProfit and tpOrderType=Limit</param>
     /// <param name="stopLossOrderType">The order type when stop loss is triggered
     /// linear &amp; inverse: Market(default), Limit. For tpslMode=Full, it only supports slOrderType=Market
@@ -128,9 +128,9 @@ public class BybitRestApiTradeClient
     /// <param name="stopLossTriggerBy">The price type to trigger stop loss. MarkPrice, IndexPrice, default: LastPrice</param>
     /// <param name="stopLossPrice">Stop loss price</param>
     /// <param name="stopLossLimitPrice">The limit order price when stop loss price is triggered
-    /// linear & inverse: only works when tpslMode=Partial and slOrderType=Limit
-    /// Spot(UTA): it is required when the order has stopLoss and slOrderType=Limit</param>
-    /// <param name="takeProfitPrice">Take profit price</param>
+    /// linear &amp; inverse: only works when tpslMode=Partial and slOrderType=Limit
+    /// Spot(UTA): it is required when the order has stopLoss and slOrderType=Limit
+    /// </param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<RestCallResult<BybitOrderId>> PlaceOrderAsync(
@@ -232,7 +232,7 @@ public class BybitRestApiTradeClient
     /// <param name="orderIv">Implied volatility. option only. Pass the real value, e.g for 10%, 0.1 should be passed</param>
     /// <param name="quantity">Order quantity after modification. Do not pass it if not modify the qty</param>
     /// <param name="price">Order price after modification. Do not pass it if not modify the price</param>
-    /// <param name="triggerPrice">For Perps & Futures, it is the conditional order trigger price. If you expect the price to rise to trigger your conditional order, make sure:
+    /// <param name="triggerPrice">For Perps &amp; Futures, it is the conditional order trigger price. If you expect the price to rise to trigger your conditional order, make sure:
     /// triggerPrice > market price
     /// Else, triggerPrice &lt; market price
     /// For spot, it is the TP/SL and Conditional order trigger price</param>
@@ -240,7 +240,7 @@ public class BybitRestApiTradeClient
     /// <param name="takeProfitStopLossMode">TP/SL mode
     /// Full: entire position for TP/SL. Then, tpOrderType or slOrderType must be Market
     /// Partial: partial position tp/sl. Limit TP/SL order are supported. Note: When create limit tp/sl, tpslMode is required and it must be Partial
-    /// Valid for linear & inverse</param>
+    /// Valid for linear &amp; inverse</param>
     /// <param name="takeProfitTriggerBy">The price type to trigger take profit. When set a take profit, this param is required if no initial value for the order</param>
     /// <param name="takeProfitPrice">Take profit price after modification. If pass "0", it means cancel the existing take profit of the order. Do not pass it if you do not want to modify the take profit. valid for spot(UTA), linear, inverse</param>
     /// <param name="takeProfitLimitPrice">Limit order price when take profit is triggered. Only working when original order sets partial limit tp/sl. valid for spot(UTA), linear, inverse</param>
@@ -360,16 +360,16 @@ public class BybitRestApiTradeClient
     /// Classic account: spot, linear, inverse</param>
     /// <param name="symbol">Symbol name. For linear, either symbol, baseCoin, settleCoin is required</param>
     /// <param name="baseAsset">Base coin
-    /// Supports linear, inverse & option
+    /// Supports linear, inverse &amp; option
     /// option: it returns all option open orders by default</param>
     /// <param name="settleAsset">Settle coin
     /// linear: either symbol, baseCoin or settleCoin is required
     /// spot: not supported</param>
     /// <param name="orderId">Order ID</param>
     /// <param name="clientOrderId">User customised order ID</param>
-    /// <param name="openOnly">Unified account & Classic account: 0(default) - query open orders only
+    /// <param name="openOnly">Unified account &amp; Classic account: 0(default) - query open orders only
     /// Unified account - spot / linear / option: 1
-    /// Unified account - inverse & Classic account - linear / inverse: 2
+    /// Unified account - inverse &amp; Classic account - linear / inverse: 2
     /// return cancelled, rejected or totally filled orders, a maximum of 500 records are kept under each account. If the Bybit service is restarted due to an update, this part of the data will be cleared and accumulated again, but the order records will still be queried in order history
     /// Classic spot: not supported</param>
     /// <param name="orderFilter">Order: active order, StopOrder: conditional order for Futures and Spot, tpslOrder: spot TP/SL order, OcoOrder: Spot oco order, BidirectionalTpslOrder: Spot bidirectional TPSL order
@@ -428,9 +428,9 @@ public class BybitRestApiTradeClient
     /// <param name="category">Product type
     /// Unified account: spot, linear, inverse, option
     /// Classic account: spot, linear, inverse</param>
-    /// <param name="symbol">Symbol name. linear & inverse: Required if not passing baseCoin or settleCoin</param>
+    /// <param name="symbol">Symbol name. linear &amp; inverse: Required if not passing baseCoin or settleCoin</param>
     /// <param name="baseAsset">Base coin
-    /// linear &amp; inverse(Classic account): If cancel all by baseCoin, it will cancel all linear & inverse orders. Required if not passing symbol or settleCoin
+    /// linear &amp; inverse(Classic account): If cancel all by baseCoin, it will cancel all linear &amp; inverse orders. Required if not passing symbol or settleCoin
     /// linear &amp; inverse(Unified account): If cancel all by baseCoin, it will cancel all corresponding category orders. Required if not passing symbol or settleCoin
     /// Classic spot: invalid</param>
     /// <param name="settleAsset">Settle coin
@@ -490,8 +490,8 @@ public class BybitRestApiTradeClient
     /// Unified account: spot, linear, inverse, option
     /// Classic account: spot, linear, inverse</param>
     /// <param name="symbol">Symbol name</param>
-    /// <param name="baseAsset">Base coin. Unified account - inverse & Classic account does not support this param</param>
-    /// <param name="settleAsset">Settle coin. Unified account - inverse & Classic account does not support this param</param>
+    /// <param name="baseAsset">Base coin. Unified account - inverse &amp; Classic account does not support this param</param>
+    /// <param name="settleAsset">Settle coin. Unified account - inverse &amp; Classic account does not support this param</param>
     /// <param name="orderId">Order ID</param>
     /// <param name="clientOrderId">User customised order ID</param>
     /// <param name="orderFilter">Order: active order, StopOrder: conditional order for Futures and Spot, tpslOrder: spot TP/SL order, OcoOrder: Spot OCO orders, BidirectionalTpslOrder: Bidirectional TPSL order
@@ -504,7 +504,7 @@ public class BybitRestApiTradeClient
     /// startTime and endTime are not passed, return 7 days by default
     /// Only startTime is passed, return range between startTime and startTime+7 days
     /// Only endTime is passed, return range between endTime-7 days and endTime
-    /// If both are passed, the rule is endTime - startTime <= 7 days</param>
+    /// If both are passed, the rule is endTime - startTime &lt;= 7 days</param>
     /// <param name="endTime">The end timestamp (ms)</param>
     /// <param name="limit">Limit for data size per page. [1, 50]. Default: 20</param>
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
@@ -574,7 +574,7 @@ public class BybitRestApiTradeClient
     /// - startTime and endTime are not passed, return 7 days by default;
     /// - Only startTime is passed, return range between startTime and startTime+7 days;
     /// - Only endTime is passed, return range between endTime-7 days and endTime;
-    /// - If both are passed, the rule is endTime - startTime <= 7 days</param>
+    /// - If both are passed, the rule is endTime - startTime &lt;= 7 days</param>
     /// <param name="endTime">The end timestamp (ms)</param>
     /// <param name="executionType">Execution type. Classic spot is not supported</param>
     /// <param name="limit">Limit for data size per page. [1, 100]. Default: 50</param>
@@ -620,7 +620,7 @@ public class BybitRestApiTradeClient
     /// TIP
     /// This endpoint allows you to place more than one order in a single request.
     /// - Make sure you have sufficient funds in your account when placing an order. Once an order is placed, according to the funds required by the order, the funds in your account will be frozen by the corresponding amount during the life cycle of the order.
-    /// - A maximum of 20 orders (option) & 10 orders (linear) & 10 orders (spot) can be placed per request. The returned data list is divided into two lists. The first list indicates whether or not the order creation was successful and the second list details the created order information. The structure of the two lists are completely consistent.
+    /// - A maximum of 20 orders (option) &amp; 10 orders (linear) &amp; 10 orders (spot) can be placed per request. The returned data list is divided into two lists. The first list indicates whether or not the order creation was successful and the second list details the created order information. The structure of the two lists are completely consistent.
     /// 
     /// INFO
     /// Check the rate limit instruction when category=linear or spot here
@@ -631,7 +631,7 @@ public class BybitRestApiTradeClient
     /// <param name="requests">Order Requests</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchError>>>> PlaceBatchOrdersAsync(
+    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchError>>>> PlaceOrdersAsync(
         BybitCategory category,
         IEnumerable<BybitBatchPlaceOrderRequest> requests,
         CancellationToken ct = default)
@@ -651,7 +651,21 @@ public class BybitRestApiTradeClient
         });
     }
 
-    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchError>>>> AmendBatchOrdersAsync(
+    /// <summary>
+    /// Batch Amend Order
+    /// Covers: Spot (UTA, UTA Pro) / Option (UTA, UTA Pro) / USDT Perpetual, USDC Perpetual, USDC Futures (UTA Pro)
+    /// 
+    /// TIP
+    /// This endpoint allows you to amend more than one open order in a single request.
+    /// 
+    /// You can modify unfilled or partially filled orders. Conditional orders are not supported.
+    /// A maximum of 20 orders (option), 10 orders (linear) &amp; 10 orders (spot) can be amended per request.
+    /// </summary>
+    /// <param name="category">Product type. linear, option, spot</param>
+    /// <param name="requests">Order Requests</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchError>>>> AmendOrdersAsync(
         BybitCategory category,
         IEnumerable<BybitBatchAmendOrderRequest> requests,
         CancellationToken ct = default)
@@ -671,7 +685,23 @@ public class BybitRestApiTradeClient
         });
     }
 
-    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchError>>>> CancelBatchOrdersAsync(
+    /// <summary>
+    /// Batch Cancel Order
+    /// This endpoint allows you to cancel more than one open order in a single request.
+    /// 
+    /// Covers: Spot (UTA, UTA Pro) / Option (UTA, UTA Pro) / USDT Perpetual, USDC Perpetual, USDC Futures (UTA Pro)
+    /// 
+    /// IMPORTANT
+    /// You must specify orderId or orderLinkId.
+    /// If orderId and orderLinkId is not matched, the system will process orderId first.
+    /// You can cancel unfilled or partially filled orders.
+    /// A maximum of 20 orders (option) &amp; 10 orders (linear) &amp; 10 orders (spot) can be cancelled per request.
+    /// </summary>
+    /// <param name="category"></param>
+    /// <param name="requests"></param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchError>>>> CancelOrdersAsync(
         BybitCategory category,
         IEnumerable<BybitBatchCancelOrderRequest> requests,
         CancellationToken ct = default)
@@ -691,11 +721,16 @@ public class BybitRestApiTradeClient
         });
     }
 
-    public async Task<RestCallResult<BybitBorrowQuota>> GetBorrowQuotaAsync(
-        BybitCategory category,
-        string symbol,
-        BybitOrderSide side,
-        CancellationToken ct = default)
+    /// <summary>
+    /// Query the available balance for Spot trading and Margin trading
+    /// </summary>
+    /// <param name="category">Product type. spot</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="side">Transaction side. Buy,Sell</param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<RestCallResult<BybitBorrowQuota>> GetBorrowQuotaAsync(BybitCategory category, string symbol, BybitOrderSide side, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Spot))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -706,18 +741,35 @@ public class BybitRestApiTradeClient
             { "symbol", symbol },
             { "side", side.GetLabel() },
         };
-
         return await MainClient.SendBybitRequest<BybitBorrowQuota>(MainClient.GetUri(_v5OrderSpotBorrowCheckEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<object>> SetDisconnectCancelAllAsync(
-        BybitCategory category,
-        int timeWindow,
-        CancellationToken ct = default)
+    /// <summary>
+    /// Set Disconnect Cancel All
+    /// Covers: Option (Unified Account)
+    /// 
+    /// INFO
+    /// What is Disconnection Protect (DCP)?
+    /// Based on the websocket private connection and heartbeat mechanism, Bybit provides disconnection protection function. The timing starts from the first disconnection. If the Bybit server does not receive the reconnection from the client for more than 10 (default) seconds and resumes the heartbeat "ping", then the client is in the state of "disconnection protect", all active option orders of the client will be cancelled automatically. If within 10 seconds, the client reconnects and resumes the heartbeat "ping", the timing will be reset and restarted at the next disconnection.
+    /// 
+    /// How to enable DCP
+    /// If you need to turn it on/off, you can contact your client manager for consultation and application. The default time window is 10 seconds.
+    /// 
+    /// Applicable
+    /// Effective for options only.
+    /// 
+    /// TIP
+    /// After the request is successfully sent, the system needs a certain time to take effect. It is recommended to query or set again after 10 seconds
+    /// 
+    /// You can use this endpoint to get your current DCP configuration.
+    /// Your private websocket connection must subscribe "dcp" topic in order to trigger DCP successfully
+    /// </summary>
+    /// <param name="timeWindow">Disconnection timing window time. [3, 300], unit: second</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<RestCallResult<object>> SetDisconnectionProtectAsync(int timeWindow, CancellationToken ct = default)
     {
-        if (category.IsNotIn(BybitCategory.Option))
-            throw new NotSupportedException($"{category} is not supported for this endpoint.");
-
         var parameters = new Dictionary<string, object>
         {
             { "timeWindow", timeWindow },
