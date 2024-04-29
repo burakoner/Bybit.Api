@@ -11,19 +11,19 @@ namespace Bybit.Api.Clients.RestApi;
 public class BybitRestApiPositionClient
 {
     // Position Endpoints
-    private const string _v5PositionListEndpoint = "v5/position/list";
-    private const string _v5PositionSetLeverageEndpoint = "v5/position/set-leverage";
-    private const string _v5PositionSwitchIsolatedEndpoint = "v5/position/switch-isolated";
-    private const string _v5PositionSetTpslModeEndpoint = "v5/position/set-tpsl-mode";
-    private const string _v5PositionSwitchModeEndpoint = "v5/position/switch-mode";
-    private const string _v5PositionSetRiskLimitEndpoint = "v5/position/set-risk-limit";
-    private const string _v5PositionTradingStopEndpoint = "v5/position/trading-stop";
-    private const string _v5PositionSetAutoAddMarginEndpoint = "v5/position/set-auto-add-margin";
-    private const string _v5PositionAddMarginEndpoint = "v5/position/add-margin";
-    private const string _v5PositionClosedPnlEndpoint = "v5/position/closed-pnl";
-    private const string _v5PositionMovePositionsEndpoint = "v5/position/move-positions";
-    private const string _v5PositionMoveHistoryEndpoint = "v5/position/move-history";
-    private const string _v5PositionConfirmPendingMmrEndpoint = "v5/position/confirm-pending-mmr";
+    private const string _v5PositionList = "v5/position/list";
+    private const string _v5PositionSetLeverage = "v5/position/set-leverage";
+    private const string _v5PositionSwitchIsolated = "v5/position/switch-isolated";
+    private const string _v5PositionSetTpslMode = "v5/position/set-tpsl-mode";
+    private const string _v5PositionSwitchMode = "v5/position/switch-mode";
+    private const string _v5PositionSetRiskLimit = "v5/position/set-risk-limit";
+    private const string _v5PositionTradingStop = "v5/position/trading-stop";
+    private const string _v5PositionSetAutoAddMargin = "v5/position/set-auto-add-margin";
+    private const string _v5PositionAddMargin = "v5/position/add-margin";
+    private const string _v5PositionClosedPnl = "v5/position/closed-pnl";
+    private const string _v5PositionMovePositions = "v5/position/move-positions";
+    private const string _v5PositionMoveHistory = "v5/position/move-history";
+    private const string _v5PositionConfirmPendingMmr = "v5/position/confirm-pending-mmr";
 
     #region Internal
     internal BybitRestApiBaseClient MainClient { get; }
@@ -76,7 +76,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitPosition>>(MainClient.BuildUri(_v5PositionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitPosition>>(MainClient.BuildUri(_v5PositionList), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitPosition>>(null);
         return result.As(result.Data.Payload);
     }
@@ -106,7 +106,7 @@ public class BybitRestApiPositionClient
             { "sellLeverage", sellLeverage.ToString(BybitConstants.BybitCultureInfo) }
         };
 
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionSetLeverageEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionSetLeverage), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ public class BybitRestApiPositionClient
             { "sellLeverage", sellLeverage.ToString(BybitConstants.BybitCultureInfo) }
         };
 
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionSwitchIsolatedEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionSwitchIsolated), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -177,7 +177,7 @@ public class BybitRestApiPositionClient
             { "tpSlMode", tpSlMode.GetLabel() },
         };
 
-        return await MainClient.SendBybitRequest<BybitTakeProfitStopLossState>(MainClient.BuildUri(_v5PositionSetTpslModeEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitTakeProfitStopLossState>(MainClient.BuildUri(_v5PositionSetTpslMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("symbol", symbol);
         parameters.AddOptionalParameter("coin", asset);
 
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionSwitchModeEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionSwitchMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -250,7 +250,7 @@ public class BybitRestApiPositionClient
 
         parameters.AddOptionalParameter("positionIdx", positionIndex.GetLabel());
 
-        return await MainClient.SendBybitRequest<BybitRiskLimit>(MainClient.BuildUri(_v5PositionSetRiskLimitEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitRiskLimit>(MainClient.BuildUri(_v5PositionSetRiskLimit), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -341,7 +341,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("trailingStop", trailingStopDistance?.ToString(BybitConstants.BybitCultureInfo));
         parameters.AddOptionalParameter("activePrice", trailingStopPrice?.ToString(BybitConstants.BybitCultureInfo));
 
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionTradingStopEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionTradingStop), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -372,7 +372,7 @@ public class BybitRestApiPositionClient
         };
 
         parameters.AddOptionalParameter("positionIdx", positionIndex?.GetLabel());
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionSetAutoAddMarginEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionSetAutoAddMargin), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -405,7 +405,7 @@ public class BybitRestApiPositionClient
         };
 
         parameters.AddOptionalParameter("positionIdx", positionIndex?.GetLabel());
-        return await MainClient.SendBybitRequest<BybitPosition>(MainClient.BuildUri(_v5PositionAddMarginEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitPosition>(MainClient.BuildUri(_v5PositionAddMargin), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -453,7 +453,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitProfitAndLoss>>(MainClient.BuildUri(_v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitProfitAndLoss>>(MainClient.BuildUri(_v5PositionClosedPnl), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitProfitAndLoss>>(null);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
@@ -488,7 +488,7 @@ public class BybitRestApiPositionClient
             { "list", list },
         };
 
-        return await MainClient.SendBybitRequest<BybitMovePositionResponse>(MainClient.BuildUri(_v5PositionMovePositionsEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitMovePositionResponse>(MainClient.BuildUri(_v5PositionMovePositions), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -531,7 +531,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitMovePositionHistory>>(MainClient.BuildUri(_v5PositionMoveHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitMovePositionHistory>>(MainClient.BuildUri(_v5PositionMoveHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMovePositionHistory>>(null);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
@@ -556,7 +556,7 @@ public class BybitRestApiPositionClient
             { "symbol", symbol },
         };
 
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionConfirmPendingMmrEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5PositionConfirmPendingMmr), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     #endregion

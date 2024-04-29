@@ -5,10 +5,10 @@ namespace Bybit.Api.Clients.RestApi;
 public class BybitRestApiMarginClient
 {
     // Spot Margin Trade (UTA) Endpoints
-    protected const string v5SpotMarginTradeDataModeEndpoint = "v5/spot-margin-trade/data"; // TODO
-    protected const string v5SpotMarginTradeSwitchModeEndpoint = "v5/spot-margin-trade/switch-mode";
-    protected const string v5SpotMarginTradeSetLeverageEndpoint = "v5/spot-margin-trade/set-leverage";
-    protected const string v5SpotMarginTradeDataStateEndpoint = "v5/spot-margin-trade/state"; // TODO
+    private const string _v5SpotMarginTradeDataMode = "v5/spot-margin-trade/data"; // TODO
+    private const string _v5SpotMarginTradeSwitchMode = "v5/spot-margin-trade/switch-mode";
+    private const string _v5SpotMarginTradeSetLeverage = "v5/spot-margin-trade/set-leverage";
+    private const string _v5SpotMarginTradeDataState = "v5/spot-margin-trade/state"; // TODO
 
     #region Internal
     internal BybitRestApiBaseClient MainClient { get; }
@@ -25,7 +25,7 @@ public class BybitRestApiMarginClient
             { "spotMarginMode", spotMarginMode ? "1" : "0" },
         };
 
-        return await MainClient.SendBybitRequest<BybitSpotMarginMode>(MainClient.BuildUri(v5SpotMarginTradeSwitchModeEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitSpotMarginMode>(MainClient.BuildUri(_v5SpotMarginTradeSwitchMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<BybitRestCallResult> SetLeverageAsync(decimal leverage, CancellationToken ct = default)
@@ -35,7 +35,7 @@ public class BybitRestApiMarginClient
             { "leverage", leverage.ToString(BybitConstants.BybitCultureInfo) },
         };
 
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(v5SpotMarginTradeSetLeverageEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5SpotMarginTradeSetLeverage), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
 }

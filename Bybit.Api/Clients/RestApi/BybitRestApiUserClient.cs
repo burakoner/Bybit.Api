@@ -5,20 +5,20 @@ namespace Bybit.Api.Clients.RestApi;
 public class BybitRestApiUserClient
 {
     // User Endpoints
-    protected const string v5UserCreateSubMemberEndpoint = "v5/user/create-sub-member";
-    protected const string v5UserCreateSubApiEndpoint = "v5/user/create-sub-api";
-    protected const string v5UserQuerySubMembersEndpoint = "v5/user/query-sub-members";
-    protected const string v5UserSubMembersEndpoint = "v5/user/submembers"; // TODO
-    protected const string v5UserFrozenSubMemberEndpoint = "v5/user/frozen-sub-member";
-    protected const string v5UserQueryApiEndpoint = "v5/user/query-api";
-    protected const string v5UserSubApikeysEndpoint = "v5/user/sub-apikeys"; // TODO
-    protected const string v5UserGetMemberTypeEndpoint = "v5/user/get-member-type"; // TODO
-    protected const string v5UserUpdateApiEndpoint = "v5/user/update-api";
-    protected const string v5UserUpdateSubApiEndpoint = "v5/user/update-sub-api";
-    protected const string v5UserDelSubMemberEndpoint = "v5/user/del-submember"; // TODO
-    protected const string v5UserDeleteApiEndpoint = "v5/user/delete-api";
-    protected const string v5UserDeleteSubApiEndpoint = "v5/user/delete-sub-api";
-    protected const string v5UserAffCustomerInfoEndpoint = "v5/user/aff-customer-info"; // TODO
+    private const string _v5UserCreateSubMember = "v5/user/create-sub-member";
+    private const string _v5UserCreateSubApi = "v5/user/create-sub-api";
+    private const string _v5UserQuerySubMembers = "v5/user/query-sub-members";
+    private const string _v5UserSubMembers = "v5/user/submembers"; // TODO
+    private const string _v5UserFrozenSubMember = "v5/user/frozen-sub-member";
+    private const string _v5UserQueryApi = "v5/user/query-api";
+    private const string _v5UserSubApikeys = "v5/user/sub-apikeys"; // TODO
+    private const string _v5UserGetMemberType = "v5/user/get-member-type"; // TODO
+    private const string _v5UserUpdateApi = "v5/user/update-api";
+    private const string _v5UserUpdateSubApi = "v5/user/update-sub-api";
+    private const string _v5UserDelSubMember = "v5/user/del-submember"; // TODO
+    private const string _v5UserDeleteApi = "v5/user/delete-api";
+    private const string _v5UserDeleteSubApi = "v5/user/delete-sub-api";
+    private const string _v5UserAffCustomerInfo = "v5/user/aff-customer-info"; // TODO
 
     #region Internal
     internal BybitRestApiBaseClient MainClient { get; }
@@ -39,7 +39,7 @@ public class BybitRestApiUserClient
         parameters.AddOptionalParameter("switch", quickLogin);
         parameters.AddOptionalParameter("note", label);
 
-        return await MainClient.SendBybitRequest<BybitSubAccount>(MainClient.BuildUri(v5UserCreateSubMemberEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitSubAccount>(MainClient.BuildUri(_v5UserCreateSubMember), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<BybitRestCallResult<BybitApiKey>> CreateSubAccountApiKeyAsync(long subuid, bool readOnly, BybitApiKeyPermissions permissions, string label = null, IEnumerable<string> ips = null, CancellationToken ct = default)
@@ -53,12 +53,12 @@ public class BybitRestApiUserClient
         parameters.AddOptionalParameter("note", label);
         parameters.AddOptionalParameter("ips", ips);
 
-        return await MainClient.SendBybitRequest<BybitApiKey>(MainClient.BuildUri(v5UserCreateSubApiEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitApiKey>(MainClient.BuildUri(_v5UserCreateSubApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<BybitRestCallResult<List<BybitSubAccount>>> GetSubAccountsAsync(CancellationToken ct = default)
     {
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitSubAccount>>(MainClient.BuildUri(v5UserQuerySubMembersEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitSubAccount>>(MainClient.BuildUri(_v5UserQuerySubMembers), HttpMethod.Get, ct, true).ConfigureAwait(false);
         if (!result) return result.As<List<BybitSubAccount>>(null);
         return result.As(result.Data.Payload);
     }
@@ -70,12 +70,12 @@ public class BybitRestApiUserClient
             { "subuid", subuid },
             { "frozen", frozen ? 1 : 0 },
         };
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(v5UserFrozenSubMemberEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5UserFrozenSubMember), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<BybitRestCallResult<BybitApiKeyInformation>> GetApiKeyInformationAsync(CancellationToken ct = default)
     {
-        return await MainClient.SendBybitRequest<BybitApiKeyInformation>(MainClient.BuildUri(v5UserQueryApiEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitApiKeyInformation>(MainClient.BuildUri(_v5UserQueryApi), HttpMethod.Get, ct, true).ConfigureAwait(false);
     }
 
     public async Task<BybitRestCallResult<BybitApiKey>> ModifyMainAccountApiKeyAsync(BybitApiKeyPermissions permissions, bool? readOnly = null, IEnumerable<string> ips = null, CancellationToken ct = default)
@@ -87,7 +87,7 @@ public class BybitRestApiUserClient
         parameters.AddOptionalParameter("readOnly", readOnly);
         parameters.AddOptionalParameter("ips", ips);
 
-        return await MainClient.SendBybitRequest<BybitApiKey>(MainClient.BuildUri(v5UserUpdateApiEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitApiKey>(MainClient.BuildUri(_v5UserUpdateApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<BybitRestCallResult<BybitApiKey>> ModifySubAccountApiKeyAsync(BybitApiKeyPermissions permissions, bool? readOnly = null, IEnumerable<string> ips = null, CancellationToken ct = default)
@@ -99,17 +99,17 @@ public class BybitRestApiUserClient
         parameters.AddOptionalParameter("readOnly", readOnly);
         parameters.AddOptionalParameter("ips", ips);
 
-        return await MainClient.SendBybitRequest<BybitApiKey>(MainClient.BuildUri(v5UserUpdateSubApiEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest<BybitApiKey>(MainClient.BuildUri(_v5UserUpdateSubApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<BybitRestCallResult> DeleteMainAccountApiKeyAsync(CancellationToken ct = default)
     {
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(v5UserDeleteApiEndpoint), HttpMethod.Post, ct, true).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5UserDeleteApi), HttpMethod.Post, ct, true).ConfigureAwait(false);
     }
 
     public async Task<BybitRestCallResult> DeleteSubAccountApiKeyAsync(CancellationToken ct = default)
     {
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(v5UserDeleteSubApiEndpoint), HttpMethod.Post, ct, true).ConfigureAwait(false);
+        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5UserDeleteSubApi), HttpMethod.Post, ct, true).ConfigureAwait(false);
     }
 
 }
