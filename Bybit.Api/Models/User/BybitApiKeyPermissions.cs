@@ -2,13 +2,13 @@
 
 public class BybitApiKeyPermissions
 {
-    public IEnumerable<string> BlockTrade { get; set; } = Array.Empty<string>();
-    public IEnumerable<string> ContractTrade { get; set; } = Array.Empty<string>();
-    public IEnumerable<string> CopyTrading { get; set; } = Array.Empty<string>();
-    public IEnumerable<string> Derivatives { get; set; } = Array.Empty<string>();
-    public IEnumerable<string> Exchange { get; set; } = Array.Empty<string>();
-    public IEnumerable<string> NFT { get; set; } = Array.Empty<string>();
-    public IEnumerable<string> Options { get; set; } = Array.Empty<string>();
-    public IEnumerable<string> Spot { get; set; } = Array.Empty<string>();
-    public IEnumerable<string> Wallet { get; set; } = Array.Empty<string>();
+    public List<string> BlockTrade { get; set; } = [];
+    public List<string> ContractTrade { get; set; } = [];
+    public List<string> CopyTrading { get; set; } = [];
+    public List<string> Derivatives { get; set; } = [];
+    public List<string> Exchange { get; set; } = [];
+    public List<string> NFT { get; set; } = [];
+    public List<string> Options { get; set; } = [];
+    public List<string> Spot { get; set; } = [];
+    public List<string> Wallet { get; set; } = [];
 }

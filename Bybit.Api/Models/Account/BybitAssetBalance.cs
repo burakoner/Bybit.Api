@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
 public class BybitAssetBalances
 {
@@ -9,7 +9,7 @@ public class BybitAssetBalances
     public string UserId { get; set; }
 
     [JsonProperty("balance")]
-    public IEnumerable<BybitAssetBalancesItem> Balances { get; set; } = Array.Empty<BybitAssetBalancesItem>();
+    public List<BybitAssetBalancesItem> Balances { get; set; } = [];
 }
 
 public class BybitAssetBalancesItem

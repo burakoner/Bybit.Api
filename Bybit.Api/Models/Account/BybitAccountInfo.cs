@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
 public class BybitAccountInfo
 {

@@ -3,7 +3,7 @@
 internal class BybitLendingTokenContainer
 {
     [JsonProperty("marginToken")]
-    public IEnumerable<BybitLendingToken> Payload { get; set; }
+    public List<BybitLendingToken> Payload { get; set; } = [];
 }
 
 public class BybitLendingToken
@@ -11,10 +11,10 @@ public class BybitLendingToken
     public string ProductId { get; set; }
 
     [JsonProperty("spotToken")]
-    public IEnumerable<BybitLendingTokenData> SpotTokens { get; set; }
+    public List<BybitLendingTokenData> SpotTokens { get; set; } = [];
 
     [JsonProperty("contractToken")]
-    public IEnumerable<BybitLendingTokenData> ContractTokens { get; set; }
+    public List<BybitLendingTokenData> ContractTokens { get; set; } = [];
 }
 
 

@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
 internal class BybitCategoryAssetBalances
 {
@@ -8,7 +8,7 @@ internal class BybitCategoryAssetBalances
 public class BybitCategoryAssetBalance
 {
     public string Status { get; set; }
-    public IEnumerable<BybitCategoryAssetBalanceItem> Assets { get; set; } = Array.Empty<BybitCategoryAssetBalanceItem>();
+    public List<BybitCategoryAssetBalanceItem> Assets { get; set; } = [];
 }
 
 public class BybitCategoryAssetBalanceItem

@@ -1,17 +1,17 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
 public class BybitAssetInformation
 {
     public string Name { get; set; }
-    
+
     [JsonProperty("coin")]
     public string Asset { get; set; }
-    
+
     [JsonProperty("remain_amount")]
     public decimal? RemainingWithdrawableQuantity { get; set; }
-    
+
     [JsonProperty("chains")]
-    public IEnumerable<BybitAssetNetwork> Networks { get; set; } = Array.Empty<BybitAssetNetwork>();
+    public List<BybitAssetNetwork> Networks { get; set; } = [];
 }
 
 public class BybitAssetNetwork

@@ -3,21 +3,21 @@
 internal class BybitLendingLtvInfo
 {
     [JsonProperty("ltvInfo")]
-    public IEnumerable<BybitLendingLifetimeValue> Payload { get; set; }
+    public List<BybitLendingLifetimeValue> Payload { get; set; } = [];
 }
 
 public class BybitLendingLifetimeValue
 {
     public string ParentUID { get; set; }
     public decimal LifetimeValue { get; set; }
-    public IEnumerable<string> SubAccountUids { get; set; }
+    public List<string> SubAccountUids { get; set; } = [];
 
     public decimal? UnpaidAmount { get; set; }
-    public IEnumerable<BybitLendingUnpaidData> UnpaidInfo { get; set; }
+    public List<BybitLendingUnpaidData> UnpaidInfo { get; set; } = [];
 
     public decimal? Balance { get; set; }
-    public IEnumerable<BybitLendingSpotBalance> SpotBalanceInfo { get; set; }
-    public IEnumerable<BybitLendingContractBalance> ContractInfo { get; set; }
+    public List<BybitLendingSpotBalance> SpotBalanceInfo { get; set; } = [];
+    public List<BybitLendingContractBalance> ContractInfo { get; set; } = [];
 }
 
 public class BybitLendingUnpaidData

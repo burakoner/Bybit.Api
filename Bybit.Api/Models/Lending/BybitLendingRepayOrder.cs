@@ -3,7 +3,7 @@
 internal class BybitLendingRepayOrderContainer
 {
     [JsonProperty("repayInfo")]
-    public IEnumerable<BybitLendingRepayOrder> Payload { get; set; }
+    public List<BybitLendingRepayOrder> Payload { get; set; } = [];
 }
 
 public class BybitLendingRepayOrder

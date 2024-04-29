@@ -15,13 +15,13 @@ public class BybitOrderbook
     /// Ask, seller. Order by price asc
     /// </summary>
     [JsonProperty("a")]
-    public IEnumerable<BybitOrderbookRow> Asks { get; set; }
+    public List<BybitOrderbookRow> Asks { get; set; } = [];
 
     /// <summary>
     /// Bid, buyer. Sort by price desc
     /// </summary>
     [JsonProperty("b")]
-    public IEnumerable<BybitOrderbookRow> Bids { get; set; }
+    public List<BybitOrderbookRow> Bids { get; set; } = [];
 
     /// <summary>
     /// The timestamp (ms) that the system generates the data

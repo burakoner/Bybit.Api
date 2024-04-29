@@ -1,10 +1,10 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
 public class BybitDelayedWithdrawal
 {
     [JsonProperty("limitAmountUsd")]
     public decimal LimitQuantityUsd { get; set; }
-    
+
     [JsonProperty("withdrawableAmount")]
     public BybitDelayedWithdrawalQuantities WithdrawableQuantities { get; set; }
 }

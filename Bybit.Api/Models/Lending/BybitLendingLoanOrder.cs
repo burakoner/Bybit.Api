@@ -3,7 +3,7 @@
 internal class BybitLendingLoanOrderContainer
 {
     [JsonProperty("loanInfo")]
-    public IEnumerable<BybitLendingLoanOrder> Payload { get; set; }
+    public List<BybitLendingLoanOrder> Payload { get; set; } = [];
 }
 
 public class BybitLendingLoanOrder
@@ -46,6 +46,6 @@ public class BybitLendingLoanOrder
     public decimal StopLiquidationLine { get; set; }
     public decimal ContractLeverage { get; set; }
     public decimal TransferRatio { get; set; }
-    public IEnumerable<string> SpotSymbols { get; set; }
-    public IEnumerable<string> ContractSymbols { get; set; }
+    public List<string> SpotSymbols { get; set; } = [];
+    public List<string> ContractSymbols { get; set; } = [];
 }

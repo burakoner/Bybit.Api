@@ -11,35 +11,35 @@ public class BybitRestApiLeveragedTokensClient
     protected const string v5SpotLeverTokenRedeemEndpoint = "v5/spot-lever-token/redeem";
     protected const string v5SpotLeverTokenOrderRecordEndpoint = "v5/spot-lever-token/order-record";
 
-    // Internal
+    #region Internal
     internal BybitRestApiBaseClient MainClient { get; }
-
     internal BybitRestApiLeveragedTokensClient(BybitRestApiClient root)
     {
         this.MainClient = root.BaseClient;
     }
+    #endregion
 
-    public async Task<RestCallResult<IEnumerable<BybitLeveragedTokenInformation>>> GetLeveragedTokensAsync(string token = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLeveragedTokenInformation>>> GetLeveragedTokensAsync(string token = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);
 
         var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLeveragedTokenInformation>>(MainClient.BuildUri(v5SpotLeverTokenInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitLeveragedTokenInformation>>(null);
+        if (!result) return result.As<List<BybitLeveragedTokenInformation>>(null);
         return result.As(result.Data.Payload);
     }
 
-    public async Task<RestCallResult<IEnumerable<BybitLeveragedTokenMarket>>> GetLeveragedTokenMarketsAsync(string token = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLeveragedTokenMarket>>> GetLeveragedTokenMarketsAsync(string token = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);
 
         var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLeveragedTokenMarket>>(MainClient.BuildUri(v5SpotLeverTokenReferenceEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitLeveragedTokenMarket>>(null);
+        if (!result) return result.As<List<BybitLeveragedTokenMarket>>(null);
         return result.As(result.Data.Payload);
     }
 
-    public async Task<RestCallResult<BybitLeveragedTokenPurchase>> PurchaseAsync(string symbol, decimal quantity, string clientOrderId = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitLeveragedTokenPurchase>> PurchaseAsync(string symbol, decimal quantity, string clientOrderId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -51,7 +51,7 @@ public class BybitRestApiLeveragedTokensClient
         return await MainClient.SendBybitRequest<BybitLeveragedTokenPurchase>(MainClient.BuildUri(v5SpotLeverTokenPurchaseEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<BybitLeveragedTokenRedeem>> RedeemAsync(string symbol, decimal quantity, string clientOrderId = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitLeveragedTokenRedeem>> RedeemAsync(string symbol, decimal quantity, string clientOrderId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -63,7 +63,7 @@ public class BybitRestApiLeveragedTokensClient
         return await MainClient.SendBybitRequest<BybitLeveragedTokenRedeem>(MainClient.BuildUri(v5SpotLeverTokenRedeemEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<IEnumerable<BybitLeveragedTokenOrder>>> GetOrdersAsync(string symbol=null, string orderId=null, string clientOrderId=null, BybitLtOrderType? type=null, long? startTime=null, long? endTime = null, int? limit=null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLeveragedTokenOrder>>> GetOrdersAsync(string symbol=null, string orderId=null, string clientOrderId=null, BybitLtOrderType? type=null, long? startTime=null, long? endTime = null, int? limit=null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", symbol);
@@ -75,7 +75,7 @@ public class BybitRestApiLeveragedTokensClient
         parameters.AddOptionalParameter("limit", limit);
 
         var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLeveragedTokenOrder>>(MainClient.BuildUri(v5SpotLeverTokenOrderRecordEndpoint), HttpMethod.Post, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitLeveragedTokenOrder>>(null);
+        if (!result) return result.As<List<BybitLeveragedTokenOrder>>(null);
         return result.As(result.Data.Payload);
     }
 

@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
 public class BybitInternalDeposit
 {
@@ -7,7 +7,7 @@ public class BybitInternalDeposit
 
     [JsonProperty("coin")]
     public string Asset { get; set; }
-    
+
     [JsonProperty("amount")]
     public decimal Quantity { get; set; }
 

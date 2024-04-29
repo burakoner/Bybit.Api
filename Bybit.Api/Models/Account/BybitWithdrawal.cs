@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
 public class BybitWithdrawal
 {
@@ -13,7 +13,7 @@ public class BybitWithdrawal
 
     [JsonProperty("amount")]
     public decimal Quantity { get; set; }
-    
+
     [JsonProperty("txID")]
     public string TransactionId { get; set; }
 

@@ -81,6 +81,7 @@ public class BybitRestApiClient
     /// <param name="options"></param>
     public BybitRestApiClient(ILogger logger, BybitRestApiClientOptions options)
     {
+        this.Logger = logger;
         this.ClientOptions = options;
         this.BaseClient = new BybitRestApiBaseClient(this);
 

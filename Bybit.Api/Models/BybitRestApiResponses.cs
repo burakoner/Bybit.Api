@@ -10,43 +10,43 @@ public class BybitListResponse<T>
     /// Payload
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    public IEnumerable<T> Payload { get; set; }
+    public List<T> Payload { get; set; }
 
     /// <summary>
     /// Config List
     /// </summary>
     [JsonProperty("configList", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    protected IEnumerable<T> ConfigList { set => Payload = value; get => Payload; }
+    protected List<T> ConfigList { set => Payload = value; get => Payload; }
 
     /// <summary>
     /// Data
     /// </summary>
     [JsonProperty("list", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    protected IEnumerable<T> List { set => Payload = value; get => Payload; }
+    protected List<T> List { set => Payload = value; get => Payload; }
 
     /// <summary>
     /// Order Body
     /// </summary>
     [JsonProperty("orderBody", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    protected IEnumerable<T> OrderBody { set => Payload = value; get => Payload; }
+    protected List<T> OrderBody { set => Payload = value; get => Payload; }
 
     /// <summary>
     /// Rows
     /// </summary>
     [JsonProperty("rows", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    protected IEnumerable<T> Rows { set => Payload = value; get => Payload; }
+    protected List<T> Rows { set => Payload = value; get => Payload; }
 
     /// <summary>
     /// Sub Members
     /// </summary>
     [JsonProperty("subMembers", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    protected IEnumerable<T> SubMembers { set => Payload = value; get => Payload; }
+    protected List<T> SubMembers { set => Payload = value; get => Payload; }
 }
 
 internal class BybitResultResponse<T>
 {
     [JsonProperty("result")]
-    public IEnumerable<T> Payload { get; set; }
+    public List<T> Payload { get; set; }
 }
 
 internal class BybitCategoryResponse<T>
@@ -55,7 +55,7 @@ internal class BybitCategoryResponse<T>
     public BybitCategory Category { get; set; }
 
     [JsonProperty("list")]
-    public IEnumerable<T> Payload { get; set; }
+    public List<T> Payload { get; set; }
 }
 
 internal class BybitUpdateResponse<T>
@@ -65,7 +65,7 @@ internal class BybitUpdateResponse<T>
     public DateTime Time { get => Timestamp.ConvertFromMilliseconds(); }
 
     [JsonProperty("list")]
-    public IEnumerable<T> Payload { get; set; }
+    public List<T> Payload { get; set; }
 }
 
 /// <summary>

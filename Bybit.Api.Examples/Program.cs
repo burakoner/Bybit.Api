@@ -15,6 +15,16 @@ internal class Program
         {
             RawResponse = true,
         });
+
+        var market_0 = await api.Market.GetLinearInstrumentsAsync(limit:100);
+
+        var a =0;
+
+
+
+
+
+
         // api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX");
         // var public_01 = await api.Server.GetServerTimeAsync();
 
@@ -194,7 +204,7 @@ internal class Program
                         $" {data.Data.UpdateTime} " +
                         $" {data.Data.Symbol} " +
                         $" {data.Data.Side} " +
-                        $" {data.Data.Size} " +
+                        $" {data.Data.Quantity} " +
                         $" {data.Data.Price} ");
                 }
             });

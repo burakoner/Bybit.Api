@@ -13,5 +13,5 @@ public class BybitApiKey
     [JsonConverter(typeof(BooleanConverter))]
     public bool ReadOnly { get; set; }
     public BybitApiKeyPermissions Permissions { get; set; }
-    public IEnumerable<string> Ips { get; set; } = Array.Empty<string>();
+    public List<string> Ips { get; set; } = [];
 }

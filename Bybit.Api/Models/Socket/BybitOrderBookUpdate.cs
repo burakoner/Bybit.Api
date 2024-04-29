@@ -17,8 +17,8 @@ public class BybitOrderBookUpdate
     public long CrossSequence { get; set; }
 
     [JsonProperty("a")]
-    public IEnumerable<BybitOrderbookRow> Asks { get; set; } = Array.Empty<BybitOrderbookRow>();
+    public List<BybitOrderbookRow> Asks { get; set; } = [];
 
     [JsonProperty("b")]
-    public IEnumerable<BybitOrderbookRow> Bids { get; set; } = Array.Empty<BybitOrderbookRow>();
+    public List<BybitOrderbookRow> Bids { get; set; } = [];
 }

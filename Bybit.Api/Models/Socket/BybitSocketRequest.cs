@@ -9,7 +9,7 @@ internal class BybitSocketRequest
     public string Operation { get; set; }
 
     [JsonProperty("args")]
-    public object[] Parameters { get; set; } = Array.Empty<object>();
+    public object[] Parameters { get; set; } = [];
 
     public bool ValidateResponse(JToken responseData, ref bool forcedExit)
     {

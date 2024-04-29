@@ -1,22 +1,40 @@
 ﻿namespace Bybit.Api.Enums;
 
+/// <summary>
+/// Bybit Account Type
+/// </summary>
 public enum BybitAccount
 {
-    [Label("SPOT")]
-    Spot,
-
+    /// <summary>
+    /// Contract Account
+    /// </summary>
     [Label("CONTRACT")]
     Contract,
-
-    [Label("INVESTMENT")]
-    Investment,
-
+    
+    /// <summary>
+    /// Fund Account
+    /// </summary>
+    [Label("FUND")]
+    Fund,
+    
+    /// <summary>
+    /// Option Account
+    /// </summary>
     [Label("OPTION")]
     Option,
-
+    
+    /// <summary>
+    /// Spot Account
+    /// </summary>
+    [Label("SPOT")]
+    Spot,
+    
+    /// <summary>
+    /// Unified Account
+    /// </summary>
     [Label("UNIFIED")]
     Unified,
 
-    [Label("FUND")]
-    Fund,
+    // [Label("INVESTMENT")]
+    // Investment,
 }

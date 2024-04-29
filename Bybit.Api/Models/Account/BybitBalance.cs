@@ -1,17 +1,36 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
+/// <summary>
+/// Bybit Account Balance
+/// </summary>
 public class BybitBalance
 {
+    /// <summary>
+    /// Account type
+    /// </summary>
     [JsonConverter(typeof(LabelConverter<BybitAccount>))]
-    public BybitAccount AccountType { get; set; }
+    public BybitAccount Account { get; set; }
+
+    /// <summary>
+    /// Account LTV
+    /// </summary>
     public decimal? AccountLtv { get; set; }
 
+    /// <summary>
+    /// Account initial margin rate
+    /// </summary>
     [JsonProperty("accountIMRate")]
     public decimal? AccountInitialMarginRate { get; set; }
 
+    /// <summary>
+    /// Account maintenance margin rate
+    /// </summary>
     [JsonProperty("accountMMRate")]
     public decimal? AccountMaintenanceMarginRate { get; set; }
 
+    /// <summary>
+    /// Account equity in USD
+    /// </summary>
     [JsonProperty("totalEquity")]
     public decimal? TotalEquity { get; set; }
 
@@ -55,7 +74,7 @@ public class BybitBalance
     /// Asset info
     /// </summary>
     [JsonProperty("coin")]
-    public IEnumerable<BybitAssetBalance> Assets { get; set; } = Array.Empty<BybitAssetBalance>();
+    public List<BybitAssetBalance> Assets { get; set; } = [];
 }
 
 /// <summary>
@@ -98,6 +117,12 @@ public class BybitAssetBalance
     /// </summary>
     [JsonProperty("locked")]
     public decimal? Locked { get; set; }
+
+    /// <summary>
+    /// [Unified] The spot asset quantity that is used to hedge in the portfolio margin, truncate to 8 decimals and "0" by default
+    /// </summary>
+    [JsonProperty("spotHedgingQty")]
+    public decimal? SpotHedgingQuantity { get; set; }
 
     /// <summary>
     /// Borrow amount
@@ -157,4 +182,16 @@ public class BybitAssetBalance
     /// [Unified] Bonus
     /// </summary>
     public decimal? Bonus { get; set; }
+
+    /// <summary>
+    /// Whether the collateral is turned on by user (user)
+    /// </summary>
+    [JsonProperty("marginCollateral")]
+    public bool MarginCollateral { get; set; }
+
+    /// <summary>
+    /// Whether it can be used as a margin collateral currency
+    /// </summary>
+    [JsonProperty("collateralSwitch")]
+    public bool CollateralSwitch { get; set; }
 }

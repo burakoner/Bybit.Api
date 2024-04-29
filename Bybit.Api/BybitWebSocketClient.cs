@@ -1,4 +1,5 @@
-﻿using Bybit.Api.Models.Socket;
+﻿using Bybit.Api.Models.Account;
+using Bybit.Api.Models.Socket;
 
 namespace Bybit.Api;
 
@@ -218,7 +219,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             var topic = data.Data["topic"]; if (topic == null) return;
             var internalData = data.Data["data"]; if (internalData == null) return;
 
-            var desResult = Deserialize<IEnumerable<BybitTradeStream>>(internalData);
+            var desResult = Deserialize<List<BybitTradeStream>>(internalData);
             if (!desResult)
             {
                 this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitTradeStream)} object: " + desResult.Error);
@@ -259,9 +260,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOptionTickersAsync(IEnumerable<string> symbols, Action<WebSocketDataEvent<BybitOptionTickerStream>> handler, CancellationToken ct = default)
         => await SubscribeToTickersAsync(BybitCategory.Option, symbols, handler, ct).ConfigureAwait(false);
 
-    private async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTickersAsync<T>(
-        BybitCategory category, IEnumerable<string> symbols,
-        Action<WebSocketDataEvent<T>> handler, CancellationToken ct = default)
+    private async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTickersAsync<T>(BybitCategory category, IEnumerable<string> symbols, Action<WebSocketDataEvent<T>> handler, CancellationToken ct = default)
     {
         if (symbols.Count() > 10) throw new ArgumentException("Maximum 10 symbols per request");
 
@@ -299,7 +298,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             var topic = data.Data["topic"]; if (topic == null) return;
             var internalData = data.Data["data"]; if (internalData == null) return;
 
-            var desResult = Deserialize<IEnumerable<BybitKlineStream>>(internalData);
+            var desResult = Deserialize<List<BybitKlineStream>>(internalData);
             if (!desResult)
             {
                 this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitKlineStream)} object: " + desResult.Error);
@@ -358,7 +357,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             var topic = data.Data["topic"]; if (topic == null) return;
             var internalData = data.Data["data"]; if (internalData == null) return;
 
-            var desResult = Deserialize<IEnumerable<BybitLeveragedTokenKlineStream>>(internalData);
+            var desResult = Deserialize<List<BybitLeveragedTokenKlineStream>>(internalData);
             if (!desResult)
             {
                 this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitLeveragedTokenKlineStream)} object: " + desResult.Error);
@@ -438,7 +437,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     #endregion
 
     #region Private Updates
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToWalletUpdatesAsync(Action<WebSocketDataEvent<BybitWalletUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToWalletUpdatesAsync(Action<WebSocketDataEvent<BybitBalance>> handler, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
@@ -449,10 +448,10 @@ public class BybitWebSocketClient : WebSocketApiClient
             var jArray = (JArray)internalData;
             foreach (var item in jArray)
             {
-                var desResult = Deserialize<BybitWalletUpdate>(item);
+                var desResult = Deserialize<BybitBalance>(item);
                 if (!desResult)
                 {
-                    this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitWalletUpdate)} object: " + desResult.Error);
+                    this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitBalance)} object: " + desResult.Error);
                     return;
                 }
 

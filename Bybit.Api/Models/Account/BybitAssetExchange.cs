@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
 public class BybitAssetExchange
 {
@@ -10,16 +10,16 @@ public class BybitAssetExchange
 
     [JsonProperty("toCoin")]
     public string ToAsset { get; set; }
-    
+
     [JsonProperty("toAmount")]
     public decimal ToQuantity { get; set; }
-    
+
     public decimal ExchangeRate { get; set; }
-    
+
     [JsonProperty("createdTime")]
     public long CreateTimestamp { get; set; }
     public DateTime CreateTime { get => CreateTimestamp.ConvertFromMilliseconds(); }
-    
+
     [JsonProperty("exchangeTxId")]
     public string TransactionId { get; set; }
 }

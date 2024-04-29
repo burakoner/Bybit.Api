@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
 public class BybitDepositAddress
 {
@@ -6,7 +6,7 @@ public class BybitDepositAddress
     public string Asset { get; set; }
 
     [JsonProperty("chains")]
-    public IEnumerable<BybitNetworkDepositAddress> Networks { get; set; } = Array.Empty<BybitNetworkDepositAddress>();
+    public List<BybitNetworkDepositAddress> Networks { get; set; } = [];
 }
 
 public class BybitDepositAddressSingle

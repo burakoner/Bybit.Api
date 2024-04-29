@@ -13,35 +13,35 @@ public class BybitRestApiLendingClient
     protected const string v5InsLoanLtvConvertEndpoint = "v5/ins-loan/ltv-convert"; // TODO
     protected const string v5InsLoanAssociationUidEndpoint = "v5/ins-loan/association-uid"; // TODO
 
-    // Internal
+    #region Internal
     internal BybitRestApiBaseClient MainClient { get; }
-
     internal BybitRestApiLendingClient(BybitRestApiClient root)
     {
         this.MainClient = root.BaseClient;
     }
+    #endregion
 
-    public async Task<RestCallResult<IEnumerable<BybitLendingProduct>>> GetLendingProductsAsync(string productId = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLendingProduct>>> GetLendingProductsAsync(string productId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("productId", productId);
 
         var result = await MainClient.SendBybitRequest<BybitLendingProductContainer>(MainClient.BuildUri(v5InsLoanProductInfosEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitLendingProduct>>(null);
+        if (!result) return result.As<List<BybitLendingProduct>>(null);
         return result.As(result.Data.Payload);
     }
 
-    public async Task<RestCallResult<IEnumerable<BybitLendingToken>>> GetLendingTokensAsync(string token = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLendingToken>>> GetLendingTokensAsync(string token = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);
 
         var result = await MainClient.SendBybitRequest<BybitLendingTokenContainer>(MainClient.BuildUri(v5InsLoanEnsureTokensEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitLendingToken>>(null);
+        if (!result) return result.As<List<BybitLendingToken>>(null);
         return result.As(result.Data.Payload);
     }
 
-    public async Task<RestCallResult<IEnumerable<BybitLendingLoanOrder>>> GetLoanOrdersAsync(string orderId=null, long? startTime=null, long? endTime= null, int? limit=null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLendingLoanOrder>>> GetLoanOrdersAsync(string orderId=null, long? startTime=null, long? endTime= null, int? limit=null, CancellationToken ct = default)
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 100);
 
@@ -52,11 +52,11 @@ public class BybitRestApiLendingClient
         parameters.AddOptionalParameter("limit", limit);
 
         var result = await MainClient.SendBybitRequest<BybitLendingLoanOrderContainer>(MainClient.BuildUri(v5InsLoanLoanOrderEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitLendingLoanOrder>>(null);
+        if (!result) return result.As<List<BybitLendingLoanOrder>>(null);
         return result.As(result.Data.Payload);
     }
 
-    public async Task<RestCallResult<IEnumerable<BybitLendingRepayOrder>>> GetRepayOrdersAsync(long? startTime = null, long? endTime = null, int? limit = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLendingRepayOrder>>> GetRepayOrdersAsync(long? startTime = null, long? endTime = null, int? limit = null, CancellationToken ct = default)
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 100);
 
@@ -66,7 +66,7 @@ public class BybitRestApiLendingClient
         parameters.AddOptionalParameter("limit", limit);
 
         var result = await MainClient.SendBybitRequest<BybitLendingRepayOrderContainer>(MainClient.BuildUri(v5InsLoanRepaidHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitLendingRepayOrder>>(null);
+        if (!result) return result.As<List<BybitLendingRepayOrder>>(null);
         return result.As(result.Data.Payload);
     }
 

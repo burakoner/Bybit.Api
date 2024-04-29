@@ -10,15 +10,15 @@ public class BybitRestApiMarginClient
     protected const string v5SpotMarginTradeSetLeverageEndpoint = "v5/spot-margin-trade/set-leverage";
     protected const string v5SpotMarginTradeDataStateEndpoint = "v5/spot-margin-trade/state"; // TODO
 
-    // Internal
+    #region Internal
     internal BybitRestApiBaseClient MainClient { get; }
-
     internal BybitRestApiMarginClient(BybitRestApiClient root)
     {
         this.MainClient = root.BaseClient;
     }
+    #endregion
 
-    public async Task<RestCallResult<BybitSpotMarginMode>> SwitchMarginTradeAsync(bool spotMarginMode, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitSpotMarginMode>> SwitchMarginTradeAsync(bool spotMarginMode, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -28,7 +28,7 @@ public class BybitRestApiMarginClient
         return await MainClient.SendBybitRequest<BybitSpotMarginMode>(MainClient.BuildUri(v5SpotMarginTradeSwitchModeEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult> SetLeverageAsync(decimal leverage, CancellationToken ct = default)
+    public async Task<BybitRestCallResult> SetLeverageAsync(decimal leverage, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {

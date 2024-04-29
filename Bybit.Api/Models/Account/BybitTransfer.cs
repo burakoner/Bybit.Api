@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Wallet;
+﻿namespace Bybit.Api.Models.Account;
 
 public class BybitTransfer
 {
@@ -6,13 +6,13 @@ public class BybitTransfer
 
     [JsonProperty("coin")]
     public string Asset { get; set; }
-    
+
     [JsonProperty("amount")]
     public decimal Quantity { get; set; }
-    
+
     [JsonProperty("fromAccountType"), JsonConverter(typeof(LabelConverter<BybitAccount>))]
     public BybitAccount FromAccount { get; set; }
-    
+
     [JsonProperty("toAccountType"), JsonConverter(typeof(LabelConverter<BybitAccount>))]
     public BybitAccount ToAccount { get; set; }
 
@@ -24,7 +24,7 @@ public class BybitTransfer
 
     [JsonProperty("coin")]
     public long? FromUserId { get; set; }
-    
+
     [JsonProperty("coin")]
     public long? ToUserId { get; set; }
 }

@@ -21,13 +21,13 @@ public class BybitRestApiTradeClient
     private const string _v5OrderSpotBorrowCheckEndpoint = "v5/order/spot-borrow-check";
     private const string _v5OrderDisconnectedCancelAllEndpoint = "v5/order/disconnected-cancel-all";
 
-    // Internal
+    #region Internal
     internal BybitRestApiBaseClient MainClient { get; }
-
     internal BybitRestApiTradeClient(BybitRestApiClient root)
     {
         this.MainClient = root.BaseClient;
     }
+    #endregion
 
     #region Trade Methods
     /// <summary>
@@ -133,7 +133,7 @@ public class BybitRestApiTradeClient
     /// </param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitOrderId>> PlaceOrderAsync(
+    public async Task<BybitRestCallResult<BybitOrderId>> PlaceOrderAsync(
         BybitCategory category,
         string symbol,
 
@@ -249,7 +249,7 @@ public class BybitRestApiTradeClient
     /// <param name="stopLossLimitPrice">Limit order price when stop loss is triggered. Only working when original order sets partial limit tp/sl. valid for spot(UTA), linear, inverse</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitOrderId>> AmendOrderAsync(
+    public async Task<BybitRestCallResult<BybitOrderId>> AmendOrderAsync(
         BybitCategory category,
         string symbol,
         string orderId = null,
@@ -318,7 +318,7 @@ public class BybitRestApiTradeClient
     /// <param name="orderFilter">Valid for spot only. Order,tpslOrder,StopOrder. If not passed, Order by default</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitOrderId>> CancelOrderAsync(
+    public async Task<BybitRestCallResult<BybitOrderId>> CancelOrderAsync(
         BybitCategory category,
         string symbol,
         string orderId = null,
@@ -379,7 +379,7 @@ public class BybitRestApiTradeClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitCursorResponse<BybitOrder>>> GetOpenOrdersAsync(
+    public async Task<BybitRestCallResult<List<BybitOrder>>> GetOpenOrdersAsync(
         BybitCategory category,
         string symbol = null,
         string baseAsset = null,
@@ -407,7 +407,9 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.BuildUri(_v5OrderRealtimeEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.BuildUri(_v5OrderRealtimeEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitOrder>>(null);
+        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -443,7 +445,7 @@ public class BybitRestApiTradeClient
     /// Only used for category=linear or inverse and orderFilter=StopOrder,you can cancel conditional orders except TP/SL order and Trailing stop orders with this param</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<BybitOrderId>>> CancelOrdersAsync(
+    public async Task<BybitRestCallResult<List<BybitOrderId>>> CancelOrdersAsync(
         BybitCategory category,
         string symbol = null,
         string baseAsset = null,
@@ -463,7 +465,7 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("stopOrderType", stopOrderType?.GetLabel());
 
         var result = await MainClient.SendBybitRequest<BybitListResponse<BybitOrderId>>(MainClient.BuildUri(_v5OrderCancelAllEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitOrderId>>(null);
+        if (!result) return result.As<List<BybitOrderId>>(null);
         return result.As(result.Data.Payload);
     }
 
@@ -510,7 +512,7 @@ public class BybitRestApiTradeClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitCursorResponse<BybitOrder>>> GetOrderHistoryAsync(
+    public async Task<BybitRestCallResult<List<BybitOrder>>> GetOrderHistoryAsync(
         BybitCategory category,
         string symbol = null,
         string baseAsset = null,
@@ -542,7 +544,9 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.BuildUri(_v5OrderHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.BuildUri(_v5OrderHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitOrder>>(null);
+        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -581,7 +585,7 @@ public class BybitRestApiTradeClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitCursorResponse<BybitExecution>>> GetTradeHistoryAsync(
+    public async Task<BybitRestCallResult<List<BybitExecution>>> GetTradeHistoryAsync(
         BybitCategory category,
         string symbol = null,
         string orderId = null,
@@ -610,7 +614,9 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitExecution>>(MainClient.BuildUri(_v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitExecution>>(MainClient.BuildUri(_v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitExecution>>(null);
+        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -631,10 +637,7 @@ public class BybitRestApiTradeClient
     /// <param name="requests">Order Requests</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchError>>>> PlaceOrdersAsync(
-        BybitCategory category,
-        IEnumerable<BybitBatchPlaceOrderRequest> requests,
-        CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitRestApiResponse<List<BybitBatchPlaceOrderResponse>, List<BybitBatchError>>>> PlaceOrdersAsync(BybitCategory category, IEnumerable<BybitBatchPlaceOrderRequest> requests, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -643,8 +646,8 @@ public class BybitRestApiTradeClient
         };
 
         var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchPlaceOrderResponse>, BybitListResponse<BybitBatchError>>(MainClient.BuildUri(_v5OrderCreateBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchError>>>(null);
-        return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchPlaceOrderResponse>, IEnumerable<BybitBatchError>>
+        if (!result) return result.As<BybitRestApiResponse<List<BybitBatchPlaceOrderResponse>, List<BybitBatchError>>>(null);
+        return result.As(new BybitRestApiResponse<List<BybitBatchPlaceOrderResponse>, List<BybitBatchError>>
         {
             Result = result.Data.Result.Payload,
             ReturnExtraInfo = result.Data.ReturnExtraInfo.Payload
@@ -665,10 +668,7 @@ public class BybitRestApiTradeClient
     /// <param name="requests">Order Requests</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchError>>>> AmendOrdersAsync(
-        BybitCategory category,
-        IEnumerable<BybitBatchAmendOrderRequest> requests,
-        CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitRestApiResponse<List<BybitBatchAmendOrderResponse>, List<BybitBatchError>>>> AmendOrdersAsync(BybitCategory category, IEnumerable<BybitBatchAmendOrderRequest> requests, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -677,8 +677,8 @@ public class BybitRestApiTradeClient
         };
 
         var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchAmendOrderResponse>, BybitListResponse<BybitBatchError>>(MainClient.BuildUri(_v5OrderAmendBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchError>>>(null);
-        return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchAmendOrderResponse>, IEnumerable<BybitBatchError>>
+        if (!result) return result.As<BybitRestApiResponse<List<BybitBatchAmendOrderResponse>, List<BybitBatchError>>>(null);
+        return result.As(new BybitRestApiResponse<List<BybitBatchAmendOrderResponse>, List<BybitBatchError>>
         {
             Result = result.Data.Result.Payload,
             ReturnExtraInfo = result.Data.ReturnExtraInfo.Payload
@@ -701,10 +701,7 @@ public class BybitRestApiTradeClient
     /// <param name="requests"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchError>>>> CancelOrdersAsync(
-        BybitCategory category,
-        IEnumerable<BybitBatchCancelOrderRequest> requests,
-        CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitRestApiResponse<List<BybitBatchCancelOrderResponse>, List<BybitBatchError>>>> CancelOrdersAsync(BybitCategory category, IEnumerable<BybitBatchCancelOrderRequest> requests, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -713,8 +710,8 @@ public class BybitRestApiTradeClient
         };
 
         var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBatchCancelOrderResponse>, BybitListResponse<BybitBatchError>>(MainClient.BuildUri(_v5OrderCancelBatchEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchError>>>(null);
-        return result.As(new BybitRestApiResponse<IEnumerable<BybitBatchCancelOrderResponse>, IEnumerable<BybitBatchError>>
+        if (!result) return result.As<BybitRestApiResponse<List<BybitBatchCancelOrderResponse>, List<BybitBatchError>>>(null);
+        return result.As(new BybitRestApiResponse<List<BybitBatchCancelOrderResponse>, List<BybitBatchError>>
         {
             Result = result.Data.Result.Payload,
             ReturnExtraInfo = result.Data.ReturnExtraInfo.Payload
@@ -730,7 +727,7 @@ public class BybitRestApiTradeClient
     /// <param name="ct"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<RestCallResult<BybitBorrowQuota>> GetBorrowQuotaAsync(BybitCategory category, string symbol, BybitOrderSide side, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitBorrowQuota>> GetBorrowQuotaAsync(BybitCategory category, string symbol, BybitOrderSide side, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Spot))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -768,7 +765,7 @@ public class BybitRestApiTradeClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<RestCallResult<object>> SetDisconnectionProtectAsync(int timeWindow, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<object>> SetDisconnectionProtectAsync(int timeWindow, CancellationToken ct = default)
     {
         timeWindow.ValidateIntBetween(nameof(timeWindow), 3, 300);
         var parameters = new Dictionary<string, object>

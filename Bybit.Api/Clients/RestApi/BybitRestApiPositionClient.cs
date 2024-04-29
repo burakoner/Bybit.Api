@@ -25,13 +25,13 @@ public class BybitRestApiPositionClient
     private const string _v5PositionMoveHistoryEndpoint = "v5/position/move-history";
     private const string _v5PositionConfirmPendingMmrEndpoint = "v5/position/confirm-pending-mmr";
 
-    // Internal
+    #region Internal
     internal BybitRestApiBaseClient MainClient { get; }
-
     internal BybitRestApiPositionClient(BybitRestApiClient root)
     {
         this.MainClient = root.BaseClient;
     }
+    #endregion
 
     #region Position Methods
     /// <summary>
@@ -59,7 +59,7 @@ public class BybitRestApiPositionClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<RestCallResult<IEnumerable<BybitPosition>>> GetPositionsAsync(BybitCategory category, string symbol = null, string baseAsset = null, string settleAsset = null, int? limit = null, string cursor = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitPosition>>> GetPositionsAsync(BybitCategory category, string symbol = null, string baseAsset = null, string settleAsset = null, int? limit = null, string cursor = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse, BybitCategory.Option))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -77,7 +77,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("cursor", cursor);
 
         var result = await MainClient.SendBybitRequest<BybitListResponse<BybitPosition>>(MainClient.BuildUri(_v5PositionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<IEnumerable<BybitPosition>>(null);
+        if (!result) return result.As<List<BybitPosition>>(null);
         return result.As(result.Data.Payload);
     }
 
@@ -93,7 +93,7 @@ public class BybitRestApiPositionClient
     /// <param name="ct"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<RestCallResult> SetLeverageAsync(BybitCategory category, string symbol, decimal buyLeverage, decimal sellLeverage, CancellationToken ct = default)
+    public async Task<BybitRestCallResult> SetLeverageAsync(BybitCategory category, string symbol, decimal buyLeverage, decimal sellLeverage, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -126,7 +126,7 @@ public class BybitRestApiPositionClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<RestCallResult> SwitchMarginAsync(BybitCategory category, string symbol, BybitTradeMode tradeMode, decimal buyLeverage, decimal sellLeverage, CancellationToken ct = default)
+    public async Task<BybitRestCallResult> SwitchMarginAsync(BybitCategory category, string symbol, BybitTradeMode tradeMode, decimal buyLeverage, decimal sellLeverage, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -165,7 +165,7 @@ public class BybitRestApiPositionClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<RestCallResult<BybitTakeProfitStopLossState>> SetTakeProfitStopLossModeAsync(BybitCategory category, string symbol, BybitTakeProfitStopLossMode tpSlMode, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitTakeProfitStopLossState>> SetTakeProfitStopLossModeAsync(BybitCategory category, string symbol, BybitTakeProfitStopLossMode tpSlMode, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -200,7 +200,7 @@ public class BybitRestApiPositionClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<RestCallResult> SwitchPositionModeAsync(BybitCategory category, BybitPositionMode mode, string symbol = null, string asset = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult> SwitchPositionModeAsync(BybitCategory category, BybitPositionMode mode, string symbol = null, string asset = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -231,7 +231,7 @@ public class BybitRestApiPositionClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<RestCallResult<BybitRiskLimit>> SetRiskLimitAsync(
+    public async Task<BybitRestCallResult<BybitRiskLimit>> SetRiskLimitAsync(
         BybitCategory category,
         string symbol,
         long riskId,
@@ -291,7 +291,7 @@ public class BybitRestApiPositionClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<RestCallResult> SetTradingStopAsync(
+    public async Task<BybitRestCallResult> SetTradingStopAsync(
         BybitCategory category,
         string symbol,
         BybitPositionIndex positionIndex,
@@ -357,7 +357,7 @@ public class BybitRestApiPositionClient
     /// <param name="positionIndex">Used to identify positions in different position modes. For hedge mode position, this param is required</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult> SetAutoAddMarginAsync(
+    public async Task<BybitRestCallResult> SetAutoAddMarginAsync(
         BybitCategory category,
         string symbol,
         bool autoAddMargin,
@@ -390,7 +390,7 @@ public class BybitRestApiPositionClient
     /// <param name="positionIndex">Used to identify positions in different position modes. For hedge mode position, this param is required</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitPosition>> AddMarginAsync(
+    public async Task<BybitRestCallResult<BybitPosition>> AddMarginAsync(
         BybitCategory category,
         string symbol,
         decimal margin,
@@ -432,7 +432,7 @@ public class BybitRestApiPositionClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitCursorResponse<BybitProfitAndLoss>>> GetClosedProfitLossAsync(
+    public async Task<BybitRestCallResult<List<BybitProfitAndLoss>>> GetClosedProfitLossAsync(
         BybitCategory category,
         string symbol = null,
         long? startTime = null,
@@ -453,7 +453,9 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitProfitAndLoss>>(MainClient.BuildUri(_v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitProfitAndLoss>>(MainClient.BuildUri(_v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitProfitAndLoss>>(null);
+        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -477,11 +479,7 @@ public class BybitRestApiPositionClient
     /// <param name="list">Object. Up to 25 legs per request</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitMovePositionResponse>> MovePositionsAsync(
-        string fromUid,
-        string toUid,
-        IEnumerable<BybitMovePositionRequest> list,
-        CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitMovePositionResponse>> MovePositionsAsync(string fromUid, string toUid, IEnumerable<BybitMovePositionRequest> list, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -508,7 +506,7 @@ public class BybitRestApiPositionClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<BybitCursorResponse<BybitMovePositionHistory>>> GetMovePositionHistoryAsync(
+    public async Task<BybitRestCallResult<List<BybitMovePositionHistory>>> GetMovePositionHistoryAsync(
         BybitCategory category,
         string symbol = null,
         long? startTime = null,
@@ -533,7 +531,9 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        return await MainClient.SendBybitRequest<BybitCursorResponse<BybitMovePositionHistory>>(MainClient.BuildUri(_v5PositionMoveHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitMovePositionHistory>>(MainClient.BuildUri(_v5PositionMoveHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitMovePositionHistory>>(null);
+        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -548,7 +548,7 @@ public class BybitRestApiPositionClient
     /// <param name="symbol">Symbol name</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult> ConfirmNewRiskLimitAsync(BybitCategory category, string symbol, CancellationToken ct = default)
+    public async Task<BybitRestCallResult> ConfirmNewRiskLimitAsync(BybitCategory category, string symbol, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>()
         {
