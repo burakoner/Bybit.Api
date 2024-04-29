@@ -76,7 +76,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitPosition>>(MainClient.BuildUri(_v5PositionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitPosition>>(MainClient.BuildUri(_v5PositionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitPosition>>(null);
         return result.As(result.Data.Payload);
     }
@@ -453,7 +453,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitProfitAndLoss>>(MainClient.BuildUri(_v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitProfitAndLoss>>(MainClient.BuildUri(_v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitProfitAndLoss>>(null);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
@@ -531,7 +531,7 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitMovePositionHistory>>(MainClient.BuildUri(_v5PositionMoveHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitMovePositionHistory>>(MainClient.BuildUri(_v5PositionMoveHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMovePositionHistory>>(null);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }

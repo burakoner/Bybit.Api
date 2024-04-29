@@ -24,7 +24,7 @@ public class BybitRestApiLeveragedTokensClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLeveragedTokenInformation>>(MainClient.BuildUri(v5SpotLeverTokenInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitLeveragedTokenInformation>>(MainClient.BuildUri(v5SpotLeverTokenInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLeveragedTokenInformation>>(null);
         return result.As(result.Data.Payload);
     }
@@ -34,7 +34,7 @@ public class BybitRestApiLeveragedTokensClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLeveragedTokenMarket>>(MainClient.BuildUri(v5SpotLeverTokenReferenceEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitLeveragedTokenMarket>>(MainClient.BuildUri(v5SpotLeverTokenReferenceEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLeveragedTokenMarket>>(null);
         return result.As(result.Data.Payload);
     }
@@ -74,7 +74,7 @@ public class BybitRestApiLeveragedTokensClient
         parameters.AddOptionalParameter("endTime", endTime);
         parameters.AddOptionalParameter("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLeveragedTokenOrder>>(MainClient.BuildUri(v5SpotLeverTokenOrderRecordEndpoint), HttpMethod.Post, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitLeveragedTokenOrder>>(MainClient.BuildUri(v5SpotLeverTokenOrderRecordEndpoint), HttpMethod.Post, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLeveragedTokenOrder>>(null);
         return result.As(result.Data.Payload);
     }

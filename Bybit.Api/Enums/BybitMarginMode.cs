@@ -12,7 +12,7 @@ public enum BybitMarginMode
     Isolated,
 
     /// <summary>
-    /// Regular
+    /// Regular (i.e. Cross margin)
     /// </summary>
     [Label("REGULAR_MARGIN")]
     Regular,

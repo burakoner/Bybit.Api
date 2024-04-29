@@ -1,6 +1,6 @@
 ﻿namespace Bybit.Api.Models;
 
-internal class BybitListResponse<T>
+internal class BybitUnifiedResponse<T>
 {
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public List<T> Payload { get; set; }
@@ -29,14 +29,34 @@ internal class BybitListResponse<T>
 
     [JsonProperty("nextPageCursor", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public string NextPageCursor { get; set; }
+
+    [JsonProperty("updatedTime", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+    public long? UpdateTimestamp { get; set; }
+
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+    public DateTime? UpdateTime { get => UpdateTimestamp?.ConvertFromMilliseconds(); }
 }
 
-internal class BybitUpdateResponse<T>
+public class BybitRestApiResponse
 {
-    [JsonProperty("updatedTime")]
-    public long Timestamp { get; set; }
-    public DateTime Time { get => Timestamp.ConvertFromMilliseconds(); }
+    [JsonProperty("retCode")]
+    public int ReturnCode { get; set; }
 
-    [JsonProperty("list")]
-    public List<T> Payload { get; set; }
+    [JsonProperty("retMsg")]
+    public string ReturnMessage { get; set; }
+
+    [JsonProperty("time"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime Timestamp { get; set; }
+}
+
+public class BybitRestApiResponse<T> : BybitRestApiResponse
+{
+    [JsonProperty("result")]
+    public T Result { get; set; }
+}
+
+public class BybitRestApiResponse<TResult, TExtra> : BybitRestApiResponse<TResult>
+{
+    [JsonProperty("retExtInfo")]
+    public TExtra ReturnExtraInfo { get; set; }
 }

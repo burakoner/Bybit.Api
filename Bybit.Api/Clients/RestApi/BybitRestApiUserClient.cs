@@ -58,7 +58,7 @@ public class BybitRestApiUserClient
 
     public async Task<BybitRestCallResult<List<BybitSubAccount>>> GetSubAccountsAsync(CancellationToken ct = default)
     {
-        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitSubAccount>>(MainClient.BuildUri(v5UserQuerySubMembersEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitSubAccount>>(MainClient.BuildUri(v5UserQuerySubMembersEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
         if (!result) return result.As<List<BybitSubAccount>>(null);
         return result.As(result.Data.Payload);
     }
