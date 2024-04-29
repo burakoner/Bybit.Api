@@ -74,13 +74,13 @@ public class BybitBalance
     /// Asset info
     /// </summary>
     [JsonProperty("coin")]
-    public List<BybitAssetBalance> Assets { get; set; } = [];
+    public List<BybitBalanceItem> Assets { get; set; } = [];
 }
 
 /// <summary>
 /// Asset balance info
 /// </summary>
-public class BybitAssetBalance
+public class BybitBalanceItem
 {
     /// <summary>
     /// Asset name

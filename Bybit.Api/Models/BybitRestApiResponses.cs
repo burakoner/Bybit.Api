@@ -2,7 +2,6 @@
 
 internal class BybitUnifiedResponse<T>
 {
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public List<T> Payload { get; set; }
 
     [JsonProperty("configList", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
