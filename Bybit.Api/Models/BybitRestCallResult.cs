@@ -122,16 +122,16 @@ public class BybitRestCallResult<T>(RestCallRequest request, RestCallResponse re
         return new BybitRestCallResult<K>(Request, Response, data, Raw, Error);
     }
 
-    internal BybitRestCallResult<K> AsWithCursor<K>(
+    internal BybitRestCallResult<K> As<K>(
 #if NETSTANDARD2_1_OR_GREATER
     [AllowNull] 
         #endif
         K data, string cursor)
     {
-        var result = new BybitRestCallResult<K>(Request, Response, data, Raw, Error);
-        result.Cursor = cursor;
-
-        return result;
+        return new BybitRestCallResult<K>(Request, Response, data, Raw, Error)
+        {
+            Cursor = cursor
+        };
     }
 
     /// <summary>

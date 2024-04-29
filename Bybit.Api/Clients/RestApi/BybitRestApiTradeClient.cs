@@ -407,9 +407,9 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.BuildUri(_v5OrderRealtimeEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitOrder>>(MainClient.BuildUri(_v5OrderRealtimeEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitOrder>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -544,9 +544,9 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitOrder>>(MainClient.BuildUri(_v5OrderHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitOrder>>(MainClient.BuildUri(_v5OrderHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitOrder>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -614,9 +614,9 @@ public class BybitRestApiTradeClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitExecution>>(MainClient.BuildUri(_v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitExecution>>(MainClient.BuildUri(_v5ExecutionListEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitExecution>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>

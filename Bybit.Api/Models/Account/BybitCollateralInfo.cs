@@ -22,11 +22,17 @@ public class BybitCollateralInfo
     /// </summary>
     [JsonProperty("maxBorrowingAmount")]
     public decimal MaxBorrowAmount { get; set; }
+    
+    /// <summary>
+    /// Free borrow limit
+    /// </summary>
+    [JsonProperty("freeBorrowingLimit")]
+    public decimal FreeBorrowLimit { get; set; }
 
     /// <summary>
     /// Free borrow amount
     /// </summary>
-    [JsonProperty("freeBorrowingAmount")]
+    [JsonProperty("freeBorrowAmount")]
     public decimal FreeBorrowAmount { get; set; }
 
     /// <summary>
@@ -34,6 +40,12 @@ public class BybitCollateralInfo
     /// </summary>
     [JsonProperty("borrowAmount")]
     public decimal BorrowAmount { get; set; }
+
+    /// <summary>
+    /// Free borrowing amount
+    /// </summary>
+    [JsonProperty("freeBorrowingAmount")]
+    public decimal FreeBorrowingAmount { get; set; }
 
     /// <summary>
     /// Available to borrow
@@ -46,6 +58,12 @@ public class BybitCollateralInfo
     /// </summary>
     [JsonProperty("borrowable")]
     public bool Borrowable { get; set; }
+
+    /// <summary>
+    /// Borrow usage rate
+    /// </summary>
+    [JsonProperty("borrowUsageRate")]
+    public decimal BorrowUsageRate { get; set; }
 
     /// <summary>
     /// Whether it can be used as a margin collateral currency

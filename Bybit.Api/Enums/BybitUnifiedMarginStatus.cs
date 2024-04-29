@@ -1,6 +1,9 @@
 ﻿namespace Bybit.Api.Enums;
 
-public enum BybitUnifiedMarginAccount
+/// <summary>
+/// Bybit Unified Margin Status
+/// </summary>
+public enum BybitUnifiedMarginStatus
 {
     /// <summary>
     /// Regular account
@@ -9,7 +12,7 @@ public enum BybitUnifiedMarginAccount
     Regular,
 
     /// <summary>
-    /// Unified margin account, can only trade linear perpetual and options.
+    /// Please ignore !!!
     /// </summary>
     [Label("2")]
     UnifiedMarginAccount,
@@ -18,5 +21,11 @@ public enum BybitUnifiedMarginAccount
     /// Unified trade account, can trade linear perpetual, options and spot
     /// </summary>
     [Label("3")]
-    UnifiedTradeAccount
+    UnifiedTradeAccount,
+
+    /// <summary>
+    /// UTA Pro, the pro version of Unified trade account
+    /// </summary>
+    [Label("4")]
+    UnifiedTradeAccountPro,
 }

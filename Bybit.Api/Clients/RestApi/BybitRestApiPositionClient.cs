@@ -453,9 +453,9 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitProfitAndLoss>>(MainClient.BuildUri(_v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitProfitAndLoss>>(MainClient.BuildUri(_v5PositionClosedPnlEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitProfitAndLoss>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -531,9 +531,9 @@ public class BybitRestApiPositionClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitMovePositionHistory>>(MainClient.BuildUri(_v5PositionMoveHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitMovePositionHistory>>(MainClient.BuildUri(_v5PositionMoveHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMovePositionHistory>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>

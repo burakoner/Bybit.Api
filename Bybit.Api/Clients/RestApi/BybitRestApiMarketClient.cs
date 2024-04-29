@@ -245,7 +245,7 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("symbol", symbol);
         parameters.AddOptionalParameter("status", status?.GetLabel());
 
-        var result = await MainClient.SendBybitRequest<BybitCategoryResponse<BybitSpotInstrument>>(MainClient.BuildUri(_v5InstrumentsInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitSpotInstrument>>(MainClient.BuildUri(_v5InstrumentsInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitSpotInstrument>>(null);
         return result.As(result.Data.Payload);
     }
@@ -273,9 +273,9 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitLinearInverseInstrument>>(MainClient.BuildUri(_v5InstrumentsInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLinearInverseInstrument>>(MainClient.BuildUri(_v5InstrumentsInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLinearInverseInstrument>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -301,9 +301,9 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitLinearInverseInstrument>>(MainClient.BuildUri(_v5InstrumentsInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLinearInverseInstrument>>(MainClient.BuildUri(_v5InstrumentsInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLinearInverseInstrument>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -329,9 +329,9 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitOptionInstrument>>(MainClient.BuildUri(_v5InstrumentsInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitOptionInstrument>>(MainClient.BuildUri(_v5InstrumentsInfoEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitOptionInstrument>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -382,7 +382,7 @@ public class BybitRestApiMarketClient
         };
         parameters.AddOptionalParameter("symbol", symbol);
 
-        var result = await MainClient.SendBybitRequest<BybitCategoryResponse<BybitSpotTicker>>(MainClient.BuildUri(_v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitSpotTicker>>(MainClient.BuildUri(_v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitSpotTicker>>(null);
         return result.As(result.Data.Payload);
     }
@@ -403,7 +403,7 @@ public class BybitRestApiMarketClient
         };
         parameters.AddOptionalParameter("symbol", symbol);
 
-        var result = await MainClient.SendBybitRequest<BybitCategoryResponse<BybitLinearInverseTicker>>(MainClient.BuildUri(_v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLinearInverseTicker>>(MainClient.BuildUri(_v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLinearInverseTicker>>(null);
         return result.As(result.Data.Payload);
     }
@@ -424,7 +424,7 @@ public class BybitRestApiMarketClient
         };
         parameters.AddOptionalParameter("symbol", symbol);
 
-        var result = await MainClient.SendBybitRequest<BybitCategoryResponse<BybitLinearInverseTicker>>(MainClient.BuildUri(_v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitLinearInverseTicker>>(MainClient.BuildUri(_v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLinearInverseTicker>>(null);
         return result.As(result.Data.Payload);
     }
@@ -449,7 +449,7 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("baseCoin", baseAsset);
         parameters.AddOptionalParameter("expDate", expDate);
 
-        var result = await MainClient.SendBybitRequest<BybitCategoryResponse<BybitOptionTicker>>(MainClient.BuildUri(_v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitOptionTicker>>(MainClient.BuildUri(_v5MarketTickersEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitOptionTicker>>(null);
         return result.As(result.Data.Payload);
     }
@@ -507,7 +507,7 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("endTime", endTime);
         parameters.AddOptionalParameter("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitCategoryResponse<BybitFundingHistory>>(MainClient.BuildUri(_v5MarketFundingHistoryEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitFundingHistory>>(MainClient.BuildUri(_v5MarketFundingHistoryEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitFundingHistory>>(null);
         return result.As(result.Data.Payload);
     }
@@ -546,7 +546,7 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("optionType", optionType?.GetLabel());
         parameters.AddOptionalParameter("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitCategoryResponse<BybitPublicTrade>>(MainClient.BuildUri(_v5MarketRecentTradeEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitPublicTrade>>(MainClient.BuildUri(_v5MarketRecentTradeEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitPublicTrade>>(null);
         return result.As(result.Data.Payload);
     }
@@ -604,9 +604,9 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("cursor", cursor);
         parameters.AddOptionalParameter("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitOpenInterest>>(MainClient.BuildUri(_v5MarketOpenInterestEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitOpenInterest>>(MainClient.BuildUri(_v5MarketOpenInterestEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitOpenInterest>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -707,7 +707,7 @@ public class BybitRestApiMarketClient
         };
         parameters.AddOptionalParameter("symbol", symbol);
 
-        var result = await MainClient.SendBybitRequest<BybitCategoryResponse<BybitRiskLimit>>(MainClient.BuildUri(_v5MarketRiskLimitEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitRiskLimit>>(MainClient.BuildUri(_v5MarketRiskLimitEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitRiskLimit>>(null);
         return result.As(result.Data.Payload);
     }
@@ -742,9 +742,9 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitDeliveryPrice>>(MainClient.BuildUri(_v5MarketDeliveryPriceEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitDeliveryPrice>>(MainClient.BuildUri(_v5MarketDeliveryPriceEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitDeliveryPrice>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>

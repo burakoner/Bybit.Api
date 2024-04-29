@@ -6,6 +6,11 @@
 public class BybitTransaction
 {
     /// <summary>
+    /// Unique id
+    /// </summary>
+    public string Id { get; set; }
+
+    /// <summary>
     /// Symbol
     /// </summary>
     public string Symbol { get; set; }
@@ -27,6 +32,10 @@ public class BybitTransaction
     /// </summary>
     [JsonProperty("transactionTime")]
     public long TransactionTimestamp { get; set; }
+
+    /// <summary>
+    /// Transaction time
+    /// </summary>
     public DateTime TransactionTime { get => TransactionTimestamp.ConvertFromMilliseconds(); }
 
     /// <summary>
@@ -60,7 +69,8 @@ public class BybitTransaction
     /// <summary>
     /// Funding fee
     /// </summary>
-    public decimal? Funding { get; set; }
+    [JsonProperty("funding")]
+    public decimal? FundingFee { get; set; }
 
     /// <summary>
     /// Trading fee
@@ -70,7 +80,7 @@ public class BybitTransaction
     /// <summary>
     /// Cash flow
     /// </summary>
-    public decimal? Cashflow { get; set; }
+    public decimal? CashFlow { get; set; }
 
     /// <summary>
     /// Change

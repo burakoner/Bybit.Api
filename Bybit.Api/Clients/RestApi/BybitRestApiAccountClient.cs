@@ -86,11 +86,17 @@ public class BybitRestApiAccountClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitBorrowHistory>>(MainClient.BuildUri(_v5AccountBorrowHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitBorrowHistory>>(MainClient.BuildUri(_v5AccountBorrowHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitBorrowHistory>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
+    /// <summary>
+    /// Get the collateral information of the current unified margin account, including loan interest rate, loanable amount, collateral conversion rate, whether it can be mortgaged as margin, etc.
+    /// </summary>
+    /// <param name="asset">Asset currency of all current collateral</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitCollateralInfo>>> GetCollateralInfoAsync(string asset = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -101,6 +107,12 @@ public class BybitRestApiAccountClient
         return result.As(result.Data.Payload);
     }
 
+    /// <summary>
+    /// Get current account Greeks information
+    /// </summary>
+    /// <param name="baseAsset">Base coin. If not passed, all supported base coin greeks will be returned by default</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitGreeks>>> GetAssetGreeksAsync(string baseAsset = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -111,6 +123,14 @@ public class BybitRestApiAccountClient
         return result.As(result.Data.Payload);
     }
 
+    /// <summary>
+    /// Get the trading fee rate.
+    /// </summary>
+    /// <param name="category">Product type. spot, linear, inverse, option</param>
+    /// <param name="symbol">Symbol name. Valid for linear, inverse, spot</param>
+    /// <param name="baseAsset">Base coin. SOL, BTC, ETH. Valid for option</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitFeeRate>>> GetFeeRateAsync(BybitCategory category, string symbol = null, string baseAsset = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -125,11 +145,30 @@ public class BybitRestApiAccountClient
         return result.As(result.Data.Payload);
     }
 
+    /// <summary>
+    /// Query the margin mode configuration of the account.
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public async Task<BybitRestCallResult<BybitAccountInfo>> GetAccountInfoAsync(CancellationToken ct = default)
     {
         return await MainClient.SendBybitRequest<BybitAccountInfo>(MainClient.BuildUri(_v5AccountInfoEndpoint), HttpMethod.Get, ct, true).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Query transaction logs in Unified account, it supports up to 2 years data
+    /// </summary>
+    /// <param name="account">Account Type. UNIFIED</param>
+    /// <param name="category">Product type. spot,linear,option</param>
+    /// <param name="asset">Currency</param>
+    /// <param name="baseAsset">BaseCoin. e.g., BTC of BTCPERP</param>
+    /// <param name="type">Types of transaction logs</param>
+    /// <param name="startTime">The start timestamp (ms)</param>
+    /// <param name="endTime">The end timestamp (ms)</param>
+    /// <param name="limit">Limit for data size per page. [1, 50]. Default: 20</param>
+    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitTransaction>>> GetTransactionHistoryAsync(BybitAccount? account = null, BybitCategory? category = null, string asset = null, string baseAsset = null, BybitTransactionType? type = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
     {
         limit?.ValidateIntValues(nameof(limit), 1, 50);
@@ -145,9 +184,9 @@ public class BybitRestApiAccountClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitCursorResponse<BybitTransaction>>(MainClient.BuildUri(_v5AccountTransactionLogEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitTransaction>>(MainClient.BuildUri(_v5AccountTransactionLogEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitTransaction>>(null);
-        return result.AsWithCursor(result.Data.Payload, result.Data.NextPageCursor);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     public async Task<BybitRestCallResult<List<BybitReason>>> SetMarginModeAsync(BybitMarginMode marginMode, CancellationToken ct = default)
@@ -191,7 +230,7 @@ public class BybitRestApiAccountClient
             { "baseCoin", baseAsset },
         };
 
-        var result = await MainClient.SendBybitRequest<BybitResultResponse<BybitMmpState>>(MainClient.BuildUri(_v5AccountMmpStateEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await MainClient.SendBybitRequest<BybitListResponse<BybitMmpState>>(MainClient.BuildUri(_v5AccountMmpStateEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMmpState>>(null);
         return result.As(result.Data.Payload);
     }
