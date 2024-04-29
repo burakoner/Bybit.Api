@@ -2,7 +2,7 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
-public class BybitRestApiLeveragedTokensClient
+public class BybitRestApiTokensClient
 {
     // Spot Leverage Token Endpoints
     private const string _v5SpotLeverTokenInfo = "v5/spot-lever-token/info";
@@ -13,7 +13,7 @@ public class BybitRestApiLeveragedTokensClient
 
     #region Internal
     internal BybitRestApiBaseClient MainClient { get; }
-    internal BybitRestApiLeveragedTokensClient(BybitRestApiClient root)
+    internal BybitRestApiTokensClient(BybitRestApiClient root)
     {
         this.MainClient = root.BaseClient;
     }

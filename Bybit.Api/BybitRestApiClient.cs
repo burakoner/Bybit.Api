@@ -45,7 +45,7 @@ public class BybitRestApiClient
     /// <summary>
     /// Leveraged Tokens Client
     /// </summary>
-    public BybitRestApiLeveragedTokensClient LeveragedTokens { get; }
+    public BybitRestApiTokensClient Tokens { get; }
 
     /// <summary>
     /// Margin Client
@@ -91,7 +91,7 @@ public class BybitRestApiClient
         this.Account = new BybitRestApiAccountClient(this);
         this.Asset = new BybitRestApiAssetClient(this);
         this.User = new BybitRestApiUserClient(this);
-        this.LeveragedTokens = new BybitRestApiLeveragedTokensClient(this);
+        this.Tokens = new BybitRestApiTokensClient(this);
         this.Margin = new BybitRestApiMarginClient(this);
         this.Lending = new BybitRestApiLendingClient(this);
     }
