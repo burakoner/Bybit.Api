@@ -2,6 +2,9 @@
 
 namespace Bybit.Api.Clients.RestApi;
 
+/// <summary>
+/// Bybit Margin API Client
+/// </summary>
 public class BybitRestApiMarginClient
 {
     // Spot Margin Trade (UTA) Endpoints
@@ -18,7 +21,13 @@ public class BybitRestApiMarginClient
     }
     #endregion
 
-    public async Task<BybitRestCallResult<BybitSpotMarginMode>> SwitchMarginTradeAsync(bool spotMarginMode, CancellationToken ct = default)
+    /// <summary>
+    /// Turn on / off spot margin trade
+    /// </summary>
+    /// <param name="spotMarginMode">1: on, 0: off</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitSpotMarginMode>> ToggleMarginModeAsync(bool spotMarginMode, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -28,6 +37,12 @@ public class BybitRestApiMarginClient
         return await MainClient.SendBybitRequest<BybitSpotMarginMode>(MainClient.BuildUri(_v5SpotMarginTradeSwitchMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Set the user's maximum leverage in spot cross margin
+    /// </summary>
+    /// <param name="leverage">Leverage. [2, 10]</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public async Task<BybitRestCallResult> SetLeverageAsync(decimal leverage, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
