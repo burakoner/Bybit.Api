@@ -9,7 +9,7 @@ public class BybitAssetBalance
     /// Account type
     /// </summary>
     [JsonProperty("accountType")]
-    public BybitAccount Account { get; set; }
+    public BybitAccountType Account { get; set; }
 
     /// <summary>
     /// UID
@@ -59,7 +59,7 @@ public class BybitSingleAssetBalance
     /// Account type
     /// </summary>
     [JsonProperty("accountType")]
-    public BybitAccount Account { get; set; }
+    public BybitAccountType Account { get; set; }
     
     /// <summary>
     /// Business type

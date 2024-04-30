@@ -43,7 +43,7 @@ public class BybitRestApiAccountClient
     /// <param name="asset">Coin name</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitBalance>>> GetBalancesAsync(BybitAccount account, string asset = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitBalance>>> GetBalancesAsync(BybitAccountType account, string asset = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -169,7 +169,7 @@ public class BybitRestApiAccountClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitTransaction>>> GetTransactionHistoryAsync(BybitAccount? account = null, BybitCategory? category = null, string asset = null, string baseAsset = null, BybitTransactionType? type = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitTransaction>>> GetTransactionHistoryAsync(BybitAccountType? account = null, BybitCategory? category = null, string asset = null, string baseAsset = null, BybitTransactionType? type = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
     {
         limit?.ValidateIntValues(nameof(limit), 1, 50);
 

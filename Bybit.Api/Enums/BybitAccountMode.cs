@@ -1,25 +1,25 @@
 ﻿namespace Bybit.Api.Enums;
 
 /// <summary>
-/// Bybit Sub Account Status
+/// Bybit Account Mode
 /// </summary>
-public enum BybitSubAccountStatus
+public enum BybitAccountMode
 {
     /// <summary>
-    /// Normal
+    /// Classic Account
     /// </summary>
     [Label("1")]
-    Normal,
-
+    Classic,
+    
     /// <summary>
-    /// Banned
+    /// UMA
     /// </summary>
     [Label("2")]
-    LoginBanned,
-
+    UMA,
+    
     /// <summary>
-    /// Frozen
+    /// UTA
     /// </summary>
-    [Label("4")]
-    Frozen,
+    [Label("3")]
+    UTA,
 }

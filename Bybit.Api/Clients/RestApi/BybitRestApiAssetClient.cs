@@ -144,9 +144,9 @@ public class BybitRestApiAssetClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<BybitRestCallResult<BybitSpotBalance>> GetSpotBalancesAsync(BybitAccount account, string asset = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitSpotBalance>> GetSpotBalancesAsync(BybitAccountType account, string asset = null, CancellationToken ct = default)
     {
-        if (account.IsNotIn(BybitAccount.Spot))
+        if (account.IsNotIn(BybitAccountType.Spot))
             throw new NotSupportedException($"{account} is not supported for this endpoint.");
 
         var parameters = new Dictionary<string, object>()
@@ -170,9 +170,9 @@ public class BybitRestApiAssetClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<BybitRestCallResult<BybitAssetBalance>> GetAssetBalancesAsync(BybitAccount account, string memberId = null, string asset = null, bool? withBonus = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitAssetBalance>> GetAssetBalancesAsync(BybitAccountType account, string memberId = null, string asset = null, bool? withBonus = null, CancellationToken ct = default)
     {
-        if (account.IsNotIn(BybitAccount.Spot))
+        if (account.IsNotIn(BybitAccountType.Spot))
             throw new NotSupportedException($"{account} is not supported for this endpoint.");
 
         var parameters = new Dictionary<string, object>()
@@ -201,8 +201,8 @@ public class BybitRestApiAssetClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitSingleAssetBalance>> GetAssetBalanceAsync(
         string asset, 
-        BybitAccount account,
-        BybitAccount? toAccount = null,
+        BybitAccountType account,
+        BybitAccountType? toAccount = null,
         string memberId = null, 
         string toMemberId = null, 
         
@@ -234,7 +234,7 @@ public class BybitRestApiAssetClient
     /// <param name="toAccount">To account type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<string>>> GetTransferableAssetsAsync(BybitAccount fromAccount, BybitAccount toAccount, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<string>>> GetTransferableAssetsAsync(BybitAccountType fromAccount, BybitAccountType toAccount, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>()
         {
@@ -260,8 +260,8 @@ public class BybitRestApiAssetClient
     public async Task<BybitRestCallResult<BybitTransferId>> InternalTransferAsync(
         string asset,
         decimal quantity, 
-        BybitAccount fromAccount, 
-        BybitAccount toAccount, 
+        BybitAccountType fromAccount, 
+        BybitAccountType toAccount, 
         string transferId = null, 
         CancellationToken ct = default)
     {
@@ -328,7 +328,7 @@ public class BybitRestApiAssetClient
     /// <param name="transferId">UUID. Please manually generate a UUID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<BybitTransferId>> UniversalTransferAsync(string asset, decimal quantity, string fromMemberId, string toMemberId, BybitAccount fromAccount, BybitAccount toAccount, string transferId = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitTransferId>> UniversalTransferAsync(string asset, decimal quantity, string fromMemberId, string toMemberId, BybitAccountType fromAccount, BybitAccountType toAccount, string transferId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>()
         {
@@ -403,9 +403,9 @@ public class BybitRestApiAssetClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<BybitRestCallResult<bool?>> SetDepositAccountAsync(BybitAccount account, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<bool?>> SetDepositAccountAsync(BybitAccountType account, CancellationToken ct = default)
     {
-        if (account.IsNotIn(BybitAccount.Unified, BybitAccount.Spot, BybitAccount.Contract, BybitAccount.Fund))
+        if (account.IsNotIn(BybitAccountType.Unified, BybitAccountType.Spot, BybitAccountType.Contract, BybitAccountType.Fund))
             throw new NotSupportedException($"{account} is not supported for this endpoint.");
 
         var parameters = new Dictionary<string, object>()
@@ -642,7 +642,7 @@ public class BybitRestApiAssetClient
         string tag = null, 
         string chain = null, 
         int? forceChain = null, 
-        BybitAccount? account = null, 
+        BybitAccountType? account = null, 
         int? feeType = null, 
         string requestId = null,
         CancellationToken ct = default)

@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Account Type
 /// </summary>
-public enum BybitAccount
+public enum BybitAccountType
 {
     /// <summary>
     /// Contract Account
