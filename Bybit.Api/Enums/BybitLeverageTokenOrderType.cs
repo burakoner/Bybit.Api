@@ -1,7 +1,7 @@
 ﻿namespace Bybit.Api.Enums;
 
 /// <summary>
-/// Bybit Leveraged Token Order Type
+/// Bybit Leverage Token Order Type
 /// </summary>
 public enum BybitLeverageTokenOrderType
 {

@@ -134,7 +134,7 @@ internal class Program
                         $" BBP:{(bid != null ? bid.Price : "")} " +
                         $" BBS:{(bid != null ? bid.Quantity : "")} " +
                         $" U:{data.Data.UpdateId} " +
-                        $" S:{data.Data.CrossSequence} ");
+                        $" S:{data.Data.Sequence} ");
                 }
             });
         }
@@ -215,7 +215,7 @@ internal class Program
         Console.WriteLine("Being subscribed...");
         foreach (var pair in pairs)
         {
-            await ws.SubscribeToLeveragedTokenKlinesAsync(pair, BybitKlineInterval.OneHour, (data) =>
+            await ws.SubscribeToLeverageTokenKlinesAsync(pair, BybitKlineInterval.OneHour, (data) =>
             {
                 if (data != null)
                 {
@@ -229,7 +229,7 @@ internal class Program
         Console.WriteLine("Being subscribed...");
         foreach (var pair in pairs)
         {
-            await ws.SubscribeToLeveragedTokenTickersAsync(pair, (data) =>
+            await ws.SubscribeToLeverageTokenTickersAsync(pair, (data) =>
             {
                 if (data != null)
                 {
@@ -243,7 +243,7 @@ internal class Program
         Console.WriteLine("Being subscribed...");
         foreach (var pair in pairs)
         {
-            await ws.SubscribeToLeveragedTokenNetAssetValuesAsync(pair, (data) =>
+            await ws.SubscribeToLeverageTokenNetAssetValuesAsync(pair, (data) =>
             {
                 if (data != null)
                 {

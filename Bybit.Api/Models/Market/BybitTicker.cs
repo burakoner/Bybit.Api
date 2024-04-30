@@ -90,7 +90,7 @@ public class BybitSpotTicker
 /// <summary>
 /// Bybit Linear Inverse Ticker
 /// </summary>
-public class BybitLinearInverseTicker
+public class BybitFuturesTicker
 {
     /// <summary>
     /// Symbol

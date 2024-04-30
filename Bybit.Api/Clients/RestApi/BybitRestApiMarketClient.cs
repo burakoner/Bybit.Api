@@ -260,7 +260,7 @@ public class BybitRestApiMarketClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitLinearInverseInstrument>>> GetLinearInstrumentsAsync(string symbol = null, BybitInstrumentStatus? status = null, string baseAsset = null, int limit = 500, string cursor = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitFuturesInstrument>>> GetLinearInstrumentsAsync(string symbol = null, BybitInstrumentStatus? status = null, string baseAsset = null, int limit = 500, string cursor = null, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 1000);
         var parameters = new Dictionary<string, object>
@@ -273,8 +273,8 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitLinearInverseInstrument>>(MainClient.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitLinearInverseInstrument>>(null);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitFuturesInstrument>>(MainClient.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitFuturesInstrument>>(null);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
@@ -288,7 +288,7 @@ public class BybitRestApiMarketClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitLinearInverseInstrument>>> GetInverseInstrumentsAsync(string symbol = null, BybitInstrumentStatus? status = null, string baseAsset = null, int limit = 500, string cursor = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitFuturesInstrument>>> GetInverseInstrumentsAsync(string symbol = null, BybitInstrumentStatus? status = null, string baseAsset = null, int limit = 500, string cursor = null, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 1000);
         var parameters = new Dictionary<string, object>
@@ -301,8 +301,8 @@ public class BybitRestApiMarketClient
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitLinearInverseInstrument>>(MainClient.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitLinearInverseInstrument>>(null);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitFuturesInstrument>>(MainClient.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitFuturesInstrument>>(null);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
@@ -395,7 +395,7 @@ public class BybitRestApiMarketClient
     /// <param name="symbol">Symbol name</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitLinearInverseTicker>>> GetLinearTickersAsync(string symbol = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitFuturesTicker>>> GetLinearTickersAsync(string symbol = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -403,8 +403,8 @@ public class BybitRestApiMarketClient
         };
         parameters.AddOptionalParameter("symbol", symbol);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitLinearInverseTicker>>(MainClient.BuildUri(_v5MarketTickers), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitLinearInverseTicker>>(null);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitFuturesTicker>>(MainClient.BuildUri(_v5MarketTickers), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitFuturesTicker>>(null);
         return result.As(result.Data.Payload);
     }
 
@@ -416,7 +416,7 @@ public class BybitRestApiMarketClient
     /// <param name="symbol">Symbol name</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitLinearInverseTicker>>> GetInverseTickersAsync(string symbol = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitFuturesTicker>>> GetInverseTickersAsync(string symbol = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -424,8 +424,8 @@ public class BybitRestApiMarketClient
         };
         parameters.AddOptionalParameter("symbol", symbol);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitLinearInverseTicker>>(MainClient.BuildUri(_v5MarketTickers), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitLinearInverseTicker>>(null);
+        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitFuturesTicker>>(MainClient.BuildUri(_v5MarketTickers), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitFuturesTicker>>(null);
         return result.As(result.Data.Payload);
     }
 

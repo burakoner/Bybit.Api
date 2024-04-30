@@ -1,7 +1,7 @@
 ﻿namespace Bybit.Api.Models.Tokens;
 
 /// <summary>
-/// Bybit Leveraged Token Purchase
+/// Bybit Leverage Token Purchase
 /// </summary>
 public class BybitLeverageTokenPurchase
 {

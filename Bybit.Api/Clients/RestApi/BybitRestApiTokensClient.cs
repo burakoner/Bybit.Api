@@ -3,7 +3,7 @@
 namespace Bybit.Api.Clients.RestApi;
 
 /// <summary>
-/// Bybit Leveraged Tokens Client
+/// Bybit Leverage Tokens Client
 /// </summary>
 public class BybitRestApiTokensClient
 {
@@ -28,7 +28,7 @@ public class BybitRestApiTokensClient
     /// <param name="token">Abbreviation of the LT, such as BTC3L</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitLeverageTokenInformation>>> GetLeveragedTokensAsync(string token = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLeverageTokenInformation>>> GetLeverageTokensAsync(string token = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);
@@ -44,7 +44,7 @@ public class BybitRestApiTokensClient
     /// <param name="token">Abbreviation of the LT, such as BTC3L</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitLeverageTokenMarket>>> GetLeveragedTokenMarketsAsync(string token, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLeverageTokenMarket>>> GetLeverageTokenMarketsAsync(string token, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);

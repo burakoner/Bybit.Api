@@ -67,5 +67,10 @@ public class BybitAddress
     public static BybitAddress Bytick = new()
     {
         RestApiAddress = "https://api.bytick.com",
+        WebSocketSpotAddress = "wss://stream.bybit.com/v5/public/spot",
+        WebSocketPerpetualAddress = "wss://stream.bybit.com/v5/public/linear",
+        WebSocketInverseAddress = "wss://stream.bybit.com/v5/public/inverse",
+        WebSocketOptionAddress = "wss://stream.bybit.com/v5/public/option",
+        WebSocketPrivateAddress = "wss://stream.bybit.com/v5/private",
     };
 }

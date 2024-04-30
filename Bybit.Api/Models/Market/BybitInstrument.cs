@@ -131,7 +131,7 @@ public class BybitSpotInstrumentRiskParameters
 /// <summary>
 /// Bybit Linear/Inverse Instrument
 /// </summary>
-public class BybitLinearInverseInstrument
+public class BybitFuturesInstrument
 {
     /// <summary>
     /// Symbol name
@@ -194,19 +194,19 @@ public class BybitLinearInverseInstrument
     /// Leverage attributes
     /// </summary>
     [JsonProperty("leverageFilter")]
-    public BybitLinearInverseInstrumentLeverageFilter LeverageFilter { get; set; }
+    public BybitFuturesInstrumentLeverageFilter LeverageFilter { get; set; }
 
     /// <summary>
     /// Price attributes
     /// </summary>
     [JsonProperty("priceFilter")]
-    public BybitLinearInverseInstrumentPriceFilter PriceFilter { get; set; }
+    public BybitFuturesInstrumentPriceFilter PriceFilter { get; set; }
 
     /// <summary>
     /// Size attributes
     /// </summary>
     [JsonProperty("lotSizeFilter")]
-    public BybitLinearInverseInstrumentLotSizeFilter LotSizeFilter { get; set; }
+    public BybitFuturesInstrumentLotSizeFilter LotSizeFilter { get; set; }
 
     /// <summary>
     /// Whether to support unified margin trade
@@ -241,7 +241,7 @@ public class BybitLinearInverseInstrument
 /// <summary>
 /// Bybit Linear/Inverse Instrument Leverage Filter
 /// </summary>
-public class BybitLinearInverseInstrumentLeverageFilter
+public class BybitFuturesInstrumentLeverageFilter
 {
     /// <summary>
     /// Minimum leverage
@@ -264,7 +264,7 @@ public class BybitLinearInverseInstrumentLeverageFilter
 /// <summary>
 /// Bybit Linear/Inverse Instrument Price Filter
 /// </summary>
-public class BybitLinearInverseInstrumentPriceFilter
+public class BybitFuturesInstrumentPriceFilter
 {
     /// <summary>
     /// Minimum price
@@ -285,7 +285,7 @@ public class BybitLinearInverseInstrumentPriceFilter
 }
 
 /// Bybit Linear/Inverse Instrument Lot Size Filter
-public class BybitLinearInverseInstrumentLotSizeFilter
+public class BybitFuturesInstrumentLotSizeFilter
 {
     /// <summary>
     /// Minimum notional value

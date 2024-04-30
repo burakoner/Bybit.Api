@@ -43,7 +43,7 @@ public class BybitRestApiClient
     public BybitRestApiUserClient User { get; }
 
     /// <summary>
-    /// Leveraged Tokens Client
+    /// Leverage Tokens Client
     /// </summary>
     public BybitRestApiTokensClient Tokens { get; }
 

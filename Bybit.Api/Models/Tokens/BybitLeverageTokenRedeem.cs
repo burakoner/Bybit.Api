@@ -1,7 +1,7 @@
 ﻿namespace Bybit.Api.Models.Tokens;
 
 /// <summary>
-/// Bybit Leveraged Token Redeem
+/// Bybit Leverage Token Redeem
 /// </summary>
 public class BybitLeverageTokenRedeem
 {

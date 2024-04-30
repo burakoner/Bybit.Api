@@ -58,14 +58,26 @@ internal enum BybitStreamOperation
     Unsubscribe,
 }
 
+/// <summary>
+/// Bybit Stream Type
+/// </summary>
 public enum BybitStreamType
 {
+    /// <summary>
+    /// Unknown
+    /// </summary>
     [Label("")]
     Unknown,
 
+    /// <summary>
+    /// Delta
+    /// </summary>
     [Label("delta")]
     Delta,
 
+    /// <summary>
+    /// Snapshot
+    /// </summary>
     [Label("snapshot")]
     Snapshot,
 }

@@ -1,7 +1,7 @@
 ﻿namespace Bybit.Api.Enums;
 
 /// <summary>
-/// Bybit Leveraged Token Order Status
+/// Bybit Leverage Token Order Status
 /// </summary>
 public enum BybitLeverageTokenOrderStatus
 {

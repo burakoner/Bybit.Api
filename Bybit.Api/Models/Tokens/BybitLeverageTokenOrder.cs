@@ -1,7 +1,7 @@
 ﻿namespace Bybit.Api.Models.Tokens;
 
 /// <summary>
-/// Bybit Leveraged Token Order
+/// Bybit Leverage Token Order
 /// </summary>
 public class BybitLeverageTokenOrder
 {
