@@ -1,10 +1,32 @@
 ﻿namespace Bybit.Api.Models.Socket;
 
+/// <summary>
+/// Bybit Greek stream
+/// </summary>
 public class BybitGreekUpdate
 {
+    /// <summary>
+    /// Base coin
+    /// </summary>
     public string BaseCoin { get; set; }
-    public decimal? TotalDelta { get; set; }
-    public decimal? TotalGamma { get; set; }
-    public decimal? TotalVega { get; set; }
-    public decimal? TotalTheta { get; set; }
+
+    /// <summary>
+    /// Delta value
+    /// </summary>
+    public decimal TotalDelta { get; set; }
+
+    /// <summary>
+    /// Gamma value
+    /// </summary>
+    public decimal TotalGamma { get; set; }
+
+    /// <summary>
+    /// Vega value
+    /// </summary>
+    public decimal TotalVega { get; set; }
+
+    /// <summary>
+    /// Theta value
+    /// </summary>
+    public decimal TotalTheta { get; set; }
 }

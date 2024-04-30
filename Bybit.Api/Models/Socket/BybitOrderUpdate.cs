@@ -1,110 +1,292 @@
 ﻿namespace Bybit.Api.Models.Socket;
 
+/// <summary>
+/// Bybit order update
+/// </summary>
 public class BybitOrderUpdate
 {
+    /// <summary>
+    /// Product type
+    /// Unified account: spot, linear, inverse, option
+    /// Classic account: spot, linear, inverse.
+    /// </summary>
     [JsonProperty("category"), JsonConverter(typeof(LabelConverter<BybitCategory>))]
-    public BybitCategory? Category { get; set; }
+    public BybitCategory Category { get; set; }
 
-    [JsonProperty("orderId")]
+    /// <summary>
+    /// Order Id
+    /// </summary>
     public string OrderId { get; set; }
 
+    /// <summary>
+    /// Client Order Id
+    /// </summary>
     [JsonProperty("orderLinkId")]
     public string ClientOrderId { get; set; }
+    
+    /// <summary>
+    /// Whether to borrow. Unified spot only. 0: false, 1: true. Classic spot is not supported, always 0
+    /// </summary>
+    [JsonConverter(typeof(BooleanConverter))]
+    public bool IsLeverage { get; set; }
 
-    [JsonProperty("isLeverage"), JsonConverter(typeof(BooleanConverter))]
-    public bool? IsLeverage { get; set; }
-
+    /// <summary>
+    /// Block Trade Id
+    /// </summary>
     public string BlockTradeId { get; set; }
+
+    /// <summary>
+    /// Symbol
+    /// </summary>
     public string Symbol { get; set; }
+
+    /// <summary>
+    /// Order Price
+    /// </summary>
     public decimal? Price { get; set; }
 
+    /// <summary>
+    /// Order Quantity
+    /// </summary>
     [JsonProperty("qty")]
     public decimal? Quantity { get; set; }
 
-    [JsonProperty("side"), JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
-    public BybitOrderSide? Side { get; set; }
+    /// <summary>
+    /// Order Side
+    /// </summary>
+    [JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
+    public BybitOrderSide Side { get; set; }
 
+    /// <summary>
+    /// Position index. Used to identify positions in different position modes.
+    /// </summary>
     [JsonProperty("positionIdx"), JsonConverter(typeof(LabelConverter<BybitPositionIndex>))]
     public BybitPositionIndex? PositionIndex { get; set; }
 
-    [JsonProperty("orderStatus"), JsonConverter(typeof(LabelConverter<BybitOrderStatus>))]
-    public BybitOrderStatus? OrderStatus { get; set; }
+    /// <summary>
+    /// Order status
+    /// </summary>
+    [JsonConverter(typeof(LabelConverter<BybitOrderStatus>))]
+    public BybitOrderStatus OrderStatus { get; set; }
 
-    [JsonProperty("cancelType"), JsonConverter(typeof(LabelConverter<BybitOrderCancelType>))]
+    /// <summary>
+    /// Order create type
+    /// Only for category=linear or inverse
+    /// Spot, Option do not have this key
+    /// </summary>
+    [JsonProperty("createType")]
+    public string CreateType { get; set; } // TODO: Make this field an enum
+
+    /// <summary>
+    /// Order Cancel Type
+    /// </summary>
+    [JsonConverter(typeof(LabelConverter<BybitOrderCancelType>))]
     public BybitOrderCancelType? CancelType { get; set; }
 
-    [JsonProperty("rejectReason"), JsonConverter(typeof(LabelConverter<BybitOrderStopType>))]
-    public BybitOrderRejectReason? RejectReason { get; set; }
+    /// <summary>
+    /// Reject reason. Classic spot is not supported
+    /// </summary>
+    [JsonConverter(typeof(LabelConverter<BybitOrderRejectReason>))]
+    public BybitOrderRejectReason RejectReason { get; set; }
 
+    /// <summary>
+    /// Average filled price
+    /// UTA: returns "" for those orders without avg price
+    /// Classic account: returns "0" for those orders without avg price, and also for those orders have partilly filled but cancelled at the end
+    /// </summary>
     [JsonProperty("avgPrice")]
     public decimal? AveragePrice { get; set; }
 
+    /// <summary>
+    /// The remaining qty not executed. Classic spot is not supported
+    /// </summary>
     [JsonProperty("leavesQty")]
     public decimal? RemainingQuantity { get; set; }
 
+    /// <summary>
+    /// The estimated value not executed. Classic spot is not supported
+    /// </summary>
     [JsonProperty("leavesValue")]
     public decimal? RemainingValue { get; set; }
 
+    /// <summary>
+    /// Cumulative executed order qty
+    /// </summary>
     [JsonProperty("cumExecQty")]
-    public decimal? CumulativeExecutionQuantity { get; set; }
+    public decimal? CumulativeExecutedQuantity { get; set; }
 
+    /// <summary>
+    /// Cumulative executed order value. Classic spot is not supported
+    /// </summary>
     [JsonProperty("cumExecValue")]
-    public decimal? CumulativeExecutionValue { get; set; }
+    public decimal? CumulativeExecutedValue { get; set; }
 
+    /// <summary>
+    /// Cumulative executed trading fee. Classic spot is not supported
+    /// </summary>
     [JsonProperty("cumExecFee")]
-    public decimal? CumulativeExecutionFee { get; set; }
+    public decimal? CumulativeExecutedFee { get; set; }
+    
+    /// <summary>
+    /// Trading fee currency for Spot only. Please understand Spot trading fee currency here
+    /// </summary>
+    [JsonProperty("feeCurrency")]
+    public string FeeCurrency { get; set; }
 
-    [JsonProperty("timeInForce"), JsonConverter(typeof(LabelConverter<BybitTimeInForce>))]
-    public BybitTimeInForce? TimeInForce { get; set; }
+    /// <summary>
+    /// Time in force
+    /// </summary>
+    [JsonConverter(typeof(LabelConverter<BybitTimeInForce>))]
+    public BybitTimeInForce TimeInForce { get; set; }
 
+    /// <summary>
+    /// Order type. Market,Limit. For TP/SL order, it means the order type after triggered
+    /// </summary>
     [JsonProperty("orderType"), JsonConverter(typeof(LabelConverter<BybitOrderType>))]
-    public BybitOrderType? OrderType { get; set; }
+    public BybitOrderType OrderType { get; set; }
 
+    /// <summary>
+    /// Stop order type
+    /// </summary>
     [JsonProperty("stopOrderType"), JsonConverter(typeof(LabelConverter<BybitOrderStopType>))]
-    public BybitOrderStopType? OrderStopType { get; set; }
+    public BybitOrderStopType? StopOrderType { get; set; }
+    
+    /// <summary>
+    /// The trigger type of Spot OCO order.OcoTriggerByUnknown, OcoTriggerByTp, OcoTriggerByBySl. Classic spot is not supported
+    /// </summary>
+    [JsonProperty("ocoTriggerBy"), JsonConverter(typeof(LabelConverter<BybitOcoTriggerBy>))]
+    public BybitOcoTriggerBy? OcoTriggerBy { get; set; }
 
-    public decimal? OrderIv { get; set; }
+    /// <summary>
+    /// Implied volatility
+    /// </summary>
+    [JsonProperty("orderIv")]
+    public decimal? ImpliedVolatility { get; set; }
+
+    /// <summary>
+    /// The unit for qty when create Spot market orders for UTA account. baseCoin, quoteCoin
+    /// </summary>
+    [JsonProperty("marketUnit"), JsonConverter(typeof(LabelConverter<BybitMarketUnit>))]
+    public BybitMarketUnit? MarketUnit { get; set; }
+
+    /// <summary>
+    /// Trigger price. If stopOrderType=TrailingStop, it is activate price. Otherwise, it is trigger price
+    /// </summary>
+    [JsonProperty("triggerPrice")]
     public decimal? TriggerPrice { get; set; }
-    public decimal? TakeProfit { get; set; }
-    public decimal? StopLoss { get; set; }
 
+    /// <summary>
+    /// Take profit price
+    /// </summary>
+    [JsonProperty("takeProfit")]
+    public decimal? TakeProfitPrice { get; set; }
+
+    /// <summary>
+    /// Stop loss price
+    /// </summary>
+    [JsonProperty("stopLoss")]
+    public decimal? StopLossPrice { get; set; }
+
+    /// <summary>
+    /// TP/SL mode, Full: entire position for TP/SL. Partial: partial position tp/sl. Spot does not have this field, and Option returns always ""
+    /// </summary>
+    [JsonProperty("tpslMode"), JsonConverter(typeof(LabelConverter<BybitTakeProfitStopLossMode>))]
+    public BybitTakeProfitStopLossMode? TakeProfitStopLossMode { get; set; }
+
+    /// <summary>
+    /// The limit order price when take profit price is triggered
+    /// </summary>
+    [JsonProperty("tpLimitPrice")]
+    public decimal? TakeProfitLimitPrice { get; set; }
+
+    /// <summary>
+    /// The limit order price when stop loss price is triggered
+    /// </summary>
+    [JsonProperty("slLimitPrice")]
+    public decimal? StopLossLimitPrice { get; set; }
+
+    /// <summary>
+    /// The price type to trigger take profit
+    /// </summary>
     [JsonProperty("tpTriggerBy"), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>))]
-    public BybitTriggerPrice? TakeProfitTriggerPrice { get; set; }
+    public BybitTriggerPrice? TakeProfitTriggerBy { get; set; }
 
+    /// <summary>
+    /// The price type to trigger stop loss
+    /// </summary>
     [JsonProperty("slTriggerBy"), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>))]
-    public BybitTriggerPrice? StopLossTriggerPrice { get; set; }
+    public BybitTriggerPrice? StopLossTriggerBy { get; set; }
 
+    /// <summary>
+    /// Trigger direction. 1: rise, 2: fall
+    /// </summary>
     [JsonProperty("triggerDirection"), JsonConverter(typeof(LabelConverter<BybitTriggerDirection>))]
     public BybitTriggerDirection? TriggerDirection { get; set; }
 
+    /// <summary>
+    /// The price type of trigger price
+    /// </summary>
     [JsonProperty("triggerBy"), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>))]
     public BybitTriggerPrice? TriggerBy { get; set; }
 
+    /// <summary>
+    /// Last price when place the order
+    /// </summary>
     public decimal? LastPriceOnCreated { get; set; }
 
-    [JsonConverter(typeof(BooleanConverter))]
+    /// <summary>
+    /// Reduce only. true means reduce position size
+    /// </summary>
     public bool? ReduceOnly { get; set; }
 
-    [JsonConverter(typeof(BooleanConverter))]
+    /// <summary>
+    /// Close on trigger. What is a close on trigger order?
+    /// </summary>
     public bool? CloseOnTrigger { get; set; }
 
+    /// <summary>
+    /// Place type, option used. iv, price
+    /// </summary>
     [JsonProperty("placeType"), JsonConverter(typeof(LabelConverter<BybitOptionPlaceType>))]
-    public BybitOptionPlaceType? PlaceType { get; set; }
+    public BybitOptionPlaceType? OptionPlaceType { get; set; }
 
+    /// <summary>
+    /// SMP execution type
+    /// </summary>
     [JsonProperty("smpType"), JsonConverter(typeof(LabelConverter<BybitSelfMatchPrevention>))]
-    public BybitSelfMatchPrevention? SelfMatchPrevention { get; set; }
+    public BybitSelfMatchPrevention SelfMatchPrevention { get; set; }
 
+    /// <summary>
+    /// Smp group ID. If the UID has no group, it is 0 by default
+    /// </summary>
     [JsonProperty("smpGroup")]
-    public string MatchPreventionGroup { get; set; }
+    public long SelfMatchPreventionGroup { get; set; }
 
+    /// <summary>
+    /// The counterparty's orderID which triggers this SMP execution
+    /// </summary>
     [JsonProperty("smpOrderId")]
-    public string MatchPreventionOrderId { get; set; }
+    public string SelfMatchPreventionOrderId { get; set; }
 
+    /// <summary>
+    /// Order created timestamp (ms)
+    /// </summary>
     [JsonProperty("createdTime")]
-    public long? CreatedTimestamp { get; set; }
-    public DateTime? CreatedTime { get => CreatedTimestamp?.ConvertFromMilliseconds(); }
+    public long CreatedTimestamp { get; set; }
 
+    /// <summary>
+    /// Order created time
+    /// </summary>
+    public DateTime CreatedTime { get => CreatedTimestamp.ConvertFromMilliseconds(); }
+
+    /// <summary>
+    /// Order updated timestamp (ms)
+    /// </summary>
     [JsonProperty("updatedTime")]
-    public long? UpdatedTimestamp { get; set; }
-    public DateTime? UpdatedTime { get => UpdatedTimestamp?.ConvertFromMilliseconds(); }
+    public long UpdatedTimestamp { get; set; }
+
+    /// <summary>
+    /// Order updated time
+    /// </summary>
+    public DateTime UpdatedTime { get => UpdatedTimestamp.ConvertFromMilliseconds(); }
 }
