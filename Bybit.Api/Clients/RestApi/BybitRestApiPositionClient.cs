@@ -1,7 +1,4 @@
 ﻿using Bybit.Api.Models.Trade;
-using System.Diagnostics.Metrics;
-using System.Numerics;
-using System;
 
 namespace Bybit.Api.Clients.RestApi;
 

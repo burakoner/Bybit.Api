@@ -1,7 +1,4 @@
 ﻿using Bybit.Api.Models.Account;
-using System.Collections.Generic;
-using System.Net;
-using System.Numerics;
 
 namespace Bybit.Api.Clients.RestApi;
 

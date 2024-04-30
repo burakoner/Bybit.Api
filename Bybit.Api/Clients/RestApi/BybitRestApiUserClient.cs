@@ -1,7 +1,4 @@
 ﻿using Bybit.Api.Models.User;
-using System.Diagnostics.Metrics;
-using System.Net;
-using System;
 
 namespace Bybit.Api.Clients.RestApi;
 

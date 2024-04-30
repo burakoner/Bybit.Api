@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace Bybit.Api.Models.Account;
+﻿namespace Bybit.Api.Models.Account;
 
 /// <summary>
 /// Bybit Market Maker Protection State

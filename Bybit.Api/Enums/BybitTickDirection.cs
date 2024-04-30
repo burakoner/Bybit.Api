@@ -1,5 +1,8 @@
 ﻿namespace Bybit.Api.Enums;
 
+/// <summary>
+/// Bybit Tick Direction
+/// </summary>
 public enum BybitTickDirection
 {
     /// <summary>

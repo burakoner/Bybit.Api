@@ -1,5 +1,8 @@
 ﻿namespace Bybit.Api.Helpers;
 
+/// <summary>
+/// Bybit Extensions
+/// </summary>
 public static class BybitExtensions
 {
     /// <summary>

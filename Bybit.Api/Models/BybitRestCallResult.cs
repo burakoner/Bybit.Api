@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Net;
-
-namespace Bybit.Api.Models;
+﻿namespace Bybit.Api.Models;
 
 /// <summary>
 /// Bybit Rest Call Result

@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Socket;
+﻿namespace Bybit.Api.Models;
 
 internal class BybitSocketRequest
 {
