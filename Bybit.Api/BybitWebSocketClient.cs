@@ -46,9 +46,11 @@ public class BybitWebSocketClient : WebSocketApiClient
     }
 
     #region Overrided Methods
+    /// <inheritdoc/>
     protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
         => new BybitAuthenticationProvider(credentials);
 
+    /// <inheritdoc/>
     protected override async Task<CallResult<bool>> AuthenticateAsync(WebSocketConnection connection)
     {
         if (connection.ApiClient.ClientOptions.AuthenticationProvider == null)
@@ -83,11 +85,13 @@ public class BybitWebSocketClient : WebSocketApiClient
             : new CallResult<bool>(new ServerError("Unspecified Error"));
     }
 
+    /// <inheritdoc/>
     protected override bool HandleQueryResponse<T>(WebSocketConnection connection, object request, JToken data, out CallResult<T> callResult)
     {
         throw new NotImplementedException();
     }
 
+    /// <inheritdoc/>
     protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object> callResult)
     {
         callResult = null;
@@ -106,6 +110,7 @@ public class BybitWebSocketClient : WebSocketApiClient
         return true;
     }
 
+    /// <inheritdoc/>
     protected override bool MessageMatchesHandler(WebSocketConnection connection, JToken message, object request)
     {
         if (message.Type != JTokenType.Object)
@@ -118,6 +123,7 @@ public class BybitWebSocketClient : WebSocketApiClient
         return (request as BybitSocketRequest)?.MatchReponse(message) ?? false;
     }
 
+    /// <inheritdoc/>
     protected override bool MessageMatchesHandler(WebSocketConnection connection, JToken message, string identifier)
     {
         if (identifier == "Heartbeat")
@@ -148,6 +154,7 @@ public class BybitWebSocketClient : WebSocketApiClient
         return false;
     }
 
+    /// <inheritdoc/>
     protected override async Task<bool> UnsubscribeAsync(WebSocketConnection connection, WebSocketSubscription subscription)
     {
         var bRequest = ((BybitSocketRequest)subscription.Request!);

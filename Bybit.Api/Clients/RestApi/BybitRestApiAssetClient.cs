@@ -31,7 +31,7 @@ public class BybitRestApiAssetClient
     private const string _v5AssetWithdrawQueryRecord = "v5/asset/withdraw/query-record";
     private const string _v5AssetWithdrawWithdrawableAmount = "v5/asset/withdraw/withdrawable-amount";
     private const string _v5AssetWithdrawCreate = "v5/asset/withdraw/create";
-    private const string _v5AssetWithdrawCancel = "v5/asset/withdraw/cancel";
+    private     const string _v5AssetWithdrawCancel = "v5/asset/withdraw/cancel";
 
     #region Internal
     internal BybitRestApiBaseClient MainClient { get; }
@@ -141,8 +141,9 @@ public class BybitRestApiAssetClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<BybitRestCallResult<BybitSpotBalance>> GetSpotBalancesAsync(BybitAccountType account, string asset = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitSpotBalance>> GetSpotBalancesAsync(string asset = null, CancellationToken ct = default)
     {
+        var account = BybitAccountType.Spot;
         if (account.IsNotIn(BybitAccountType.Spot))
             throw new NotSupportedException($"{account} is not supported for this endpoint.");
 
@@ -167,8 +168,9 @@ public class BybitRestApiAssetClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<BybitRestCallResult<BybitAssetBalance>> GetAssetBalancesAsync(BybitAccountType account, string memberId = null, string asset = null, bool? withBonus = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitAssetBalance>> GetAssetBalancesAsync(string memberId = null, string asset = null, bool? withBonus = null, CancellationToken ct = default)
     {
+        var account = BybitAccountType.Spot;
         if (account.IsNotIn(BybitAccountType.Spot))
             throw new NotSupportedException($"{account} is not supported for this endpoint.");
 

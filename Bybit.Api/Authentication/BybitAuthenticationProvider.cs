@@ -38,6 +38,7 @@ internal class BybitAuthenticationProvider : AuthenticationProvider
         headers.Add("X-BAPI-TIMESTAMP", timestamp);
         headers.Add("X-BAPI-RECV-WINDOW", receiveWindow);
     }
+    
     public override void AuthenticateTcpSocketApi()
     {
         throw new NotImplementedException();

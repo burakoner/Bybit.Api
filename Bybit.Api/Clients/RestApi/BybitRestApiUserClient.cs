@@ -79,7 +79,8 @@ public class BybitRestApiUserClient
     /// <param name="label">Set a remark</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<BybitApiKey>> CreateSubAccountApiKeyAsync(long subuid,
+    public async Task<BybitRestCallResult<BybitApiKey>> CreateSubAccountApiKeyAsync(
+        long subuid,
         bool readOnly,
         BybitApiKeyPermissions permissions,
         IEnumerable<string> ips = null,

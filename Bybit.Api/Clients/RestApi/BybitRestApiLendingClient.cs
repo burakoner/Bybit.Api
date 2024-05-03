@@ -46,7 +46,7 @@ public class BybitRestApiLendingClient
     }
 
     // TODO: Remove
-    public async Task<BybitRestCallResult<List<BybitLendingToken>>> GetLendingTokensAsync(string token = null, CancellationToken ct = default)
+    private async Task<BybitRestCallResult<List<BybitLendingToken>>> GetLendingTokensAsync(string token = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ltCoin", token);
@@ -65,7 +65,7 @@ public class BybitRestApiLendingClient
     /// <param name="limit">Limit for data size. [1, 100], Default: 10</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitLendingLoanOrder>>> GetLoanOrdersAsync(string orderId=null, long? startTime=null, long? endTime= null, int? limit=null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLendingLoanOrder>>> GetLoanOrdersAsync(string orderId = null, long? startTime = null, long? endTime = null, int? limit = null, CancellationToken ct = default)
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 100);
 

@@ -1,7 +1,9 @@
-﻿using Bybit.Api.Enums;
+﻿using ApiSharp.Authentication;
+using Bybit.Api.Enums;
+using Bybit.Api.Models.Trade;
+using Bybit.Api.Models.User;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bybit.Api.Examples;
@@ -11,247 +13,242 @@ internal class Program
 {
     static async Task Main(string[] args)
     {
-        var api = new BybitRestApiClient(new BybitRestApiClientOptions
-        {
-            RawResponse = true,
-        });
+        #region Rest API Examples
+        var api = new BybitRestApiClient();
+        api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX");
 
-        var market_0 = await api.Market.GetLinearInstrumentsAsync(limit:100);
+        // Market API Methods (Public)
+        var market_01 = await api.Market.GetServerTimeAsync(/* ...optional parameters... */);
+        var market_02 = await api.Market.GetKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitKlineInterval.OneHour /* ...optional parameters... */);
+        var market_03 = await api.Market.GetMarkKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitKlineInterval.OneHour /* ...optional parameters... */);
+        var market_04 = await api.Market.GetIndexKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitKlineInterval.OneHour /* ...optional parameters... */);
+        var market_05 = await api.Market.GetPremiumIndexKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitKlineInterval.OneHour /* ...optional parameters... */);
+        var market_06 = await api.Market.GetSpotInstrumentsAsync(/* ...optional parameters... */);
+        var market_07 = await api.Market.GetLinearInstrumentsAsync(/* ...optional parameters... */);
+        var market_08 = await api.Market.GetInverseInstrumentsAsync(/* ...optional parameters... */);
+        var market_09 = await api.Market.GetOptionInstrumentsAsync(/* ...optional parameters... */);
+        var market_10 = await api.Market.GetOrderbookAsync(BybitCategory.Spot, "BTCUSDT" /* ...optional parameters... */);
+        var market_11 = await api.Market.GetSpotTickersAsync(/* ...optional parameters... */);
+        var market_12 = await api.Market.GetLinearTickersAsync(/* ...optional parameters... */);
+        var market_13 = await api.Market.GetInverseTickersAsync(/* ...optional parameters... */);
+        var market_14 = await api.Market.GetOptionTickersAsync(/* ...optional parameters... */);
+        var market_15 = await api.Market.GetFundingHistoryAsync(BybitCategory.Inverse, "BTCUSDT" /* ...optional parameters... */);
+        var market_16 = await api.Market.GetTradingHistoryAsync(BybitCategory.Spot, "BTCUSDT" /* ...optional parameters... */);
+        var market_17 = await api.Market.GetOpenInterestAsync(BybitCategory.Linear, "BTCUSDT", BybitRecordPeriod.OneDay /* ...optional parameters... */);
+        var market_18 = await api.Market.GetVolatilityAsync(BybitCategory.Option /* ...optional parameters... */);
+        var market_19 = await api.Market.GetInsuranceAsync(/* ...optional parameters... */);
+        var market_20 = await api.Market.GetRiskLimitAsync(BybitCategory.Linear /* ...optional parameters... */);
+        var market_21 = await api.Market.GetDeliveryPriceAsync(BybitCategory.Linear /* ...optional parameters... */);
+        var market_22 = await api.Market.GetLongShortRatioAsync(BybitCategory.Linear, "BTCUSDT", BybitRecordPeriod.OneDay /* ...optional parameters... */);
 
-        var a =0;
+        // Trade API Methods (Private)
+        var trade_01 = await api.Trade.PlaceOrderAsync(BybitCategory.Spot, "XRPUSDT", BybitOrderSide.Buy, BybitOrderType.Market, 100.0m /* ...optional parameters... */);
+        var trade_02 = await api.Trade.AmendOrderAsync(BybitCategory.Spot, "XRPUSDT" /* ...optional parameters... */);
+        var trade_03 = await api.Trade.AmendOrderAsync(BybitCategory.Spot, "XRPUSDT", "-----ORDER-ID-----" /* ...optional parameters... */);
+        var trade_04 = await api.Trade.GetOpenOrdersAsync(BybitCategory.Spot /* ...optional parameters... */);
+        var trade_05 = await api.Trade.CancelOrdersAsync(BybitCategory.Spot /* ...optional parameters... */);
+        var trade_06 = await api.Trade.GetOrderHistoryAsync(BybitCategory.Spot /* ...optional parameters... */);
+        var trade_07 = await api.Trade.GetTradeHistoryAsync(BybitCategory.Spot /* ...optional parameters... */);
+        var trade_08 = await api.Trade.PlaceOrdersAsync(BybitCategory.Spot, new List<BybitBatchPlaceOrderRequest>() /* ...optional parameters... */);
+        var trade_09 = await api.Trade.AmendOrdersAsync(BybitCategory.Spot, new List<BybitBatchAmendOrderRequest>() /* ...optional parameters... */);
+        var trade_10 = await api.Trade.CancelOrdersAsync(BybitCategory.Spot, new List<BybitBatchCancelOrderRequest>() /* ...optional parameters... */);
+        var trade_11 = await api.Trade.GetBorrowQuotaAsync(BybitCategory.Spot, "XRPUSDT", BybitOrderSide.Buy /* ...optional parameters... */);
+        var trade_12 = await api.Trade.SetDisconnectionProtectAsync(10 /* ...optional parameters... */);
 
+        // Position API Methods (Private)
+        var position_01 = await api.Position.GetPositionsAsync(BybitCategory.Linear /* ...optional parameters... */);
+        var position_02 = await api.Position.SetLeverageAsync(BybitCategory.Linear, "BTCUSDT", 10.0m, 10.0m /* ...optional parameters... */);
+        var position_03 = await api.Position.SwitchMarginAsync(BybitCategory.Linear, "BTCUSDT", BybitTradeMode.CrossMargin, 10.0m, 10.0m /* ...optional parameters... */);
+        var position_04 = await api.Position.SetTakeProfitStopLossModeAsync(BybitCategory.Linear, "BTCUSDT", BybitTakeProfitStopLossMode.Full /* ...optional parameters... */);
+        var position_05 = await api.Position.SwitchPositionModeAsync(BybitCategory.Linear, BybitPositionMode.BothSides /* ...optional parameters... */);
+        var position_06 = await api.Position.SetRiskLimitAsync(BybitCategory.Linear, "BTCUSDT", 1_000_001 /* ...optional parameters... */);
+        var position_07 = await api.Position.SetTradingStopAsync(BybitCategory.Linear, "BTCUSDT", BybitPositionIndex.OneWayModePosition /* ...optional parameters... */);
+        var position_08 = await api.Position.SetAutoAddMarginAsync(BybitCategory.Linear, "BTCUSDT", true /* ...optional parameters... */);
+        var position_09 = await api.Position.AddMarginAsync(BybitCategory.Linear, "BTCUSDT", 10.0m /* ...optional parameters... */);
+        var position_10 = await api.Position.GetClosedProfitLossAsync(BybitCategory.Linear /* ...optional parameters... */);
+        var position_11 = await api.Position.MovePositionsAsync("-----FROM-UID-----", "-----TO-UID-----", Array.Empty<BybitMovePositionRequest>() /* ...optional parameters... */);
+        var position_12 = await api.Position.GetMovePositionHistoryAsync(BybitCategory.Linear /* ...optional parameters... */);
+        var position_13 = await api.Position.ConfirmNewRiskLimitAsync(BybitCategory.Linear, "BTCUSDT" /* ...optional parameters... */);
 
+        // Account API Methods (Private)
+        var account_01 = await api.Account.GetBalancesAsync(BybitAccountType.Spot /* ...optional parameters... */);
+        var account_02 = await api.Account.UpgradeToUnifiedAccountAsync(/* ...optional parameters... */);
+        var account_03 = await api.Account.GetBorrowHistoryAsync(/* ...optional parameters... */);
+        var account_04 = await api.Account.GetCollateralInfoAsync(/* ...optional parameters... */);
+        var account_05 = await api.Account.GetAssetGreeksAsync(/* ...optional parameters... */);
+        var account_06 = await api.Account.GetFeeRateAsync(BybitCategory.Spot /* ...optional parameters... */);
+        var account_07 = await api.Account.GetAccountInfoAsync(/* ...optional parameters... */);
+        var account_08 = await api.Account.GetTransactionHistoryAsync(/* ...optional parameters... */);
+        var account_09 = await api.Account.SetMarginModeAsync(BybitMarginMode.Isolated /* ...optional parameters... */);
+        var account_10 = await api.Account.SetMarketMakerProtectionAsync("ETH", 5000, 0, 1.0m, 0.1m /* ...optional parameters... */);
+        var account_11 = await api.Account.ResetMarketMakerProtectionAsync("ETH" /* ...optional parameters... */);
+        var account_12 = await api.Account.GetMarketMakerProtectionAsync("ETH" /* ...optional parameters... */);
 
+        // Asset API Methods (Private)
+        var asset_01 = await api.Asset.GetExchangeHistoryAsync(/* ...optional parameters... */);
+        var asset_02 = await api.Asset.GetDeliveryHistoryAsync(BybitCategory.Option /* ...optional parameters... */);
+        var asset_03 = await api.Asset.GetSettlementHistoryAsync(BybitCategory.Linear /* ...optional parameters... */);
+        var asset_04 = await api.Asset.GetSpotBalancesAsync(/* ...optional parameters... */);
+        var asset_05 = await api.Asset.GetAssetBalancesAsync(/* ...optional parameters... */);
+        var asset_06 = await api.Asset.GetAssetBalanceAsync("USDT", BybitAccountType.Fund /* ...optional parameters... */);
+        var asset_07 = await api.Asset.GetTransferableAssetsAsync(BybitAccountType.Fund, BybitAccountType.Spot /* ...optional parameters... */);
+        var asset_08 = await api.Asset.InternalTransferAsync("USDT", 100.0m, BybitAccountType.Fund, BybitAccountType.Spot /* ...optional parameters... */);
+        var asset_09 = await api.Asset.GetInternalTransfersAsync(/* ...optional parameters... */);
+        var asset_10 = await api.Asset.GetSubusersAsync(/* ...optional parameters... */);
+        var asset_11 = await api.Asset.UniversalTransferAsync("USDT", 100.0m, "-----FROM-UID-----", "-----TO-UID-----", BybitAccountType.Fund, BybitAccountType.Fund /* ...optional parameters... */);
+        var asset_12 = await api.Asset.GetUniversalTransfersAsync(/* ...optional parameters... */);
+        var asset_13 = await api.Asset.GetDepositAllowedAssetsAsync(/* ...optional parameters... */);
+        var asset_14 = await api.Asset.SetDepositAccountAsync(BybitAccountType.Fund /* ...optional parameters... */);
+        var asset_15 = await api.Asset.GetDepositsAsync(/* ...optional parameters... */);
+        var asset_16 = await api.Asset.GetSubUserDepositsAsync("-----SUBUSER-UID-----" /* ...optional parameters... */);
+        var asset_17 = await api.Asset.GetInternalDepositsAsync(/* ...optional parameters... */);
+        var asset_18 = await api.Asset.GetMasterDepositAddressAsync("USDT" /* ...optional parameters... */);
+        var asset_19 = await api.Asset.GetSubUserDepositAddressAsync("-----SUBUSER-UID-----", "USDT" /* ...optional parameters... */);
+        var asset_20 = await api.Asset.GetAssetInformationAsync(/* ...optional parameters... */);
+        var asset_21 = await api.Asset.GetWithdrawalsAsync(/* ...optional parameters... */);
+        var asset_22 = await api.Asset.GetWithdrawableQuantityAsync("USDT" /* ...optional parameters... */);
+        var asset_23 = await api.Asset.WithdrawAsync("USDT", 100.0m, "-----ADDRESS-----" /* ...optional parameters... */);
+        var asset_24 = await api.Asset.CancelWithdrawalAsync("-----WITHDRAWAL-ID-----" /* ...optional parameters... */);
 
+        // User API Methods (Private)
+        var user_01 = await api.User.CreateSubAccountAsync(BybitSubAccountType.NormalSubAccount, "-----USERNAME-----" /* ...optional parameters... */);
+        var user_02 = await api.User.CreateSubAccountApiKeyAsync(1_000_001, false, new BybitApiKeyPermissions() /* ...optional parameters... */);
+        var user_03 = await api.User.GetSubAccountsAsync(/* ...optional parameters... */);
+        var user_04 = await api.User.GetSubAccountsAsync(100 /* ...optional parameters... */);
+        var user_05 = await api.User.FreezeSubAccountAsync(1_000_001, false /* ...optional parameters... */);
+        var user_06 = await api.User.GetApiKeyInformationAsync(/* ...optional parameters... */);
+        var user_07 = await api.User.ModifyMasterAccountApiKeyAsync(new BybitApiKeyPermissions() /* ...optional parameters... */);
+        var user_08 = await api.User.ModifySubAccountApiKeyAsync(new BybitApiKeyPermissions() /* ...optional parameters... */);
+        var user_09 = await api.User.DeleteMasterAccountApiKeyAsync(/* ...optional parameters... */);
+        var user_10 = await api.User.DeleteSubAccountApiKeyAsync(/* ...optional parameters... */);
 
+        // Leverage Tokens API Methods (Private)
+        var ltoken_01 = await api.Tokens.GetLeverageTokensAsync(/* ...optional parameters... */);
+        var ltoken_02 = await api.Tokens.GetLeverageTokenMarketsAsync("BTC3L" /* ...optional parameters... */);
+        var ltoken_03 = await api.Tokens.PurchaseAsync("BTC3L", 1.0m /* ...optional parameters... */);
+        var ltoken_04 = await api.Tokens.RedeemAsync("BTC3L", 1.0m/* ...optional parameters... */);
+        var ltoken_05 = await api.Tokens.GetHistoryAsync(/* ...optional parameters... */);
 
-        // api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX");
-        // var public_01 = await api.Server.GetServerTimeAsync();
+        // Margin API Methods (Private)
+        var margin_01 = await api.Margin.ToggleMarginModeAsync(true /* ...optional parameters... */);
+        var margin_02 = await api.Margin.SetLeverageAsync(10.0m /* ...optional parameters... */);
 
+        // Lending API Methods (Private)
+        var lending_01 = await api.Lending.GetLendingProductsAsync(/* ...optional parameters... */);
+        var lending_02 = await api.Lending.GetLoanOrdersAsync(/* ...optional parameters... */);
+        var lending_03 = await api.Lending.GetRepayOrdersAsync(/* ...optional parameters... */);
+        #endregion
 
-        //var market_01 = await api.Market.GetKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitKlineInterval.OneHour);
-        //var market_02 = await api.Market.GetMarkKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitKlineInterval.OneHour);
-        //var market_03 = await api.Market.GetIndexKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitKlineInterval.OneHour);
-        //var market_04 = await api.Market.GetPremiumIndexKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitKlineInterval.OneHour);
-        //var market_05 = await api.Market.GetSpotInstrumentsAsync();
-        //var market_06 = await api.Market.GetSpotInstrumentsAsync("BTCUSDT");
-        //var market_07 = await api.Market.GetLinearInstrumentsAsync();
-        //var market_08 = await api.Market.GetInverseInstrumentsAsync();
-        //var market_09 = await api.Market.GetOptionInstrumentsAsync();
-        //var market_10 = await api.Market.GetOrderbookAsync(BybitCategory.Spot, "BTCUSDT", 50);
-        //var market_11 = await api.Market.GetPublicTradingHistoryAsync(BybitCategory.Spot, "BTCUSDT");
-        //var market_12 = await api.Market.GetOpenInterestAsync(...);
-        //var market_13 = await api.Market.GetHistoricalVolatilityAsync(BybitCategory.Option);
-        //var market_14 = await api.Market.GetInsuranceAsync();
-        //var market_15 = await api.Market.GetRiskLimitAsync(BybitCategory.Linear);
-        //var market_16 = await api.Market.GetDeliveryPriceAsync(BybitCategory.Linear);
-
-        //var order = await api.Trading.PlaceOrderAsync(BybitCategory.Spot, "XRPUSDT", BybitOrderSide.Buy, BybitOrderType.Market, 100.0m,,,,,);
-
-
-        var ws = new BybitWebSocketClient(new BybitWebSocketClientOptions
-        {
-            RawResponse = true,
-            ApiCredentials = new ApiSharp.Authentication.ApiCredentials("-----API-KEY-----", "-----API-SECRET-----"),
-        });
-
-        /*
-        Console.WriteLine("Being subscribed...");
-        await ws.SubscribeToWalletUpdatesAsync((data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
-        });
-        Console.WriteLine("Subscribed!..");
-        Console.ReadLine();
-        */
+        #region WebSocket API Examples
+        var ws = new BybitWebSocketClient(new BybitWebSocketClientOptions());
+        ws.SetApiCredentials(new ApiCredentials("-----API-KEY-----", "-----API-SECRET-----"));
 
         // Sample Pairs
         var pairs = new List<string> { "BTCUSDT", "LTCUSDT", "ETHUSDT", "XRPUSDT", "BCHUSDT", "EOSUSDT", "ETCUSDT", "TRXUSDT", "QTUMUSDT", "XLMUSDT", "ADAUSDT" };
 
-        await ws.SubscribeToSpotTickersAsync(pairs, (data) =>
-        {
-            if (data != null)
-            {
-                // ... Your logic here
-                Console.WriteLine($"[ TICKER ] " +
-                    $" S:{data.Data.Symbol} " +
-                    $" O:{data.Data.OpenPrice24H} " +
-                    $" H:{data.Data.HighPrice24H} " +
-                    $" L:{data.Data.LowPrice24H} " +
-                    $" C:{data.Data.LastPrice} " +
-                    $" V:{data.Data.Volume24H}");
-            }
-        });
-
-
-        Console.WriteLine("opps subscribed...");
-        Console.ReadLine();
-
-
-        Console.WriteLine("Being subscribed...");
+        // Public Streams
         foreach (var pair in pairs)
         {
             await ws.SubscribeToTradesAsync(BybitCategory.Spot, pair, (data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                    Console.WriteLine($"[ TRADE ] " +
-                        $" {data.Data.Symbol} " +
-                        $" Id:{data.Data.Id} " +
-                        $" Timestamp:{data.Data.Timestamp} " +
-                        $" Time:{data.Data.Time} " +
-                        $" Symbol:{data.Data.Symbol} " +
-                        $" Side:{data.Data.Side} " +
-                        $" Price:{data.Data.Price} " +
-                        $" Quantity:{data.Data.Quantity} " +
-                        $" Direction:{data.Data.Direction} " +
-                        $" BlockTrade:{data.Data.BlockTrade} ");
-                }
+                // ... Your logic here
             });
-        }
-        Console.WriteLine("Subscribed!..");
-        Console.ReadLine();
 
-        Console.WriteLine("Being subscribed...");
-        foreach (var pair in pairs)
-        {
-            await ws.SubscribeToOrderBookAsync(BybitCategory.Spot, pair, 1, (data) =>
+            await ws.SubscribeToTradesAsync(BybitCategory.Spot, pair, (data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                    var ask = data.Data.Asks.FirstOrDefault();
-                    var bid = data.Data.Bids.FirstOrDefault();
-                    Console.WriteLine($"[ ORDERBOOK ] " +
-                        $" {data.Data.StreamType} " +
-                        $" {data.Data.Symbol} " +
-                        $" BAP:{(ask != null ? ask.Price : "")} " +
-                        $" BAS:{(ask != null ? ask.Quantity : "")} " +
-                        $" BBP:{(bid != null ? bid.Price : "")} " +
-                        $" BBS:{(bid != null ? bid.Quantity : "")} " +
-                        $" U:{data.Data.UpdateId} " +
-                        $" S:{data.Data.Sequence} ");
-                }
+                // ... Your logic here
             });
         }
-        Console.WriteLine("Subscribed!..");
-        Console.ReadLine();
 
-        Console.WriteLine("Being subscribed...");
-        foreach (var pair in pairs)
+        await ws.SubscribeToSpotTickersAsync("BTCUSDT", (data) =>
         {
-            await ws.SubscribeToSpotTickersAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                    Console.WriteLine($"[ TICKER ] " +
-                        $" S:{data.Data.Symbol} " +
-                        $" O:{data.Data.OpenPrice24H} " +
-                        $" H:{data.Data.HighPrice24H} " +
-                        $" L:{data.Data.LowPrice24H} " +
-                        $" C:{data.Data.LastPrice} " +
-                        $" V:{data.Data.Volume24H}");
-                }
-            });
-        }
-        Console.WriteLine("Subscribed!..");
-        Console.ReadLine();
+            // ... Your logic here
+        });
 
-        Console.WriteLine("Being subscribed...");
-        foreach (var pair in pairs)
+        await ws.SubscribeToLinearTickersAsync("BTCUSDT", (data) =>
         {
-            await ws.SubscribeToKlinesAsync( BybitCategory.Spot, pair, BybitKlineInterval.OneHour, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                    Console.WriteLine($"[ KLINE ] " +
-                        $" TS:{data.Data.Timestamp} " +
-                        $" T:{data.Data.Time} " +
-                        $" OTS:{data.Data.OpenTimestamp} " +
-                        $" OT:{data.Data.OpenTime} " +
-                        $" CTS:{data.Data.CloseTimestamp} " +
-                        $" CT:{data.Data.CloseTime} " +
-                        $" I:{data.Data.Interval} " +
-                        $" O:{data.Data.Open} " +
-                        $" H:{data.Data.High} " +
-                        $" L:{data.Data.Low} " +
-                        $" C:{data.Data.Close} " +
-                        $" V:{data.Data.Volume} " +
-                        $" T:{data.Data.Turnover} " +
-                        $" C:{data.Data.Confirm} ");
-                }
-            });
-        }
-        Console.WriteLine("Subscribed!..");
-        Console.ReadLine();
+            // ... Your logic here
+        });
 
-        Console.WriteLine("Being subscribed...");
-        foreach (var pair in pairs)
+        await ws.SubscribeToInverseTickersAsync("BTCUSDT", (data) =>
         {
-            await ws.SubscribeToLiquidationsAsync(BybitCategory.Inverse, pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                    Console.WriteLine($"[ LIQ ] " +
-                        $" {data.Data.UpdateTimestamp} " +
-                        $" {data.Data.UpdateTime} " +
-                        $" {data.Data.Symbol} " +
-                        $" {data.Data.Side} " +
-                        $" {data.Data.Quantity} " +
-                        $" {data.Data.Price} ");
-                }
-            });
-        }
-        Console.WriteLine("Subscribed!..");
-        Console.ReadLine();
+            // ... Your logic here
+        });
 
-        Console.WriteLine("Being subscribed...");
-        foreach (var pair in pairs)
+        await ws.SubscribeToSpotTickersAsync(pairs, (data) =>
         {
-            await ws.SubscribeToLeverageTokenKlinesAsync(pair, BybitKlineInterval.OneHour, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-        Console.WriteLine("Subscribed!..");
-        Console.ReadLine();
+            // ... Your logic here
+        });
 
-        Console.WriteLine("Being subscribed...");
-        foreach (var pair in pairs)
+        await ws.SubscribeToLinearTickersAsync(pairs, (data) =>
         {
-            await ws.SubscribeToLeverageTokenTickersAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-        Console.WriteLine("Subscribed!..");
-        Console.ReadLine();
+            // ... Your logic here
+        });
 
-        Console.WriteLine("Being subscribed...");
-        foreach (var pair in pairs)
+        await ws.SubscribeToInverseTickersAsync(pairs, (data) =>
         {
-            await ws.SubscribeToLeverageTokenNetAssetValuesAsync(pair, (data) =>
-            {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
-            });
-        }
-        Console.WriteLine("Subscribed!..");
-        Console.ReadLine();
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToOptionTickersAsync(pairs, (data) =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitKlineInterval.OneHour, (data) =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToLiquidationsAsync(BybitCategory.Inverse, "BTCUSDT", (data) =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToLeverageTokenKlinesAsync("BTC3L", BybitKlineInterval.OneDay, (data) =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToLeverageTokenTickersAsync("BTC3L", (data) =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToLeverageTokenNetAssetValuesAsync("BTC3L", (data) =>
+        {
+            // ... Your logic here
+        });
+
+        // Private Streams
+        await ws.SubscribeToPositionUpdatesAsync((data) =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToExecutionUpdatesAsync((data) =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToOrderUpdatesAsync((data) =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToWalletUpdatesAsync((data) =>
+        {
+            // ... Your logic here
+        });
+
+        var sub = await ws.SubscribeToGreekUpdatesAsync((data) =>
+        {
+            // ... Your logic here
+        });
+
+        // Unsubscribe
+        await ws.UnsubscribeAsync(sub.Data); // or
+        await ws.UnsubscribeAsync(sub.Data.Id);
+        #endregion
     }
 }
