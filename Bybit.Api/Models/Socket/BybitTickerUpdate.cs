@@ -209,17 +209,17 @@ public class BybitFuturesTickerStream
     public DateTime? DeliveryTime { get; set; }
 
     /// <summary>
-    /// Basis rate. Unique field for inverse futures & USDC futures
+    /// Basis rate. Unique field for inverse futures &amp; USDC futures
     /// </summary>
     public decimal? BasisRate { get; set; }
 
     /// <summary>
-    /// Delivery fee rate. Unique field for inverse futures & USDC futures
+    /// Delivery fee rate. Unique field for inverse futures &amp; USDC futures
     /// </summary>
     public decimal? DeliveryFeeRate { get; set; }
 
     /// <summary>
-    /// Predicated delivery price. Unique field for inverse futures & USDC futures
+    /// Predicated delivery price. Unique field for inverse futures &amp; USDC futures
     /// </summary>
     public decimal? PredictedDeliveryPrice { get; set; }
 }

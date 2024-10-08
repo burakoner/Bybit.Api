@@ -62,9 +62,6 @@ public class BybitRestApiClientOptions : RestApiClientOptions
             BodyFormat = RestBodyFormat.Json,
         };
 
-        // Request Body
-        RequestBodyParameterKey = "BODY";
-
         // Rate Limiters
         RateLimiters = new List<IRateLimiter>
         {

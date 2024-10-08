@@ -198,7 +198,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     /// Subscribe to the orderbook stream. Supports different depths.
     /// 
     /// Depths
-    /// Linear & inverse:
+    /// Linear &amp; inverse:
     /// Level 1 data, push frequency: 10ms
     /// Level 50 data, push frequency: 20ms
     /// Level 200 data, push frequency: 100ms
@@ -228,7 +228,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     /// See working code examples of this logic in the FAQ.
     /// 
     /// INFO
-    /// Linear & inverse level 1 data: if 3 seconds have elapsed without a change in the orderbook, a snapshot message will be pushed again.
+    /// Linear &amp; inverse level 1 data: if 3 seconds have elapsed without a change in the orderbook, a snapshot message will be pushed again.
     /// </summary>
     /// <param name="category">Category</param>
     /// <param name="symbol">Symbol</param>
@@ -541,9 +541,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     /// <param name="handler">Update Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeverageTokenTickersAsync(
-        string symbol,
-        Action<WebSocketDataEvent<BybitLeverageTokenTickerStream>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeverageTokenTickersAsync(string symbol, Action<WebSocketDataEvent<BybitLeverageTokenTickerStream>> handler, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
@@ -576,9 +574,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     /// <param name="handler">Update Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeverageTokenNetAssetValuesAsync(
-        string symbol,
-        Action<WebSocketDataEvent<BybitNetAssetValueUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeverageTokenNetAssetValuesAsync(string symbol, Action<WebSocketDataEvent<BybitNetAssetValueUpdate>> handler, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
@@ -603,7 +599,6 @@ public class BybitWebSocketClient : WebSocketApiClient
             Parameters = [$"lt.{symbol}"]
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
-
     #endregion
 
     #region Private Streams

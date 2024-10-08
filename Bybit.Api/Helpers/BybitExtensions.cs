@@ -3,12 +3,14 @@
 /// <summary>
 /// Bybit Extensions
 /// </summary>
-public static class BybitExtensions
+internal static class BybitExtensions
 {
     /// <summary>
     /// Validate the string is a valid spot symbol.
     /// </summary>
     /// <param name="symbol">string to validate</param>
+    /// <param name="messagePrefix"></param>
+    /// <param name="messageSuffix"></param>
     public static string ValidateSymbol(this string symbol, string messagePrefix = "", string messageSuffix = "")
     {
         if (string.IsNullOrEmpty(symbol))
@@ -25,6 +27,8 @@ public static class BybitExtensions
     /// Validate the string is a valid spot currency.
     /// </summary>
     /// <param name="currency">Currency</param>
+    /// <param name="messagePrefix"></param>
+    /// <param name="messageSuffix"></param>
     /// <returns></returns>
     public static string ValidateCurrency(this string currency, string messagePrefix = "", string messageSuffix = "")
     {

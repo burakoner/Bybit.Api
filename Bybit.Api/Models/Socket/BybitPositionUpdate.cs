@@ -163,8 +163,8 @@ public class BybitPositionUpdate
 
     /// <summary>
     /// Cumulative realised pnl
-    /// Futures & Perp: it is the all time cumulative realised P&L
-    /// Option: it is the realised P&L when you hold that position
+    /// Futures &amp; Perp: it is the all time cumulative realised P&amp;L
+    /// Option: it is the realised P&amp;L when you hold that position
     /// </summary>
     [JsonProperty("cumRealisedPnl")]
     public decimal CumulativeRealisedPnl { get; set; }

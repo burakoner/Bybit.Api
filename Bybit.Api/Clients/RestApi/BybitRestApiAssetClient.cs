@@ -136,7 +136,6 @@ public class BybitRestApiAssetClient
     /// <summary>
     /// Query asset information
     /// </summary>
-    /// <param name="account">Account type. SPOT</param>
     /// <param name="asset">Coin name</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -161,7 +160,6 @@ public class BybitRestApiAssetClient
     /// <summary>
     /// You could get all coin balance of all account types under the master account, and sub account.
     /// </summary>
-    /// <param name="account">Account type</param>
     /// <param name="memberId">User Id. It is required when you use master api key to check sub account coin balance</param>
     /// <param name="asset">Coin name</param>
     /// <param name="withBonus">0(default): not query bonus. 1: query bonus</param>

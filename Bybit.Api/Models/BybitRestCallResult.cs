@@ -100,8 +100,19 @@ public class BybitRestCallResult<T>(RestCallRequest request, RestCallResponse re
             data, responseRaw, error)
     { }
 
+    /// <summary>
+    /// Bybit Rest Call Result
+    /// </summary>
+    /// <param name="error"></param>
     public BybitRestCallResult(Error error) : this(null, null, default, null, error) { }
 
+    /// <summary>
+    /// Bybit Rest Call Result
+    /// </summary>
+    /// <param name="request">Request</param>
+    /// <param name="response">Response</param>
+    /// <param name="raw">Raw Data</param>
+    /// <param name="error">Error</param>
     public BybitRestCallResult(RestCallRequest request, RestCallResponse response, string raw, Error error) : this(request, response, default, raw, error) { }
 
     /// <summary>
@@ -129,24 +140,6 @@ public class BybitRestCallResult<T>(RestCallRequest request, RestCallResponse re
         {
             Cursor = cursor
         };
-    }
-
-    /// <summary>
-    /// Copy as a dataless result
-    /// </summary>
-    /// <returns></returns>
-    public RestCallResult AsDataless()
-    {
-        return new RestCallResult(Request, Response, Error);
-    }
-
-    /// <summary>
-    /// Copy as a dataless result
-    /// </summary>
-    /// <returns></returns>
-    public RestCallResult AsDatalessError(Error error)
-    {
-        return new RestCallResult(Request, Response, error);
     }
 
     /// <summary>
