@@ -6,6 +6,12 @@
 public enum BybitExecutionType
 {
     /// <summary>
+    /// Unknown
+    /// </summary>
+    [Map("UNKNOWN")]
+    Unknown = 0,
+
+    /// <summary>
     /// Trade
     /// </summary>
     [Map("Trade")]
@@ -54,8 +60,8 @@ public enum BybitExecutionType
     MovePosition = 8,
 
     /// <summary>
-    /// Unknown
+    /// Session Settle PnL
     /// </summary>
-    [Map("UNKNOWN")]
-    Unknown = 0,
+    [Map("SessionSettlePnL")]
+    SessionSettlePnL = 9,
 }

@@ -1,13 +1,4 @@
-﻿using ApiSharp.Authentication;
-using Bybit.Api.Common.Enums;
-using Bybit.Api.Enums;
-using Bybit.Api.Models.Trade;
-using Bybit.Api.Models.User;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Bybit.Api.Examples;
+﻿namespace Bybit.Api.Examples;
 
 
 internal class Program
@@ -46,7 +37,7 @@ internal class Program
         var trade_01 = await api.Trade.PlaceOrderAsync(BybitCategory.Spot, "XRPUSDT", BybitOrderSide.Buy, BybitOrderType.Market, 100.0m /* ...optional parameters... */);
         var trade_02 = await api.Trade.AmendOrderAsync(BybitCategory.Spot, "XRPUSDT" /* ...optional parameters... */);
         var trade_03 = await api.Trade.AmendOrderAsync(BybitCategory.Spot, "XRPUSDT", "-----ORDER-ID-----" /* ...optional parameters... */);
-        var trade_04 = await api.Trade.GetOpenOrdersAsync(BybitCategory.Spot /* ...optional parameters... */);
+        var trade_04 = await api.Trade.GetOrdersAsync(BybitCategory.Spot /* ...optional parameters... */);
         var trade_05 = await api.Trade.CancelOrdersAsync(BybitCategory.Spot /* ...optional parameters... */);
         var trade_06 = await api.Trade.GetOrderHistoryAsync(BybitCategory.Spot /* ...optional parameters... */);
         var trade_07 = await api.Trade.GetTradeHistoryAsync(BybitCategory.Spot /* ...optional parameters... */);
@@ -54,21 +45,19 @@ internal class Program
         var trade_09 = await api.Trade.AmendOrdersAsync(BybitCategory.Spot, new List<BybitBatchAmendOrderRequest>() /* ...optional parameters... */);
         var trade_10 = await api.Trade.CancelOrdersAsync(BybitCategory.Spot, new List<BybitBatchCancelOrderRequest>() /* ...optional parameters... */);
         var trade_11 = await api.Trade.GetBorrowQuotaAsync(BybitCategory.Spot, "XRPUSDT", BybitOrderSide.Buy /* ...optional parameters... */);
-        var trade_12 = await api.Trade.SetDisconnectionProtectAsync(10 /* ...optional parameters... */);
+        var trade_12 = await api.Trade.SetDisconnectProtectionAsync(10 /* ...optional parameters... */);
 
         // Position API Methods (Private)
         var position_01 = await api.Position.GetPositionsAsync(BybitCategory.Linear /* ...optional parameters... */);
         var position_02 = await api.Position.SetLeverageAsync(BybitCategory.Linear, "BTCUSDT", 10.0m, 10.0m /* ...optional parameters... */);
-        var position_03 = await api.Position.SwitchMarginAsync(BybitCategory.Linear, "BTCUSDT", BybitTradeMode.CrossMargin, 10.0m, 10.0m /* ...optional parameters... */);
-        var position_04 = await api.Position.SetTakeProfitStopLossModeAsync(BybitCategory.Linear, "BTCUSDT", BybitTakeProfitStopLossMode.Full /* ...optional parameters... */);
+        var position_03 = await api.Position.SwitchMarginModeAsync(BybitCategory.Linear, "BTCUSDT", BybitTradeMode.CrossMargin, 10.0m, 10.0m /* ...optional parameters... */);
         var position_05 = await api.Position.SwitchPositionModeAsync(BybitCategory.Linear, BybitPositionMode.BothSides /* ...optional parameters... */);
-        var position_06 = await api.Position.SetRiskLimitAsync(BybitCategory.Linear, "BTCUSDT", 1_000_001 /* ...optional parameters... */);
         var position_07 = await api.Position.SetTradingStopAsync(BybitCategory.Linear, "BTCUSDT", BybitPositionIndex.OneWayModePosition /* ...optional parameters... */);
         var position_08 = await api.Position.SetAutoAddMarginAsync(BybitCategory.Linear, "BTCUSDT", true /* ...optional parameters... */);
         var position_09 = await api.Position.AddMarginAsync(BybitCategory.Linear, "BTCUSDT", 10.0m /* ...optional parameters... */);
-        var position_10 = await api.Position.GetClosedProfitLossAsync(BybitCategory.Linear /* ...optional parameters... */);
+        var position_10 = await api.Position.GetClosedPnlAsync(BybitCategory.Linear /* ...optional parameters... */);
         var position_11 = await api.Position.MovePositionsAsync("-----FROM-UID-----", "-----TO-UID-----", Array.Empty<BybitMovePositionRequest>() /* ...optional parameters... */);
-        var position_12 = await api.Position.GetMovePositionHistoryAsync(BybitCategory.Linear /* ...optional parameters... */);
+        var position_12 = await api.Position.GetMoveHistoryAsync(BybitCategory.Linear /* ...optional parameters... */);
         var position_13 = await api.Position.ConfirmNewRiskLimitAsync(BybitCategory.Linear, "BTCUSDT" /* ...optional parameters... */);
 
         // Account API Methods (Private)

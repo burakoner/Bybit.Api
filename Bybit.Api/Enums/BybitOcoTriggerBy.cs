@@ -10,7 +10,7 @@ public enum BybitOcoTriggerBy
     /// </summary>
     [Map("OcoTriggerByUnknown")]
     Unknown = 0,
-    
+
     /// <summary>
     /// Take Profit
     /// </summary>

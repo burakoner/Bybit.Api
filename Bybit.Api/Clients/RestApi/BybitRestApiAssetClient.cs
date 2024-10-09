@@ -1,4 +1,4 @@
-﻿using Bybit.Api.Models.Account;
+﻿using Bybit.Api.Account;
 
 namespace Bybit.Api.Clients.RestApi;
 

@@ -1,4 +1,8 @@
-﻿namespace Bybit.Api;
+﻿using Bybit.Api.Account;
+using Bybit.Api.Market;
+using Bybit.Api.Trading;
+
+namespace Bybit.Api;
 
 /// <summary>
 /// Bybit Rest API Client
@@ -18,19 +22,17 @@ public class BybitRestApiClient
     /// <summary>
     /// Trade Client
     /// </summary>
-    public BybitRestApiTradeClient Trade { get; }
+    public BybitTradeRestApiClient Trade { get; } // OK-1009
 
     /// <summary>
     /// Position Client
     /// </summary>
-    public BybitRestApiPositionClient Position { get; }
-
-    // TODO: Pre-Upgrade
+    public BybitPositionRestApiClient Position { get; } // OK-1009
 
     /// <summary>
     /// Account Client
     /// </summary>
-    public BybitRestApiAccountClient Account { get; }
+    public BybitAccountRestApiClient Account { get; }
 
     /// <summary>
     /// Asset Client
@@ -85,10 +87,10 @@ public class BybitRestApiClient
         this.ClientOptions = options;
         this.BaseClient = new BybitRestApiBaseClient(this);
 
-        this.Market = new  BybitMarketRestApiClient(this);
-        this.Trade = new BybitRestApiTradeClient(this);
-        this.Position = new BybitRestApiPositionClient(this);
-        this.Account = new BybitRestApiAccountClient(this);
+        this.Market = new BybitMarketRestApiClient(this);
+        this.Trade = new BybitTradeRestApiClient(this);
+        this.Position = new BybitPositionRestApiClient(this);
+        this.Account = new BybitAccountRestApiClient(this);
         this.Asset = new BybitRestApiAssetClient(this);
         this.User = new BybitRestApiUserClient(this);
         this.Tokens = new BybitRestApiTokensClient(this);

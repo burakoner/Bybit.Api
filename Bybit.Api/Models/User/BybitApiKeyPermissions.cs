@@ -16,11 +16,6 @@ public class BybitApiKeyPermissions
     public List<string> CopyTrading { get; set; } = [];
 
     /// <summary>
-    /// This param is depreciated because system will automatically add this permission according to your account is UTA or Classic
-    /// </summary>
-    public List<string> Derivatives { get; set; } = [];
-
-    /// <summary>
     /// Exchange. ["ExchangeHistory"]
     /// </summary>
     public List<string> Exchange { get; set; } = [];

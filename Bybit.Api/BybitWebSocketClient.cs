@@ -1,5 +1,7 @@
-﻿using Bybit.Api.Models.Account;
+﻿using Bybit.Api.Account;
+using Bybit.Api.Market;
 using Bybit.Api.Models.Socket;
+using Bybit.Api.Trading;
 
 namespace Bybit.Api;
 

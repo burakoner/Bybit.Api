@@ -65,13 +65,6 @@ public class BybitApiKeyInformation
     /// </summary>
     [JsonProperty("createdAt")]
     public DateTime? CreatedAt { get; set; }
-
-    /// <summary>
-    /// Depreciated field
-    /// </summary>
-    [JsonProperty("unified"), JsonConverter(typeof(BooleanConverter))]
-    public bool UnifiedMarginAccount { get; set; }
-
     /// <summary>
     /// Whether the account to which the account upgrade to unified trade account. 0：regular account; 1：unified trade account
     /// </summary>
