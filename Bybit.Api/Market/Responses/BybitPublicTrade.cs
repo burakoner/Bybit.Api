@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Market;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Trade History
@@ -30,7 +30,6 @@ public class BybitPublicTrade
     /// <summary>
     /// Side
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>

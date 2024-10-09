@@ -34,7 +34,6 @@ public class BybitInternalDeposit
     /// 2=Success
     /// 3=deposit failed
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitInternalDepositStatus>))]
     public BybitInternalDepositStatus Status { get; set; }
 
     /// <summary>

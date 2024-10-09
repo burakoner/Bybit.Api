@@ -8,18 +8,18 @@ public enum BybitOcoTriggerBy
     /// <summary>
     /// Unknown
     /// </summary>
-    [Label("OcoTriggerByUnknown")]
-    Unknown,
+    [Map("OcoTriggerByUnknown")]
+    Unknown = 0,
     
     /// <summary>
     /// Take Profit
     /// </summary>
-    [Label("OcoTriggerByTp")]
-    TakeProfit,
+    [Map("OcoTriggerByTp")]
+    TakeProfit = 1,
 
     /// <summary>
     /// Stop Loss
     /// </summary>
-    [Label("OcoTriggerByBySl")]
-    StopLoss,
+    [Map("OcoTriggerByBySl")]
+    StopLoss = 2,
 }

@@ -8,270 +8,270 @@ public enum BybitTransactionType
     /// <summary>
     /// Transfer in
     /// </summary>
-    [Label("TRANSFER_IN")]
-    TransferIn,
+    [Map("TRANSFER_IN")]
+    TransferIn = 1,
 
     /// <summary>
     /// Transfer out
     /// </summary>
-    [Label("TRANSFER_OUT")]
-    TransferOut,
+    [Map("TRANSFER_OUT")]
+    TransferOut = 2,
 
     /// <summary>
     /// Trade
     /// </summary>
-    [Label("TRADE")]
-    Trade,
+    [Map("TRADE")]
+    Trade = 3,
 
     /// <summary>
     /// Settlement
     /// </summary>
-    [Label("SETTLEMENT")]
-    Settlement,
+    [Map("SETTLEMENT")]
+    Settlement = 4,
 
     /// <summary>
     /// Delivery
     /// </summary>
-    [Label("DELIVERY")]
-    Delivery,
+    [Map("DELIVERY")]
+    Delivery = 5,
 
     /// <summary>
     /// Liquidation
     /// </summary>
-    [Label("LIQUIDATION")]
-    Liquidation,
+    [Map("LIQUIDATION")]
+    Liquidation = 6,
 
     /// <summary>
     /// Auto deleveraging
     /// </summary>
-    [Label("ADL")]
-    AutoDeleveraging,
+    [Map("ADL")]
+    AutoDeleveraging = 7,
 
     /// <summary>
     /// Airdrop
     /// </summary>
-    [Label("AIRDROP")]
-    Airdrop,
+    [Map("AIRDROP")]
+    Airdrop = 8,
 
     /// <summary>
     /// Bonus
     /// </summary>
-    [Label("BONUS")]
-    Bonus,
+    [Map("BONUS")]
+    Bonus = 9,
 
     /// <summary>
     /// Bonus expired
     /// </summary>
-    [Label("BONUS_RECOLLECT")]
-    BonusExpired,
+    [Map("BONUS_RECOLLECT")]
+    BonusExpired = 10,
 
     /// <summary>
     /// Fee refund
     /// </summary>
-    [Label("FEE_REFUND")]
-    FeeRefund,
+    [Map("FEE_REFUND")]
+    FeeRefund = 11,
 
     /// <summary>
     /// Interest
     /// </summary>
-    [Label("INTEREST")]
-    Interest,
+    [Map("INTEREST")]
+    Interest = 12,
 
     /// <summary>
     /// Currency buy
     /// </summary>
-    [Label("CURRENCY_BUY")]
-    CurrencyBuy,
+    [Map("CURRENCY_BUY")]
+    CurrencyBuy = 13,
 
     /// <summary>
     /// Currency sell
     /// </summary>
-    [Label("CURRENCY_SELL")]
-    CurrencySell,
+    [Map("CURRENCY_SELL")]
+    CurrencySell = 14,
 
     /// <summary>
     /// InstitutionalLoanBorrowedAmount
     /// </summary>
-    [Label("BORROWED_AMOUNT_INS_LOAN")]
-    InstitutionalLoanBorrowedAmount,
+    [Map("BORROWED_AMOUNT_INS_LOAN")]
+    InstitutionalLoanBorrowedAmount = 15,
     
     /// <summary>
     /// InstitutionalLoanPrincipleRepayment
     /// </summary>
-    [Label("PRINCIPLE_REPAYMENT_INS_LOAN")]
-    InstitutionalLoanPrincipleRepayment,
+    [Map("PRINCIPLE_REPAYMENT_INS_LOAN")]
+    InstitutionalLoanPrincipleRepayment = 16,
     
     /// <summary>
     /// InstitutionalLoanInterestRepayment
     /// </summary>
-    [Label("INTEREST_REPAYMENT_INS_LOAN")]
-    InstitutionalLoanInterestRepayment,
+    [Map("INTEREST_REPAYMENT_INS_LOAN")]
+    InstitutionalLoanInterestRepayment = 17,
     
     /// <summary>
     /// InstitutionalLoanAutoSoldCollateral
     /// </summary>
-    [Label("AUTO_SOLD_COLLATERAL_INS_LOAN")]
-    InstitutionalLoanAutoSoldCollateral,
+    [Map("AUTO_SOLD_COLLATERAL_INS_LOAN")]
+    InstitutionalLoanAutoSoldCollateral = 18,
     
     /// <summary>
     /// InstitutionalLoanAutoBuyLiability
     /// </summary>
-    [Label("AUTO_BUY_LIABILITY_INS_LOAN")]
-    InstitutionalLoanAutoBuyLiability,
+    [Map("AUTO_BUY_LIABILITY_INS_LOAN")]
+    InstitutionalLoanAutoBuyLiability = 19,
     
     /// <summary>
     /// InstitutionalLoanAutoPrincipleRepayment
     /// </summary>
-    [Label("AUTO_PRINCIPLE_REPAYMENT_INS_LOAN")]
-    InstitutionalLoanAutoPrincipleRepayment,
+    [Map("AUTO_PRINCIPLE_REPAYMENT_INS_LOAN")]
+    InstitutionalLoanAutoPrincipleRepayment = 20,
     
     /// <summary>
     /// InstitutionalLoanAutoInterestRepayment
     /// </summary>
-    [Label("AUTO_INTEREST_REPAYMENT_INS_LOAN")]
-    InstitutionalLoanAutoInterestRepayment,
+    [Map("AUTO_INTEREST_REPAYMENT_INS_LOAN")]
+    InstitutionalLoanAutoInterestRepayment = 21,
     
     /// <summary>
     /// InstitutionalLoanTransferIn
     /// </summary>
-    [Label("TRANSFER_IN_INS_LOAN")]
-    InstitutionalLoanTransferIn,
+    [Map("TRANSFER_IN_INS_LOAN")]
+    InstitutionalLoanTransferIn = 22,
     
     /// <summary>
     /// InstitutionalLoanTransferOut
     /// </summary>
-    [Label("TRANSFER_OUT_INS_LOAN")]
-    InstitutionalLoanTransferOut,
+    [Map("TRANSFER_OUT_INS_LOAN")]
+    InstitutionalLoanTransferOut = 23,
     
     /// <summary>
     /// SpotRepaymentSell
     /// </summary>
-    [Label("SPOT_REPAYMENT_SELL")]
-    SpotRepaymentSell,
+    [Map("SPOT_REPAYMENT_SELL")]
+    SpotRepaymentSell = 24,
     
     /// <summary>
     /// SpotRepaymentBuy
     /// </summary>
-    [Label("SPOT_REPAYMENT_BUY")]
-    SpotRepaymentBuy,
+    [Map("SPOT_REPAYMENT_BUY")]
+    SpotRepaymentBuy = 25,
     
     /// <summary>
     /// TokensSubscription
     /// </summary>
-    [Label("TOKENS_SUBSCRIPTION")]
-    TokensSubscription,
+    [Map("TOKENS_SUBSCRIPTION")]
+    TokensSubscription = 26,
     
     /// <summary>
     /// TokensRedemption
     /// </summary>
-    [Label("TOKENS_REDEMPTION")]
-    TokensRedemption,
+    [Map("TOKENS_REDEMPTION")]
+    TokensRedemption = 27,
     
     /// <summary>
     /// AutoDeduction
     /// </summary>
-    [Label("AUTO_DEDUCTION")]
-    AutoDeduction,
+    [Map("AUTO_DEDUCTION")]
+    AutoDeduction = 28,
     
     /// <summary>
     /// FlexibleStakingSubscription
     /// </summary>
-    [Label("FLEXIBLE_STAKING_SUBSCRIPTION")]
-    FlexibleStakingSubscription,
+    [Map("FLEXIBLE_STAKING_SUBSCRIPTION")]
+    FlexibleStakingSubscription = 29,
     
     /// <summary>
     /// FlexibleStakingRedemption
     /// </summary>
-    [Label("FLEXIBLE_STAKING_REDEMPTION")]
-    FlexibleStakingRedemption,
+    [Map("FLEXIBLE_STAKING_REDEMPTION")]
+    FlexibleStakingRedemption = 30,
     
     /// <summary>
     /// FixedStakingSubscription
     /// </summary>
-    [Label("FIXED_STAKING_SUBSCRIPTION")]
-    FixedStakingSubscription,
+    [Map("FIXED_STAKING_SUBSCRIPTION")]
+    FixedStakingSubscription = 31,
     
     /// <summary>
     /// PremarketTransferOut
     /// </summary>
-    [Label("PREMARKET_TRANSFER_OUT")]
-    PremarketTransferOut,
+    [Map("PREMARKET_TRANSFER_OUT")]
+    PremarketTransferOut = 32,
     
     /// <summary>
     /// PremarketDeliverySellNewCoin
     /// </summary>
-    [Label("PREMARKET_DELIVERY_SELL_NEW_COIN")]
-    PremarketDeliverySellNewCoin,
+    [Map("PREMARKET_DELIVERY_SELL_NEW_COIN")]
+    PremarketDeliverySellNewCoin = 33,
     
     /// <summary>
     /// PremarketDeliveryBuyNewCoin
     /// </summary>
-    [Label("PREMARKET_DELIVERY_BUY_NEW_COIN")]
-    PremarketDeliveryBuyNewCoin,
+    [Map("PREMARKET_DELIVERY_BUY_NEW_COIN")]
+    PremarketDeliveryBuyNewCoin = 34,
     
     /// <summary>
     /// PremarketDeliveryPledgePaySeller
     /// </summary>
-    [Label("PREMARKET_DELIVERY_PLEDGE_PAY_SELLER")]
-    PremarketDeliveryPledgePaySeller,
+    [Map("PREMARKET_DELIVERY_PLEDGE_PAY_SELLER")]
+    PremarketDeliveryPledgePaySeller = 35,
     
     /// <summary>
     /// PremarketDeliveryPledgeBack
     /// </summary>
-    [Label("PREMARKET_DELIVERY_PLEDGE_BACK")]
-    PremarketDeliveryPledgeBack,
+    [Map("PREMARKET_DELIVERY_PLEDGE_BACK")]
+    PremarketDeliveryPledgeBack = 36,
     
     /// <summary>
     /// PremarketRollbackPledgeBack
     /// </summary>
-    [Label("PREMARKET_ROLLBACK_PLEDGE_BACK")]
-    PremarketRollbackPledgeBack,
+    [Map("PREMARKET_ROLLBACK_PLEDGE_BACK")]
+    PremarketRollbackPledgeBack = 37,
     
     /// <summary>
     /// PremarketRollbackPledgePenaltyToBuyer
     /// </summary>
-    [Label("PREMARKET_ROLLBACK_PLEDGE_PENALTY_TO_BUYER")]
-    PremarketRollbackPledgePenaltyToBuyer,
+    [Map("PREMARKET_ROLLBACK_PLEDGE_PENALTY_TO_BUYER")]
+    PremarketRollbackPledgePenaltyToBuyer = 38,
     
     /// <summary>
     /// CustodyNetworkFee
     /// </summary>
-    [Label("CUSTODY_NETWORK_FEE")]
-    CustodyNetworkFee,
+    [Map("CUSTODY_NETWORK_FEE")]
+    CustodyNetworkFee = 39,
     
     /// <summary>
     /// CustodySettleFee
     /// </summary>
-    [Label("CUSTODY_SETTLE_FEE")]
-    CustodySettleFee,
+    [Map("CUSTODY_SETTLE_FEE")]
+    CustodySettleFee = 40,
     
     /// <summary>
     /// CustodyLock
     /// </summary>
-    [Label("CUSTODY_LOCK")]
-    CustodyLock,
+    [Map("CUSTODY_LOCK")]
+    CustodyLock = 41,
     
     /// <summary>
     /// CustodyUnlock
     /// </summary>
-    [Label("CUSTODY_UNLOCK")]
-    CustodyUnlock,
+    [Map("CUSTODY_UNLOCK")]
+    CustodyUnlock = 42,
     
     /// <summary>
     /// CustodyUnlockRefund
     /// </summary>
-    [Label("CUSTODY_UNLOCK_REFUND")]
-    CustodyUnlockRefund,
+    [Map("CUSTODY_UNLOCK_REFUND")]
+    CustodyUnlockRefund = 43,
     
     /// <summary>
     /// LoansBorrowFunds
     /// </summary>
-    [Label("LOANS_BORROW_FUNDS")]
-    LoansBorrowFunds,
+    [Map("LOANS_BORROW_FUNDS")]
+    LoansBorrowFunds = 44,
     
     /// <summary>
     /// LoansAssetRedemption
     /// </summary>
-    [Label("LOANS_ASSET_REDEMPTION")]
-    LoansAssetRedemption
+    [Map("LOANS_ASSET_REDEMPTION")]
+    LoansAssetRedemption = 45
 }

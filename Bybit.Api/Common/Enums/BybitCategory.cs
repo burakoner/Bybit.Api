@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Enums;
+﻿namespace Bybit.Api.Common;
 
 /// <summary>
 /// Bybit Category
@@ -8,24 +8,25 @@ public enum BybitCategory
     /// <summary>
     /// Spot
     /// </summary>
-    [Label("spot")]
-    Spot,
+    [Map("spot")]
+    Spot = 1,
 
     /// <summary>
     /// Linear perpetual, including USDC perp.
     /// </summary>
-    [Label("linear")]
-    Linear,
+    [Map("linear")]
+    Linear = 2,
 
     /// <summary>
     /// Inverse futures, including inverse perpetual, inverse futures.
     /// </summary>
-    [Label("inverse")]
-    Inverse,
+    [Map("inverse")]
+    Inverse = 3,
 
     /// <summary>
     /// USDC Option
+    /// Not compatible with Classic Account
     /// </summary>
-    [Label("option")]
-    Option,
+    [Map("option")]
+    Option = 4,
 }

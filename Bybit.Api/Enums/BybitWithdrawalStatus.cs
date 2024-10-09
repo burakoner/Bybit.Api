@@ -8,54 +8,54 @@ public enum BybitWithdrawalStatus
     /// <summary>
     /// Security Check
     /// </summary>
-    [Label("SecurityCheck")]
-    SecurityCheck,
+    [Map("SecurityCheck")]
+    SecurityCheck = 1,
 
     /// <summary>
     /// Pending
     /// </summary>
-    [Label("Pending")]
-    Pending,
+    [Map("Pending")]
+    Pending = 2,
 
     /// <summary>
     /// Success
     /// </summary>
-    [Label("success")]
-    Success,
+    [Map("success")]
+    Success = 3,
 
     /// <summary>
     /// Canceled by user
     /// </summary>
-    [Label("CancelByUser")]
-    CanceledByUser,
+    [Map("CancelByUser")]
+    CanceledByUser = 4,
 
     /// <summary>
     /// Rejected
     /// </summary>
-    [Label("Reject")]
-    Rejected,
+    [Map("Reject")]
+    Rejected = 5,
 
     /// <summary>
     /// Failed
     /// </summary>
-    [Label("Fail")]
-    Failed,
+    [Map("Fail")]
+    Failed = 6,
 
     /// <summary>
     /// Blockchain confirmed
     /// </summary>
-    [Label("BlockchainConfirmed")]
-    BlockchainConfirmed,
+    [Map("BlockchainConfirmed")]
+    BlockchainConfirmed = 7,
 
     /// <summary>
     /// More information required
     /// </summary>
-    [Label("MoreInformationRequired")]
-    MoreInformationRequired,
+    [Map("MoreInformationRequired")]
+    MoreInformationRequired = 8,
 
     /// <summary>
     /// Unknown
     /// </summary>
-    [Label("Unknown")]
-    Unknown,
+    [Map("Unknown")]
+    Unknown = 0,
 }

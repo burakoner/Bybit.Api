@@ -8,12 +8,12 @@ public enum BybitLendingRepayType
     /// <summary>
     /// Normal repayment
     /// </summary>
-    [Label("1")]
-    NormalRepayment,
+    [Map("1")]
+    NormalRepayment = 1,
 
     /// <summary>
     /// Repaid by liquidation
     /// </summary>
-    [Label("2")]
-    RepaidByLiquidation,
+    [Map("2")]
+    RepaidByLiquidation = 2,
 }

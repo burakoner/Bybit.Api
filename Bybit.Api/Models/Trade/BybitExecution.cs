@@ -24,7 +24,6 @@ public class BybitExecution
     /// <summary>
     /// Side. Buy,Sell
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>
@@ -47,13 +46,11 @@ public class BybitExecution
     /// <summary>
     /// Order Type
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderType>))]
     public BybitOrderType? OrderType { get; set; }
 
     /// <summary>
     /// Stop order type
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderStopType>))]
     public BybitOrderStopType? StopOrderType { get; set; }
 
     /// <summary>
@@ -83,7 +80,7 @@ public class BybitExecution
     /// <summary>
     /// Execution Type
     /// </summary>
-    [JsonProperty("execType"), JsonConverter(typeof(LabelConverter<BybitExecutionType>))]
+    [JsonProperty("execType")]
     public BybitExecutionType? ExecutionType { get; set; }
 
     /// <summary>

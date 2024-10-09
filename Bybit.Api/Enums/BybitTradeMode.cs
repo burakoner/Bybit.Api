@@ -8,12 +8,12 @@ public enum BybitTradeMode
     /// <summary>
     /// Cross Margin
     /// </summary>
-    [Label("0")]
-    CrossMargin,
+    [Map("0")]
+    CrossMargin = 0,
 
     /// <summary>
     /// Isolated Margin
     /// </summary>
-    [Label("1")]
-    IsolatedMargin,
+    [Map("1")]
+    IsolatedMargin = 1,
 }

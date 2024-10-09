@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Market;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Spot Instrument
@@ -32,13 +32,11 @@ public class BybitSpotInstrument
     /// <summary>
     /// Instrument status
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitInstrumentStatus>))]
     public BybitInstrumentStatus Status { get; set; }
 
     /// <summary>
     /// Margin trade symbol or not
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitMarginTradingStatus>))]
     public BybitMarginTradingStatus MarginTrading { get; set; }
 
     /// <summary>
@@ -141,13 +139,11 @@ public class BybitFuturesInstrument
     /// <summary>
     /// Contract type
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitContractType>))]
     public BybitContractType ContractType { get; set; }
 
     /// <summary>
     /// Instrument status
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitInstrumentStatus>))]
     public BybitInstrumentStatus Status { get; set; }
 
     /// <summary>
@@ -161,25 +157,19 @@ public class BybitFuturesInstrument
     /// </summary>
     [JsonProperty("quoteCoin")]
     public string QuoteAsset { get; set; }
-
-    /// <summary>
-    /// Settle asset
-    /// </summary>
-    [JsonProperty("settleCoin")]
-    public string SettleAsset { get; set; }
-
+    
     /// <summary>
     /// Launch time
     /// </summary>
     [JsonConverter(typeof(DateTimeConverter))]
     public DateTime LaunchTime { get; set; }
-
+    
     /// <summary>
     /// Delivery time
     /// </summary>
     [JsonConverter(typeof(DateTimeConverter))]
     public DateTime? DeliveryTime { get; set; }
-
+    
     /// <summary>
     /// Delivery fee rate
     /// </summary>
@@ -189,40 +179,45 @@ public class BybitFuturesInstrument
     /// Price scale
     /// </summary>
     public decimal PriceScale { get; set; }
-
+    
     /// <summary>
     /// Leverage attributes
     /// </summary>
     [JsonProperty("leverageFilter")]
     public BybitFuturesInstrumentLeverageFilter LeverageFilter { get; set; }
-
+    
     /// <summary>
     /// Price attributes
     /// </summary>
     [JsonProperty("priceFilter")]
     public BybitFuturesInstrumentPriceFilter PriceFilter { get; set; }
-
+    
     /// <summary>
     /// Size attributes
     /// </summary>
     [JsonProperty("lotSizeFilter")]
     public BybitFuturesInstrumentLotSizeFilter LotSizeFilter { get; set; }
-
+    
     /// <summary>
     /// Whether to support unified margin trade
     /// </summary>
     [JsonConverter(typeof(BooleanConverter))]
     public bool UnifiedMarginTrade { get; set; }
-
+    
     /// <summary>
     /// Funding interval (minute)
     /// </summary>
     public int FundingInterval { get; set; }
-
+    
+    /// <summary>
+    /// Settle asset
+    /// </summary>
+    [JsonProperty("settleCoin")]
+    public string SettleAsset { get; set; }
+    
     /// <summary>
     /// Copy trading support
     /// </summary>
-    [JsonProperty("copyTrading"), JsonConverter(typeof(LabelConverter<BybitCopyTradingSupport>))]
     public BybitCopyTradingSupport CopyTrading { get; set; }
 
     /// <summary>
@@ -236,6 +231,19 @@ public class BybitFuturesInstrument
     /// </summary>
     [JsonProperty("lowerFundingRate")]
     public decimal LowerFundingRate { get; set; }
+    
+    /// <summary>
+    /// Whether the contract is a pre-market contract
+    /// When the pre-market contract is converted to official contract, it will be false
+    /// </summary>
+    public bool IsPreListing { get; set; }
+    
+    /// <summary>
+    /// If isPreListing=false, preListingInfo=null
+    /// If isPreListing=true, preListingInfo is an object
+    /// </summary>
+    [JsonProperty("preListingInfo")]
+    public BybitFuturesInstrumentPreListingData PreListingDetails { get; set; }
 }
 
 /// <summary>
@@ -284,7 +292,9 @@ public class BybitFuturesInstrumentPriceFilter
     public decimal TickSize { get; set; }
 }
 
+/// <summary>
 /// Bybit Linear/Inverse Instrument Lot Size Filter
+/// </summary>
 public class BybitFuturesInstrumentLotSizeFilter
 {
     /// <summary>
@@ -325,6 +335,79 @@ public class BybitFuturesInstrumentLotSizeFilter
 }
 
 /// <summary>
+/// BybitFuturesInstrumentPreListingDetails
+/// </summary>
+public class BybitFuturesInstrumentPreListingData
+{
+    /// <summary>
+    /// The current auction phase
+    /// </summary>
+    [JsonProperty("curAuctionPhase")]
+    public BybitPreListingPhase CurrentAuctionPhase { get; set; }
+
+    /// <summary>
+    /// Each phase time info
+    /// </summary>
+    [JsonProperty("phases")]
+    public List<BybitFuturesInstrumentPreListingPhase> Phases { get; set; }=[];
+
+    /// <summary>
+    /// Action fee info
+    /// </summary>
+    [JsonProperty("auctionFeeInfo")]
+    public BybitFuturesInstrumentPreListingAuctionFee AuctionFees { get; set; }
+}
+
+/// <summary>
+/// BybitFuturesInstrumentPreListingPhase
+/// </summary>
+public class BybitFuturesInstrumentPreListingPhase
+{
+    /// <summary>
+    /// pre-market trading phase
+    /// </summary>
+    [JsonProperty("phase")]
+    public BybitPreListingPhase Phase { get; set; }
+
+    /// <summary>
+    /// The start time of the phase, timestamp(ms)
+    /// </summary>
+    [JsonProperty("startTime")]
+    public DateTime? StartTime { get; set; }
+
+    /// <summary>
+    /// The end time of the phase, timestamp(ms)
+    /// </summary>
+    [JsonProperty("endTime")]
+    public DateTime? EndTime { get; set; }
+}
+
+/// <summary>
+/// BybitFuturesInstrumentPreListingAuctionFee
+/// </summary>
+public class BybitFuturesInstrumentPreListingAuctionFee
+{
+    /// <summary>
+    /// The trading fee rate during auction phase
+    /// There is no trading fee until entering continues trading phase
+    /// </summary>
+    [JsonProperty("auctionFeeRate")]
+    public decimal AuctionFeeRate { get; set; }
+
+    /// <summary>
+    /// The taker fee rate during continues trading phase
+    /// </summary>
+    [JsonProperty("takerFeeRate")]
+    public decimal TakerFeeRate { get; set; }
+
+    /// <summary>
+    /// The maker fee rate during continues trading phase
+    /// </summary>
+    [JsonProperty("makerFeeRate")]
+    public decimal MakerFeeRate { get; set; }
+}
+
+/// <summary>
 /// Bybit Option Instrument
 /// </summary>
 public class BybitOptionInstrument
@@ -337,13 +420,11 @@ public class BybitOptionInstrument
     /// <summary>
     /// Option type. Call, Put
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOptionType>))]
     public BybitOptionType OptionsType { get; set; }
 
     /// <summary>
     /// Instrument status
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitInstrumentStatus>))]
     public BybitInstrumentStatus Status { get; set; }
 
     /// <summary>

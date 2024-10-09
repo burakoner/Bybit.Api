@@ -8,12 +8,12 @@ public enum BybitOptionPlaceType
     /// <summary>
     /// Price
     /// </summary>
-    [Label("price")]
-    Price,
+    [Map("price")]
+    Price = 1,
 
     /// <summary>
     /// Implied Volatility
     /// </summary>
-    [Label("iv")]
-    ImpliedVolatility,
+    [Map("iv")]
+    ImpliedVolatility = 2,
 }

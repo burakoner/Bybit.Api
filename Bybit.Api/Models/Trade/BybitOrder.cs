@@ -40,7 +40,6 @@ public class BybitOrder
     /// <summary>
     /// Order Side
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>
@@ -52,25 +51,22 @@ public class BybitOrder
     /// <summary>
     /// Position index. Used to identify positions in different position modes.
     /// </summary>
-    [JsonProperty("positionIdx"), JsonConverter(typeof(LabelConverter<BybitPositionIndex>))]
+    [JsonProperty("positionIdx")]
     public BybitPositionIndex? PositionIndex { get; set; }
 
     /// <summary>
     /// Order status
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderStatus>))]
     public BybitOrderStatus OrderStatus { get; set; }
 
     /// <summary>
     /// Order Cancel Type
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderCancelType>))]
     public BybitOrderCancelType? CancelType { get; set; }
 
     /// <summary>
     /// Reject reason. Classic spot is not supported
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderRejectReason>))]
     public BybitOrderRejectReason RejectReason { get; set; }
 
     /// <summary>
@@ -114,19 +110,18 @@ public class BybitOrder
     /// <summary>
     /// Time in force
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitTimeInForce>))]
     public BybitTimeInForce TimeInForce { get; set; }
 
     /// <summary>
     /// Order type. Market,Limit. For TP/SL order, it means the order type after triggered
     /// </summary>
-    [JsonProperty("orderType"), JsonConverter(typeof(LabelConverter<BybitOrderType>))]
+    [JsonProperty("orderType")]
     public BybitOrderType OrderType { get; set; }
 
     /// <summary>
     /// Stop order type
     /// </summary>
-    [JsonProperty("stopOrderType"), JsonConverter(typeof(LabelConverter<BybitOrderStopType>))]
+    [JsonProperty("stopOrderType")]
     public BybitOrderStopType? StopOrderType { get; set; }
 
     /// <summary>
@@ -138,7 +133,7 @@ public class BybitOrder
     /// <summary>
     /// The unit for qty when create Spot market orders for UTA account. baseCoin, quoteCoin
     /// </summary>
-    [JsonProperty("marketUnit"), JsonConverter(typeof(LabelConverter<BybitMarketUnit>))]
+    [JsonProperty("marketUnit")]
     public BybitMarketUnit? MarketUnit { get; set; }
 
     /// <summary>
@@ -162,13 +157,13 @@ public class BybitOrder
     /// <summary>
     /// TP/SL mode, Full: entire position for TP/SL. Partial: partial position tp/sl. Spot does not have this field, and Option returns always ""
     /// </summary>
-    [JsonProperty("tpslMode"), JsonConverter(typeof(LabelConverter<BybitTakeProfitStopLossMode>))]
+    [JsonProperty("tpslMode")]
     public BybitTakeProfitStopLossMode? TakeProfitStopLossMode { get; set; }
 
     /// <summary>
     /// The trigger type of Spot OCO order.OcoTriggerByUnknown, OcoTriggerByTp, OcoTriggerByBySl. Classic spot is not supported
     /// </summary>
-    [JsonProperty("ocoTriggerBy"), JsonConverter(typeof(LabelConverter<BybitOcoTriggerBy>))]
+    [JsonProperty("ocoTriggerBy")]
     public BybitOcoTriggerBy? OcoTriggerBy { get; set; }
 
     /// <summary>
@@ -186,25 +181,25 @@ public class BybitOrder
     /// <summary>
     /// The price type to trigger take profit
     /// </summary>
-    [JsonProperty("tpTriggerBy"), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>))]
+    [JsonProperty("tpTriggerBy")]
     public BybitTriggerPrice? TakeProfitTriggerBy { get; set; }
 
     /// <summary>
     /// The price type to trigger stop loss
     /// </summary>
-    [JsonProperty("slTriggerBy"), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>))]
+    [JsonProperty("slTriggerBy")]
     public BybitTriggerPrice? StopLossTriggerBy { get; set; }
 
     /// <summary>
     /// Trigger direction. 1: rise, 2: fall
     /// </summary>
-    [JsonProperty("triggerDirection"), JsonConverter(typeof(LabelConverter<BybitTriggerDirection>))]
+    [JsonProperty("triggerDirection")]
     public BybitTriggerDirection? TriggerDirection { get; set; }
 
     /// <summary>
     /// The price type of trigger price
     /// </summary>
-    [JsonProperty("triggerBy"), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>))]
+    [JsonProperty("triggerBy")]
     public BybitTriggerPrice? TriggerBy { get; set; }
 
     /// <summary>
@@ -225,13 +220,13 @@ public class BybitOrder
     /// <summary>
     /// Place type, option used. iv, price
     /// </summary>
-    [JsonProperty("placeType"), JsonConverter(typeof(LabelConverter<BybitOptionPlaceType>))]
+    [JsonProperty("placeType")]
     public BybitOptionPlaceType? OptionPlaceType { get; set; }
 
     /// <summary>
     /// SMP execution type
     /// </summary>
-    [JsonProperty("smpType"), JsonConverter(typeof(LabelConverter<BybitSelfMatchPrevention>))]
+    [JsonProperty("smpType")]
     public BybitSelfMatchPrevention SelfMatchPrevention { get; set; }
 
     /// <summary>

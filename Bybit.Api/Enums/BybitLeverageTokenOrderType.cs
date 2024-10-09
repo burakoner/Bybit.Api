@@ -8,12 +8,12 @@ public enum BybitLeverageTokenOrderType
     /// <summary>
     /// Purchase
     /// </summary>
-    [Label("1")]
-    Purchase,
+    [Map("1")]
+    Purchase = 1,
 
     /// <summary>
     /// Redemption
     /// </summary>
-    [Label("2")]
-    Redemption,
+    [Map("2")]
+    Redemption = 2,
 }

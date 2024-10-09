@@ -66,7 +66,7 @@ public class BybitLeverageTokenInformation
     /// <summary>
     /// Whether the leverage token can be purchased or redeemed
     /// </summary>
-    [JsonProperty("ltStatus"), JsonConverter(typeof(LabelConverter<BybitLeverageTokenStatus>))]
+    [JsonProperty("ltStatus")]
     public BybitLeverageTokenStatus Status { get; set; }
 
     /// <summary>

@@ -25,7 +25,7 @@ public class BybitLiquidationUpdate
     /// <summary>
     /// Position side. Buy,Sell. When you receive a Buy update, this means that a long position has been liquidated
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
+    [JsonProperty("side")]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>

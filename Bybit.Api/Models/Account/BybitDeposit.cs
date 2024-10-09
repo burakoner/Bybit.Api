@@ -32,7 +32,6 @@ public class BybitDeposit
     /// <summary>
     /// Deposit status
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitDepositStatus>))]
     public BybitDepositStatus Status { get; set; }
 
     /// <summary>

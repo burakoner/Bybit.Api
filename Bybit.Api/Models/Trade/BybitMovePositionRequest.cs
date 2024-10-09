@@ -8,7 +8,7 @@ public class BybitMovePositionRequest
     /// <summary>
     /// Product type. linear, spot, option
     /// </summary>
-    [JsonProperty("category"), JsonConverter(typeof(LabelConverter<BybitCategory>))]
+    [JsonProperty("category")]
     public BybitCategory Category { get; set; }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class BybitMovePositionRequest
     /// Trading side of fromUid
     /// For example, fromUid has a long position, when side=Sell, then once executed, the position of fromUid will be reduced or open a short position depending on qty input
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
+    [JsonProperty("side")]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>

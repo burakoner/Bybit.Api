@@ -1,13 +1,25 @@
 ﻿namespace Bybit.Api.Enums;
 
+/// <summary>
+/// BybitPositionSide
+/// </summary>
 public enum BybitPositionSide
 {
-    [Label("None")]
-    None,
+    /// <summary>
+    /// None
+    /// </summary>
+    [Map("None")]
+    None = 0,
 
-    [Label("Buy")]
-    Buy,
+    /// <summary>
+    /// Buy
+    /// </summary>
+    [Map("Buy")]
+    Buy = 1,
 
-    [Label("Sell")]
-    Sell,
+    /// <summary>
+    /// Sell
+    /// </summary>
+    [Map("Sell")]
+    Sell = 2,
 }

@@ -8,7 +8,6 @@ public class BybitRiskLimit
     /// <summary>
     /// Category
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitCategory>))]
     public BybitCategory Category { get; set; }
 
     /// <summary>

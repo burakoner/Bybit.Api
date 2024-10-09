@@ -8,12 +8,12 @@ public enum BybitTakeProfitStopLossMode
     /// <summary>
     /// Full
     /// </summary>
-    [Label("Full")]
-    Full,
+    [Map("Full")]
+    Full = 1,
 
     /// <summary>
     /// Partial
     /// </summary>
-    [Label("Partial")]
-    Partial,
+    [Map("Partial")]
+    Partial = 2,
 }

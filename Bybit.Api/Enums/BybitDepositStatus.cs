@@ -8,42 +8,42 @@ public enum BybitDepositStatus
     /// <summary>
     /// Unknown
     /// </summary>
-    [Label("0")]
-    Unknown,
+    [Map("0")]
+    Unknown = 0,
 
     /// <summary>
     /// To Be Confirmed
     /// </summary>
-    [Label("1")]
-    ToBeConfirmed,
+    [Map("1")]
+    ToBeConfirmed = 1,
 
     /// <summary>
     /// Processing
     /// </summary>
-    [Label("2")]
-    Processing,
+    [Map("2")]
+    Processing = 2,
 
     /// <summary>
     /// Success
     /// </summary>
-    [Label("3")]
-    Success,
+    [Map("3")]
+    Success = 3,
 
     /// <summary>
     /// Failed
     /// </summary>
-    [Label("4")]
-    Failed,
+    [Map("4")]
+    Failed = 4,
 
     /// <summary>
     /// pending to be credited to funding pool
     /// </summary>
-    [Label("10011")]
-    PendingToBeCreditedToFundingPool,
+    [Map("10011")]
+    PendingToBeCreditedToFundingPool = 10011,
 
     /// <summary>
     /// Credited to funding pool successfully
     /// </summary>
-    [Label("10012")]
-    CreditedToFundingPoolSuccessfully,
+    [Map("10012")]
+    CreditedToFundingPoolSuccessfully = 10012,
 }

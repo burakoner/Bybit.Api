@@ -8,54 +8,54 @@ public enum BybitExecutionType
     /// <summary>
     /// Trade
     /// </summary>
-    [Label("Trade")]
-    Trade,
+    [Map("Trade")]
+    Trade = 1,
 
     /// <summary>
     /// Auto Deleveraging
     /// </summary>
-    [Label("AdlTrade")]
-    AutoDeleveraging,
+    [Map("AdlTrade")]
+    AutoDeleveraging = 2,
 
     /// <summary>
     /// Funding
     /// </summary>
-    [Label("Funding")]
-    Funding,
+    [Map("Funding")]
+    Funding = 3,
 
     /// <summary>
     /// Bust Trade
     /// </summary>
-    [Label("BustTrade")]
-    BustTrade,
+    [Map("BustTrade")]
+    BustTrade = 4,
 
     /// <summary>
     /// Delivery
     /// </summary>
-    [Label("Delivery")]
-    Delivery,
+    [Map("Delivery")]
+    Delivery = 5,
 
     /// <summary>
     /// Settle
     /// </summary>
-    [Label("Settle")]
-    Settle,
+    [Map("Settle")]
+    Settle = 6,
 
     /// <summary>
     /// Block Trade
     /// </summary>
-    [Label("BlockTrade")]
-    BlockTrade,
+    [Map("BlockTrade")]
+    BlockTrade = 7,
 
     /// <summary>
     /// Move Position
     /// </summary>
-    [Label("MovePosition")]
-    MovePosition,
+    [Map("MovePosition")]
+    MovePosition = 8,
 
     /// <summary>
     /// Unknown
     /// </summary>
-    [Label("UNKNOWN")]
-    Unknown,
+    [Map("UNKNOWN")]
+    Unknown = 0,
 }

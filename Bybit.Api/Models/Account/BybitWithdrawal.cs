@@ -21,7 +21,6 @@ public class BybitWithdrawal
     /// Withdraw type. 0: on chain. 1: off chain
     /// </summary>
     [JsonProperty("withdrawType")]
-    [JsonConverter(typeof(LabelConverter<BybitWithdrawalType>))]
     public BybitWithdrawalType Type { get; set; }
 
     /// <summary>
@@ -50,7 +49,6 @@ public class BybitWithdrawal
     /// <summary>
     /// Withdraw status
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitWithdrawalStatus>))]
     public BybitWithdrawalStatus Status { get; set; }
 
     /// <summary>

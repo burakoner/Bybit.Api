@@ -8,18 +8,18 @@ public enum BybitWithdrawalType
     /// <summary>
     /// OnChain
     /// </summary>
-    [Label("0")]
-    OnChain,
+    [Map("0")]
+    OnChain = 0,
 
     /// <summary>
     /// Offchain
     /// </summary>
-    [Label("1")]
-    Offchain,
+    [Map("1")]
+    Offchain = 1,
 
     /// <summary>
     /// All
     /// </summary>
-    [Label("2")]
-    All,
+    [Map("2")]
+    All = 2,
 }

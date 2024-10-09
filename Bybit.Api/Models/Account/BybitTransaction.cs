@@ -18,13 +18,11 @@ public class BybitTransaction
     /// <summary>
     /// Product
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitCategory>))]
     public BybitCategory Category { get; set; }
 
     /// <summary>
     /// Side
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitPositionSide>))]
     public BybitPositionSide Side { get; set; }
 
     /// <summary>
@@ -41,7 +39,6 @@ public class BybitTransaction
     /// <summary>
     /// Type
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitTransactionType>))]
     public BybitTransactionType Type { get; set; }
 
     /// <summary>

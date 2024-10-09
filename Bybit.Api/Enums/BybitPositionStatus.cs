@@ -8,18 +8,18 @@ public enum BybitPositionStatus
     /// <summary>
     /// Normal
     /// </summary>
-    [Label("Normal")]
-    Normal,
+    [Map("Normal")]
+    Normal = 0,
 
     /// <summary>
     /// in the liquidation progress
     /// </summary>
-    [Label("Liq")]
-    Liq,
+    [Map("Liq")]
+    Liq = 1,
 
     /// <summary>
     /// in the auto-deleverage progress
     /// </summary>
-    [Label("Adl")]
-    Adl,
+    [Map("Adl")]
+    Adl = 2,
 }

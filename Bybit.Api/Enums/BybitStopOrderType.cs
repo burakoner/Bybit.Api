@@ -8,60 +8,60 @@ public enum BybitStopOrderType
     /// <summary>
     /// Take Profit
     /// </summary>
-    [Label("TakeProfit")]
-    TakeProfit,
+    [Map("TakeProfit")]
+    TakeProfit = 1,
 
     /// <summary>
     /// Stop Loss
     /// </summary>
-    [Label("StopLoss")]
-    StopLoss,
+    [Map("StopLoss")]
+    StopLoss = 2,
 
     /// <summary>
     /// Trailing Stop
     /// </summary>
-    [Label("TrailingStop")]
-    TrailingStop,
+    [Map("TrailingStop")]
+    TrailingStop = 3,
 
     /// <summary>
     /// Stop
     /// </summary>
-    [Label("Stop")]
-    Stop,
+    [Map("Stop")]
+    Stop = 4,
 
     /// <summary>
     /// Partial Take Profit
     /// </summary>
-    [Label("PartialTakeProfit")]
-    PartialTakeProfit,
+    [Map("PartialTakeProfit")]
+    PartialTakeProfit = 5,
 
     /// <summary>
     /// Partial Stop Loss
     /// </summary>
-    [Label("PartialStopLoss")]
-    PartialStopLoss,
+    [Map("PartialStopLoss")]
+    PartialStopLoss = 6,
 
     /// <summary>
     /// Take Profit and Stop Loss
     /// </summary>
-    [Label("tpslOrder")]
-    tpslOrder,
+    [Map("tpslOrder")]
+    tpslOrder = 7,
 
     /// <summary>
     /// OCO Order
     /// </summary>
-    [Label("OcoOrder")]
-    OcoOrder,
+    [Map("OcoOrder")]
+    OcoOrder = 8,
 
     /// <summary>
     /// On web or app can set MMR to close position
     /// </summary>
-    [Label("MmRateClose")]
-    MmRateClose,
+    [Map("MmRateClose")]
+    MmRateClose = 9,
 
     /// <summary>
     /// Spot bidirectional tpsl order
     /// </summary>
-    [Label("BidirectionalTpslOrder")]
-    BidirectionalTpslOrder,
+    [Map("BidirectionalTpslOrder")]
+    BidirectionalTpslOrder = 10,
 }

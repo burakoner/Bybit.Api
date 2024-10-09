@@ -8,30 +8,30 @@ public enum BybitOrderFilter
     /// <summary>
     /// Order
     /// </summary>
-    [Label("Order")]
-    Order,
+    [Map("Order")]
+    Order = 1,
 
     /// <summary>
     /// Take Profit Stop Loss Order
     /// </summary>
-    [Label("tpslOrder")]
-    TakeProfitStopLossOrder,
+    [Map("tpslOrder")]
+    TakeProfitStopLossOrder = 2,
 
     /// <summary>
     /// Stop Order
     /// </summary>
-    [Label("StopOrder")]
-    StopOrder,
+    [Map("StopOrder")]
+    StopOrder = 3,
 
     /// <summary>
     /// OCO Order
     /// </summary>
-    [Label("OcoOrder")]
-    OcoOrder,
+    [Map("OcoOrder")]
+    OcoOrder = 4,
 
     /// <summary>
     /// Bidirectional Take Profit Stop Loss Order
     /// </summary>
-    [Label("BidirectionalTpslOrder")]
-    BidirectionalTpslOrder,
+    [Map("BidirectionalTpslOrder")]
+    BidirectionalTpSlOrder = 5,
 }

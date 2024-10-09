@@ -24,7 +24,6 @@ public class BybitDeliveryRecord
     /// <summary>
     /// Side
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<>))]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>

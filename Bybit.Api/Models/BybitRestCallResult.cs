@@ -1,4 +1,8 @@
-﻿namespace Bybit.Api.Models;
+﻿#if NETSTANDARD2_1_OR_GREATER
+using System.Diagnostics.CodeAnalysis;
+#endif
+
+namespace Bybit.Api.Models;
 
 /// <summary>
 /// Bybit Rest Call Result

@@ -14,7 +14,6 @@ public class BybitMovePositionResponse
     /// <summary>
     /// Order status. Processing, Filled, Rejected
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitMovePositionStatus>))]
     public BybitMovePositionStatus Status { get; set; }
 
     /// <summary>

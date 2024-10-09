@@ -8,33 +8,33 @@ public enum BybitAccountType
     /// <summary>
     /// Contract Account
     /// </summary>
-    [Label("CONTRACT")]
-    Contract,
+    [Map("CONTRACT")]
+    Contract = 1,
     
     /// <summary>
     /// Fund Account
     /// </summary>
-    [Label("FUND")]
-    Fund,
+    [Map("FUND")]
+    Fund = 2,
     
     /// <summary>
     /// Option Account
     /// </summary>
-    [Label("OPTION")]
-    Option,
+    [Map("OPTION")]
+    Option = 3,
     
     /// <summary>
     /// Spot Account
     /// </summary>
-    [Label("SPOT")]
-    Spot,
+    [Map("SPOT")]
+    Spot = 4,
     
     /// <summary>
     /// Unified Account
     /// </summary>
-    [Label("UNIFIED")]
-    Unified,
+    [Map("UNIFIED")]
+    Unified = 5,
 
-    // [Label("INVESTMENT")]
+    // [Map("INVESTMENT")]
     // Investment,
 }

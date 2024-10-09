@@ -15,10 +15,10 @@ public class BybitRestApiTokensClient
     private const string _v5SpotLeverTokenOrderRecord = "v5/spot-lever-token/order-record";
 
     #region Internal
-    internal BybitRestApiBaseClient MainClient { get; }
+    internal BybitRestApiBaseClient _ { get; }
     internal BybitRestApiTokensClient(BybitRestApiClient root)
     {
-        this.MainClient = root.BaseClient;
+        this._ = root.BaseClient;
     }
     #endregion
 
@@ -30,10 +30,10 @@ public class BybitRestApiTokensClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitLeverageTokenInformation>>> GetLeverageTokensAsync(string token = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ltCoin", token);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ltCoin", token);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitLeverageTokenInformation>>(MainClient.BuildUri(_v5SpotLeverTokenInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitLeverageTokenInformation>>(_.BuildUri(_v5SpotLeverTokenInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLeverageTokenInformation>>(null);
         return result.As(result.Data.Payload);
     }
@@ -46,10 +46,10 @@ public class BybitRestApiTokensClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitLeverageTokenMarket>>> GetLeverageTokenMarketsAsync(string token, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ltCoin", token);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ltCoin", token);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitLeverageTokenMarket>>(MainClient.BuildUri(_v5SpotLeverTokenReference), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitLeverageTokenMarket>>(_.BuildUri(_v5SpotLeverTokenReference), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLeverageTokenMarket>>(null);
         return result.As(result.Data.Payload);
     }
@@ -64,14 +64,14 @@ public class BybitRestApiTokensClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitLeverageTokenPurchase>> PurchaseAsync(string symbol, decimal quantity, string clientOrderId = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "ltCoin", symbol },
-            { "ltAmount", quantity.ToString(BybitConstants.BybitCultureInfo) },
         };
-        parameters.AddOptionalParameter("serialNo", clientOrderId);
+        parameters.AddString("ltAmount", quantity);
+        parameters.AddOptional("serialNo", clientOrderId);
 
-        return await MainClient.SendBybitRequest<BybitLeverageTokenPurchase>(MainClient.BuildUri(_v5SpotLeverTokenPurchase), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitLeverageTokenPurchase>(_.BuildUri(_v5SpotLeverTokenPurchase), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -84,14 +84,14 @@ public class BybitRestApiTokensClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitLeverageTokenRedeem>> RedeemAsync(string symbol, decimal quantity, string clientOrderId = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "ltCoin", symbol },
-            { "ltAmount", quantity.ToString(BybitConstants.BybitCultureInfo) },
         };
-        parameters.AddOptionalParameter("serialNo", clientOrderId);
+        parameters.AddString("ltAmount", quantity);
+        parameters.AddOptional("serialNo", clientOrderId);
 
-        return await MainClient.SendBybitRequest<BybitLeverageTokenRedeem>(MainClient.BuildUri(_v5SpotLeverTokenRedeem), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitLeverageTokenRedeem>(_.BuildUri(_v5SpotLeverTokenRedeem), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -118,16 +118,16 @@ public class BybitRestApiTokensClient
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 500);
 
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ltCoin", symbol);
-        parameters.AddOptionalParameter("orderId", orderId);
-        parameters.AddOptionalParameter("startTime", startTime);
-        parameters.AddOptionalParameter("endTime", endTime);
-        parameters.AddOptionalParameter("limit", limit);
-        parameters.AddOptionalParameter("ltOrderType", type?.GetLabel());
-        parameters.AddOptionalParameter("serialNo", clientOrderId);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ltCoin", symbol);
+        parameters.AddOptional("orderId", orderId);
+        parameters.AddOptional("startTime", startTime);
+        parameters.AddOptional("endTime", endTime);
+        parameters.AddOptional("limit", limit);
+        parameters.AddOptionalEnum("ltOrderType", type);
+        parameters.AddOptional("serialNo", clientOrderId);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitLeverageTokenOrder>>(MainClient.BuildUri(_v5SpotLeverTokenOrderRecord), HttpMethod.Post, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitLeverageTokenOrder>>(_.BuildUri(_v5SpotLeverTokenOrderRecord), HttpMethod.Post, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLeverageTokenOrder>>(null);
         return result.As(result.Data.Payload);
     }

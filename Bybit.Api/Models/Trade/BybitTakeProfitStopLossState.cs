@@ -8,6 +8,6 @@ public class BybitTakeProfitStopLossState
     /// <summary>
     /// Take Profit Stop Loss Mode
     /// </summary>
-    [JsonProperty("tpSlMode"), JsonConverter(typeof(LabelConverter<BybitTakeProfitStopLossMode>))]
+    [JsonProperty("tpSlMode")]
     public BybitTakeProfitStopLossMode TakeProfitStopLossMode { get; set; }
 }

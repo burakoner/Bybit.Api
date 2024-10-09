@@ -1,10 +1,19 @@
 ﻿namespace Bybit.Api.Enums;
 
+/// <summary>
+/// BybitTriggerDirection
+/// </summary>
 public enum BybitTriggerDirection
 {
-    [Label("1")]
-    Rise,
+    /// <summary>
+    /// Rise
+    /// </summary>
+    [Map("1")]
+    Rise = 1,
 
-    [Label("2")]
-    Fall,
+    /// <summary>
+    /// Fall
+    /// </summary>
+    [Map("2")]
+    Fall = 2,
 }

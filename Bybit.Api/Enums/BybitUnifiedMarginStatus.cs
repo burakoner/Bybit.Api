@@ -8,24 +8,24 @@ public enum BybitUnifiedMarginStatus
     /// <summary>
     /// Regular account
     /// </summary>
-    [Label("1")]
-    Regular,
+    [Map("1")]
+    Regular = 1,
 
     /// <summary>
     /// Please ignore !!!
     /// </summary>
-    [Label("2")]
-    UnifiedMarginAccount,
+    [Map("2")]
+    UnifiedMarginAccount = 2,
 
     /// <summary>
     /// Unified trade account, can trade linear perpetual, options and spot
     /// </summary>
-    [Label("3")]
-    UnifiedTradeAccount,
+    [Map("3")]
+    UnifiedTradeAccount = 3,
 
     /// <summary>
     /// UTA Pro, the pro version of Unified trade account
     /// </summary>
-    [Label("4")]
-    UnifiedTradeAccountPro,
+    [Map("4")]
+    UnifiedTradeAccountPro = 4,
 }

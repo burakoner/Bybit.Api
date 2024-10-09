@@ -31,7 +31,7 @@ public class BybitTradeUpdate
     /// <summary>
     /// Side of taker. Buy,Sell
     /// </summary>
-    [JsonProperty("S"), JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
+    [JsonProperty("S")]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class BybitTradeUpdate
     /// <summary>
     /// Direction of price change. Unique field for future
     /// </summary>
-    [JsonProperty("L"), JsonConverter(typeof(LabelConverter<BybitTickDirection>))]
+    [JsonProperty("L")]
     public BybitTickDirection Direction { get; set; }
 
     /// <summary>

@@ -8,18 +8,18 @@ public enum BybitAccountMode
     /// <summary>
     /// Classic Account
     /// </summary>
-    [Label("1")]
-    Classic,
+    [Map("1")]
+    Classic = 1,
     
     /// <summary>
     /// UMA
     /// </summary>
-    [Label("2")]
-    UMA,
+    [Map("2")]
+    UMA = 2,
     
     /// <summary>
     /// UTA
     /// </summary>
-    [Label("3")]
-    UTA,
+    [Map("3")]
+    UTA = 3,
 }

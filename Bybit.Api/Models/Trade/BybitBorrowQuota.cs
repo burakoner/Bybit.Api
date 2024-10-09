@@ -14,7 +14,7 @@ public class BybitBorrowQuota
     /// <summary>
     /// Side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
+    [JsonProperty("side")]
     public BybitOrderSide Side { get; set; }
     
     /// <summary>

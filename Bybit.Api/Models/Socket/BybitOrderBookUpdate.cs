@@ -1,4 +1,4 @@
-﻿using Bybit.Api.Models.Market;
+﻿using Bybit.Api.Market;
 
 namespace Bybit.Api.Models.Socket;
 

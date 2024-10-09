@@ -81,7 +81,7 @@ public class BybitFuturesTickerStream
     /// <summary>
     /// Tick direction
     /// </summary>
-    [JsonProperty("tickDirection"), JsonConverter(typeof(LabelConverter<BybitTickDirection>))]
+    [JsonProperty("tickDirection")]
     public BybitTickDirection TickDirection { get; set; }
     
     /// <summary>

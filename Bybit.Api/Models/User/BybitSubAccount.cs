@@ -20,19 +20,19 @@ public class BybitSubAccount
     /// <summary>
     /// Sub account type
     /// </summary>
-    [JsonProperty("memberType"), JsonConverter(typeof(LabelConverter<BybitSubAccountType>))]
+    [JsonProperty("memberType")]
     public BybitSubAccountType Type { get; set; }
 
     /// <summary>
     /// Account mode
     /// </summary>
-    [JsonProperty("accountMode"), JsonConverter(typeof(LabelConverter<BybitAccountMode>))]
+    [JsonProperty("accountMode")]
     public BybitAccountMode Mode { get; set; }
 
     /// <summary>
     /// Sub account status
     /// </summary>
-    [JsonProperty("status"), JsonConverter(typeof(LabelConverter<BybitSubAccountStatus>))]
+    [JsonProperty("status")]
     public BybitSubAccountStatus Status { get; set; }
 
     /// <summary>

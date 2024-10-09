@@ -46,7 +46,6 @@ public class BybitApiKeyInformation
     /// <summary>
     /// The type of api key. 1：personal, 2：connected to the third-party app
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitApiKeyType>))]
     public BybitApiKeyType Type { get; set; }
 
     /// <summary>

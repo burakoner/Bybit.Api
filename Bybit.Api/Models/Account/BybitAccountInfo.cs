@@ -8,13 +8,11 @@ public class BybitAccountInfo
     /// <summary>
     /// Account status
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitUnifiedMarginStatus>))]
     public BybitUnifiedMarginStatus UnifiedMarginStatus { get; set; }
 
     /// <summary>
     /// ISOLATED_MARGIN, REGULAR_MARGIN, PORTFOLIO_MARGIN
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitMarginMode>))]
     public BybitMarginMode MarginMode { get; set; }
 
     /// <summary>

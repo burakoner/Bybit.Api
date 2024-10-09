@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Enums;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Copy Trading Support
@@ -8,21 +8,24 @@ public enum BybitCopyTradingSupport
     /// <summary>
     /// Regardless of normal account or UTA account, this trading pair does not support copy trading
     /// </summary>
-    [Label("none")]
-    None,
+    [Map("none")]
+    None = 0,
+
     /// <summary>
     /// For both normal account and UTA account, this trading pair supports copy trading
     /// </summary>
-    [Label("both")]
-    Both,
+    [Map("both")]
+    Both = 1,
+
     /// <summary>
     /// Only for UTA account,this trading pair supports copy trading
     /// </summary>
-    [Label("utaOnly")]
-    UtaOnly,
+    [Map("utaOnly")]
+    UtaOnly = 2,
+
     /// <summary>
     /// Only for normal account, this trading pair supports copy trading
     /// </summary>
-    [Label("normalOnly")]
-    NormalOnly
+    [Map("normalOnly")]
+    NormalOnly = 3
 }

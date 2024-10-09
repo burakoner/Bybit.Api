@@ -8,18 +8,18 @@ public enum BybitMarginMode
     /// <summary>
     /// Isolated
     /// </summary>
-    [Label("ISOLATED_MARGIN")]
-    Isolated,
+    [Map("ISOLATED_MARGIN")]
+    Isolated = 1,
 
     /// <summary>
     /// Regular (i.e. Cross margin)
     /// </summary>
-    [Label("REGULAR_MARGIN")]
-    Regular,
+    [Map("REGULAR_MARGIN")]
+    Regular = 2,
 
     /// <summary>
     /// Portfolio
     /// </summary>
-    [Label("PORTFOLIO_MARGIN")]
-    Portfolio,
+    [Map("PORTFOLIO_MARGIN")]
+    Portfolio = 3,
 }

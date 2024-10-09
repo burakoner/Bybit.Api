@@ -25,13 +25,13 @@ public class BybitInternalTransfer
     /// <summary>
     /// From Account
     /// </summary>
-    [JsonProperty("fromAccountType"), JsonConverter(typeof(LabelConverter<BybitAccountType>))]
+    [JsonProperty("fromAccountType")]
     public BybitAccountType FromAccount { get; set; }
 
     /// <summary>
     /// To Account
     /// </summary>
-    [JsonProperty("toAccountType"), JsonConverter(typeof(LabelConverter<BybitAccountType>))]
+    [JsonProperty("toAccountType")]
     public BybitAccountType ToAccount { get; set; }
 
     /// <summary>
@@ -47,6 +47,6 @@ public class BybitInternalTransfer
     /// <summary>
     /// Status
     /// </summary>
-    [JsonProperty("status"), JsonConverter(typeof(LabelConverter<BybitTransferStatus>))]
+    [JsonProperty("status")]
     public BybitTransferStatus Status { get; set; }
 }

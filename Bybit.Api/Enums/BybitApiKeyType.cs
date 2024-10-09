@@ -8,12 +8,12 @@ public enum BybitApiKeyType
     /// <summary>
     /// Personal
     /// </summary>
-    [Label("1")]
-    Personal,
+    [Map("1")]
+    Personal = 1,
 
     /// <summary>
     /// Connected to the third-party app
     /// </summary>
-    [Label("2")]
-    ConnectedToTheThirdPartyApp,
+    [Map("2")]
+    ConnectedToTheThirdPartyApp = 2,
 }

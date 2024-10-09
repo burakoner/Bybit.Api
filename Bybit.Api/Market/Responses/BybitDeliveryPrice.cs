@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Market;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Delivery Price
@@ -19,10 +19,10 @@ public class BybitDeliveryPrice
     /// Delivery Time
     /// </summary>
     [JsonProperty("deliveryTime")]
-    public long Timestamp { get; set; }
+    public long DeliveryTimestamp { get; set; }
 
     /// <summary>
     /// Delivery Time
     /// </summary>
-    public DateTime Time { get => Timestamp.ConvertFromMilliseconds(); }
+    public DateTime DeliveryTime { get => DeliveryTimestamp.ConvertFromMilliseconds(); }
 }

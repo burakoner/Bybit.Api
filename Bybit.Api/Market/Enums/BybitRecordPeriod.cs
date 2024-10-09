@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Enums;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Record Interval
@@ -8,36 +8,36 @@ public enum BybitRecordPeriod
     /// <summary>
     /// Five Minutes
     /// </summary>
-    [Label("5min")]
-    FiveMinutes,
+    [Map("5min")]
+    FiveMinutes = 300,
 
     /// <summary>
     /// Fifteen Minutes
     /// </summary>
-    [Label("15min")]
-    FifteenMinutes,
+    [Map("15min")]
+    FifteenMinutes = 900,
 
     /// <summary>
     /// Thirty Minutes
     /// </summary>
-    [Label("30min")]
-    ThirtyMinutes,
+    [Map("30min")]
+    ThirtyMinutes = 1800,
 
     /// <summary>
     /// One Hour
     /// </summary>
-    [Label("1h")]
-    OneHour,
+    [Map("1h")]
+    OneHour = 3600,
 
     /// <summary>
     /// Four Hours
     /// </summary>
-    [Label("4h")]
-    FourHours,
+    [Map("4h")]
+    FourHours = 14400,
 
     /// <summary>
     /// One Day
     /// </summary>
-    [Label("1d")]
-    OneDay,
+    [Map("1d")]
+    OneDay = 86400,
 }

@@ -13,7 +13,7 @@ public class BybitRestApiClient
     /// <summary>
     /// Market Client
     /// </summary>
-    public BybitRestApiMarketClient Market { get; }
+    public BybitMarketRestApiClient Market { get; } // OK-1009
 
     /// <summary>
     /// Trade Client
@@ -85,7 +85,7 @@ public class BybitRestApiClient
         this.ClientOptions = options;
         this.BaseClient = new BybitRestApiBaseClient(this);
 
-        this.Market = new BybitRestApiMarketClient(this);
+        this.Market = new  BybitMarketRestApiClient(this);
         this.Trade = new BybitRestApiTradeClient(this);
         this.Position = new BybitRestApiPositionClient(this);
         this.Account = new BybitRestApiAccountClient(this);

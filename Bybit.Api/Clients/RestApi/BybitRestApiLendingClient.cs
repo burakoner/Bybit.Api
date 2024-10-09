@@ -17,10 +17,10 @@ public class BybitRestApiLendingClient
     private const string _v5InsLoanAssociationUid = "v5/ins-loan/association-uid"; // TODO
 
     #region Internal
-    internal BybitRestApiBaseClient MainClient { get; }
+    internal BybitRestApiBaseClient _ { get; }
     internal BybitRestApiLendingClient(BybitRestApiClient root)
     {
-        this.MainClient = root.BaseClient;
+        this._ = root.BaseClient;
     }
     #endregion
 
@@ -37,10 +37,10 @@ public class BybitRestApiLendingClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitLendingProduct>>> GetLendingProductsAsync(string productId = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("productId", productId);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("productId", productId);
 
-        var result = await MainClient.SendBybitRequest<BybitLendingProductContainer>(MainClient.BuildUri(_v5InsLoanProductInfos), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitLendingProductContainer>(_.BuildUri(_v5InsLoanProductInfos), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLendingProduct>>(null);
         return result.As(result.Data.Payload);
     }
@@ -48,10 +48,10 @@ public class BybitRestApiLendingClient
     // TODO: Remove
     private async Task<BybitRestCallResult<List<BybitLendingToken>>> GetLendingTokensAsync(string token = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ltCoin", token);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ltCoin", token);
 
-        var result = await MainClient.SendBybitRequest<BybitLendingTokenContainer>(MainClient.BuildUri(_v5InsLoanEnsureTokens), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitLendingTokenContainer>(_.BuildUri(_v5InsLoanEnsureTokens), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLendingToken>>(null);
         return result.As(result.Data.Payload);
     }
@@ -69,13 +69,13 @@ public class BybitRestApiLendingClient
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 100);
 
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("orderId", orderId);
-        parameters.AddOptionalParameter("startTime", startTime);
-        parameters.AddOptionalParameter("endTime", endTime);
-        parameters.AddOptionalParameter("limit", limit);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("orderId", orderId);
+        parameters.AddOptional("startTime", startTime);
+        parameters.AddOptional("endTime", endTime);
+        parameters.AddOptional("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitLendingLoanOrderContainer>(MainClient.BuildUri(_v5InsLoanLoanOrder), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitLendingLoanOrderContainer>(_.BuildUri(_v5InsLoanLoanOrder), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLendingLoanOrder>>(null);
         return result.As(result.Data.Payload);
     }
@@ -92,12 +92,12 @@ public class BybitRestApiLendingClient
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 100);
 
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("startTime", startTime);
-        parameters.AddOptionalParameter("endTime", endTime);
-        parameters.AddOptionalParameter("limit", limit);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("startTime", startTime);
+        parameters.AddOptional("endTime", endTime);
+        parameters.AddOptional("limit", limit);
 
-        var result = await MainClient.SendBybitRequest<BybitLendingRepayOrderContainer>(MainClient.BuildUri(_v5InsLoanRepaidHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitLendingRepayOrderContainer>(_.BuildUri(_v5InsLoanRepaidHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitLendingRepayOrder>>(null);
         return result.As(result.Data.Payload);
     }

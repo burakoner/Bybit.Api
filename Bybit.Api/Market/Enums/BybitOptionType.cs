@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Enums;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Option Type
@@ -8,12 +8,12 @@ public enum BybitOptionType
     /// <summary>
     /// Call
     /// </summary>
-    [Label("Call")]
-    Call,
+    [Map("Call")]
+    Call = 1,
 
     /// <summary>
     /// Put
     /// </summary>
-    [Label("Put")]
-    Put,
+    [Map("Put")]
+    Put = 2,
 }

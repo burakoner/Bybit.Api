@@ -8,18 +8,18 @@ public enum BybitSubAccountStatus
     /// <summary>
     /// Normal
     /// </summary>
-    [Label("1")]
-    Normal,
+    [Map("1")]
+    Normal = 1,
 
     /// <summary>
     /// Banned
     /// </summary>
-    [Label("2")]
-    LoginBanned,
+    [Map("2")]
+    LoginBanned = 2,
 
     /// <summary>
     /// Frozen
     /// </summary>
-    [Label("4")]
-    Frozen,
+    [Map("4")]
+    Frozen = 4,
 }

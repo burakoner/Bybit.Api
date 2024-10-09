@@ -20,7 +20,7 @@ public class BybitLeverageTokenOrder
     /// <summary>
     /// LT order type. 1: purchase, 2: redeem
     /// </summary>
-    [JsonProperty("ltOrderType"), JsonConverter(typeof(LabelConverter<BybitLeverageTokenOrderType>))]
+    [JsonProperty("ltOrderType")]
     public BybitLeverageTokenOrderType Type { get; set; }
 
     /// <summary>
@@ -48,7 +48,7 @@ public class BybitLeverageTokenOrder
     /// <summary>
     /// Order status. 1: completed, 2: in progress, 3: failed
     /// </summary>
-    [JsonProperty("ltOrderStatus"), JsonConverter(typeof(LabelConverter<BybitLeverageTokenOrderStatus>))]
+    [JsonProperty("ltOrderStatus")]
     public BybitLeverageTokenOrderStatus Status { get; set; }
     
     /// <summary>

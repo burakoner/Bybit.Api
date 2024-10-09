@@ -24,10 +24,10 @@ public class BybitRestApiUserClient
     private const string _v5UserAffCustomerInfo = "v5/user/aff-customer-info"; // TODO
 
     #region Internal
-    internal BybitRestApiBaseClient MainClient { get; }
+    internal BybitRestApiBaseClient _ { get; }
     internal BybitRestApiUserClient(BybitRestApiClient root)
     {
-        this.MainClient = root.BaseClient;
+        this._ = root.BaseClient;
     }
     #endregion
 
@@ -52,17 +52,15 @@ public class BybitRestApiUserClient
     public async Task<BybitRestCallResult<BybitSubAccount>> CreateSubAccountAsync(BybitSubAccountType type, string username, string password = null,
         bool? quickLogin = null, bool? isUta = null, string label = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
-        {
-            { "memberType", type.GetLabel() },
-            { "username", username },
-        };
-        parameters.AddOptionalParameter("password", password);
-        parameters.AddOptionalParameter("switch", quickLogin.HasValue && quickLogin.Value ? "1" : "0");
-        parameters.AddOptionalParameter("isUta", isUta);
-        parameters.AddOptionalParameter("note", label);
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("memberType", type);
+        parameters.Add("username", username);
+        parameters.AddOptional("password", password);
+        parameters.AddOptional("switch", quickLogin.HasValue && quickLogin.Value ? "1" : "0");
+        parameters.AddOptional("isUta", isUta);
+        parameters.AddOptional("note", label);
 
-        return await MainClient.SendBybitRequest<BybitSubAccount>(MainClient.BuildUri(_v5UserCreateSubMember), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitSubAccount>(_.BuildUri(_v5UserCreateSubMember), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -87,16 +85,16 @@ public class BybitRestApiUserClient
         string label = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "subuid", subuid },
             { "readOnly", readOnly ? 1 : 0 },
             { "permissions", permissions },
         };
-        parameters.AddOptionalParameter("note", label);
-        parameters.AddOptionalParameter("ips", ips);
+        parameters.AddOptional("note", label);
+        parameters.AddOptional("ips", ips);
 
-        return await MainClient.SendBybitRequest<BybitApiKey>(MainClient.BuildUri(_v5UserCreateSubApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitApiKey>(_.BuildUri(_v5UserCreateSubApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -107,7 +105,7 @@ public class BybitRestApiUserClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitSubAccount>>> GetSubAccountsAsync(CancellationToken ct = default)
     {
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitSubAccount>>(MainClient.BuildUri(_v5UserQuerySubMembers), HttpMethod.Get, ct, true).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitSubAccount>>(_.BuildUri(_v5UserQuerySubMembers), HttpMethod.Get, ct, true).ConfigureAwait(false);
         if (!result) return result.As<List<BybitSubAccount>>(null);
         return result.As(result.Data.Payload);
     }
@@ -122,11 +120,11 @@ public class BybitRestApiUserClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitSubAccount>>> GetSubAccountsAsync(int pageSize, string cursor = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("pageSize", pageSize);
-        parameters.AddOptionalParameter("nextCursor", cursor);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("pageSize", pageSize);
+        parameters.AddOptional("nextCursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitSubAccount>>(MainClient.BuildUri(_v5UserSubMembers), HttpMethod.Get, ct, true).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitSubAccount>>(_.BuildUri(_v5UserSubMembers), HttpMethod.Get, ct, true).ConfigureAwait(false);
         if (!result) return result.As<List<BybitSubAccount>>(null);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
@@ -140,12 +138,12 @@ public class BybitRestApiUserClient
     /// <returns></returns>
     public async Task<BybitRestCallResult> FreezeSubAccountAsync(long subuid, bool frozen, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "subuid", subuid },
             { "frozen", frozen ? 1 : 0 },
         };
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5UserFrozenSubMember), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest(_.BuildUri(_v5UserFrozenSubMember), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -155,7 +153,7 @@ public class BybitRestApiUserClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitApiKeyInformation>> GetApiKeyInformationAsync(CancellationToken ct = default)
     {
-        return await MainClient.SendBybitRequest<BybitApiKeyInformation>(MainClient.BuildUri(_v5UserQueryApi), HttpMethod.Get, ct, true).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitApiKeyInformation>(_.BuildUri(_v5UserQueryApi), HttpMethod.Get, ct, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -175,14 +173,14 @@ public class BybitRestApiUserClient
         IEnumerable<string> ips = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "permissions", permissions },
         };
-        parameters.AddOptionalParameter("readOnly", readOnly);
-        parameters.AddOptionalParameter("ips", ips);
+        parameters.AddOptional("readOnly", readOnly);
+        parameters.AddOptional("ips", ips);
 
-        return await MainClient.SendBybitRequest<BybitApiKey>(MainClient.BuildUri(_v5UserUpdateApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitApiKey>(_.BuildUri(_v5UserUpdateApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -206,14 +204,14 @@ public class BybitRestApiUserClient
         string apikey = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "permissions", permissions },
         };
-        parameters.AddOptionalParameter("readOnly", readOnly.HasValue && readOnly.Value ? 1 : 0);
-        parameters.AddOptionalParameter("ips", ips);
+        parameters.AddOptional("readOnly", readOnly.HasValue && readOnly.Value ? 1 : 0);
+        parameters.AddOptional("ips", ips);
 
-        return await MainClient.SendBybitRequest<BybitApiKey>(MainClient.BuildUri(_v5UserUpdateSubApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitApiKey>(_.BuildUri(_v5UserUpdateSubApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -223,7 +221,7 @@ public class BybitRestApiUserClient
     /// <returns></returns>
     public async Task<BybitRestCallResult> DeleteMasterAccountApiKeyAsync(CancellationToken ct = default)
     {
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5UserDeleteApi), HttpMethod.Post, ct, true).ConfigureAwait(false);
+        return await _.SendBybitRequest(_.BuildUri(_v5UserDeleteApi), HttpMethod.Post, ct, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -236,10 +234,10 @@ public class BybitRestApiUserClient
     /// <returns></returns>
     public async Task<BybitRestCallResult> DeleteSubAccountApiKeyAsync(string apikey = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("apikey", apikey);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("apikey", apikey);
 
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5UserDeleteSubApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest(_.BuildUri(_v5UserDeleteSubApi), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
 }

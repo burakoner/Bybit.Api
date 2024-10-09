@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Market;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Volatility
@@ -8,7 +8,6 @@ public class BybitVolatility
     /// <summary>
     /// Period
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOptionPeriod>))]
     public BybitOptionPeriod Period { get; set; }
 
     /// <summary>

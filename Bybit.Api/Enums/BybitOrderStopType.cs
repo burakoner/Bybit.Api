@@ -1,25 +1,49 @@
 ﻿namespace Bybit.Api.Enums;
 
+/// <summary>
+/// BybitOrderStopType
+/// </summary>
 public enum BybitOrderStopType
 {
-    [Label("TakeProfit")]
-    TakeProfit,
+    /// <summary>
+    /// TakeProfit
+    /// </summary>
+    [Map("TakeProfit")]
+    TakeProfit = 1,
 
-    [Label("StopLoss")]
-    StopLoss,
+    /// <summary>
+    /// StopLoss
+    /// </summary>
+    [Map("StopLoss")]
+    StopLoss = 2,
 
-    [Label("TrailingStop")]
-    TrailingStop,
+    /// <summary>
+    /// TrailingStop
+    /// </summary>
+    [Map("TrailingStop")]
+    TrailingStop = 3,
 
-    [Label("Stop")]
-    Stop,
+    /// <summary>
+    /// Stop
+    /// </summary>
+    [Map("Stop")]
+    Stop = 4,
 
-    [Label("PartialTakeProfit")]
-    PartialTakeProfit,
+    /// <summary>
+    /// PartialTakeProfit
+    /// </summary>
+    [Map("PartialTakeProfit")]
+    PartialTakeProfit = 5,
 
-    [Label("PartialStopLoss")]
-    PartialStopLoss,
+    /// <summary>
+    /// PartialStopLoss
+    /// </summary>
+    [Map("PartialStopLoss")]
+    PartialStopLoss = 6,
 
-    [Label("tpslOrder")]
-    TakeProfitStopLossOrder,
+    /// <summary>
+    /// TakeProfitStopLossOrder
+    /// </summary>
+    [Map("tpslOrder")]
+    TakeProfitStopLossOrder = 7,
 }

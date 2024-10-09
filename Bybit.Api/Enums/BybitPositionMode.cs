@@ -8,12 +8,12 @@ public enum BybitPositionMode
     /// <summary>
     /// Merged Single
     /// </summary>
-    [Label("0")]
-    MergedSingle,
+    [Map("0")]
+    MergedSingle = 0,
 
     /// <summary>
     /// Both Sides
     /// </summary>
-    [Label("3")]
-    BothSides
+    [Map("3")]
+    BothSides = 3
 }

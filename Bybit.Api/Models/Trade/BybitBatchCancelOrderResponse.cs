@@ -8,7 +8,7 @@ public class BybitBatchCancelOrderResponse
     /// <summary>
     /// Product type
     /// </summary>
-    [JsonProperty("category"), JsonConverter(typeof(LabelConverter<BybitCategory>))]
+    [JsonProperty("category")]
     public BybitCategory Category { get; set; }
 
     /// <summary>

@@ -8,24 +8,24 @@ public enum BybitTickDirection
     /// <summary>
     /// price rise
     /// </summary>
-    [Label("PlusTick")]
-    PlusTick,
+    [Map("PlusTick")]
+    PlusTick = 1,
 
     /// <summary>
     /// trade occurs at the same price as the previous trade, which occurred at a price higher than that for the trade preceding it
     /// </summary>
-    [Label("ZeroPlusTick")]
-    ZeroPlusTick,
+    [Map("ZeroPlusTick")]
+    ZeroPlusTick = 2,
 
     /// <summary>
     /// price drop
     /// </summary>
-    [Label("MinusTick")]
-    MinusTick,
+    [Map("MinusTick")]
+    MinusTick = 3,
 
     /// <summary>
     /// trade occurs at the same price as the previous trade, which occurred at a price lower than that for the trade preceding it
     /// </summary>
-    [Label("ZeroMinusTick")]
-    ZeroMinusTick,
+    [Map("ZeroMinusTick")]
+    ZeroMinusTick = 4,
 }

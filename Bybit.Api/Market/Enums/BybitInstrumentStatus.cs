@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Enums;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Instrument Status
@@ -8,30 +8,30 @@ public enum BybitInstrumentStatus
     /// <summary>
     /// Pre Launch
     /// </summary>
-    [Label("PreLaunch")]
-    PreLaunch,
+    [Map("PreLaunch")]
+    PreLaunch = 1,
 
     /// <summary>
     /// Trading
     /// </summary>
-    [Label("Trading")]
-    Trading,
+    [Map("Trading")]
+    Trading = 2,
 
     /// <summary>
     /// Settling
     /// </summary>
-    [Label("Settling")]
-    Settling,
+    [Map("Settling")]
+    Settling = 3,
 
     /// <summary>
     /// Delivering
     /// </summary>
-    [Label("Delivering")]
-    Delivering,
+    [Map("Delivering")]
+    Delivering = 4,
 
     /// <summary>
     /// Closed
     /// </summary>
-    [Label("Closed")]
-    Closed,
+    [Map("Closed")]
+    Closed = 5,
 }

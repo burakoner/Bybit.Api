@@ -14,10 +14,10 @@ public class BybitRestApiMarginClient
     private const string _v5SpotMarginTradeDataState = "v5/spot-margin-trade/state"; // TODO
 
     #region Internal
-    internal BybitRestApiBaseClient MainClient { get; }
+    internal BybitRestApiBaseClient _ { get; }
     internal BybitRestApiMarginClient(BybitRestApiClient root)
     {
-        this.MainClient = root.BaseClient;
+        this._ = root.BaseClient;
     }
     #endregion
 
@@ -29,12 +29,12 @@ public class BybitRestApiMarginClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitSpotMarginMode>> ToggleMarginModeAsync(bool spotMarginMode, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "spotMarginMode", spotMarginMode ? "1" : "0" },
         };
 
-        return await MainClient.SendBybitRequest<BybitSpotMarginMode>(MainClient.BuildUri(_v5SpotMarginTradeSwitchMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitSpotMarginMode>(_.BuildUri(_v5SpotMarginTradeSwitchMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -45,12 +45,10 @@ public class BybitRestApiMarginClient
     /// <returns></returns>
     public async Task<BybitRestCallResult> SetLeverageAsync(decimal leverage, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
-        {
-            { "leverage", leverage.ToString(BybitConstants.BybitCultureInfo) },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddString("leverage", leverage);
 
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5SpotMarginTradeSetLeverage), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest(_.BuildUri(_v5SpotMarginTradeSetLeverage), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
 }

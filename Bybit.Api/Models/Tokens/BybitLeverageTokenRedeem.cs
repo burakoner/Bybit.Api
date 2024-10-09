@@ -14,7 +14,7 @@ public class BybitLeverageTokenRedeem
     /// <summary>
     /// Order status. 1: completed, 2: in progress, 3: failed
     /// </summary>
-    [JsonProperty("ltOrderStatus"), JsonConverter(typeof(LabelConverter<BybitLeverageTokenOrderStatus>))]
+    [JsonProperty("ltOrderStatus")]
     public BybitLeverageTokenOrderStatus Status { get; set; }
 
     /// <summary>

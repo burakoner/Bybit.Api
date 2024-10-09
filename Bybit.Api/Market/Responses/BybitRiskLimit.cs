@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Market;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Risk Limit
@@ -40,4 +40,10 @@ public class BybitRiskLimit
     /// Max leverage
     /// </summary>
     public decimal MaxLeverage { get; set; }
+
+    /// <summary>
+    /// The maintenance margin deduction value when risk limit tier changed
+    /// </summary>
+    [JsonProperty("mmDeduction")]
+    public decimal MaintenanceMarginDeduction { get; set; }
 }

@@ -30,8 +30,8 @@ public class BybitKlineUpdate
     /// <summary>
     /// Kline interval
     /// </summary>
-    [JsonProperty("interval"), JsonConverter(typeof(LabelConverter<BybitKlineInterval>))]
-    public BybitKlineInterval Interval { get; set; }
+    [JsonProperty("interval")]
+    public BybitInterval Interval { get; set; }
 
     /// <summary>
     /// Open price

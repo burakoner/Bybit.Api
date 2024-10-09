@@ -11,7 +11,7 @@ public class BybitPositionUpdate
     /// <summary>
     /// Product type
     /// </summary>
-    [JsonProperty("category"), JsonConverter(typeof(LabelConverter<BybitCategory>))]
+    [JsonProperty("category")]
     public BybitCategory Category { get; set; }
     
     /// <summary>
@@ -22,7 +22,7 @@ public class BybitPositionUpdate
     /// <summary>
     /// Position side. Buy,Sell
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
+    [JsonProperty("side")]
     public BybitOrderSide Side { get; set; }
     
     /// <summary>
@@ -34,13 +34,13 @@ public class BybitPositionUpdate
     /// <summary>
     /// Used to identify positions in different position modes
     /// </summary>
-    [JsonProperty("positionIdx"), JsonConverter(typeof(LabelConverter<BybitPositionIndex>))]
+    [JsonProperty("positionIdx")]
     public BybitPositionIndex PositionIndex { get; set; }
 
     /// <summary>
     /// Trade mode
     /// </summary>
-    [JsonProperty("tradeMode"), JsonConverter(typeof(LabelConverter<BybitTradeMode>))]
+    [JsonProperty("tradeMode")]
     public BybitTradeMode TradeMode { get; set; }
 
     /// <summary>
@@ -107,7 +107,7 @@ public class BybitPositionUpdate
     /// <summary>
     /// Depreciated, meaningless here, always "Full". Spot does not return this field. Option returns ""
     /// </summary>
-    [JsonProperty("tpslMode"), JsonConverter(typeof(LabelConverter<BybitTakeProfitStopLossMode>))]
+    [JsonProperty("tpslMode")]
     public BybitTakeProfitStopLossMode? TakeProfitStopLossMode { get; set; }
 
     /// <summary>
@@ -172,7 +172,7 @@ public class BybitPositionUpdate
     /// <summary>
     /// Position status. Normal, Liq, Adl
     /// </summary>
-    [JsonProperty("positionStatus"), JsonConverter(typeof(LabelConverter<BybitPositionStatus>))]
+    [JsonProperty("positionStatus")]
     public BybitPositionStatus PositionStatus { get; set; }
 
     /// <summary>
@@ -191,7 +191,7 @@ public class BybitPositionUpdate
     /// When isReduceOnly=false: the timestamp when the MMR had been adjusted by system
     /// It returns the timestamp when the system operates, and if you manually operate, there is no timestamp
     /// Keeps "" by default, if there was a lower risk limit system adjustment previously, it shows that system operation timestamp
-    /// Only meaningful for isolated margin & cross margin of USDT Perp, USDC Perp, USDC Futures, Inverse Perp and Inverse Futures, meaningless for others
+    /// Only meaningful for isolated margin &amp; cross margin of USDT Perp, USDC Perp, USDC Futures, Inverse Perp and Inverse Futures, meaningless for others
     /// </summary>
     [JsonProperty("mmrSysUpdatedTime")]
     public long? MmrSysUpdatedTimestamp { get; set; }
@@ -202,7 +202,7 @@ public class BybitPositionUpdate
     /// When isReduceOnly=false: the timestamp when the MMR had been adjusted by system
     /// It returns the timestamp when the system operates, and if you manually operate, there is no timestamp
     /// Keeps "" by default, if there was a lower risk limit system adjustment previously, it shows that system operation timestamp
-    /// Only meaningful for isolated margin & cross margin of USDT Perp, USDC Perp, USDC Futures, Inverse Perp and Inverse Futures, meaningless for others
+    /// Only meaningful for isolated margin &amp; cross margin of USDT Perp, USDC Perp, USDC Futures, Inverse Perp and Inverse Futures, meaningless for others
     /// </summary>
     [JsonIgnore]
     public DateTime? MmrSysUpdatedTime { get { return MmrSysUpdatedTimestamp?.ConvertFromMilliseconds(); } }
@@ -213,7 +213,7 @@ public class BybitPositionUpdate
     /// When isReduceOnly=false: the timestamp when the leverage had been adjusted by system
     /// It returns the timestamp when the system operates, and if you manually operate, there is no timestamp
     /// Keeps "" by default, if there was a lower risk limit system adjustment previously, it shows that system operation timestamp
-    /// Only meaningful for isolated margin & cross margin of USDT Perp, USDC Perp, USDC Futures, Inverse Perp and Inverse Futures, meaningless for others
+    /// Only meaningful for isolated margin &amp; cross margin of USDT Perp, USDC Perp, USDC Futures, Inverse Perp and Inverse Futures, meaningless for others
     /// </summary>
     [JsonProperty("leverageSysUpdatedTime")]
     public long? LeverageSysUpdatedTimestamp { get; set; }
@@ -224,7 +224,7 @@ public class BybitPositionUpdate
     /// When isReduceOnly=false: the timestamp when the leverage had been adjusted by system
     /// It returns the timestamp when the system operates, and if you manually operate, there is no timestamp
     /// Keeps "" by default, if there was a lower risk limit system adjustment previously, it shows that system operation timestamp
-    /// Only meaningful for isolated margin & cross margin of USDT Perp, USDC Perp, USDC Futures, Inverse Perp and Inverse Futures, meaningless for others
+    /// Only meaningful for isolated margin &amp; cross margin of USDT Perp, USDC Perp, USDC Futures, Inverse Perp and Inverse Futures, meaningless for others
     /// </summary>
     [JsonIgnore]
     public DateTime? LeverageSysUpdatedTime { get { return LeverageSysUpdatedTimestamp?.ConvertFromMilliseconds(); } }

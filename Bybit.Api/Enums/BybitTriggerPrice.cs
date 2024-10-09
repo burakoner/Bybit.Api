@@ -8,18 +8,18 @@ public enum BybitTriggerPrice
     /// <summary>
     /// Last Price
     /// </summary>
-    [Label("LastPrice")]
-    LastPrice,
+    [Map("LastPrice")]
+    LastPrice = 1,
 
     /// <summary>
     /// Index Price
     /// </summary>
-    [Label("IndexPrice")]
-    IndexPrice,
+    [Map("IndexPrice")]
+    IndexPrice = 2,
 
     /// <summary>
     /// Mark Price
     /// </summary>
-    [Label("MarkPrice")]
-    MarkPrice,
+    [Map("MarkPrice")]
+    MarkPrice = 3,
 }

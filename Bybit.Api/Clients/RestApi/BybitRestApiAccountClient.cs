@@ -28,10 +28,10 @@ public class BybitRestApiAccountClient
     private const string _v5AccountMmpState = "v5/account/mmp-state";
 
     #region Internal
-    internal BybitRestApiBaseClient MainClient { get; }
+    internal BybitRestApiBaseClient _ { get; }
     internal BybitRestApiAccountClient(BybitRestApiClient root)
     {
-        this.MainClient = root.BaseClient;
+        this._ = root.BaseClient;
     }
     #endregion
 
@@ -45,13 +45,11 @@ public class BybitRestApiAccountClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitBalance>>> GetBalancesAsync(BybitAccountType account, string asset = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
-        {
-            { "accountType", account.GetLabel() }
-        };
-        parameters.AddOptionalParameter("coin", asset);
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("accountType", account);
+        parameters.AddOptional("coin", asset);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitBalance>>(MainClient.BuildUri(_v5AccountWalletBalance), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitBalance>>(_.BuildUri(_v5AccountWalletBalance), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitBalance>>(null);
         return result.As(result.Data.Payload);
     }
@@ -63,7 +61,7 @@ public class BybitRestApiAccountClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitUnifiedUpgrade>> UpgradeToUnifiedAccountAsync(CancellationToken ct = default)
     {
-        return await MainClient.SendBybitRequest<BybitUnifiedUpgrade>(MainClient.BuildUri(_v5AccountUpgradeToUta), HttpMethod.Post, ct, true).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitUnifiedUpgrade>(_.BuildUri(_v5AccountUpgradeToUta), HttpMethod.Post, ct, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -79,14 +77,14 @@ public class BybitRestApiAccountClient
     public async Task<BybitRestCallResult<List<BybitBorrowHistory>>> GetBorrowHistoryAsync(string asset = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
     {
         limit?.ValidateIntValues(nameof(limit), 1, 50);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("currency", asset);
-        parameters.AddOptionalParameter("startTime", startTime);
-        parameters.AddOptionalParameter("endTime", endTime);
-        parameters.AddOptionalParameter("limit", limit);
-        parameters.AddOptionalParameter("cursor", cursor);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("currency", asset);
+        parameters.AddOptional("startTime", startTime);
+        parameters.AddOptional("endTime", endTime);
+        parameters.AddOptional("limit", limit);
+        parameters.AddOptional("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitBorrowHistory>>(MainClient.BuildUri(_v5AccountBorrowHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitBorrowHistory>>(_.BuildUri(_v5AccountBorrowHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitBorrowHistory>>(null);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
@@ -99,10 +97,10 @@ public class BybitRestApiAccountClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitCollateralInfo>>> GetCollateralInfoAsync(string asset = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("currency", asset);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("currency", asset);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitCollateralInfo>>(MainClient.BuildUri(_v5AccountCollateralInfo), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitCollateralInfo>>(_.BuildUri(_v5AccountCollateralInfo), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitCollateralInfo>>(null);
         return result.As(result.Data.Payload);
     }
@@ -115,10 +113,10 @@ public class BybitRestApiAccountClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitGreeks>>> GetAssetGreeksAsync(string baseAsset = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("baseCoin", baseAsset);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("baseCoin", baseAsset);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitGreeks>>(MainClient.BuildUri(_v5AssetCoinGreeks), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitGreeks>>(_.BuildUri(_v5AssetCoinGreeks), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitGreeks>>(null);
         return result.As(result.Data.Payload);
     }
@@ -133,14 +131,12 @@ public class BybitRestApiAccountClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitFeeRate>>> GetFeeRateAsync(BybitCategory category, string symbol = null, string baseAsset = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
-        {
-            { "category", category.GetLabel() },
-        };
-        parameters.AddOptionalParameter("symbol", symbol);
-        parameters.AddOptionalParameter("baseCoin", baseAsset);
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("category", category);
+        parameters.AddOptional("symbol", symbol);
+        parameters.AddOptional("baseCoin", baseAsset);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitFeeRate>>(MainClient.BuildUri(_v5AccountFeeRate), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitFeeRate>>(_.BuildUri(_v5AccountFeeRate), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitFeeRate>>(null);
         return result.As(result.Data.Payload);
     }
@@ -152,7 +148,7 @@ public class BybitRestApiAccountClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitAccountInfo>> GetAccountInfoAsync(CancellationToken ct = default)
     {
-        return await MainClient.SendBybitRequest<BybitAccountInfo>(MainClient.BuildUri(_v5AccountInfo), HttpMethod.Get, ct, true).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitAccountInfo>(_.BuildUri(_v5AccountInfo), HttpMethod.Get, ct, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -173,18 +169,18 @@ public class BybitRestApiAccountClient
     {
         limit?.ValidateIntValues(nameof(limit), 1, 50);
 
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("accountType", account?.GetLabel());
-        parameters.AddOptionalParameter("category", category?.GetLabel());
-        parameters.AddOptionalParameter("currency", asset);
-        parameters.AddOptionalParameter("baseCoin", baseAsset);
-        parameters.AddOptionalParameter("type", type?.GetLabel());
-        parameters.AddOptionalParameter("startTime", startTime);
-        parameters.AddOptionalParameter("endTime", endTime);
-        parameters.AddOptionalParameter("limit", limit);
-        parameters.AddOptionalParameter("cursor", cursor);
+        var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("accountType", account);
+        parameters.AddOptionalEnum("category", category);
+        parameters.AddOptional("currency", asset);
+        parameters.AddOptional("baseCoin", baseAsset);
+        parameters.AddOptionalEnum("type", type);
+        parameters.AddOptional("startTime", startTime);
+        parameters.AddOptional("endTime", endTime);
+        parameters.AddOptional("limit", limit);
+        parameters.AddOptional("cursor", cursor);
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitTransaction>>(MainClient.BuildUri(_v5AccountTransactionLog), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitTransaction>>(_.BuildUri(_v5AccountTransactionLog), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitTransaction>>(null);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
@@ -197,12 +193,10 @@ public class BybitRestApiAccountClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitReason>>> SetMarginModeAsync(BybitMarginMode marginMode, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>()
-        {
-            { "setMarginMode", marginMode.GetLabel() }
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("setMarginMode", marginMode);
 
-        return await MainClient.SendBybitRequest<List<BybitReason>>(MainClient.BuildUri(_v5AccountSetMarginMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<List<BybitReason>>(_.BuildUri(_v5AccountSetMarginMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -217,7 +211,7 @@ public class BybitRestApiAccountClient
     /// <returns></returns>
     public async Task<BybitRestCallResult> SetMarketMakerProtectionAsync(string baseAsset, int window, int frozenPeriod, decimal quantityLimit, decimal deltaLimit, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>()
+        var parameters = new ParameterCollection()
         {
             { "baseCoin", baseAsset },
             { "window", window },
@@ -226,7 +220,7 @@ public class BybitRestApiAccountClient
             { "deltaLimit", deltaLimit },
         };
 
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5AccountMmpModify), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest(_.BuildUri(_v5AccountMmpModify), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -237,12 +231,12 @@ public class BybitRestApiAccountClient
     /// <returns></returns>
     public async Task<BybitRestCallResult> ResetMarketMakerProtectionAsync(string baseAsset, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>()
+        var parameters = new ParameterCollection()
         {
             { "baseCoin", baseAsset },
         };
 
-        return await MainClient.SendBybitRequest(MainClient.BuildUri(_v5AccountMmpReset), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest(_.BuildUri(_v5AccountMmpReset), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -253,12 +247,12 @@ public class BybitRestApiAccountClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitMmpState>>> GetMarketMakerProtectionAsync(string baseAsset, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>()
+        var parameters = new ParameterCollection()
         {
             { "baseCoin", baseAsset },
         };
 
-        var result = await MainClient.SendBybitRequest<BybitUnifiedResponse<BybitMmpState>>(MainClient.BuildUri(_v5AccountMmpState), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitMmpState>>(_.BuildUri(_v5AccountMmpState), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMmpState>>(null);
         return result.As(result.Data.Payload);
     }

@@ -8,18 +8,18 @@ public enum BybitTransferStatus
     /// <summary>
     /// Success
     /// </summary>
-    [Label("SUCCESS")]
-    Success,
+    [Map("SUCCESS")]
+    Success = 1,
 
     /// <summary>
     /// Pending
     /// </summary>
-    [Label("PENDING")]
-    Pending,
+    [Map("PENDING")]
+    Pending = 2,
 
     /// <summary>
     /// Failed
     /// </summary>
-    [Label("FAILED")]
-    Failed,
+    [Map("FAILED")]
+    Failed = 3,
 }

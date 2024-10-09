@@ -79,7 +79,6 @@ public class BybitLendingLoanOrder
     /// <summary>
     /// 1：outstanding; 2：paid off
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitLendingOrderStatus>))]
     public BybitLendingOrderStatus Status { get; set; }
 
     /// <summary>

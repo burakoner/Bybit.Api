@@ -8,24 +8,24 @@ public enum BybitSelfMatchPrevention
     /// <summary>
     /// None
     /// </summary>
-    [Label("None")]
-    None,
+    [Map("None")]
+    None = 0,
 
     /// <summary>
     /// Cancel Maker
     /// </summary>
-    [Label("CancelMaker")]
-    CancelMaker,
+    [Map("CancelMaker")]
+    CancelMaker = 1,
 
     /// <summary>
     /// Cancel Taker
     /// </summary>
-    [Label("CancelTaker")]
-    CancelTaker,
+    [Map("CancelTaker")]
+    CancelTaker = 2,
 
     /// <summary>
     /// Cancel Both
     /// </summary>
-    [Label("CancelBoth")]
-    CancelBoth,
+    [Map("CancelBoth")]
+    CancelBoth = 3,
 }

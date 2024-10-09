@@ -8,12 +8,12 @@ public enum BybitSubAccountType
     /// <summary>
     /// Normal Sub Account
     /// </summary>
-    [Label("1")]
-    NormalSubAccount,
+    [Map("1")]
+    NormalSubAccount = 1,
 
     /// <summary>
     /// Custodial Sub Account
     /// </summary>
-    [Label("6")]
-    CustodialSubAccount,
+    [Map("6")]
+    CustodialSubAccount = 6,
 }

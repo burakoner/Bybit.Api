@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Enums;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Option Period
@@ -8,48 +8,48 @@ public enum BybitOptionPeriod
     /// <summary>
     /// 7 Days
     /// </summary>
-    [Label("7")]
-    SevenDays,
+    [Map("7")]
+    SevenDays = 7,
 
     /// <summary>
     /// 14 Days
     /// </summary>
-    [Label("14")]
-    FourteenDays,
+    [Map("14")]
+    FourteenDays = 14,
 
     /// <summary>
     /// 21 Days
     /// </summary>
-    [Label("21")]
-    TwentyOneDays,
+    [Map("21")]
+    TwentyOneDays = 21,
 
     /// <summary>
     /// 30 Days
     /// </summary>
-    [Label("30")]
-    ThirtyDays,
+    [Map("30")]
+    ThirtyDays = 30,
 
     /// <summary>
     /// 60 Days
     /// </summary>
-    [Label("60")]
-    SixtyDays,
+    [Map("60")]
+    SixtyDays = 60,
 
     /// <summary>
     /// 90 Days
     /// </summary>
-    [Label("90")]
-    NinetyDays,
+    [Map("90")]
+    NinetyDays = 90,
 
     /// <summary>
     /// 180 Days
     /// </summary>
-    [Label("180")]
-    HundredAndEightyDays,
+    [Map("180")]
+    HundredAndEightyDays = 180,
 
     /// <summary>
     /// 270 Days
     /// </summary>
-    [Label("270")]
-    TwoHundredAndSeventyDays,
+    [Map("270")]
+    TwoHundredAndSeventyDays = 270,
 }

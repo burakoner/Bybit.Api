@@ -8,138 +8,138 @@ public enum BybitOrderRejectReason
     /// <summary>
     /// No Error
     /// </summary>
-    [Label("EC_NoError")]
-    NoError,
+    [Map("EC_NoError")]
+    NoError = 1,
 
     /// <summary>
     /// Others
     /// </summary>
-    [Label("EC_Others")]
-    Others,
+    [Map("EC_Others")]
+    Others = 2,
 
     /// <summary>
     /// Unknown message type
     /// </summary>
-    [Label("EC_UnknownMessageType")]
-    UnknownMessageType,
+    [Map("EC_UnknownMessageType")]
+    UnknownMessageType = 3,
 
     /// <summary>
     /// Missing Client Order Id
     /// </summary>
-    [Label("EC_MissingClOrdID")]
-    MissingClOrdID,
+    [Map("EC_MissingClOrdID")]
+    MissingClOrdID = 4,
 
     /// <summary>
     /// Missing Original Client Order Id
     /// </summary>
-    [Label("EC_MissingOrigClOrdID")]
-    MissingOrigClOrdID,
+    [Map("EC_MissingOrigClOrdID")]
+    MissingOrigClOrdID = 5,
 
     /// <summary>
     /// Client Order Id and Original Client Order Id are the same
     /// </summary>
-    [Label("EC_ClOrdIDOrigClOrdIDAreTheSame")]
-    ClOrdIDOrigClOrdIDAreTheSame,
+    [Map("EC_ClOrdIDOrigClOrdIDAreTheSame")]
+    ClOrdIDOrigClOrdIDAreTheSame = 6,
 
     /// <summary>
     /// Duplicated Client Order Id
     /// </summary>
-    [Label("EC_DuplicatedClOrdID")]
-    DuplicatedClOrdID,
+    [Map("EC_DuplicatedClOrdID")]
+    DuplicatedClOrdID = 7,
 
     /// <summary>
     /// Original Client Order Id does not exist
     /// </summary>
-    [Label("EC_OrigClOrdIDDoesNotExist")]
-    OrigClOrdIDDoesNotExist,
+    [Map("EC_OrigClOrdIDDoesNotExist")]
+    OrigClOrdIDDoesNotExist = 8,
 
     /// <summary>
     /// Too Late To Cancel
     /// </summary>
-    [Label("EC_TooLateToCancel")]
-    TooLateToCancel,
+    [Map("EC_TooLateToCancel")]
+    TooLateToCancel = 9,
 
     /// <summary>
     /// Unknown Order Type
     /// </summary>
-    [Label("EC_UnknownOrderType")]
-    UnknownOrderType,
+    [Map("EC_UnknownOrderType")]
+    UnknownOrderType = 10,
 
     /// <summary>
     /// Unknown Order Side
     /// </summary>
-    [Label("EC_UnknownSide")]
-    UnknownSide,
+    [Map("EC_UnknownSide")]
+    UnknownSide = 11,
 
     /// <summary>
     /// Unknown Time In Force
     /// </summary>
-    [Label("EC_UnknownTimeInForce")]
-    UnknownTimeInForce,
+    [Map("EC_UnknownTimeInForce")]
+    UnknownTimeInForce = 12,
 
     /// <summary>
     /// Wrongly Routed
     /// </summary>
-    [Label("EC_WronglyRouted")]
-    WronglyRouted,
+    [Map("EC_WronglyRouted")]
+    WronglyRouted = 13,
 
     /// <summary>
     /// Market Order Price Is Not Zero
     /// </summary>
-    [Label("EC_MarketOrderPriceIsNotZero")]
-    MarketOrderPriceIsNotZero,
+    [Map("EC_MarketOrderPriceIsNotZero")]
+    MarketOrderPriceIsNotZero = 14,
 
     /// <summary>
     /// Invalid Price for Limit Order
     /// </summary>
-    [Label("EC_LimitOrderInvalidPrice")]
-    LimitOrderInvalidPrice,
+    [Map("EC_LimitOrderInvalidPrice")]
+    LimitOrderInvalidPrice = 15,
 
     /// <summary>
     /// Not Enough Quantity to Fill
     /// </summary>
-    [Label("EC_NoEnoughQtyToFill")]
-    NoEnoughQtyToFill,
+    [Map("EC_NoEnoughQtyToFill")]
+    NoEnoughQtyToFill = 16,
 
     /// <summary>
     /// No Immediate Quantity to Fill
     /// </summary>
-    [Label("EC_NoImmediateQtyToFill")]
-    NoImmediateQtyToFill,
+    [Map("EC_NoImmediateQtyToFill")]
+    NoImmediateQtyToFill = 17,
 
     /// <summary>
     /// Per Cancel Request
     /// </summary>
-    [Label("EC_PerCancelRequest")]
-    PerCancelRequest,
+    [Map("EC_PerCancelRequest")]
+    PerCancelRequest = 18,
 
     /// <summary>
     /// Market Order Cannot Be Post Only
     /// </summary>
-    [Label("EC_MarketOrderCannotBePostOnly")]
-    MarketOrderCannotBePostOnly,
+    [Map("EC_MarketOrderCannotBePostOnly")]
+    MarketOrderCannotBePostOnly = 19,
 
     /// <summary>
     /// Post Only will take liquidity
     /// </summary>
-    [Label("EC_PostOnlyWillTakeLiquidity")]
-    PostOnlyWillTakeLiquidity,
+    [Map("EC_PostOnlyWillTakeLiquidity")]
+    PostOnlyWillTakeLiquidity = 20,
 
     /// <summary>
     /// Cancel Replace Order
     /// </summary>
-    [Label("EC_CancelReplaceOrder")]
-    CancelReplaceOrder,
+    [Map("EC_CancelReplaceOrder")]
+    CancelReplaceOrder = 21,
 
     /// <summary>
     /// Invalid Symbol Status
     /// </summary>
-    [Label("EC_InvalidSymbolStatus")]
-    InvalidSymbolStatus,
+    [Map("EC_InvalidSymbolStatus")]
+    InvalidSymbolStatus = 22,
 
     /// <summary>
     /// Cancel For No Full Fill
     /// </summary>
-    [Label("EC_CancelForNoFullFill")]
-    CancelForNoFullFill,
+    [Map("EC_CancelForNoFullFill")]
+    CancelForNoFullFill = 23,
 }

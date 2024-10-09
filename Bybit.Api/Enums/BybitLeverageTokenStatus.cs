@@ -8,30 +8,30 @@ public enum BybitLeverageTokenStatus
     /// <summary>
     /// LT can be purchased and redeemed
     /// </summary>
-    [Label("1")]
-    CanBePurchasedAndRedeemed,
+    [Map("1")]
+    CanBePurchasedAndRedeemed = 1,
     
     /// <summary>
     /// LT can be purchased, but not redeemed
     /// </summary>
-    [Label("2")]
-    CanBePurchasedButNotRedeemed,
+    [Map("2")]
+    CanBePurchasedButNotRedeemed = 2,
     
     /// <summary>
     /// LT can be redeemed, but not purchased
     /// </summary>
-    [Label("3")]
-    CanBeRedeemedButNotPurchased,
+    [Map("3")]
+    CanBeRedeemedButNotPurchased = 3,
     
     /// <summary>
     /// LT cannot be purchased nor redeemed
     /// </summary>
-    [Label("4")]
-    CannotBePurchasedNorRedeemed,
+    [Map("4")]
+    CannotBePurchasedNorRedeemed = 4,
     
     /// <summary>
     /// Adjusting position
     /// </summary>
-    [Label("5")]
-    AdjustingPosition,
+    [Map("5")]
+    AdjustingPosition = 5,
 }

@@ -12,18 +12,18 @@ public enum BybitQueryOpenOnly
     /// <summary>
     /// Query open orders only
     /// </summary>
-    [Label("0")]
-    QueryOpenOrdersOnly,
+    [Map("0")]
+    QueryOpenOrdersOnly = 0,
 
     /// <summary>
     /// Query recent orders for spot/linear/option
     /// </summary>
-    [Label("1")]
-    QueryRecentOrders_for_SpotLinearOption,
+    [Map("1")]
+    QueryRecentOrders_for_SpotLinearOption = 1,
 
     /// <summary>
     /// Query recent orders for unified inverse &amp; normal linear/inverse
     /// </summary>
-    [Label("2")]
-    QueryRecentOrders_for_UnifiedInverse_NormalLinearInverse,
+    [Map("2")]
+    QueryRecentOrders_for_UnifiedInverse_NormalLinearInverse = 2,
 }

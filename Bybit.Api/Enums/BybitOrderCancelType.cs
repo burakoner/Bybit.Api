@@ -8,54 +8,54 @@ public enum BybitOrderCancelType
     /// <summary>
     /// CancelByUser
     /// </summary>
-    [Label("CancelByUser")]
-    CancelByUser,
+    [Map("CancelByUser")]
+    CancelByUser = 1,
 
     /// <summary>
     /// CancelByReduceOnly
     /// </summary>
-    [Label("CancelByReduceOnly")]
-    CancelByReduceOnly,
+    [Map("CancelByReduceOnly")]
+    CancelByReduceOnly = 2,
 
     /// <summary>
     /// CancelByPrepareLiq
     /// </summary>
-    [Label("CancelByPrepareLiq")]
-    CancelByPrepareLiq,
+    [Map("CancelByPrepareLiq")]
+    CancelByPrepareLiq = 3,
 
     /// <summary>
     /// CancelAllBeforeLiq
     /// </summary>
-    [Label("CancelAllBeforeLiq")]
-    CancelAllBeforeLiq,
+    [Map("CancelAllBeforeLiq")]
+    CancelAllBeforeLiq = 4,
 
     /// <summary>
     /// CancelByPrepareAdl
     /// </summary>
-    [Label("CancelByPrepareAdl")]
-    CancelByPrepareAdl,
+    [Map("CancelByPrepareAdl")]
+    CancelByPrepareAdl = 5,
 
     /// <summary>
     /// CancelAllBeforeAdl
     /// </summary>
-    [Label("CancelAllBeforeAdl")]
-    CancelAllBeforeAdl,
+    [Map("CancelAllBeforeAdl")]
+    CancelAllBeforeAdl = 6,
 
     /// <summary>
     /// CancelByAdmin
     /// </summary>
-    [Label("CancelByAdmin")]
-    CancelByAdmin,
+    [Map("CancelByAdmin")]
+    CancelByAdmin = 7,
 
     /// <summary>
     /// CancelByTpSlTsClear
     /// </summary>
-    [Label("CancelByTpSlTsClear")]
-    CancelByTpSlTsClear,
+    [Map("CancelByTpSlTsClear")]
+    CancelByTpSlTsClear = 8,
 
     /// <summary>
     /// CancelBySmp
     /// </summary>
-    [Label("CancelBySmp")]
-    CancelBySmp,
+    [Map("CancelBySmp")]
+    CancelBySmp = 9,
 }

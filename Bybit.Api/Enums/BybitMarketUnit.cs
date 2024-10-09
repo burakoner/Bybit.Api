@@ -8,12 +8,12 @@ public enum BybitMarketUnit
     /// <summary>
     /// Base asset
     /// </summary>
-    [Label("baseCoin")]
-    BaseAsset,
+    [Map("baseCoin")]
+    BaseAsset = 1,
 
     /// <summary>
     /// Quote asset
     /// </summary>
-    [Label("quoteCoin")]
-    QuoteAsset,
+    [Map("quoteCoin")]
+    QuoteAsset = 2,
 }

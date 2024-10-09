@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Models.Market;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Orderbook
@@ -49,6 +49,18 @@ public class BybitOrderbook
     /// </summary>
     [JsonProperty("seq")]
     public long CrossSequence { get; set; }
+
+    /// <summary>
+    /// The timestamp from the match engine when this orderbook data is produced. It can be correlated with T from public trade channel. linear, inverse, spot have this field
+    /// </summary>
+    [JsonProperty("cts")]
+    public long? CreateTimestamp { get; set; }
+
+    /// <summary>
+    /// The timestamp from the match engine when this orderbook data is produced. It can be correlated with T from public trade channel. linear, inverse, spot have this field
+    /// </summary>
+    public DateTime? CreateTime { get => CreateTimestamp?.ConvertFromMilliseconds(); }
+
 }
 
 /// <summary>

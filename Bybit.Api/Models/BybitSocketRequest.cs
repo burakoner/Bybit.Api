@@ -42,19 +42,19 @@ internal class BybitSocketRequest
 
 internal enum BybitStreamOperation
 {
-    [Label("auth")]
+    [Map("auth")]
     Auth,
 
-    [Label("ping")]
+    [Map("ping")]
     Ping,
 
-    [Label("pong")]
+    [Map("pong")]
     Pong,
 
-    [Label("subscribe")]
+    [Map("subscribe")]
     Subscribe,
 
-    [Label("unsubscribe")]
+    [Map("unsubscribe")]
     Unsubscribe,
 }
 
@@ -66,18 +66,18 @@ public enum BybitStreamType
     /// <summary>
     /// Unknown
     /// </summary>
-    [Label("")]
+    [Map("")]
     Unknown,
 
     /// <summary>
     /// Delta
     /// </summary>
-    [Label("delta")]
+    [Map("delta")]
     Delta,
 
     /// <summary>
     /// Snapshot
     /// </summary>
-    [Label("snapshot")]
+    [Map("snapshot")]
     Snapshot,
 }

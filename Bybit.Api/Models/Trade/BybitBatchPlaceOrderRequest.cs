@@ -26,13 +26,13 @@ public class BybitBatchPlaceOrderRequest
     /// <summary>
     /// Order side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
+    [JsonProperty("side")]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>
     /// Order type
     /// </summary>
-    [JsonProperty("orderType"), JsonConverter(typeof(LabelConverter<BybitOrderType>))]
+    [JsonProperty("orderType")]
     public BybitOrderType Type { get; set; }
 
     /// <summary>
@@ -44,7 +44,7 @@ public class BybitBatchPlaceOrderRequest
     /// <summary>
     /// Market Unit
     /// </summary>
-    [JsonProperty("marketUnit", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitMarketUnit>))]
+    [JsonProperty("marketUnit", NullValueHandling = NullValueHandling.Ignore)]
     public BybitMarketUnit? MarketUnit { get; set; }
 
     /// <summary>
@@ -56,7 +56,7 @@ public class BybitBatchPlaceOrderRequest
     /// <summary>
     /// Trigger direction
     /// </summary>
-    [JsonProperty("triggerDirection", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitTriggerDirection>), [true, true])]
+    [JsonProperty("triggerDirection", NullValueHandling = NullValueHandling.Ignore)]
     public BybitTriggerDirection? TriggerDirection { get; set; }
 
     /// <summary>
@@ -66,7 +66,7 @@ public class BybitBatchPlaceOrderRequest
     /// StopOrder: Spot conditional order, the assets will not be occupied until the price of the underlying asset reaches the trigger price, and the required assets will be occupied after the Conditional order is triggered
     /// Valid for spot only
     /// </summary>
-    [JsonProperty("orderFilter", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitOrderFilter>), [true, true])]
+    [JsonProperty("orderFilter", NullValueHandling = NullValueHandling.Ignore)]
     public BybitOrderFilter? OrderFilter { get; set; }
 
     /// <summary>
@@ -78,7 +78,7 @@ public class BybitBatchPlaceOrderRequest
     /// <summary>
     /// Conditional order param (Perps &amp; Futures). Trigger price type. LastPrice, IndexPrice, MarkPrice
     /// </summary>
-    [JsonProperty("triggerBy", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>), [true, true])]
+    [JsonProperty("triggerBy", NullValueHandling = NullValueHandling.Ignore)]
     public BybitTriggerPrice? TriggerPriceBy { get; set; }
 
     /// <summary>
@@ -90,7 +90,7 @@ public class BybitBatchPlaceOrderRequest
     /// <summary>
     /// Time in force
     /// </summary>
-    [JsonProperty("timeInForce", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitTimeInForce>))]
+    [JsonProperty("timeInForce", NullValueHandling = NullValueHandling.Ignore)]
     public BybitTimeInForce? TimeInForce { get; set; }
 
     /// <summary>
@@ -99,7 +99,7 @@ public class BybitBatchPlaceOrderRequest
     /// 1: hedge-mode Buy side
     /// 2: hedge-mode Sell side
     /// </summary>
-    [JsonProperty("positionIdx", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitPositionIndex>))]
+    [JsonProperty("positionIdx", NullValueHandling = NullValueHandling.Ignore)]
     public BybitPositionIndex? PositionIndex { get; set; }
 
     /// <summary>
@@ -132,14 +132,14 @@ public class BybitBatchPlaceOrderRequest
     /// The price type to trigger take profit. MarkPrice, IndexPrice, default: LastPrice.
     /// Valid for linear
     /// </summary>
-    [JsonProperty("tpTriggerBy", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>), [true, true])]
+    [JsonProperty("tpTriggerBy", NullValueHandling = NullValueHandling.Ignore)]
     public BybitTriggerPrice? TakeProfitTriggerPriceBy { get; set; }
 
     /// <summary>
     /// The price type to trigger stop loss. MarkPrice, IndexPrice, default: LastPrice
     /// Valid for linear
     /// </summary>
-    [JsonProperty("slTriggerBy", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>), [true, true])]
+    [JsonProperty("slTriggerBy", NullValueHandling = NullValueHandling.Ignore)]
     public BybitTriggerPrice? StopLossTriggerPriceBy { get; set; }
 
     /// <summary>
@@ -161,7 +161,7 @@ public class BybitBatchPlaceOrderRequest
     /// <summary>
     /// Smp execution type. What is SMP?
     /// </summary>
-    [JsonProperty("smpType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitSelfMatchPrevention>))]
+    [JsonProperty("smpType", NullValueHandling = NullValueHandling.Ignore)]
     public BybitSelfMatchPrevention? SelfMatchPrevention { get; set; }
 
     /// <summary>
@@ -176,7 +176,7 @@ public class BybitBatchPlaceOrderRequest
     /// Partial: partial position tp/sl (as there is no size option, so it will create tp/sl orders with the qty you actually fill). Limit TP/SL order are supported. Note: When create limit tp/sl, tpslMode is required and it must be Partial
     /// Valid for linear
     /// </summary>
-    [JsonProperty("tpslMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitTakeProfitStopLossMode>))]
+    [JsonProperty("tpslMode", NullValueHandling = NullValueHandling.Ignore)]
     public BybitTakeProfitStopLossMode? TakeProfitStopLossMode { get; set; }
 
     /// <summary>
@@ -202,7 +202,7 @@ public class BybitBatchPlaceOrderRequest
     /// Market: when you set "takeProfit",
     /// Limit: when you set "takeProfit" and "tpLimitPrice"
     /// </summary>
-    [JsonProperty("tpOrderType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitOrderType>))]
+    [JsonProperty("tpOrderType", NullValueHandling = NullValueHandling.Ignore)]
     public BybitOrderType? TakeProfitOrderType { get; set; }
 
     /// <summary>
@@ -212,6 +212,6 @@ public class BybitBatchPlaceOrderRequest
     /// Market: when you set "stopLoss",
     /// Limit: when you set "stopLoss" and "slLimitPrice"
     /// </summary>
-    [JsonProperty("slOrderType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitOrderType>))]
+    [JsonProperty("slOrderType", NullValueHandling = NullValueHandling.Ignore)]
     public BybitOrderType? StopLossOrderType { get; set; }
 }

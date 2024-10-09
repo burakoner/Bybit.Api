@@ -1,37 +1,73 @@
 ﻿namespace Bybit.Api.Enums;
 
+/// <summary>
+/// BybitOrderStatus
+/// </summary>
 public enum BybitOrderStatus
 {
-    [Label("Created")]
-    Created,
+    /// <summary>
+    /// Created
+    /// </summary>
+    [Map("Created")]
+    Created = 1,
 
-    [Label("New")]
-    New,
+    /// <summary>
+    /// New
+    /// </summary>
+    [Map("New")]
+    New = 2,
 
-    [Label("Rejected")]
-    Rejected,
+    /// <summary>
+    /// Rejected
+    /// </summary>
+    [Map("Rejected")]
+    Rejected = 3,
 
-    [Label("PartiallyFilled")]
-    PartiallyFilled,
+    /// <summary>
+    /// PartiallyFilled
+    /// </summary>
+    [Map("PartiallyFilled")]
+    PartiallyFilled = 4,
 
-    [Label("PartiallyFilledCanceled")]
-    PartiallyFilledCanceled,
+    /// <summary>
+    /// PartiallyFilledCanceled
+    /// </summary>
+    [Map("PartiallyFilledCanceled")]
+    PartiallyFilledCanceled = 5,
 
-    [Label("Filled")]
-    Filled,
+    /// <summary>
+    /// Filled
+    /// </summary>
+    [Map("Filled")]
+    Filled = 6,
 
-    [Label("Cancelled")]
-    Cancelled,
+    /// <summary>
+    /// Cancelled
+    /// </summary>
+    [Map("Cancelled")]
+    Cancelled = 7,
 
-    [Label("Untriggered")]
-    Untriggered,
+    /// <summary>
+    /// Untriggered
+    /// </summary>
+    [Map("Untriggered")]
+    Untriggered = 8,
 
-    [Label("Triggered")]
-    Triggered,
+    /// <summary>
+    /// Triggered
+    /// </summary>
+    [Map("Triggered")]
+    Triggered = 9,
 
-    [Label("Deactivated")]
-    Deactivated,
+    /// <summary>
+    /// Deactivated
+    /// </summary>
+    [Map("Deactivated")]
+    Deactivated = 10,
 
-    [Label("Active")]
-    Active,
+    /// <summary>
+    /// Active
+    /// </summary>
+    [Map("Active")]
+    Active = 11,
 }

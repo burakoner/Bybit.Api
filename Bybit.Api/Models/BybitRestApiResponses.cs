@@ -1,6 +1,6 @@
 ﻿namespace Bybit.Api.Models;
 
-internal class BybitUnifiedResponse<T>
+internal class BybitListResponse<T>
 {
     public List<T> Payload { get; set; }
 
@@ -23,7 +23,6 @@ internal class BybitUnifiedResponse<T>
     protected List<T> Result { set => Payload = value; get => Payload; }
 
     [JsonProperty("category", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-    [JsonConverter(typeof(LabelConverter<BybitCategory>))]
     public BybitCategory? Category { get; set; }
 
     [JsonProperty("nextPageCursor", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -36,26 +35,53 @@ internal class BybitUnifiedResponse<T>
     public DateTime? UpdateTime { get => UpdateTimestamp?.ConvertFromMilliseconds(); }
 }
 
+/// <summary>
+/// BybitRestApiResponse
+/// </summary>
 public class BybitRestApiResponse
 {
+    /// <summary>
+    /// Return code
+    /// </summary>
     [JsonProperty("retCode")]
     public int ReturnCode { get; set; }
 
+    /// <summary>
+    /// Return message
+    /// </summary>
     [JsonProperty("retMsg")]
     public string ReturnMessage { get; set; }
 
-    [JsonProperty("time"), JsonConverter(typeof(DateTimeConverter))]
+    /// <summary>
+    /// Timestamp
+    /// </summary>
+    [JsonProperty("time")]
     public DateTime Timestamp { get; set; }
 }
 
+/// <summary>
+/// BybitRestApiResponse
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class BybitRestApiResponse<T> : BybitRestApiResponse
 {
+    /// <summary>
+    /// Result
+    /// </summary>
     [JsonProperty("result")]
     public T Result { get; set; }
 }
 
+/// <summary>
+/// BybitRestApiResponse
+/// </summary>
+/// <typeparam name="TResult"></typeparam>
+/// <typeparam name="TExtra"></typeparam>
 public class BybitRestApiResponse<TResult, TExtra> : BybitRestApiResponse<TResult>
 {
+    /// <summary>
+    /// Return extra info
+    /// </summary>
     [JsonProperty("retExtInfo")]
     public TExtra ReturnExtraInfo { get; set; }
 }

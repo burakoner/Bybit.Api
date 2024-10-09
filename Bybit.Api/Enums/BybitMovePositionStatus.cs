@@ -8,18 +8,18 @@ public enum BybitMovePositionStatus
     /// <summary>
     /// Processing
     /// </summary>
-    [Label("Processing")]
-    Processing,
+    [Map("Processing")]
+    Processing = 1,
 
     /// <summary>
     /// Filled
     /// </summary>
-    [Label("Filled")]
-    Filled,
+    [Map("Filled")]
+    Filled = 2,
 
     /// <summary>
     /// Rejected
     /// </summary>
-    [Label("Rejected")]
-    Rejected
+    [Map("Rejected")]
+    Rejected = 3
 }

@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Enums;
+﻿namespace Bybit.Api.Common;
 
 /// <summary>
 /// Bybit Order Side
@@ -8,12 +8,12 @@ public enum BybitOrderSide
     /// <summary>
     /// Buy
     /// </summary>
-    [Label("Buy")]
-    Buy,
+    [Map("Buy")]
+    Buy = 1,
 
     /// <summary>
     /// Sell
     /// </summary>
-    [Label("Sell")]
-    Sell,
+    [Map("Sell")]
+    Sell = 2,
 }

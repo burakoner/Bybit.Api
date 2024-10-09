@@ -1,85 +1,85 @@
-﻿namespace Bybit.Api.Enums;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Kline Interval
 /// </summary>
-public enum BybitKlineInterval
+public enum BybitInterval
 {
     /// <summary>
     /// One Minute
     /// </summary>
-    [Label("1")]
-    OneMinute,
+    [Map("1")]
+    OneMinute = 60,
 
     /// <summary>
     /// Three Minutes
     /// </summary>
-    [Label("3")]
-    ThreeMinutes,
+    [Map("3")]
+    ThreeMinutes = 180,
 
     /// <summary>
     /// Five Minutes
     /// </summary>
-    [Label("5")]
-    FiveMinutes,
+    [Map("5")]
+    FiveMinutes = 300,
 
     /// <summary>
     /// Fifteen Minutes
     /// </summary>
-    [Label("15")]
-    FifteenMinutes,
+    [Map("15")]
+    FifteenMinutes = 900,
 
     /// <summary>
     /// Thirty Minutes
     /// </summary>
-    [Label("30")]
-    ThirtyMinutes,
+    [Map("30")]
+    ThirtyMinutes = 1800,
 
     /// <summary>
     /// One Hour
     /// </summary>
-    [Label("60")]
-    OneHour,
+    [Map("60")]
+    OneHour = 3600,
 
     /// <summary>
     /// Two Hours
     /// </summary>
-    [Label("120")]
-    TwoHours,
+    [Map("120")]
+    TwoHours = 7200,
 
     /// <summary>
     /// Four Hours
     /// </summary>
-    [Label("240")]
-    FourHours,
+    [Map("240")]
+    FourHours = 14400,
 
     /// <summary>
     /// Six Hours
     /// </summary>
-    [Label("360")]
-    SixHours,
+    [Map("360")]
+    SixHours = 21600,
 
     /// <summary>
     /// Twelve Hours
     /// </summary>
-    [Label("720")]
-    TwelveHours,
+    [Map("720")]
+    TwelveHours = 43200,
 
     /// <summary>
     /// One Day
     /// </summary>
-    [Label("D")]
-    OneDay,
+    [Map("D")]
+    OneDay = 86400,
 
     /// <summary>
     /// One Week
     /// </summary>
-    [Label("W")]
-    OneWeek,
+    [Map("W")]
+    OneWeek = 604800,
 
     /// <summary>
     /// One Month
     /// </summary>
-    [Label("M")]
-    OneMonth,
+    [Map("M")]
+    OneMonth = 2592000,
 }

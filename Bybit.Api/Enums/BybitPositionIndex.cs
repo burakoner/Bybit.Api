@@ -8,18 +8,18 @@ public enum BybitPositionIndex
     /// <summary>
     /// One-way mode position
     /// </summary>
-    [Label("0")]
-    OneWayModePosition,
+    [Map("0")]
+    OneWayModePosition = 0,
 
     /// <summary>
     /// Buy side of hedge mode position
     /// </summary>
-    [Label("1")]
-    BuySideOfHedgeModePosition,
+    [Map("1")]
+    BuySideOfHedgeModePosition = 1,
 
     /// <summary>
     /// Sell side of hedge mode position
     /// </summary>
-    [Label("2")]
-    SellSideOfHedgeModePosition,
+    [Map("2")]
+    SellSideOfHedgeModePosition = 2,
 }

@@ -8,18 +8,18 @@ public enum BybitLeverageTokenOrderStatus
     /// <summary>
     /// Completed
     /// </summary>
-    [Label("1")]
-    Completed,
+    [Map("1")]
+    Completed = 1,
 
     /// <summary>
     /// In Progress
     /// </summary>
-    [Label("2")]
-    InProgress,
+    [Map("2")]
+    InProgress = 2,
 
     /// <summary>
     /// Failed
     /// </summary>
-    [Label("3")]
-    Failed,
+    [Map("3")]
+    Failed = 3,
 }

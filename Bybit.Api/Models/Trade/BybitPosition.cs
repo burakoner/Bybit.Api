@@ -8,7 +8,7 @@ public class BybitPosition
     /// <summary>
     /// Position Index
     /// </summary>
-    [JsonProperty("positionIdx"), JsonConverter(typeof(LabelConverter<BybitPositionIndex>))]
+    [JsonProperty("positionIdx")]
     public BybitPositionIndex PositionIndex { get; set; }
 
     /// <summary>
@@ -29,7 +29,6 @@ public class BybitPosition
     /// <summary>
     /// Side
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitPositionSide>))]
     public BybitPositionSide? Side { get; set; }
 
     /// <summary>
@@ -52,7 +51,7 @@ public class BybitPosition
     /// <summary>
     /// Trade Mode
     /// </summary>
-    [JsonProperty("tradeMode"), JsonConverter(typeof(LabelConverter<BybitTradeMode>))]
+    [JsonProperty("tradeMode")]
     public BybitTradeMode TradeMode { get; set; }
 
     /// <summary>
@@ -64,7 +63,6 @@ public class BybitPosition
     /// <summary>
     /// Position Status
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitPositionStatus>))]
     public BybitPositionStatus PositionStatus { get; set; }
 
     /// <summary>
@@ -109,7 +107,7 @@ public class BybitPosition
     /// <summary>
     /// Depreciated, meaningless here, always "Full". Spot does not return this field. Option returns ""
     /// </summary>
-    [JsonProperty("tpslMode"), JsonConverter(typeof(LabelConverter<BybitTakeProfitStopLossMode>))]
+    [JsonProperty("tpslMode")]
     public BybitTakeProfitStopLossMode? TakeProfitStopLossMode { get; set; }
 
     /// <summary>

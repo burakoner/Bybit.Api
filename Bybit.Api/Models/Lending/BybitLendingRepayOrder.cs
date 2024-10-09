@@ -48,13 +48,11 @@ public class BybitLendingRepayOrder
     /// <summary>
     /// Repaid type. 1：normal repayment; 2：repaid by liquidation
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitLendingRepayType>))]
     public BybitLendingRepayType Type { get; set; }
 
     /// <summary>
     /// 1：outstanding; 2：paid off
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitLendingOrderStatus>))]
     public BybitLendingOrderStatus Status { get; set; }
 
 }

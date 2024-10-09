@@ -13,7 +13,6 @@ public class BybitSettlementRecord
     /// <summary>
     /// Side
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>

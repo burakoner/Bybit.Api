@@ -8,12 +8,12 @@ public enum BybitLendingOrderStatus
     /// <summary>
     /// Outstanding
     /// </summary>
-    [Label("1")]
-    Outstanding,
+    [Map("1")]
+    Outstanding = 1,
 
     /// <summary>
     /// Paid off
     /// </summary>
-    [Label("2")]
-    PaidOff,
+    [Map("2")]
+    PaidOff = 2,
 }

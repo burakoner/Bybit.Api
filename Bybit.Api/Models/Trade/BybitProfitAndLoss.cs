@@ -18,7 +18,6 @@ public class BybitProfitAndLoss
     /// <summary>
     /// Side
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>
@@ -35,14 +34,12 @@ public class BybitProfitAndLoss
     /// <summary>
     /// Order Type
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderType>))]
     public BybitOrderType OrderType { get; set; }
 
     /// <summary>
     /// Execution Type
     /// </summary>
     [JsonProperty("execType")]
-    [JsonConverter(typeof(LabelConverter<BybitExecutionType>))]
     public BybitExecutionType TradeType { get; set; }
 
     /// <summary>

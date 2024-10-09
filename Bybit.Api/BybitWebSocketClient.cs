@@ -433,7 +433,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     /// <param name="handler">Update Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToKlinesAsync(BybitCategory category, string symbol, BybitKlineInterval interval, Action<WebSocketDataEvent<BybitKlineUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToKlinesAsync(BybitCategory category, string symbol, BybitInterval interval, Action<WebSocketDataEvent<BybitKlineUpdate>> handler, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
@@ -458,7 +458,7 @@ public class BybitWebSocketClient : WebSocketApiClient
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
-            Parameters = [$"kline.{interval.GetLabel()}.{symbol}"]
+            Parameters = [$"kline.{MapConverter.GetString(interval)}.{symbol}"]
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -504,7 +504,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     /// <param name="handler">Update Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeverageTokenKlinesAsync(string symbol, BybitKlineInterval interval, Action<WebSocketDataEvent<BybitKlineUpdate>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeverageTokenKlinesAsync(string symbol, BybitInterval interval, Action<WebSocketDataEvent<BybitKlineUpdate>> handler, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
@@ -529,7 +529,7 @@ public class BybitWebSocketClient : WebSocketApiClient
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
-            Parameters = [$"kline_lt.{interval.GetLabel()}.{symbol}"]
+            Parameters = [$"kline_lt.{MapConverter.GetString(interval)}.{symbol}"]
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 

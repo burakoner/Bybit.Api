@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Enums;
+﻿namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Margin Trading Status
@@ -8,24 +8,24 @@ public enum BybitMarginTradingStatus
     /// <summary>
     /// None
     /// </summary>
-    [Label("none")]
-    None,
+    [Map("none")]
+    None = 0,
 
     /// <summary>
     /// Both
     /// </summary>
-    [Label("both")]
-    Both,
+    [Map("both")]
+    Both = 1,
 
     /// <summary>
     /// UTA Only
     /// </summary>
-    [Label("utaOnly")]
-    UtaOnly,
+    [Map("utaOnly")]
+    UtaOnly = 2,
 
     /// <summary>
     /// Normal Spot Only
     /// </summary>
-    [Label("normalSpotOnly")]
-    SpotOnly,
+    [Map("normalSpotOnly")]
+    SpotOnly = 3,
 }

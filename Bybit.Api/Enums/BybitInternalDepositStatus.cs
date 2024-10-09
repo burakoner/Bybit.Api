@@ -8,24 +8,24 @@ public enum BybitInternalDepositStatus
     /// <summary>
     /// Unknown
     /// </summary>
-    [Label("0")]
-    Unknown,
+    [Map("0")]
+    Unknown = 0,
 
     /// <summary>
     /// Processing
     /// </summary>
-    [Label("1")]
-    Processing,
+    [Map("1")]
+    Processing = 1,
 
     /// <summary>
     /// Success
     /// </summary>
-    [Label("2")]
-    Success,
+    [Map("2")]
+    Success = 2,
 
     /// <summary>
     /// Failed
     /// </summary>
-    [Label("3")]
-    Failed,
+    [Map("3")]
+    Failed = 3,
 }

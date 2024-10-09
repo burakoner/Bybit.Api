@@ -14,7 +14,6 @@ public class BybitMovePositionHistory
     /// <summary>
     /// Product type. linear, spot, option
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitCategory>))]
     public BybitCategory Category { get; set; }
 
     /// <summary>
@@ -35,7 +34,6 @@ public class BybitMovePositionHistory
     /// <summary>
     /// Order side from taker's perspective. Buy, Sell
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitOrderSide>))]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>
@@ -58,7 +56,6 @@ public class BybitMovePositionHistory
     /// <summary>
     /// Block trade status. Processing, Filled, Rejected
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitMovePositionStatus>))]
     public BybitMovePositionStatus Status { get; set; }
 
     /// <summary>

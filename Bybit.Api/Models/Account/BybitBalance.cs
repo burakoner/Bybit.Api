@@ -8,7 +8,6 @@ public class BybitBalance
     /// <summary>
     /// Account type
     /// </summary>
-    [JsonConverter(typeof(LabelConverter<BybitAccountType>))]
     public BybitAccountType Account { get; set; }
 
     /// <summary>

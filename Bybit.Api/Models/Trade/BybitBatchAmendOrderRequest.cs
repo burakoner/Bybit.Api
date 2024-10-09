@@ -53,7 +53,7 @@ public class BybitBatchAmendOrderRequest
     /// Partial: partial position tp/sl (as there is no size option, so it will create tp/sl orders with the qty you actually fill). Limit TP/SL order are supported. Note: When create limit tp/sl, tpslMode is required and it must be Partial
     /// Valid for linear
     /// </summary>
-    [JsonProperty("tpslMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitTakeProfitStopLossMode>))]
+    [JsonProperty("tpslMode", NullValueHandling = NullValueHandling.Ignore)]
     public BybitTakeProfitStopLossMode? TakeProfitStopLossMode { get; set; }
 
     /// <summary>
@@ -71,19 +71,19 @@ public class BybitBatchAmendOrderRequest
     /// <summary>
     /// The price type to trigger take profit. When set a take profit, this param is required if no initial value for the order
     /// </summary>
-    [JsonProperty("tpTriggerBy", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>), [true, true])]
+    [JsonProperty("tpTriggerBy", NullValueHandling = NullValueHandling.Ignore)]
     public BybitTriggerPrice? TakeProfitTriggerPriceBy { get; set; }
 
     /// <summary>
     /// The price type to trigger stop loss. When set a take profit, this param is required if no initial value for the order
     /// </summary>
-    [JsonProperty("slTriggerBy", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>), [true, true])]
+    [JsonProperty("slTriggerBy", NullValueHandling = NullValueHandling.Ignore)]
     public BybitTriggerPrice? StopLossTriggerPriceBy { get; set; }
 
     /// <summary>
     /// Trigger price type
     /// </summary>
-    [JsonProperty("triggerBy", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(LabelConverter<BybitTriggerPrice>), [true, true])]
+    [JsonProperty("triggerBy", NullValueHandling = NullValueHandling.Ignore)]
     public BybitTriggerPrice? TriggerPriceBy { get; set; }
 
     /// <summary>
