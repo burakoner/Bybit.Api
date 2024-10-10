@@ -61,7 +61,7 @@ internal class Program
         var position_13 = await api.Position.ConfirmNewRiskLimitAsync(BybitCategory.Linear, "BTCUSDT" /* ...optional parameters... */);
 
         // Account API Methods (Private)
-        var account_01 = await api.Account.GetBalancesAsync(BybitAccountType.Spot /* ...optional parameters... */);
+        var account_01 = await api.Account.GetBalancesAsync(/* ...optional parameters... */);
         var account_02 = await api.Account.UpgradeToUnifiedAccountAsync(/* ...optional parameters... */);
         var account_03 = await api.Account.GetBorrowHistoryAsync(/* ...optional parameters... */);
         var account_04 = await api.Account.GetCollateralInfoAsync(/* ...optional parameters... */);

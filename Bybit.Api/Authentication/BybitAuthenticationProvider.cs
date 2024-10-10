@@ -4,7 +4,7 @@ internal class BybitAuthenticationProvider : AuthenticationProvider
 {
     public BybitAuthenticationProvider(ApiCredentials credentials) : base(credentials)
     {
-        if (credentials == null || credentials.Secret == null)
+        if (Credentials == null || Credentials.Key == null || Credentials.Secret == null)
             throw new ArgumentException("No valid API credentials provided. Key/Secret needed.");
     }
 
@@ -24,10 +24,14 @@ internal class BybitAuthenticationProvider : AuthenticationProvider
         // Set Uri
         uri = uri.SetParameters(query, serialization);
 
+        // Time
+        var timeOffset = ((BybitRestApiBaseClient)apiClient).TimeSyncState.TimeOffset;
+        var serverTime = DateTime.UtcNow.Add(timeOffset);
+
         // Signature
         var apikey = Credentials.Key.GetString();
         var receiveWindow = options.ReceiveWindow.TotalMilliseconds.ToString();
-        var timestamp = DateTime.UtcNow.ConvertToMilliseconds().ToString();
+        var timestamp = serverTime.ConvertToMilliseconds().ToString();
         var signtext = timestamp + Credentials.Key.GetString() + receiveWindow + uri.Query?.Trim('?') + bodyContent;
         var signature = SignHMACSHA256(signtext).ToLower();
 
@@ -39,16 +43,6 @@ internal class BybitAuthenticationProvider : AuthenticationProvider
         headers.Add("X-BAPI-RECV-WINDOW", receiveWindow);
     }
     
-    public override void AuthenticateTcpSocketApi()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void AuthenticateWebSocketApi()
-    {
-        throw new NotImplementedException();
-    }
-
     public string StreamApiSignature(string payload)
     {
         return SignHMACSHA256(payload).ToLower();

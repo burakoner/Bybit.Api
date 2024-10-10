@@ -6,7 +6,7 @@
 public class BybitMarketRestApiClient
 {
     // Market Endpoints
-    private const string _v5PublicTime = "v5/public/time";
+    private const string _v5MarketTime = "v5/market/time";
     private const string _v5MarketKline = "v5/market/kline";
     private const string _v5MarketMarkPriceKline = "v5/market/mark-price-kline";
     private const string _v5MarketIndexPriceKline = "v5/market/index-price-kline";
@@ -37,7 +37,7 @@ public class BybitMarketRestApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitMarketTime>> GetServerTimeAsync(CancellationToken ct = default)
-        => await _.SendBybitRequest<BybitMarketTime>(_.BuildUri(_v5PublicTime), HttpMethod.Get, ct).ConfigureAwait(false);
+        => await _.SendBybitRequest<BybitMarketTime>(_.BuildUri(_v5MarketTime), HttpMethod.Get, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Query for historical klines (also known as candles/candlesticks). Charts are returned in groups based on the requested interval.

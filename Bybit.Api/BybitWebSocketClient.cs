@@ -259,7 +259,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             }
 
             //desResult.Data.Category = category;
-            desResult.Data.StreamType = type.ToString().GetEnumByLabel<BybitStreamType>();
+            desResult.Data.StreamType = MapConverter.GetEnumByLabel<BybitStreamType>(type.ToString());
             handler(data.As(desResult.Data, topic.ToString()));
         });
 

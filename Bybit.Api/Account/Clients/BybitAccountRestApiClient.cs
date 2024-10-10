@@ -37,14 +37,13 @@ public class BybitAccountRestApiClient
     /// <summary>
     /// Obtain wallet balance, query asset information of each currency, and account risk rate information. By default, currency information with assets or liabilities of 0 is not returned.
     /// </summary>
-    /// <param name="account">Account type</param>
     /// <param name="asset">Coin name</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitBalance>>> GetBalancesAsync(BybitAccountType account, string asset = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitBalance>>> GetBalancesAsync(string asset = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
-        parameters.AddEnum("accountType", account);
+        parameters.AddEnum("accountType", BybitAccountType.Unified);
         parameters.AddOptional("coin", asset);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitBalance>>(_.BuildUri(_v5AccountWalletBalance), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);

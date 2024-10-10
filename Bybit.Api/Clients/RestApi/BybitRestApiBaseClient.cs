@@ -44,11 +44,8 @@ internal class BybitRestApiBaseClient : RestApiClient
         return serverTime.As(serverTime.Data.Time);
     }
 
-    protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(this._logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
-
-    protected override TimeSpan GetTimeOffset()
-        => TimeSyncState.TimeOffset;
+    protected override TimeSyncInfo GetTimeSyncInfo() => new(this._logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
+    protected override TimeSpan GetTimeOffset() => TimeSyncState.TimeOffset;
     #endregion
 
     #region Internal Methods

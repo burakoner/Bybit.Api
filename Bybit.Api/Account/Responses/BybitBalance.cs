@@ -11,11 +11,6 @@ public class BybitBalance
     public BybitAccountType Account { get; set; }
 
     /// <summary>
-    /// Account LTV
-    /// </summary>
-    public decimal? AccountLtv { get; set; }
-
-    /// <summary>
     /// Account initial margin rate
     /// </summary>
     [JsonProperty("accountIMRate")]
@@ -91,13 +86,13 @@ public class BybitBalanceItem
     /// Asset equity
     /// </summary>
     [JsonProperty("equity")]
-    public decimal? Equity { get; set; }
+    public decimal Equity { get; set; }
 
     /// <summary>
     /// Asset usd value
     /// </summary>
     [JsonProperty("usdValue")]
-    public decimal? UsdValue { get; set; }
+    public decimal UsdValue { get; set; }
 
     /// <summary>
     /// Asset balance
@@ -109,25 +104,25 @@ public class BybitBalanceItem
     /// [Spot] Available balance
     /// </summary>
     [JsonProperty("free")]
-    public decimal? Free { get; set; }
+    public decimal Free { get; set; }
 
     /// <summary>
     /// [Spot] Locked balance
     /// </summary>
     [JsonProperty("locked")]
-    public decimal? Locked { get; set; }
+    public decimal Locked { get; set; }
 
     /// <summary>
     /// [Unified] The spot asset quantity that is used to hedge in the portfolio margin, truncate to 8 decimals and "0" by default
     /// </summary>
     [JsonProperty("spotHedgingQty")]
-    public decimal? SpotHedgingQuantity { get; set; }
+    public decimal SpotHedgingQuantity { get; set; }
 
     /// <summary>
     /// Borrow amount
     /// </summary>
     [JsonProperty("borrowAmount")]
-    public decimal? BorrowAmount { get; set; }
+    public decimal BorrowAmount { get; set; }
 
     /// <summary>
     /// Available borrow amount
