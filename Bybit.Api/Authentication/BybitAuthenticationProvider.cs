@@ -25,7 +25,7 @@ internal class BybitAuthenticationProvider : AuthenticationProvider
         uri = uri.SetParameters(query, serialization);
 
         // Time
-        var timeOffset = ((BybitRestApiBaseClient)apiClient).TimeSyncState.TimeOffset;
+        var timeOffset = ((BybitBaseRestApiClient)apiClient).TimeSyncState.TimeOffset;
         var serverTime = DateTime.UtcNow.Add(timeOffset);
 
         // Signature

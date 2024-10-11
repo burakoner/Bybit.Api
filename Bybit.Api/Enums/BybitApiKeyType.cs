@@ -15,5 +15,5 @@ public enum BybitApiKeyType
     /// Connected to the third-party app
     /// </summary>
     [Map("2")]
-    ConnectedToTheThirdPartyApp = 2,
+    ThirdPartyApp = 2,
 }

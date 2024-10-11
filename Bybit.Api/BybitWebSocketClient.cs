@@ -1,4 +1,5 @@
 ﻿using Bybit.Api.Account;
+using Bybit.Api.Common.Requests;
 using Bybit.Api.Market;
 using Bybit.Api.Models.Socket;
 using Bybit.Api.Trading;
@@ -717,7 +718,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     /// <param name="handler">Update Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToWalletUpdatesAsync(Action<WebSocketDataEvent<BybitBalance>> handler, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToWalletUpdatesAsync(Action<WebSocketDataEvent<BybitAccountBalance>> handler, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
         {
@@ -727,10 +728,10 @@ public class BybitWebSocketClient : WebSocketApiClient
             var jArray = (JArray)internalData;
             foreach (var item in jArray)
             {
-                var desResult = Deserialize<BybitBalance>(item);
+                var desResult = Deserialize<BybitAccountBalance>(item);
                 if (!desResult)
                 {
-                    this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitBalance)} object: " + desResult.Error);
+                    this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitAccountBalance)} object: " + desResult.Error);
                     return;
                 }
 

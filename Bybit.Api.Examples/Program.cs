@@ -1,6 +1,5 @@
 ﻿namespace Bybit.Api.Examples;
 
-
 internal class Program
 {
     static async Task Main(string[] args)
@@ -65,36 +64,36 @@ internal class Program
         var account_02 = await api.Account.UpgradeToUnifiedAccountAsync(/* ...optional parameters... */);
         var account_03 = await api.Account.GetBorrowHistoryAsync(/* ...optional parameters... */);
         var account_04 = await api.Account.GetCollateralInfoAsync(/* ...optional parameters... */);
-        var account_05 = await api.Account.GetAssetGreeksAsync(/* ...optional parameters... */);
+        var account_05 = await api.Account.GetGreeksAsync(/* ...optional parameters... */);
         var account_06 = await api.Account.GetFeeRateAsync(BybitCategory.Spot /* ...optional parameters... */);
-        var account_07 = await api.Account.GetAccountInfoAsync(/* ...optional parameters... */);
-        var account_08 = await api.Account.GetTransactionHistoryAsync(/* ...optional parameters... */);
+        var account_07 = await api.Account.GetAccountAsync(/* ...optional parameters... */);
+        var account_08 = await api.Account.GetTransactionsAsync(/* ...optional parameters... */);
         var account_09 = await api.Account.SetMarginModeAsync(BybitMarginMode.Isolated /* ...optional parameters... */);
-        var account_10 = await api.Account.SetMarketMakerProtectionAsync("ETH", 5000, 0, 1.0m, 0.1m /* ...optional parameters... */);
-        var account_11 = await api.Account.ResetMarketMakerProtectionAsync("ETH" /* ...optional parameters... */);
-        var account_12 = await api.Account.GetMarketMakerProtectionAsync("ETH" /* ...optional parameters... */);
+        var account_10 = await api.Account.SetMmpAsync("ETH", 5000, 0, 1.0m, 0.1m /* ...optional parameters... */);
+        var account_11 = await api.Account.ResetMmpAsync("ETH" /* ...optional parameters... */);
+        var account_12 = await api.Account.GetMmpAsync("ETH" /* ...optional parameters... */);
 
         // Asset API Methods (Private)
         var asset_01 = await api.Asset.GetExchangeHistoryAsync(/* ...optional parameters... */);
         var asset_02 = await api.Asset.GetDeliveryHistoryAsync(BybitCategory.Option /* ...optional parameters... */);
         var asset_03 = await api.Asset.GetSettlementHistoryAsync(BybitCategory.Linear /* ...optional parameters... */);
         var asset_04 = await api.Asset.GetSpotBalancesAsync(/* ...optional parameters... */);
-        var asset_05 = await api.Asset.GetAssetBalancesAsync(/* ...optional parameters... */);
+        var asset_05 = await api.Asset.GetAssetBalancesAsync(BybitAccountType.Spot /* ...optional parameters... */);
         var asset_06 = await api.Asset.GetAssetBalanceAsync("USDT", BybitAccountType.Fund /* ...optional parameters... */);
         var asset_07 = await api.Asset.GetTransferableAssetsAsync(BybitAccountType.Fund, BybitAccountType.Spot /* ...optional parameters... */);
         var asset_08 = await api.Asset.InternalTransferAsync("USDT", 100.0m, BybitAccountType.Fund, BybitAccountType.Spot /* ...optional parameters... */);
         var asset_09 = await api.Asset.GetInternalTransfersAsync(/* ...optional parameters... */);
-        var asset_10 = await api.Asset.GetSubusersAsync(/* ...optional parameters... */);
+        var asset_10 = await api.Asset.GetSubUsersAsync(/* ...optional parameters... */);
         var asset_11 = await api.Asset.UniversalTransferAsync("USDT", 100.0m, "-----FROM-UID-----", "-----TO-UID-----", BybitAccountType.Fund, BybitAccountType.Fund /* ...optional parameters... */);
         var asset_12 = await api.Asset.GetUniversalTransfersAsync(/* ...optional parameters... */);
         var asset_13 = await api.Asset.GetDepositAllowedAssetsAsync(/* ...optional parameters... */);
         var asset_14 = await api.Asset.SetDepositAccountAsync(BybitAccountType.Fund /* ...optional parameters... */);
         var asset_15 = await api.Asset.GetDepositsAsync(/* ...optional parameters... */);
-        var asset_16 = await api.Asset.GetSubUserDepositsAsync("-----SUBUSER-UID-----" /* ...optional parameters... */);
+        var asset_16 = await api.Asset.GetDepositsAsync(1_000_001 /* ...optional parameters... */);
         var asset_17 = await api.Asset.GetInternalDepositsAsync(/* ...optional parameters... */);
-        var asset_18 = await api.Asset.GetMasterDepositAddressAsync("USDT" /* ...optional parameters... */);
-        var asset_19 = await api.Asset.GetSubUserDepositAddressAsync("-----SUBUSER-UID-----", "USDT" /* ...optional parameters... */);
-        var asset_20 = await api.Asset.GetAssetInformationAsync(/* ...optional parameters... */);
+        var asset_18 = await api.Asset.GetDepositAddressAsync("USDT" /* ...optional parameters... */);
+        var asset_19 = await api.Asset.GetDepositAddressAsync(1_000_001, "USDT" /* ...optional parameters... */);
+        var asset_20 = await api.Asset.GetAssetAsync(/* ...optional parameters... */);
         var asset_21 = await api.Asset.GetWithdrawalsAsync(/* ...optional parameters... */);
         var asset_22 = await api.Asset.GetWithdrawableQuantityAsync("USDT" /* ...optional parameters... */);
         var asset_23 = await api.Asset.WithdrawAsync("USDT", 100.0m, "-----ADDRESS-----" /* ...optional parameters... */);
@@ -102,31 +101,31 @@ internal class Program
 
         // User API Methods (Private)
         var user_01 = await api.User.CreateSubAccountAsync(BybitSubAccountType.NormalSubAccount, "-----USERNAME-----" /* ...optional parameters... */);
-        var user_02 = await api.User.CreateSubAccountApiKeyAsync(1_000_001, false, new BybitApiKeyPermissions() /* ...optional parameters... */);
+        var user_02 = await api.User.CreateSubAccountApiKeyAsync(1_000_001, false, new BybitUserApiKeyPermissions() /* ...optional parameters... */);
         var user_03 = await api.User.GetSubAccountsAsync(/* ...optional parameters... */);
         var user_04 = await api.User.GetSubAccountsAsync(100 /* ...optional parameters... */);
         var user_05 = await api.User.FreezeSubAccountAsync(1_000_001, false /* ...optional parameters... */);
         var user_06 = await api.User.GetApiKeyInformationAsync(/* ...optional parameters... */);
-        var user_07 = await api.User.ModifyMasterAccountApiKeyAsync(new BybitApiKeyPermissions() /* ...optional parameters... */);
-        var user_08 = await api.User.ModifySubAccountApiKeyAsync(new BybitApiKeyPermissions() /* ...optional parameters... */);
+        var user_07 = await api.User.ModifyMasterAccountApiKeyAsync(new BybitUserApiKeyPermissions() /* ...optional parameters... */);
+        var user_08 = await api.User.ModifySubAccountApiKeyAsync(new BybitUserApiKeyPermissions() /* ...optional parameters... */);
         var user_09 = await api.User.DeleteMasterAccountApiKeyAsync(/* ...optional parameters... */);
         var user_10 = await api.User.DeleteSubAccountApiKeyAsync(/* ...optional parameters... */);
 
         // Leverage Tokens API Methods (Private)
-        var ltoken_01 = await api.Tokens.GetLeverageTokensAsync(/* ...optional parameters... */);
-        var ltoken_02 = await api.Tokens.GetLeverageTokenMarketsAsync("BTC3L" /* ...optional parameters... */);
-        var ltoken_03 = await api.Tokens.PurchaseAsync("BTC3L", 1.0m /* ...optional parameters... */);
-        var ltoken_04 = await api.Tokens.RedeemAsync("BTC3L", 1.0m/* ...optional parameters... */);
-        var ltoken_05 = await api.Tokens.GetHistoryAsync(/* ...optional parameters... */);
+        var ltoken_01 = await api.LeverageToken.GetTokensAsync(/* ...optional parameters... */);
+        var ltoken_02 = await api.LeverageToken.GetMarketsAsync("BTC3L" /* ...optional parameters... */);
+        var ltoken_03 = await api.LeverageToken.PurchaseAsync("BTC3L", 1.0m /* ...optional parameters... */);
+        var ltoken_04 = await api.LeverageToken.RedeemAsync("BTC3L", 1.0m/* ...optional parameters... */);
+        var ltoken_05 = await api.LeverageToken.GetHistoryAsync(/* ...optional parameters... */);
 
         // Margin API Methods (Private)
-        var margin_01 = await api.Margin.ToggleMarginModeAsync(true /* ...optional parameters... */);
+        var margin_01 = await api.Margin.SwitchMarginModeAsync(true /* ...optional parameters... */);
         var margin_02 = await api.Margin.SetLeverageAsync(10.0m /* ...optional parameters... */);
 
         // Lending API Methods (Private)
-        var lending_01 = await api.Lending.GetLendingProductsAsync(/* ...optional parameters... */);
-        var lending_02 = await api.Lending.GetLoanOrdersAsync(/* ...optional parameters... */);
-        var lending_03 = await api.Lending.GetRepayOrdersAsync(/* ...optional parameters... */);
+        var lending_01 = await api.Loan.GetProductsAsync(/* ...optional parameters... */);
+        var lending_02 = await api.Loan.GetLoanOrdersAsync(/* ...optional parameters... */);
+        var lending_03 = await api.Loan.GetRepayOrdersAsync(/* ...optional parameters... */);
         #endregion
 
         #region WebSocket API Examples

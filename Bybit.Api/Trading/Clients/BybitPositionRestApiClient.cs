@@ -20,7 +20,7 @@ public class BybitPositionRestApiClient
     private const string _v5PositionConfirmPendingMmr = "v5/position/confirm-pending-mmr";
 
     #region Internal
-    internal BybitRestApiBaseClient _ { get; }
+    internal BybitBaseRestApiClient _ { get; }
     internal BybitPositionRestApiClient(BybitRestApiClient root)
     {
         _ = root.BaseClient;

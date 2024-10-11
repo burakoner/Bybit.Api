@@ -6,6 +6,12 @@
 public enum BybitTransferStatus
 {
     /// <summary>
+    /// Unknown
+    /// </summary>
+    [Map("UNKNOWN", "STATUS_UNKNOWN")]
+    Unknown = 0,
+
+    /// <summary>
     /// Success
     /// </summary>
     [Map("SUCCESS")]

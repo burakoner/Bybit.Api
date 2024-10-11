@@ -20,7 +20,7 @@ public class BybitTradeRestApiClient
     private const string _v5OrderDisconnectedCancelAll = "v5/order/disconnected-cancel-all";
 
     #region Internal
-    internal BybitRestApiBaseClient _ { get; }
+    internal BybitBaseRestApiClient _ { get; }
     internal BybitTradeRestApiClient(BybitRestApiClient root)
     {
         _ = root.BaseClient;

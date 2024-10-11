@@ -1,4 +1,4 @@
-﻿using Bybit.Api.Market;
+﻿using Bybit.Api.Common.Requests;
 
 namespace Bybit.Api.Market;
 

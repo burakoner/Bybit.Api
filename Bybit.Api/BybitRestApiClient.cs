@@ -1,6 +1,11 @@
 ﻿using Bybit.Api.Account;
+using Bybit.Api.Asset;
+using Bybit.Api.Loan;
+using Bybit.Api.Margin;
 using Bybit.Api.Market;
+using Bybit.Api.Tokens;
 using Bybit.Api.Trading;
+using Bybit.Api.User;
 
 namespace Bybit.Api;
 
@@ -11,7 +16,7 @@ public class BybitRestApiClient
 {
     // Internal
     internal ILogger Logger { get; }
-    internal BybitRestApiBaseClient BaseClient { get; }
+    internal BybitBaseRestApiClient BaseClient { get; }
     internal BybitRestApiClientOptions ClientOptions { get; }
 
     /// <summary>
@@ -32,32 +37,32 @@ public class BybitRestApiClient
     /// <summary>
     /// Account Client
     /// </summary>
-    public BybitAccountRestApiClient Account { get; }
+    public BybitAccountRestApiClient Account { get; } // OK-1010
 
     /// <summary>
     /// Asset Client
     /// </summary>
-    public BybitRestApiAssetClient Asset { get; }
+    public BybitAssetRestApiClient Asset { get; } // OK-1011
 
     /// <summary>
     /// User Client
     /// </summary>
-    public BybitRestApiUserClient User { get; }
+    public BybitUserRestApiClient User { get; } // OK-1011
 
     /// <summary>
     /// Leverage Tokens Client
     /// </summary>
-    public BybitRestApiTokensClient Tokens { get; }
+    public BybitLeverageTokenRestApiClient LeverageToken { get; } // OK-1011
 
     /// <summary>
     /// Margin Client
     /// </summary>
-    public BybitRestApiMarginClient Margin { get; }
+    public BybitMarginRestApiClient Margin { get; } // OK-1011
 
     /// <summary>
     /// Lending Client
     /// </summary>
-    public BybitRestApiLendingClient Lending { get; }
+    public BybitLoanRestApiClient Loan { get; } // OK-1011
 
     // TODO: Broker
 
@@ -85,17 +90,17 @@ public class BybitRestApiClient
     {
         this.Logger = logger;
         this.ClientOptions = options;
-        this.BaseClient = new BybitRestApiBaseClient(this);
+        this.BaseClient = new BybitBaseRestApiClient(this);
 
         this.Market = new BybitMarketRestApiClient(this);
         this.Trade = new BybitTradeRestApiClient(this);
         this.Position = new BybitPositionRestApiClient(this);
         this.Account = new BybitAccountRestApiClient(this);
-        this.Asset = new BybitRestApiAssetClient(this);
-        this.User = new BybitRestApiUserClient(this);
-        this.Tokens = new BybitRestApiTokensClient(this);
-        this.Margin = new BybitRestApiMarginClient(this);
-        this.Lending = new BybitRestApiLendingClient(this);
+        this.Asset = new BybitAssetRestApiClient(this);
+        this.User = new BybitUserRestApiClient(this);
+        this.LeverageToken = new BybitLeverageTokenRestApiClient(this);
+        this.Margin = new BybitMarginRestApiClient(this);
+        this.Loan = new BybitLoanRestApiClient(this);
     }
 
     /// <summary>

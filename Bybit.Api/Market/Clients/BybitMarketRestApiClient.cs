@@ -24,7 +24,7 @@ public class BybitMarketRestApiClient
     private const string _v5MarketAccountRatio = "/v5/market/account-ratio";
 
     #region Internal
-    internal BybitRestApiBaseClient _ { get; }
+    internal BybitBaseRestApiClient _ { get; }
     internal BybitMarketRestApiClient(BybitRestApiClient root)
     {
         this._ = root.BaseClient;

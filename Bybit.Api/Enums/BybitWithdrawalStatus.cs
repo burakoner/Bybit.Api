@@ -6,6 +6,12 @@
 public enum BybitWithdrawalStatus
 {
     /// <summary>
+    /// Unknown
+    /// </summary>
+    [Map("Unknown")]
+    Unknown = 0,
+
+    /// <summary>
     /// Security Check
     /// </summary>
     [Map("SecurityCheck")]
@@ -52,10 +58,4 @@ public enum BybitWithdrawalStatus
     /// </summary>
     [Map("MoreInformationRequired")]
     MoreInformationRequired = 8,
-
-    /// <summary>
-    /// Unknown
-    /// </summary>
-    [Map("Unknown")]
-    Unknown = 0,
 }
