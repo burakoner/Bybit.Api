@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>Bybit.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>5.4.1012</Version>
-		<FileVersion>5.4.1012</FileVersion>
-		<PackageVersion>5.4.1012</PackageVersion>
-		<AssemblyVersion>5.4.1012</AssemblyVersion>
+		<Version>5.4.1019</Version>
+		<FileVersion>5.4.1019</FileVersion>
+		<PackageVersion>5.4.1019</PackageVersion>
+		<AssemblyVersion>5.4.1019</AssemblyVersion>
 		<Description>Bybit API v5 Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible Bybit Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>Bybit;V5;OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -19,6 +19,7 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
+			Version 5.4.1019 - 19 Oct 2024
 			Version 5.4.1012 - 11 Oct 2024
 			Version 5.4.1011 - 10 Oct 2024
 			
@@ -98,7 +99,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="ApiSharp" Version="3.0.2" />
+	  <PackageReference Include="ApiSharp" Version="3.0.3" />
 	</ItemGroup>
 
 </Project>
