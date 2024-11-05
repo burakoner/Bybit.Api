@@ -64,10 +64,10 @@ public class BybitKlineUpdate
     public decimal Volume { get; set; }
 
     /// <summary>
-    /// Turnover
+    /// Quote Volume
     /// </summary>
     [JsonProperty("turnover")]
-    public decimal Turnover { get; set; }
+    public decimal QuoteVolume { get; set; }
 
     /// <summary>
     /// Weather the tick is ended or not

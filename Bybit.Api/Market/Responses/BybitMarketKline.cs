@@ -43,10 +43,10 @@ public class BybitMarketKline
     public decimal Volume { get; set; }
 
     /// <summary>
-    /// Turnover
+    /// Quote Volume
     /// </summary>
     [ArrayProperty(6)]
-    public decimal Turnover { get; set; }
+    public decimal QuoteVolume { get; set; }
 }
 
 /// <summary>

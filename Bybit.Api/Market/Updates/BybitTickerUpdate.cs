@@ -45,7 +45,7 @@ public class BybitSpotTickerStream
     /// Turnover for 24h
     /// </summary>
     [JsonProperty("turnover24h")]
-    public decimal Turnover24H { get; set; }
+    public decimal QuoteVolume24H { get; set; }
 
     /// <summary>
     /// Percentage change of market price relative to 24h
@@ -155,7 +155,8 @@ public class BybitFuturesTickerStream
     /// <summary>
     /// Turnover for 24h
     /// </summary>
-    public decimal Turnover24H { get; set; }
+    [JsonProperty("turnover24H")]
+    public decimal QuoteVolume24H { get; set; }
 
     /// <summary>
     /// Volume for 24h
@@ -314,8 +315,9 @@ public class BybitOptionTickerStream
     /// <summary>
     /// Turnover for 24h
     /// </summary>
-    public decimal Turnover24H { get; set; }
-
+    [JsonProperty("turnover24H")]
+    public decimal QuoteVolume24H { get; set; }
+    
     /// <summary>
     /// Volume for 24h
     /// </summary>

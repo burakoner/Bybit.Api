@@ -69,10 +69,10 @@ public class BybitMarketSpotTicker
     public decimal LowPrice24H { get; set; }
 
     /// <summary>
-    /// Turnover last 24h
+    /// QuoteVolume last 24h
     /// </summary>
     [JsonProperty("turnover24h")]
-    public decimal Turnover24H { get; set; }
+    public decimal QuoteVolume24H { get; set; }
 
     /// <summary>
     /// Volume last 24h
@@ -163,10 +163,10 @@ public class BybitMarketFuturesTicker
     public decimal? OpenInterestValue { get; set; }
     
     /// <summary>
-    /// Turnover last 24h
+    /// QuoteVolume last 24h
     /// </summary>
     [JsonProperty("turnover24h")]
-    public decimal Turnover24H { get; set; }
+    public decimal QuoteVolume24H { get; set; }
 
     /// <summary>
     /// Volume last 24h
@@ -345,10 +345,10 @@ public class BybitMarketOptionTicker
     public decimal OpenInterest { get; set; }
 
     /// <summary>
-    /// Turnover last 24h
+    /// QuoteVolume last 24h
     /// </summary>
     [JsonProperty("turnover24h")]
-    public decimal Turnover24H { get; set; }
+    public decimal QuoteVolume24H { get; set; }
 
     /// <summary>
     /// Volume last 24h
