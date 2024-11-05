@@ -241,7 +241,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderBookAsync(BybitCategory category, string symbol, int depth, Action<WebSocketDataEvent<BybitOrderBookUpdate>> handler, CancellationToken ct = default)
     {
-        if (category == BybitCategory.Spot) depth.ValidateIntValues(nameof(category), 1, 50);
+        if (category == BybitCategory.Spot) depth.ValidateIntValues(nameof(category), 1, 50, 200);
         if (category == BybitCategory.Inverse) depth.ValidateIntValues(nameof(category), 1, 50, 200, 500);
         if (category == BybitCategory.Linear) depth.ValidateIntValues(nameof(category), 1, 50, 200, 500);
         if (category == BybitCategory.Option) depth.ValidateIntValues(nameof(category), 25, 100);
