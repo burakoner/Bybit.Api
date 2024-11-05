@@ -26,6 +26,11 @@ public class BybitRestApiClientOptions : RestApiClientOptions
     public bool SignPublicRequests { get; set; } = false;
 
     /// <summary>
+    /// Broker Id
+    /// </summary>
+    public string BrokerId {get;set;}
+
+    /// <summary>
     /// Creates an instance of Bybit Rest API Client Options
     /// </summary>
     public BybitRestApiClientOptions() : this(null)
@@ -63,8 +68,8 @@ public class BybitRestApiClientOptions : RestApiClientOptions
         };
 
         // Rate Limiters
-        RateLimiters = new List<IRateLimiter>
-        {
+        RateLimiters =
+        [
             new RateLimiter()
             .AddTotalRateLimit(10, TimeSpan.FromSeconds(1), false)
             .AddPartialEndpointLimit("/v5/order/create", 10, TimeSpan.FromSeconds(1), HttpMethod.Post, true, true)
@@ -129,7 +134,10 @@ public class BybitRestApiClientOptions : RestApiClientOptions
             .AddPartialEndpointLimit("/v5/spot-cross-margin-trade/loan", 20, TimeSpan.FromSeconds(1), HttpMethod.Post, true, true)
             .AddPartialEndpointLimit("/v5/spot-cross-margin-trade/repay", 20, TimeSpan.FromSeconds(1), HttpMethod.Post, true, true)
             .AddPartialEndpointLimit("/v5/spot-cross-margin-trade/switch", 20, TimeSpan.FromSeconds(1), HttpMethod.Post, true, true)
-        };
+        ];
         RateLimitingBehavior = RateLimitingBehavior.Wait;
+
+        // Broker Id
+        BrokerId = "Ey000284";
     }
 }
