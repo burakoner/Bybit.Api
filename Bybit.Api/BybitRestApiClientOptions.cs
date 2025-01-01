@@ -64,7 +64,6 @@ public class BybitRestApiClientOptions : RestApiClientOptions
             AcceptMimeType = RestApiConstants.JSON_CONTENT_HEADER,
             RequestTimeout = TimeSpan.FromSeconds(30),
             EncodeQueryString = true,
-            BodyFormat = RestBodyFormat.Json,
         };
 
         // Rate Limiters
