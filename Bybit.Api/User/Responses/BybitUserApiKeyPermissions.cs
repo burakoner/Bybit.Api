@@ -14,24 +14,25 @@ public class BybitUserApiKeyPermissions
     /// Spot Trade. ["SpotTrade"]
     /// </summary>
     public List<string> Spot { get; set; } = [];
-    
+
     /// <summary>
-    /// Wallet. ["AccountTransfer","SubMemberTransferList"]
+    /// Wallet. ["AccountTransfer","SubMemberTransfer","SubMemberTransferList","Withdraw"]
     /// </summary>
     public List<string> Wallet { get; set; } = [];
-    
+
     /// <summary>
     /// USDC Contract. ["OptionsTrade"]
     /// </summary>
     public List<string> Options { get; set; } = [];
-    
-    /// <summary>
-    /// Exchange. ["ExchangeHistory"]
-    /// </summary>
-    public List<string> Exchange { get; set; } = [];
 
     /// <summary>
-    /// Copytrade. ["CopyTrading"]
+    /// Unified account has this permission by default ["DerivativesTrade"]
+    /// For classic account, it is always[].
+    /// </summary>
+    public List<string> Derivatives { get; set; } = [];
+
+    /// <summary>
+    /// Always [] as Master Trader account just use ContractTrade to start CopyTrading
     /// </summary>
     public List<string> CopyTrading { get; set; } = [];
 
@@ -41,7 +42,12 @@ public class BybitUserApiKeyPermissions
     public List<string> BlockTrade { get; set; } = [];
 
     /// <summary>
-    /// Permission of NFT. Not applicable to sub account, always []
+    /// Exchange. ["ExchangeHistory"]
+    /// </summary>
+    public List<string> Exchange { get; set; } = [];
+
+    /// <summary>
+    /// Permission of NFT NFTQueryProductList. Not applicable to sub account, always []
     /// </summary>
     public List<string> NFT { get; set; } = [];
 
