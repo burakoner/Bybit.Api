@@ -20,7 +20,7 @@ public class BybitExecutionUpdate
     /// Whether to borrow. Unified spot only. 0: false, 1: true. . Classic spot is not supported, always 0
     /// </summary>
     [JsonProperty("isLeverage"), JsonConverter(typeof(BooleanConverter))]
-    public bool IsLeverage { get; set; }
+    public bool? IsLeverage { get; set; }
     
     /// <summary>
     /// Order ID

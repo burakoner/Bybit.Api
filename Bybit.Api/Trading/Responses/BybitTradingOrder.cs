@@ -46,7 +46,7 @@ public class BybitTradingOrder
     /// Whether to borrow. Unified spot only. 0: false, 1: true. Classic spot is not supported, always 0
     /// </summary>
     [JsonConverter(typeof(BooleanConverter))]
-    public bool IsLeverage { get; set; }
+    public bool? IsLeverage { get; set; }
 
     /// <summary>
     /// Position index. Used to identify positions in different position modes.

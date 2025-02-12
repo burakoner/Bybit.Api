@@ -15,7 +15,15 @@ public class BybitBatchPlaceOrderRequest
     /// Whether to borrow. Valid for Unified spot only.
     /// </summary>
     [JsonIgnore]
-    public bool IsLeverage { get { return IsLeverageField == 1; } set { IsLeverageField = value ? 1 : 0; } }
+    public bool? IsLeverage
+    {
+        get { return IsLeverageField == 1; }
+        set
+        {
+            if (value == null) IsLeverageField = null;
+            else IsLeverageField = value.Value ? 1 : 0;
+        }
+    }
 
     /// <summary>
     /// Whether to borrow. Valid for Unified spot only.
