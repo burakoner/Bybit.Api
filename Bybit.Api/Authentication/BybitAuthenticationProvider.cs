@@ -1,13 +1,7 @@
 ﻿namespace Bybit.Api.Authentication;
 
-internal class BybitAuthenticationProvider : AuthenticationProvider
+internal class BybitAuthenticationProvider(ApiCredentials credentials) : AuthenticationProvider(credentials ?? new ApiCredentials("", ""))
 {
-    public BybitAuthenticationProvider(ApiCredentials credentials) : base(credentials)
-    {
-        if (Credentials == null || Credentials.Key == null || Credentials.Secret == null)
-            throw new ArgumentException("No valid API credentials provided. Key/Secret needed.");
-    }
-
     public override void AuthenticateRestApi(RestApiClient apiClient, Uri uri, HttpMethod method, bool signed, ArraySerialization serialization, SortedDictionary<string, object> query, SortedDictionary<string, object> body, string bodyContent, SortedDictionary<string, string> headers)
     {
         // Options
@@ -18,7 +12,7 @@ internal class BybitAuthenticationProvider : AuthenticationProvider
             return;
 
         // Check Point
-        if (Credentials == null || Credentials.Key == null || Credentials.Secret == null)
+        if (Credentials == null || Credentials.Key == null || Credentials.Secret == null || string.IsNullOrEmpty(Credentials.Key.GetString()))
             throw new ArgumentException("No valid API credentials provided. Key/Secret needed.");
 
         // Set Uri
@@ -42,7 +36,7 @@ internal class BybitAuthenticationProvider : AuthenticationProvider
         headers.Add("X-BAPI-TIMESTAMP", timestamp);
         headers.Add("X-BAPI-RECV-WINDOW", receiveWindow);
     }
-    
+
     public string StreamApiSignature(string payload)
     {
         return SignHMACSHA256(payload).ToLower();
