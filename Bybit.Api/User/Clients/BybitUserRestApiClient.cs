@@ -41,7 +41,7 @@ public class BybitUserRestApiClient
     /// cannot be the same as the exist or deleted one.</param>
     /// <param name="quickLogin">
     /// 0: turn off quick login (default)
-    /// 1: turn on quick login.</param>
+    /// 1: turn on quick login.
     /// false(default): create classic account</param>
     /// <param name="label">Set a remark</param>
     /// <param name="ct">Cancellation Token</param>

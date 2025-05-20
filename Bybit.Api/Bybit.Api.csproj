@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<PackageId>Bybit.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>5.5.515</Version>
-		<FileVersion>5.5.515</FileVersion>
-		<PackageVersion>5.5.515</PackageVersion>
-		<AssemblyVersion>5.5.515</AssemblyVersion>
+		<Version>5.5.521</Version>
+		<FileVersion>5.5.521</FileVersion>
+		<PackageVersion>5.5.521</PackageVersion>
+		<AssemblyVersion>5.5.521</AssemblyVersion>
 		<Description>Bybit API v5 Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible Bybit Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>Bybit;V5;OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -19,6 +19,7 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
+			Version 5.5.521 - 20 May 2025
 			Version 5.5.515 - 15 May 2025
 			Version 5.5.212 - 12 Feb 2025
 			Version 5.5.131 - 31 Jan 2025
@@ -109,7 +110,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="ApiSharp" Version="3.6.0" />
+	  <PackageReference Include="ApiSharp" Version="3.7.0" />
 	</ItemGroup>
 
 </Project>

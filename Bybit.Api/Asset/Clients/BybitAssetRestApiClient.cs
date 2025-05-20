@@ -474,7 +474,7 @@ public class BybitAssetRestApiClient
     /// <summary>
     /// Query subaccount's deposit records by main UID's API key.
     /// </summary>
-    /// <param name="subMemberId">Sub UID</param>
+    /// <param name="subUserId">Sub UID</param>
     /// <param name="asset">Coin</param>
     /// <param name="startTime">The start timestamp (ms)</param>
     /// <param name="endTime">The end timestamp (ms)</param>

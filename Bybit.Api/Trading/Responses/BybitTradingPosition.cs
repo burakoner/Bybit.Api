@@ -211,7 +211,7 @@ public class BybitTradingPosition
     /// Useful when Bybit lower the risk limit
     /// true: Only allowed to reduce the position. You can consider a series of measures, e.g., lower the risk limit, decrease leverage or reduce the position, add margin, or cancel orders, after these operations, you can call confirm new risk limit endpoint to check if your position can be removed the reduceOnly mark
     /// false: There is no restriction, and it means your position is under the risk when the risk limit is systematically adjusted
-    /// Only meaningful for isolated margin & cross margin of USDT Perp, USDC Perp, USDC Futures, Inverse Perp and Inverse Futures, meaningless for others
+    /// Only meaningful for isolated margin &amp; cross margin of USDT Perp, USDC Perp, USDC Futures, Inverse Perp and Inverse Futures, meaningless for others
     /// </summary>
     [JsonProperty("isReduceOnly")]
     public bool? IsReduceOnly { get; set; }
