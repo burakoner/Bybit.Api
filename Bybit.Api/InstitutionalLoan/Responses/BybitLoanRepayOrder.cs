@@ -17,7 +17,7 @@ public class BybitLoanRepayOrder
     /// <summary>
     /// Repaid order ID
     /// </summary>
-    public string RepayOrderId { get; set; }
+    public string RepayOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Repaid timestamp (ms)
@@ -33,7 +33,7 @@ public class BybitLoanRepayOrder
     /// <summary>
     /// Repaid coin
     /// </summary>
-    public string Token { get; set; }
+    public string Token { get; set; } = string.Empty;
 
     /// <summary>
     /// Repaid principle

@@ -33,7 +33,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="options"></param>
-    public BybitWebSocketClient(ILogger logger, BybitWebSocketClientOptions options) : base(logger, options)
+    public BybitWebSocketClient(ILogger? logger, BybitWebSocketClientOptions options) : base(logger, options)
     {
         ContinueOnQueryResponse = true;
         UnhandledMessageExpected = true;
@@ -95,7 +95,7 @@ public class BybitWebSocketClient : WebSocketApiClient
     }
 
     /// <inheritdoc/>
-    protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object> callResult)
+    protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object>? callResult)
     {
         callResult = null;
         if (data.Type != JTokenType.Object)
@@ -269,7 +269,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
             Parameters = [$"orderbook.{depth}.{symbol}"]
-        }, null, false, internalHandler, ct).ConfigureAwait(false);
+        }, string.Empty, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     // TODO: RPI Orderbook
@@ -310,7 +310,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
             Parameters = [$"publicTrade.{symbol}"]
-        }, null, false, internalHandler, ct).ConfigureAwait(false);
+        }, string.Empty, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -425,8 +425,8 @@ public class BybitWebSocketClient : WebSocketApiClient
         {
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
-            Parameters = symbols.Select(x => $"tickers.{x}").ToArray(),
-        }, null, false, internalHandler, ct).ConfigureAwait(false);
+            Parameters = [.. symbols.Select(x => $"tickers.{x}")],
+        }, string.Empty, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -464,7 +464,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
             Parameters = [$"kline.{MapConverter.GetString(interval)}.{symbol}"]
-        }, null, false, internalHandler, ct).ConfigureAwait(false);
+        }, string.Empty, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     // TODO: All Liquidation
@@ -501,7 +501,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
             Parameters = [$"liquidation.{symbol}"]
-        }, null, false, internalHandler, ct).ConfigureAwait(false);
+        }, string.Empty, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     // TODO: Order Price Limit
@@ -540,7 +540,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
             Parameters = ["position"]
-        }, null, true, internalHandler, ct).ConfigureAwait(false);
+        }, string.Empty, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -576,7 +576,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
             Parameters = ["execution"]
-        }, null, true, internalHandler, ct).ConfigureAwait(false);
+        }, string.Empty, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     // TODO: Fast Execution
@@ -614,7 +614,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
             Parameters = ["order"]
-        }, null, true, internalHandler, ct).ConfigureAwait(false);
+        }, string.Empty, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -649,7 +649,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
             Parameters = ["wallet"]
-        }, null, true, internalHandler, ct).ConfigureAwait(false);
+        }, string.Empty, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -684,7 +684,7 @@ public class BybitWebSocketClient : WebSocketApiClient
             RequestId = Guid.NewGuid().ToString(),
             Operation = "subscribe",
             Parameters = ["greeks"]
-        }, null, true, internalHandler, ct).ConfigureAwait(false);
+        }, string.Empty, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     // TODO: DCP

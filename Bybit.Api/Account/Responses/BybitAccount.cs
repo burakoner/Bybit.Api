@@ -18,7 +18,7 @@ public class BybitAccount
     /// <summary>
     /// Disconnected-CancelAll-Prevention status: ON, OFF
     /// </summary>
-    public string DcpStatus { get; set; }
+    public string DcpStatus { get; set; } = "";
 
     /// <summary>
     /// DCP trigger time window which user pre-set. Between [3, 300] seconds, default: 10 sec
@@ -33,7 +33,7 @@ public class BybitAccount
     /// <summary>
     /// Whether the unified account enables Spot hedging. ON, OFF
     /// </summary>
-    public string SpotHedgingStatus { get; set; }
+    public string SpotHedgingStatus { get; set; } = "";
 
     /// <summary>
     /// Account data updated timestamp (ms)

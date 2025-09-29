@@ -8,12 +8,12 @@ public class BybitTradingProfitAndLoss
     /// <summary>
     /// Symbol
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Order Id
     /// </summary>
-    public string OrderId { get; set; }
+    public string OrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Side

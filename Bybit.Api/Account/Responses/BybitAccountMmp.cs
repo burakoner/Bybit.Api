@@ -9,7 +9,7 @@ public class BybitAccountMmp
     /// Base coin
     /// </summary>
     [JsonProperty("baseCoin")]
-    public string BaseAsset { get; set; }
+    public string BaseAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// Whether the account is enabled mmp

@@ -14,8 +14,8 @@ public class BybitExecutionUpdate
     /// <summary>
     /// Symbol name
     /// </summary>
-    public string Symbol { get; set; }
-    
+    public string Symbol { get; set; } = string.Empty;
+
     /// <summary>
     /// Whether to borrow. Unified spot only. 0: false, 1: true. . Classic spot is not supported, always 0
     /// </summary>
@@ -25,14 +25,14 @@ public class BybitExecutionUpdate
     /// <summary>
     /// Order ID
     /// </summary>
-    public string OrderId { get; set; }
+    public string OrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// User customized order ID. Classic spot is not supported
     /// </summary>
     [JsonProperty("orderLinkId")]
-    public string ClientOrderId { get; set; }
-    
+    public string ClientOrderId { get; set; } = string.Empty;
+
     /// <summary>
     /// Side. Buy,Sell
     /// </summary>
@@ -62,8 +62,8 @@ public class BybitExecutionUpdate
     /// Spot, Option do not have this key
     /// </summary>
     [JsonProperty("createType")]
-    public string CreateType { get; set; } // TODO: Make this field an enum
-    
+    public string CreateType { get; set; } = string.Empty; // TODO: Make this field an enum
+
     /// <summary>
     /// Order Type
     /// </summary>
@@ -84,7 +84,7 @@ public class BybitExecutionUpdate
     /// Execution ID
     /// </summary>
     [JsonProperty("execId")]
-    public string TradeId { get; set; }
+    public string TradeId { get; set; } = string.Empty;
 
     /// <summary>
     /// Execution Price
@@ -159,7 +159,7 @@ public class BybitExecutionUpdate
     /// <summary>
     /// Paradigm block trade ID
     /// </summary>
-    public string BlockTradeId { get; set; }
+    public string BlockTradeId { get; set; } = string.Empty;
 
     /// <summary>
     /// Closed position size

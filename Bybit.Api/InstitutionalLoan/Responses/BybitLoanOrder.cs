@@ -17,12 +17,12 @@ public class BybitLoanOrder
     /// <summary>
     /// Loan order ID
     /// </summary>
-    public string OrderId { get; set; }
+    public string OrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Product ID
     /// </summary>
-    public string OrderProductId { get; set; }
+    public string OrderProductId { get; set; } = string.Empty;
 
     /// <summary>
     /// The designated UID that used to bind INS loan product
@@ -44,7 +44,7 @@ public class BybitLoanOrder
     /// Loan coin
     /// </summary>
     [JsonProperty("loanCoin")]
-    public string LoanAsset { get; set; }
+    public string LoanAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// Loan amount
@@ -264,5 +264,5 @@ public class BybitLoanOrder
     /// <summary>
     /// Symbol name
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 }

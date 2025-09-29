@@ -9,7 +9,7 @@ public class BybitLoanLeverage
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Maximum leverage

@@ -10,12 +10,12 @@ namespace Bybit.Api.Common;
 /// <param name="request"></param>
 /// <param name="response"></param>
 /// <param name="error"></param>
-public class BybitRestCallResult(RestCallRequest request, RestCallResponse response, Error error) : RestCallResult(request, response, error)
+public class BybitRestCallResult(RestCallRequest? request, RestCallResponse? response, Error? error) : RestCallResult(request, response, error)
 {
     /// <summary>
     /// Next Page Cursor
     /// </summary>
-    public string Cursor { get; set; }
+    public string? Cursor { get; set; }
 
     /// <summary>
     /// Bybit Rest Call Result
@@ -68,12 +68,12 @@ public class BybitRestCallResult(RestCallRequest request, RestCallResponse respo
 /// <param name="data"></param>
 /// <param name="raw"></param>
 /// <param name="error"></param>
-public class BybitRestCallResult<T>(RestCallRequest request, RestCallResponse response, T data, string raw, Error error) : RestCallResult<T>(request, response, data, raw, error)
+public class BybitRestCallResult<T>(RestCallRequest? request, RestCallResponse? response, T? data, string? raw, Error? error) : RestCallResult<T>(request, response, data, raw, error)
 {
     /// <summary>
     /// Next Page Cursor
     /// </summary>
-    public string Cursor { get; set; }
+    public string? Cursor { get; set; }
 
     /// <summary>
     /// Bybit Rest Call Result
@@ -117,7 +117,7 @@ public class BybitRestCallResult<T>(RestCallRequest request, RestCallResponse re
     /// <param name="response">Response</param>
     /// <param name="raw">Raw Data</param>
     /// <param name="error">Error</param>
-    public BybitRestCallResult(RestCallRequest request, RestCallResponse response, string raw, Error error) : this(request, response, default, raw, error) { }
+    public BybitRestCallResult(RestCallRequest? request, RestCallResponse? response, string? raw, Error? error) : this(request, response, default, raw, error) { }
 
     /// <summary>
     /// Copy the RestCallResult to a new data type

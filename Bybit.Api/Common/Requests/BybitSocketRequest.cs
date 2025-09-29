@@ -3,10 +3,10 @@
 internal class BybitSocketRequest
 {
     [JsonProperty("req_id")]
-    public string RequestId { get; set; }
+    public string RequestId { get; set; } = string.Empty;
 
     [JsonProperty("op")]
-    public string Operation { get; set; }
+    public string Operation { get; set; } = string.Empty;
 
     [JsonProperty("args")]
     public object[] Parameters { get; set; } = [];

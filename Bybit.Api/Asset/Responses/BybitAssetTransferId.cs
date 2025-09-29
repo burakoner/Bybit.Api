@@ -9,7 +9,7 @@ public class BybitAssetTransferId
     /// Transfer Id
     /// </summary>
     [JsonProperty("transferId")]
-    public string TransferId { get; set; }
+    public string TransferId { get; set; } = string.Empty;
 
     /// <summary>
     /// Transfer status

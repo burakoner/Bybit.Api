@@ -9,13 +9,13 @@ public class BybitMarketInsurance
     /// Coin
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// For an independent insurance pool, you may see "BTCUSDT,ETHUSDT,SOLUSDT"
     /// For non-independent insurance pool, it returns ""
     /// </summary>
-    public string Symbols { get; set; }
+    public string Symbols { get; set; } = string.Empty;
 
     /// <summary>
     /// Balance

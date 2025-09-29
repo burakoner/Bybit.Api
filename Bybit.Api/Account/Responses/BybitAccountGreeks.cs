@@ -8,7 +8,7 @@ public class BybitAccountGreeks
     /// <summary>
     /// Asset
     /// </summary>
-    public string BaseAsset { get; set; }
+    public string BaseAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// Delta

@@ -15,7 +15,7 @@ public class BybitUserSubAccount
     /// Username
     /// </summary>
     [JsonProperty("username")]
-    public string Username { get; set; }
+    public string Username { get; set; } = string.Empty;
 
     /// <summary>
     /// Sub account type
@@ -39,5 +39,5 @@ public class BybitUserSubAccount
     /// Remark
     /// </summary>
     [JsonProperty("remark")]
-    public string Label { get; set; }
+    public string Label { get; set; } = string.Empty;
 }

@@ -8,23 +8,23 @@ public class BybitUserApiKeyInformation
     /// <summary>
     /// Unique ID. Internal use
     /// </summary>
-    public string ID { get; set; }
+    public string ID { get; set; } = string.Empty;
 
     /// <summary>
     /// The remark
     /// </summary>
     [JsonProperty("note")]
-    public string Label { get; set; }
+    public string Label { get; set; } = string.Empty;
 
     /// <summary>
     /// Api key
     /// </summary>
-    public string ApiKey { get; set; }
+    public string ApiKey { get; set; } = string.Empty;
 
     /// <summary>
     /// Always ""
     /// </summary>
-    public string Secret { get; set; }
+    public string Secret { get; set; } = string.Empty;
 
     /// <summary>
     /// 0：Read and Write. 1：Read only
@@ -35,7 +35,7 @@ public class BybitUserApiKeyInformation
     /// <summary>
     /// The types of permission
     /// </summary>
-    public BybitUserApiKeyPermissions Permissions { get; set; }
+    public BybitUserApiKeyPermissions Permissions { get; set; } = default!;
 
     /// <summary>
     /// IP bound
@@ -90,7 +90,7 @@ public class BybitUserApiKeyInformation
     /// Market maker level
     /// </summary>
     [JsonProperty("mktMakerLevel")]
-    public string MarketMakerLevel { get; set; }
+    public string MarketMakerLevel { get; set; } = string.Empty;
 
     /// <summary>
     /// Affiliate Id. 0 represents that there is no binding relationship.
@@ -100,7 +100,7 @@ public class BybitUserApiKeyInformation
     /// <summary>
     /// Rsa public key
     /// </summary>
-    public string RsaPublicKey { get; set; }
+    public string RsaPublicKey { get; set; } = string.Empty;
 
     /// <summary>
     /// If this api key belongs to master account or not
@@ -115,10 +115,10 @@ public class BybitUserApiKeyInformation
     /// <summary>
     /// KycLevel
     /// </summary>
-    public string KycLevel { get; set; }
+    public string KycLevel { get; set; } = string.Empty;
 
     /// <summary>
     /// KycRegion
     /// </summary>
-    public string KycRegion { get; set; }
+    public string KycRegion { get; set; } = string.Empty;
 }

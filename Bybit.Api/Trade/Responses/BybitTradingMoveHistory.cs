@@ -9,7 +9,7 @@ public class BybitTradingMoveHistory
     /// Block trade ID
     /// </summary>
     [JsonProperty("blockTradeId")]
-    public string BlockTradeId { get; set; }
+    public string BlockTradeId { get; set; } = string.Empty;
 
     /// <summary>
     /// Product type. linear, spot, option
@@ -19,17 +19,17 @@ public class BybitTradingMoveHistory
     /// <summary>
     /// Bybit order ID
     /// </summary>
-    public string OrderId { get; set; }
+    public string OrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// User ID
     /// </summary>
-    public string UserId { get; set; }
+    public string UserId { get; set; } = string.Empty;
 
     /// <summary>
     /// Symbol name
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Order side from taker's perspective. Buy, Sell
@@ -62,7 +62,7 @@ public class BybitTradingMoveHistory
     /// The unique trade ID from the exchange
     /// </summary>
     [JsonProperty("execId")]
-    public string ExecutionId { get; set; }
+    public string ExecutionId { get; set; } = string.Empty;
 
     /// <summary>
     /// The result code of the order. 0 means success
@@ -72,7 +72,7 @@ public class BybitTradingMoveHistory
     /// <summary>
     /// The error message. "" when resultCode=0
     /// </summary>
-    public string ResultMessage { get; set; }
+    public string ResultMessage { get; set; } = string.Empty;
 
     /// <summary>
     /// The timestamp (ms) when the order is created
@@ -101,5 +101,5 @@ public class BybitTradingMoveHistory
     /// Taker, Maker when status=Rejected
     /// bybit means error is occurred on the Bybit side
     /// </summary>
-    public string RejectParty { get; set; }
+    public string RejectParty { get; set; } = string.Empty;
 }

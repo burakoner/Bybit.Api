@@ -8,23 +8,23 @@ public class BybitTradingOrder
     /// <summary>
     /// Order Id
     /// </summary>
-    public string OrderId { get; set; }
+    public string OrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Client Order Id
     /// </summary>
     [JsonProperty("orderLinkId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Block Trade Id
     /// </summary>
-    public string BlockTradeId { get; set; }
+    public string BlockTradeId { get; set; } = string.Empty;
 
     /// <summary>
     /// Symbol
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Order Price
@@ -239,7 +239,7 @@ public class BybitTradingOrder
     /// The counterparty's orderID which triggers this SMP execution
     /// </summary>
     [JsonProperty("smpOrderId")]
-    public string SelfMatchPreventionOrderId { get; set; }
+    public string SelfMatchPreventionOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Order created timestamp (ms)

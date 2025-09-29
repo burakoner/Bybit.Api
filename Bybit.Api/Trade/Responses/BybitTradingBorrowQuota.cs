@@ -9,7 +9,7 @@ public class BybitTradingBorrowQuota
     /// Symbol
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Side
@@ -49,5 +49,5 @@ public class BybitTradingBorrowQuota
     /// Borrow Coin
     /// </summary>
     [JsonProperty("borrowCoin")]
-    public string BorrowCoin { get; set; }
+    public string BorrowCoin { get; set; } = string.Empty;
 }

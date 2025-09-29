@@ -8,32 +8,32 @@ public class BybitAddress
     /// <summary>
     /// Rest API Address
     /// </summary>
-    public string RestApiAddress { get; set; }
+    public string RestApiAddress { get; set; } = string.Empty;
 
     /// <summary>
     /// WebSocket Spot Address
     /// </summary>
-    public string WebSocketSpotAddress { get; set; }
+    public string WebSocketSpotAddress { get; set; } = string.Empty;
 
     /// <summary>
     /// WebSocket Perpetual Address
     /// </summary>
-    public string WebSocketPerpetualAddress { get; set; }
+    public string WebSocketPerpetualAddress { get; set; } = string.Empty;
 
     /// <summary>
     /// WebSocket Inverse Address
     /// </summary>
-    public string WebSocketInverseAddress { get; set; }
+    public string WebSocketInverseAddress { get; set; } = string.Empty;
 
     /// <summary>
     /// WebSocket Option Address
     /// </summary>
-    public string WebSocketOptionAddress { get; set; }
+    public string WebSocketOptionAddress { get; set; } = string.Empty;
 
     /// <summary>
     /// WebSocket Private Address
     /// </summary>
-    public string WebSocketPrivateAddress { get; set; }
+    public string WebSocketPrivateAddress { get; set; } = string.Empty;
 
     /// <summary>
     /// MainNet Environment

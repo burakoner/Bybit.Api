@@ -9,19 +9,19 @@ public class BybitMarketSpotInstrument
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// Base asset
     /// </summary>
     [JsonProperty("baseCoin")]
-    public string BaseAsset { get; set; }
+    public string BaseAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// Quote asset
     /// </summary>
     [JsonProperty("quoteCoin")]
-    public string QuoteAsset { get; set; }
+    public string QuoteAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// Whether or not this is an innovation zone token. 0: false, 1: true
@@ -43,18 +43,18 @@ public class BybitMarketSpotInstrument
     /// Size attributes
     /// </summary>
     [JsonProperty("lotSizeFilter")]
-    public BybitMarketSpotInstrumentLotSizeFilter LotSizeFilter { get; set; }
+    public BybitMarketSpotInstrumentLotSizeFilter LotSizeFilter { get; set; } = default!;
 
     /// <summary>
     /// Price attributes
     /// </summary>
     [JsonProperty("priceFilter")]
-    public BybitMarketSpotInstrumentPriceFilter PriceFilter { get; set; }
+    public BybitMarketSpotInstrumentPriceFilter PriceFilter { get; set; } = default!;
 
     /// <summary>
     /// Price limit parameters
     /// </summary>
-    public BybitMarketSpotInstrumentRiskParameters RiskParameters { get; set; }
+    public BybitMarketSpotInstrumentRiskParameters RiskParameters { get; set; } = default!;
 }
 
 /// <summary>
@@ -134,7 +134,7 @@ public class BybitMarketFuturesInstrument
     /// <summary>
     /// Symbol name
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Contract type
@@ -150,26 +150,26 @@ public class BybitMarketFuturesInstrument
     /// Base asset
     /// </summary>
     [JsonProperty("baseCoin")]
-    public string BaseAsset { get; set; }
+    public string BaseAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// Quote asset
     /// </summary>
     [JsonProperty("quoteCoin")]
-    public string QuoteAsset { get; set; }
-    
+    public string QuoteAsset { get; set; } = string.Empty;
+
     /// <summary>
     /// Launch time
     /// </summary>
     [JsonConverter(typeof(DateTimeConverter))]
     public DateTime LaunchTime { get; set; }
-    
+
     /// <summary>
     /// Delivery time
     /// </summary>
     [JsonConverter(typeof(DateTimeConverter))]
     public DateTime? DeliveryTime { get; set; }
-    
+
     /// <summary>
     /// Delivery fee rate
     /// </summary>
@@ -179,42 +179,42 @@ public class BybitMarketFuturesInstrument
     /// Price scale
     /// </summary>
     public decimal PriceScale { get; set; }
-    
+
     /// <summary>
     /// Leverage attributes
     /// </summary>
     [JsonProperty("leverageFilter")]
-    public BybitMarketFuturesInstrumentLeverageFilter LeverageFilter { get; set; }
-    
+    public BybitMarketFuturesInstrumentLeverageFilter LeverageFilter { get; set; } = default!;
+
     /// <summary>
     /// Price attributes
     /// </summary>
     [JsonProperty("priceFilter")]
-    public BybitMarketFuturesInstrumentPriceFilter PriceFilter { get; set; }
-    
+    public BybitMarketFuturesInstrumentPriceFilter PriceFilter { get; set; } = default!;
+
     /// <summary>
     /// Size attributes
     /// </summary>
     [JsonProperty("lotSizeFilter")]
-    public BybitMarketFuturesInstrumentLotSizeFilter LotSizeFilter { get; set; }
-    
+    public BybitMarketFuturesInstrumentLotSizeFilter LotSizeFilter { get; set; } = default!;
+
     /// <summary>
     /// Whether to support unified margin trade
     /// </summary>
     [JsonConverter(typeof(BooleanConverter))]
     public bool UnifiedMarginTrade { get; set; }
-    
+
     /// <summary>
     /// Funding interval (minute)
     /// </summary>
     public int FundingInterval { get; set; }
-    
+
     /// <summary>
     /// Settle asset
     /// </summary>
     [JsonProperty("settleCoin")]
-    public string SettleAsset { get; set; }
-    
+    public string SettleAsset { get; set; } = string.Empty;
+
     /// <summary>
     /// Copy trading support
     /// </summary>
@@ -231,19 +231,19 @@ public class BybitMarketFuturesInstrument
     /// </summary>
     [JsonProperty("lowerFundingRate")]
     public decimal LowerFundingRate { get; set; }
-    
+
     /// <summary>
     /// Whether the contract is a pre-market contract
     /// When the pre-market contract is converted to official contract, it will be false
     /// </summary>
     public bool IsPreListing { get; set; }
-    
+
     /// <summary>
     /// If isPreListing=false, preListingInfo=null
     /// If isPreListing=true, preListingInfo is an object
     /// </summary>
     [JsonProperty("preListingInfo")]
-    public BybitMarketFuturesInstrumentPreListingData PreListingDetails { get; set; }
+    public BybitMarketFuturesInstrumentPreListingData PreListingDetails { get; set; } = default!;
 }
 
 /// <summary>
@@ -343,13 +343,13 @@ public class BybitMarketFuturesInstrumentPreListingData
     /// Each phase time info
     /// </summary>
     [JsonProperty("phases")]
-    public List<BybitMarketFuturesInstrumentPreListingPhase> Phases { get; set; }=[];
+    public List<BybitMarketFuturesInstrumentPreListingPhase> Phases { get; set; } = [];
 
     /// <summary>
     /// Action fee info
     /// </summary>
     [JsonProperty("auctionFeeInfo")]
-    public BybitMarketFuturesInstrumentPreListingAuctionFee AuctionFees { get; set; }
+    public BybitMarketFuturesInstrumentPreListingAuctionFee AuctionFees { get; set; } = default!;
 }
 
 /// <summary>
@@ -409,7 +409,7 @@ public class BybitMarketOptionInstrument
     /// <summary>
     /// Symbol name
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Option type. Call, Put
@@ -425,19 +425,19 @@ public class BybitMarketOptionInstrument
     /// Base asset
     /// </summary>
     [JsonProperty("baseCoin")]
-    public string BaseAsset { get; set; }
+    public string BaseAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// Quote asset
     /// </summary>
     [JsonProperty("quoteCoin")]
-    public string QuoteAsset { get; set; }
+    public string QuoteAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// Settle asset
     /// </summary>
     [JsonProperty("settleCoin")]
-    public string SettleAsset { get; set; }
+    public string SettleAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// Launch timestamp (ms)
@@ -459,12 +459,12 @@ public class BybitMarketOptionInstrument
     /// <summary>
     /// Price attributes
     /// </summary>
-    public BybitMarketOptionsInstrumentPriceFilter PriceFilter { get; set; }
+    public BybitMarketOptionsInstrumentPriceFilter PriceFilter { get; set; } = default!;
 
     /// <summary>
     /// Size attributes
     /// </summary>
-    public BybitMarketOptionsInstrumentLotSizeFilter LotSizeFilter { get; set; }
+    public BybitMarketOptionsInstrumentLotSizeFilter LotSizeFilter { get; set; } = default!;
 }
 
 /// <summary>

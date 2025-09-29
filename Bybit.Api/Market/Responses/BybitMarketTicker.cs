@@ -8,7 +8,7 @@ public class BybitMarketSpotTicker
     /// <summary>
     /// Symbol
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Best bid price
@@ -95,8 +95,8 @@ public class BybitMarketFuturesTicker
     /// <summary>
     /// Symbol
     /// </summary>
-    public string Symbol { get; set; }
-    
+    public string Symbol { get; set; } = string.Empty;
+
     /// <summary>
     /// Last trade price
     /// </summary>
@@ -264,7 +264,7 @@ public class BybitMarketOptionTicker
     /// <summary>
     /// Symbol
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Best bid price

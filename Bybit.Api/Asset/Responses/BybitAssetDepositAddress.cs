@@ -9,7 +9,7 @@ public class BybitAssetDepositAddress
     /// Asset
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Chains
@@ -27,25 +27,25 @@ public class BybitAssetDepositAddressByChain
     /// Chain type
     /// </summary>
     [JsonProperty("chainType")]
-    public string ChainType { get; set; }
+    public string ChainType { get; set; } = "";
 
     /// <summary>
     /// The address for deposit
     /// </summary>
     [JsonProperty("addressDeposit")]
-    public string Address { get; set; }
+    public string Address { get; set; } = "";
 
     /// <summary>
     /// Tag of deposit
     /// </summary>
     [JsonProperty("tagDeposit")]
-    public string Tag { get; set; }
+    public string Tag { get; set; } = "";
 
     /// <summary>
     /// Chain
     /// </summary>
     [JsonProperty("chain")]
-    public string Chain { get; set; }
+    public string Chain { get; set; } = "";
 
     /// <summary>
     /// The deposit limit for this coin in this chain. "-1" means no limit

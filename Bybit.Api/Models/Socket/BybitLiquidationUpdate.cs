@@ -20,7 +20,7 @@ public class BybitLiquidationUpdate
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Position side. Buy,Sell. When you receive a Buy update, this means that a long position has been liquidated

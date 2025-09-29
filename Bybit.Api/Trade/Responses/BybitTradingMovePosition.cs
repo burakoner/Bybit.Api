@@ -9,7 +9,7 @@ public class BybitTradingMovePosition
     /// Block trade ID
     /// </summary>
     [JsonProperty("blockTradeId")]
-    public string BlockTradeId { get; set; }
+    public string BlockTradeId { get; set; } = string.Empty;
 
     /// <summary>
     /// Order status. Processing, Filled, Rejected
@@ -21,5 +21,5 @@ public class BybitTradingMovePosition
     /// Taker, Maker when status=Rejected
     /// bybit means error is occurred on the Bybit side
     /// </summary>
-    public string RejectParty { get; set; }
+    public string RejectParty { get; set; } = string.Empty;
 }

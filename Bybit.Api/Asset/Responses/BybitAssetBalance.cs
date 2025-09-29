@@ -20,19 +20,19 @@ public class BybitAssetBalance
     /// <summary>
     /// Account ID
     /// </summary>
-    public string AccountId { get; set; }
+    public string AccountId { get; set; } = "";
 
     /// <summary>
     /// UID
     /// </summary>
     [JsonProperty("memberId")]
-    public string UserId { get; set; }
+    public string UserId { get; set; } = "";
 
     /// <summary>
     /// Balances
     /// </summary>
     [JsonProperty("balance")]
-    public BybitAssetBalanceItem Balance { get; set; }
+    public BybitAssetBalanceItem Balance { get; set; } = default!;
 }
 
 /// <summary>
@@ -44,7 +44,7 @@ public class BybitAssetBalanceItem
     /// Currency type
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Wallet balance

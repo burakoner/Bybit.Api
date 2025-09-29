@@ -9,7 +9,7 @@ public class BybitMarketOrderbook
     /// Symbol name
     /// </summary>
     [JsonProperty("s")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Ask, seller. Order by price asc

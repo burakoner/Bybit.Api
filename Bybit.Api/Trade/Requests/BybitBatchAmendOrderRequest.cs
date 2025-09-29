@@ -9,19 +9,19 @@ public class BybitBatchAmendOrderRequest
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Order ID. Either orderId or orderLinkId is required
     /// </summary>
     [JsonProperty("orderId", NullValueHandling = NullValueHandling.Ignore)]
-    public string OrderId { get; set; }
+    public string OrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// User customised order ID. Either orderId or orderLinkId is required
     /// </summary>
     [JsonProperty("orderLinkId", NullValueHandling = NullValueHandling.Ignore)]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Implied volatility. option only. Pass the real value, e.g for 10%, 0.1 should be passed.

@@ -8,18 +8,18 @@ public class BybitTradingExecution
     /// <summary>
     /// Symbol name
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Order ID
     /// </summary>
-    public string OrderId { get; set; }
+    public string OrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// User customized order ID. Classic spot is not supported
     /// </summary>
     [JsonProperty("orderLinkId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Side. Buy,Sell
@@ -63,7 +63,7 @@ public class BybitTradingExecution
     /// Execution ID
     /// </summary>
     [JsonProperty("execId")]
-    public string TradeId { get; set; }
+    public string TradeId { get; set; } = string.Empty;
 
     /// <summary>
     /// Execution Price
@@ -103,7 +103,7 @@ public class BybitTradingExecution
     /// <summary>
     /// Spot trading fee currency Classic spot is not supported
     /// </summary>
-    public string FeeCurrency { get; set; }
+    public string FeeCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Is maker order. true: maker, false: taker
@@ -143,7 +143,7 @@ public class BybitTradingExecution
     /// <summary>
     /// Paradigm block trade ID
     /// </summary>
-    public string BlockTradeId { get; set; }
+    public string BlockTradeId { get; set; } = string.Empty;
 
     /// <summary>
     /// Closed position size

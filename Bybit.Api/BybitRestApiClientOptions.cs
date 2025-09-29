@@ -28,12 +28,12 @@ public class BybitRestApiClientOptions : RestApiClientOptions
     /// <summary>
     /// Broker Id
     /// </summary>
-    public string BrokerId {get;set;}
+    public string BrokerId { get; set; }
 
     /// <summary>
     /// Creates an instance of Bybit Rest API Client Options
     /// </summary>
-    public BybitRestApiClientOptions() : this(null)
+    public BybitRestApiClientOptions() : this(new ApiCredentials("", ""))
     {
         BaseAddress = BybitAddress.MainNet.RestApiAddress;
     }

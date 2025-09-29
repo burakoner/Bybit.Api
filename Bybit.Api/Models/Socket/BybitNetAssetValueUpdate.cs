@@ -20,7 +20,7 @@ public class BybitNetAssetValueUpdate
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Net asset value

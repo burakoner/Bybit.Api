@@ -17,7 +17,7 @@ public class BybitOrderBookUpdate
     /// Symbol
     /// </summary>
     [JsonProperty("s")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Update Id

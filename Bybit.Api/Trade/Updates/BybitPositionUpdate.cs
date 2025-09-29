@@ -14,7 +14,7 @@ public class BybitPositionUpdate
     /// <summary>
     /// Symbol name
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Position side. Buy,Sell

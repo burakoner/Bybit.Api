@@ -9,7 +9,7 @@ public class BybitAccountCollateralInfo
     /// Asset
     /// </summary>
     [JsonProperty("currency")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Hourly borrow rate

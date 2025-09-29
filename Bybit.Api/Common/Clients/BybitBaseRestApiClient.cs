@@ -29,13 +29,13 @@ internal class BybitBaseRestApiClient : RestApiClient
         if (!error.HasValues)
             return new ServerError(error.ToString());
 
-        if (error["msg"] == null && error["code"] == null || string.IsNullOrWhiteSpace((string)error["msg"]))
+        if (error["msg"] == null && error["code"] == null || string.IsNullOrWhiteSpace((string?)error["msg"]))
             return new ServerError(error.ToString());
 
-        if (error["msg"] != null && error["code"] == null || !string.IsNullOrWhiteSpace((string)error["msg"]))
+        if (error["msg"] != null && error["code"] == null || !string.IsNullOrWhiteSpace((string?)error["msg"]))
             return new ServerError((string)error["message"]!);
 
-        return new ServerError((int)error["code"], (string)error["message"]);
+        return new ServerError((int)error["code"]!, (string)error["message"]!);
     }
 
     protected override async Task<RestCallResult<DateTime>> GetServerTimestampAsync()
@@ -59,7 +59,7 @@ internal class BybitBaseRestApiClient : RestApiClient
         SetApiCredentials(new ApiCredentials(apiKey, apiSecret));
     }
 
-    internal async Task<BybitRestCallResult> SendBybitRequest(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, ParameterCollection queryParameters = null, ParameterCollection bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1)
+    internal async Task<BybitRestCallResult> SendBybitRequest(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, ParameterCollection? queryParameters = null, ParameterCollection? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1)
     {
         // Get Original Cultures
         var currentCulture = Thread.CurrentThread.CurrentCulture;
@@ -77,12 +77,12 @@ internal class BybitBaseRestApiClient : RestApiClient
         Thread.CurrentThread.CurrentUICulture = currentUICulture;
 
         // Return
-        if (!result.Success || result.Data == null) return new BybitRestCallResult(result.Request, result.Response, result.Error);
+        if (!result.Success || result.Data == null) return new BybitRestCallResult(result.Request, result?.Response, result?.Error);
         if (result.Data.ReturnCode > 0) return new BybitRestCallResult(result.Request, result.Response, new ServerError(result.Data.ReturnCode, result.Data.ReturnMessage));
         return new BybitRestCallResult(result.Request, result.Response, result.Error);
     }
 
-    internal async Task<BybitRestCallResult<T>> SendBybitRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, ParameterCollection queryParameters = null, ParameterCollection bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1)
+    internal async Task<BybitRestCallResult<T>> SendBybitRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, ParameterCollection? queryParameters = null, ParameterCollection? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1)
     {
         // Get Original Cultures
         var currentCulture = Thread.CurrentThread.CurrentCulture;
@@ -105,7 +105,7 @@ internal class BybitBaseRestApiClient : RestApiClient
         return new BybitRestCallResult<T>(result.Request, result.Response, result.Data.Result, result.Raw, result.Error);
     }
 
-    internal async Task<BybitRestCallResult<BybitRestApiResponse<T1, T2>>> SendBybitRequest<T1, T2>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, ParameterCollection queryParameters = null, ParameterCollection bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1)
+    internal async Task<BybitRestCallResult<BybitRestApiResponse<T1, T2>>> SendBybitRequest<T1, T2>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, ParameterCollection? queryParameters = null, ParameterCollection? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1)
     {
         // Get Original Cultures
         var currentCulture = Thread.CurrentThread.CurrentCulture;
@@ -128,7 +128,7 @@ internal class BybitBaseRestApiClient : RestApiClient
         return new BybitRestCallResult<BybitRestApiResponse<T1, T2>>(result.Request, result.Response, result.Data, result.Raw, result.Error);
     }
 
-    internal async Task<RestCallResult<T>> SendRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, ParameterCollection queryParameters = null, ParameterCollection bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<T>> SendRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, ParameterCollection? queryParameters = null, ParameterCollection? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Get Original Cultures
         var currentCulture = Thread.CurrentThread.CurrentCulture;
@@ -149,7 +149,7 @@ internal class BybitBaseRestApiClient : RestApiClient
         return result;
     }
 
-    internal Uri BuildUri(string endpoint, string[] parameters = null)
+    internal Uri BuildUri(string endpoint, string[]? parameters = null)
     {
         return new Uri($"{ClientOptions.BaseAddress.TrimEnd('/')}/{endpoint.TrimStart('/')}");
     }

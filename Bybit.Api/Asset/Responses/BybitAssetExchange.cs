@@ -9,7 +9,7 @@ public class BybitAssetExchange
     /// From Asset
     /// </summary>
     [JsonProperty("fromCoin")]
-    public string FromAsset { get; set; }
+    public string FromAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// From Quantity
@@ -21,7 +21,7 @@ public class BybitAssetExchange
     /// To Asset
     /// </summary>
     [JsonProperty("toCoin")]
-    public string ToAsset { get; set; }
+    public string ToAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// To Quantity
@@ -49,5 +49,5 @@ public class BybitAssetExchange
     /// Exchange transaction ID
     /// </summary>
     [JsonProperty("exchangeTxId")]
-    public string TransactionId { get; set; }
+    public string TransactionId { get; set; } = string.Empty;
 }

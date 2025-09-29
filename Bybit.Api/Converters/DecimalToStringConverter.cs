@@ -7,12 +7,12 @@ internal class DecimalToStringConverter : JsonConverter
         return (objectType == typeof(decimal) || objectType == typeof(decimal?));
     }
 
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
         throw new NotImplementedException();
     }
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
     {
         var dec = value as decimal?;
         if (dec.HasValue)

@@ -16,14 +16,14 @@ public class BybitOrderUpdate
     /// <summary>
     /// Order Id
     /// </summary>
-    public string OrderId { get; set; }
+    public string OrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Client Order Id
     /// </summary>
     [JsonProperty("orderLinkId")]
-    public string ClientOrderId { get; set; }
-    
+    public string ClientOrderId { get; set; } = string.Empty;
+
     /// <summary>
     /// Whether to borrow. Unified spot only. 0: false, 1: true. Classic spot is not supported, always 0
     /// </summary>
@@ -33,12 +33,12 @@ public class BybitOrderUpdate
     /// <summary>
     /// Block Trade Id
     /// </summary>
-    public string BlockTradeId { get; set; }
+    public string BlockTradeId { get; set; } = string.Empty;
 
     /// <summary>
     /// Symbol
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Order Price
@@ -73,7 +73,7 @@ public class BybitOrderUpdate
     /// Spot, Option do not have this key
     /// </summary>
     [JsonProperty("createType")]
-    public string CreateType { get; set; } // TODO: Make this field an enum
+    public string CreateType { get; set; } = string.Empty; // TODO: Make this field an enum
 
     /// <summary>
     /// Order Cancel Type
@@ -127,7 +127,7 @@ public class BybitOrderUpdate
     /// Trading fee currency for Spot only. Please understand Spot trading fee currency here
     /// </summary>
     [JsonProperty("feeCurrency")]
-    public string FeeCurrency { get; set; }
+    public string FeeCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Time in force
@@ -261,7 +261,7 @@ public class BybitOrderUpdate
     /// The counterparty's orderID which triggers this SMP execution
     /// </summary>
     [JsonProperty("smpOrderId")]
-    public string SelfMatchPreventionOrderId { get; set; }
+    public string SelfMatchPreventionOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Order created timestamp (ms)

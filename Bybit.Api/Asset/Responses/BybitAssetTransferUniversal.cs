@@ -8,13 +8,13 @@ public class BybitAssetTransferUniversal
     /// <summary>
     /// Transfer Id
     /// </summary>
-    public string TransferId { get; set; }
+    public string TransferId { get; set; } = string.Empty;
 
     /// <summary>
     /// Asset
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Quantity
@@ -25,12 +25,12 @@ public class BybitAssetTransferUniversal
     /// <summary>
     /// From UID
     /// </summary>
-    public string FromMemberId { get; set; }
+    public string FromMemberId { get; set; } = string.Empty;
 
     /// <summary>
     /// To UID
     /// </summary>
-    public string ToMemberId { get; set; }
+    public string ToMemberId { get; set; } = string.Empty;
 
     /// <summary>
     /// From Account

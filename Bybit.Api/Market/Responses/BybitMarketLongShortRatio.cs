@@ -8,7 +8,7 @@ public class BybitMarketLongShortRatio
     /// <summary>
     /// Symbol
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// The ratio of users with net long position

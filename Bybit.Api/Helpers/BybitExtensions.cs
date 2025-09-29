@@ -61,7 +61,7 @@ internal static class BybitExtensions
     #endregion
 
     #region ToStr
-    public static string ToStr(this object @this, bool nullToEmpty = true)
+    public static string? ToStr(this object @this, bool nullToEmpty = true)
     {
         bool isNull = @this == null ? true : false;
         bool isDBNull = @this != null && @this.GetType() == typeof(DBNull) ? true : false;

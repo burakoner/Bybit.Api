@@ -15,7 +15,7 @@ public class BybitMovePositionRequest
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Trade price

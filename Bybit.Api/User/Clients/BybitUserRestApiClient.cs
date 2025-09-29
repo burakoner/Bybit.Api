@@ -49,9 +49,9 @@ public class BybitUserRestApiClient
     public async Task<BybitRestCallResult<BybitUserSubAccount>> CreateSubAccountAsync(
         BybitSubAccountType type, 
         string username, 
-        string password = null,
+        string? password = null,
         bool? quickLogin = null, 
-        string label = null, 
+        string? label = null, 
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
@@ -82,8 +82,8 @@ public class BybitUserRestApiClient
         long subuid,
         bool readOnly,
         BybitUserApiKeyPermissions permissions,
-        IEnumerable<string> ips = null,
-        string label = null,
+        IEnumerable<string>? ips = null,
+        string? label = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
@@ -107,7 +107,7 @@ public class BybitUserRestApiClient
     public async Task<BybitRestCallResult<List<BybitUserSubAccount>>> GetSubAccountsAsync(CancellationToken ct = default)
     {
         var result = await _.SendBybitRequest<BybitListResponse<BybitUserSubAccount>>(_.BuildUri(_v5UserQuerySubMembers), HttpMethod.Get, ct, true).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitUserSubAccount>>(null);
+        if (!result) return result.As<List<BybitUserSubAccount>>(default!);
         return result.As(result.Data.Payload);
     }
 
@@ -119,14 +119,14 @@ public class BybitUserRestApiClient
     /// <param name="cursor">Cursor. Use the nextCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitUserSubAccount>>> GetSubAccountsAsync(int pageSize, string cursor = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitUserSubAccount>>> GetSubAccountsAsync(int pageSize, string? cursor = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("pageSize", pageSize);
         parameters.AddOptional("nextCursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitUserSubAccount>>(_.BuildUri(_v5UserSubMembers), HttpMethod.Get, ct, true).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitUserSubAccount>>(null);
+        if (!result) return result.As<List<BybitUserSubAccount>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
@@ -171,7 +171,7 @@ public class BybitUserRestApiClient
     public async Task<BybitRestCallResult<BybitUserApiKey>> ModifyMasterAccountApiKeyAsync(
         BybitUserApiKeyPermissions permissions,
         bool? readOnly = null,
-        IEnumerable<string> ips = null,
+        IEnumerable<string>? ips = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
@@ -201,14 +201,15 @@ public class BybitUserRestApiClient
     public async Task<BybitRestCallResult<BybitUserApiKey>> ModifySubAccountApiKeyAsync(
         BybitUserApiKeyPermissions permissions,
         bool? readOnly = null,
-        IEnumerable<string> ips = null,
-        string apikey = null,
+        IEnumerable<string>? ips = null,
+        string? apikey = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
         {
             { "permissions", permissions },
         };
+        parameters.AddOptional("apikey", apikey);
         parameters.AddOptional("readOnly", readOnly.HasValue && readOnly.Value ? 1 : 0);
         parameters.AddOptional("ips", ips);
 
@@ -233,7 +234,7 @@ public class BybitUserRestApiClient
     /// If you use corresponding sub uid api key call this endpoint, apikey param cannot be passed, otherwise throwing an error</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult> DeleteSubAccountApiKeyAsync(string apikey = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult> DeleteSubAccountApiKeyAsync(string? apikey = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("apikey", apikey);

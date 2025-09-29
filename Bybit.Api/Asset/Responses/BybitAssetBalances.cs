@@ -14,7 +14,7 @@ public class BybitAssetBalances
     /// <summary>
     /// UID
     /// </summary>
-    public string MemberId { get; set; }
+    public string MemberId { get; set; } = string.Empty;
 
     /// <summary>
     /// Balances
@@ -32,7 +32,7 @@ public class BybitAssetBalancesItem
     /// Currency type
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Wallet balance

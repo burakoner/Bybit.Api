@@ -32,13 +32,13 @@ public class BybitInstitutionalLoanRestApiClient
     /// <param name="productId">Product Id. If not passed, then return all products info</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitLoanProduct>>> GetProductsAsync(string productId = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLoanProduct>>> GetProductsAsync(string? productId = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("productId", productId);
 
         var result = await _.SendBybitRequest<BybitLendingProductContainer>(_.BuildUri(_v5InsLoanProductInfos), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitLoanProduct>>(null);
+        if (!result) return result.As<List<BybitLoanProduct>>(default!);
         return result.As(result.Data.Payload);
     }
 
@@ -51,7 +51,7 @@ public class BybitInstitutionalLoanRestApiClient
     /// <param name="limit">Limit for data size. [1, 100], Default: 10</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitLoanOrder>>> GetLoanOrdersAsync(string orderId = null, long? startTime = null, long? endTime = null, int? limit = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitLoanOrder>>> GetLoanOrdersAsync(string? orderId = null, long? startTime = null, long? endTime = null, int? limit = null, CancellationToken ct = default)
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 100);
 
@@ -62,7 +62,7 @@ public class BybitInstitutionalLoanRestApiClient
         parameters.AddOptional("limit", limit);
 
         var result = await _.SendBybitRequest<BybitLendingLoanOrderContainer>(_.BuildUri(_v5InsLoanLoanOrder), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitLoanOrder>>(null);
+        if (!result) return result.As<List<BybitLoanOrder>>(default!);
         return result.As(result.Data.Payload);
     }
 
@@ -84,7 +84,7 @@ public class BybitInstitutionalLoanRestApiClient
         parameters.AddOptional("limit", limit);
 
         var result = await _.SendBybitRequest<BybitLoanRepayOrderContainer>(_.BuildUri(_v5InsLoanRepaidHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitLoanRepayOrder>>(null);
+        if (!result) return result.As<List<BybitLoanRepayOrder>>(default!);
         return result.As(result.Data.Payload);
     }
 

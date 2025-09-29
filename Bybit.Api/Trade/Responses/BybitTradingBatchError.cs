@@ -15,5 +15,5 @@ public class BybitTradingBatchError
     /// Error message.
     /// </summary>
     [JsonProperty("msg")]
-    public string ErrorMessage { get; set; }
+    public string ErrorMessage { get; set; } = string.Empty;
 }

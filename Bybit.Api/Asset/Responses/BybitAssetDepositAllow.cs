@@ -9,25 +9,25 @@ public class BybitAssetDepositAllow
     /// Asset
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Chain
     /// </summary>
     [JsonProperty("chain")]
-    public string Chain { get; set; }
+    public string Chain { get; set; } = string.Empty;
 
     /// <summary>
     /// Coin Show Name
     /// </summary>
     [JsonProperty("coinShowName")]
-    public string AssetName { get; set; }
+    public string AssetName { get; set; } = string.Empty;
 
     /// <summary>
     /// Chain Type
     /// </summary>
     [JsonProperty("chainType")]
-    public string ChainType { get; set; }
+    public string ChainType { get; set; } = string.Empty;
 
     /// <summary>
     /// Deposit confirmation number

@@ -9,7 +9,7 @@ public class BybitAssetDepositInternal
     /// Id
     /// </summary>
     [JsonProperty("id")]
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
     /// <summary>
     /// 1: Internal deposit
@@ -21,7 +21,7 @@ public class BybitAssetDepositInternal
     /// Deposit coin
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = "";
 
     /// <summary>
     /// Deposit amount
@@ -39,7 +39,7 @@ public class BybitAssetDepositInternal
     /// <summary>
     /// Email address or phone number
     /// </summary>
-    public string Address { get; set; }
+    public string Address { get; set; } = "";
 
     /// <summary>
     /// Deposit created timestamp
@@ -56,5 +56,5 @@ public class BybitAssetDepositInternal
     /// Internal transfer transaction ID
     /// </summary>
     [JsonProperty("txID")]
-    public string TransactionId { get; set; }
+    public string TransactionId { get; set; } = "";
 }

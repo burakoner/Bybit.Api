@@ -13,7 +13,7 @@ public class BybitMarketRiskLimit
     /// <summary>
     /// Symbol
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Risk limit value

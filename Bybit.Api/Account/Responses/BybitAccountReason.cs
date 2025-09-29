@@ -9,11 +9,11 @@ public class BybitAccountReason
     /// Reason Code
     /// </summary>
     [JsonProperty("reasonCode")]
-    public string ReasonCode { get; set; }
+    public string ReasonCode { get; set; } = string.Empty;
 
     /// <summary>
     /// Reason Message
     /// </summary>
     [JsonProperty("reasonMsg")]
-    public string ReasonMessage { get; set; }
+    public string ReasonMessage { get; set; } = string.Empty;
 }

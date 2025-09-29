@@ -9,13 +9,13 @@ public class BybitAssetWithdrawal
     /// Withdrawal Id
     /// </summary>
     [JsonProperty("withdrawId")]
-    public string WithdrawalId { get; set; }
+    public string WithdrawalId { get; set; } = "";
 
     /// <summary>
     /// Transaction ID. It returns "" when withdrawal failed, withdrawal cancelled
     /// </summary>
     [JsonProperty("txID")]
-    public string TransactionId { get; set; }
+    public string TransactionId { get; set; } = "";
 
     /// <summary>
     /// Withdraw type. 0: on chain. 1: off chain
@@ -27,13 +27,13 @@ public class BybitAssetWithdrawal
     /// Coin
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = "";
 
     /// <summary>
     /// Chain
     /// </summary>
     [JsonProperty("chain")]
-    public string Chain { get; set; }
+    public string Chain { get; set; } = "";
 
     /// <summary>
     /// Amount
@@ -55,12 +55,12 @@ public class BybitAssetWithdrawal
     /// To withdrawal address. Shows the Bybit UID for internal transfers
     /// </summary>
     [JsonProperty("toAddress")]
-    public string Address { get; set; }
+    public string Address { get; set; } = "";
 
     /// <summary>
     /// Tag
     /// </summary>
-    public string Tag { get; set; }
+    public string Tag { get; set; } = "";
 
     /// <summary>
     /// Withdraw created timestamp (ms)

@@ -8,12 +8,12 @@ public class BybitAccountTransaction
     /// <summary>
     /// Unique id
     /// </summary>
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
     /// <summary>
     /// Symbol
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Product
@@ -56,7 +56,7 @@ public class BybitAccountTransaction
     /// Asset
     /// </summary>
     [JsonProperty("currency")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Trade price
@@ -102,16 +102,16 @@ public class BybitAccountTransaction
     /// <summary>
     /// Trade id
     /// </summary>
-    public string TradeId { get; set; }
+    public string TradeId { get; set; } = string.Empty;
 
     /// <summary>
     /// Order id
     /// </summary>
-    public string OrderId { get; set; }
+    public string OrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Client order id
     /// </summary>
     [JsonProperty("orderLinkId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = string.Empty;
 }

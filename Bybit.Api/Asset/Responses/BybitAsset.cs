@@ -8,13 +8,13 @@ public class BybitAsset
     /// <summary>
     /// Coin name
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// Coin
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Remaining amount
@@ -38,7 +38,7 @@ public class BybitAssetChain
     /// Chain type
     /// </summary>
     [JsonProperty("chainType")]
-    public string ChainType { get; set; }
+    public string ChainType { get; set; } = string.Empty;
 
     /// <summary>
     /// The number of confirmation for deposit

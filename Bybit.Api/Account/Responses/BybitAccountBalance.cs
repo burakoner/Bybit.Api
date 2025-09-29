@@ -80,7 +80,7 @@ public class BybitAccountBalanceItem
     /// Asset name
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Asset equity

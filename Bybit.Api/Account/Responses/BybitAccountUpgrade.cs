@@ -8,13 +8,13 @@ public class BybitAccountUpgrade
     /// <summary>
     /// Status of the unified account upgrade
     /// </summary>
-    public string UnifiedUpdateStatus { get; set; }
+    public string UnifiedUpdateStatus { get; set; } = string.Empty;
 
     /// <summary>
     /// Unified account upgrade messages
     /// </summary>
     [JsonProperty("unifiedUpdateMsg")]
-    public BybitAccountUpgradeMessage UnifiedUpdateMessage { get; set; }
+    public BybitAccountUpgradeMessage UnifiedUpdateMessage { get; set; } = default!;
 
 }
 

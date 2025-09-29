@@ -15,7 +15,7 @@ public class BybitAssetWithdrawableAmount
     /// Withdrawable amount
     /// </summary>
     [JsonProperty("withdrawableAmount")]
-    public BybitAssetWithdrawableAmountData WithdrawableAmounts { get; set; }
+    public BybitAssetWithdrawableAmountData WithdrawableAmounts { get; set; } = default!;
 }
 
 /// <summary>
@@ -26,12 +26,12 @@ public class BybitAssetWithdrawableAmountData
     /// <summary>
     /// Spot wallet, it is not returned if spot wallet is removed
     /// </summary>
-    public BybitAssetWithdrawableAmountItem Spot { get; set; }
+    public BybitAssetWithdrawableAmountItem Spot { get; set; } = default!;
 
     /// <summary>
     /// Funding wallet
     /// </summary>
-    public BybitAssetWithdrawableAmountItem Fund { get; set; }
+    public BybitAssetWithdrawableAmountItem Fund { get; set; } = default!;
 }
 
 /// <summary>
@@ -43,7 +43,7 @@ public class BybitAssetWithdrawableAmountItem
     /// Coin name
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Amount that can be withdrawn

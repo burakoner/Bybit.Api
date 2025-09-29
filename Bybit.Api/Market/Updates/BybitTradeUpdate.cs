@@ -9,7 +9,7 @@ public class BybitTradeUpdate
     /// Trade ID
     /// </summary>
     [JsonProperty("i")]
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
     /// <summary>
     /// The timestamp (ms) that the order is filled
@@ -26,7 +26,7 @@ public class BybitTradeUpdate
     /// Symbol name
     /// </summary>
     [JsonProperty("s")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Side of taker. Buy,Sell

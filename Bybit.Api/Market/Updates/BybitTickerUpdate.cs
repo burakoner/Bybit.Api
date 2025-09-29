@@ -9,8 +9,8 @@ public class BybitSpotTickerStream
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
-    
+    public string Symbol { get; set; } = string.Empty;
+
     /// <summary>
     /// Last price
     /// </summary>
@@ -76,7 +76,7 @@ public class BybitFuturesTickerStream
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Tick direction
@@ -233,7 +233,7 @@ public class BybitOptionTickerStream
     /// <summary>
     /// Symbol name
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Best bid price
@@ -373,7 +373,7 @@ public class BybitLeverageTokenTickerStream
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Market price 24 hours ago

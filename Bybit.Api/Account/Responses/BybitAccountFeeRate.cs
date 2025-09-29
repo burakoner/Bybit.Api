@@ -8,13 +8,13 @@ public class BybitAccountFeeRate
     /// <summary>
     /// Symbol
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Base asset
     /// </summary>
     [JsonProperty("baseCoin")]
-    public string BaseAsset { get; set; }
+    public string BaseAsset { get; set; } = string.Empty;
 
     /// <summary>
     /// Taker fee rate

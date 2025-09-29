@@ -17,7 +17,7 @@ public class BybitLoanProduct
     /// <summary>
     /// Product Id
     /// </summary>
-    public string ProductId { get; set; }
+    public string ProductId { get; set; } = string.Empty;
 
     /// <summary>
     /// The maximum leverage for this loan product
@@ -203,5 +203,5 @@ public class BybitLoanProduct
     /// <summary>
     /// Symbol name
     /// </summary>
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 }

@@ -55,11 +55,11 @@ public class BybitPositionRestApiClient
     /// <exception cref="NotSupportedException"></exception>
     public async Task<BybitRestCallResult<List<BybitTradingPosition>>> GetPositionsAsync(
         BybitCategory category, 
-        string symbol = null, 
-        string baseAsset = null, 
-        string settleAsset = null, 
+        string? symbol = null, 
+        string? baseAsset = null, 
+        string? settleAsset = null, 
         int? limit = null, 
-        string cursor = null, 
+        string? cursor = null, 
         CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse, BybitCategory.Option))
@@ -75,7 +75,7 @@ public class BybitPositionRestApiClient
         parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingPosition>>(_.BuildUri(_v5PositionList), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitTradingPosition>>(null);
+        if (!result) return result.As<List<BybitTradingPosition>>(default!);
         return result.As(result.Data.Payload);
     }
 
@@ -157,7 +157,7 @@ public class BybitPositionRestApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<BybitRestCallResult> SwitchPositionModeAsync(BybitCategory category, BybitPositionMode mode, string symbol = null, string asset = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult> SwitchPositionModeAsync(BybitCategory category, BybitPositionMode mode, string? symbol = null, string? asset = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -344,11 +344,11 @@ public class BybitPositionRestApiClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitTradingProfitAndLoss>>> GetClosedPnlAsync(
         BybitCategory category,
-        string symbol = null,
+        string? symbol = null,
         long? startTime = null,
         long? endTime = null,
         int? limit = null,
-        string cursor = null,
+        string? cursor = null,
         CancellationToken ct = default)
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 100);
@@ -361,7 +361,7 @@ public class BybitPositionRestApiClient
         parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingProfitAndLoss>>(_.BuildUri(_v5PositionClosedPnl), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitTradingProfitAndLoss>>(null);
+        if (!result) return result.As<List<BybitTradingProfitAndLoss>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
@@ -415,13 +415,13 @@ public class BybitPositionRestApiClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitTradingMoveHistory>>> GetMoveHistoryAsync(
         BybitCategory category,
-        string symbol = null,
+        string? symbol = null,
         long? startTime = null,
         long? endTime = null,
         BybitMoveStatus? status = null,
-        string blockTradeId = null,
+        string? blockTradeId = null,
         int? limit = null,
-        string cursor = null,
+        string? cursor = null,
         CancellationToken ct = default)
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 200);
@@ -436,7 +436,7 @@ public class BybitPositionRestApiClient
         parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingMoveHistory>>(_.BuildUri(_v5PositionMoveHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitTradingMoveHistory>>(null);
+        if (!result) return result.As<List<BybitTradingMoveHistory>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 

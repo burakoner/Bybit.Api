@@ -5,6 +5,7 @@ using Bybit.Api.Margin;
 using Bybit.Api.Market;
 using Bybit.Api.Trade;
 using Bybit.Api.User;
+using Bybit.Api.System;
 
 namespace Bybit.Api;
 
@@ -14,9 +15,14 @@ namespace Bybit.Api;
 public class BybitRestApiClient
 {
     // Internal
-    internal ILogger Logger { get; }
+    internal ILogger? Logger { get; }
     internal BybitBaseRestApiClient BaseClient { get; }
     internal BybitRestApiClientOptions ClientOptions { get; }
+
+    /// <summary>
+    /// System Client
+    /// </summary>
+    public BybitSystemRestApiClient System { get; } // OK-929
 
     /// <summary>
     /// Market Client
@@ -89,12 +95,13 @@ public class BybitRestApiClient
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="options"></param>
-    public BybitRestApiClient(ILogger logger, BybitRestApiClientOptions options)
+    public BybitRestApiClient(ILogger? logger, BybitRestApiClientOptions options)
     {
         this.Logger = logger;
         this.ClientOptions = options;
         this.BaseClient = new BybitBaseRestApiClient(this);
 
+        this.System = new BybitSystemRestApiClient(this);
         this.Market = new BybitMarketRestApiClient(this);
         this.Trade = new BybitTradeRestApiClient(this);
         this.Position = new BybitPositionRestApiClient(this);

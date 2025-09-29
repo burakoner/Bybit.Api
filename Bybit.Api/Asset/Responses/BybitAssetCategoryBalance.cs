@@ -13,7 +13,7 @@ public class BybitAssetSpotBalance
     /// <summary>
     /// account status. ACCOUNT_STATUS_NORMAL: normal, ACCOUNT_STATUS_UNSPECIFIED: banned
     /// </summary>
-    public string Status { get; set; }
+    public string Status { get; set; } = string.Empty;
 
     /// <summary>
     /// List of assets
@@ -30,7 +30,7 @@ public class BybitAssetSpotBalanceItem
     /// Coin
     /// </summary>
     [JsonProperty("coin")]
-    public string Asset { get; set; }
+    public string Asset { get; set; } = string.Empty;
 
     /// <summary>
     /// Freeze amount

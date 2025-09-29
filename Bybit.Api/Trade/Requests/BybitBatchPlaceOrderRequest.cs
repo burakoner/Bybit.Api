@@ -9,7 +9,7 @@ public class BybitBatchPlaceOrderRequest
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
     /// Whether to borrow. Valid for Unified spot only.
@@ -122,7 +122,7 @@ public class BybitBatchPlaceOrderRequest
     /// - always unique
     /// </summary>
     [JsonProperty("orderLinkId", NullValueHandling = NullValueHandling.Ignore)]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Take profit price

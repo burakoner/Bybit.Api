@@ -44,14 +44,14 @@ public class BybitAccountRestApiClient
     /// <param name="asset">Coin name</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitAccountBalance>>> GetBalancesAsync(string asset = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitAccountBalance>>> GetBalancesAsync(string? asset = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddEnum("accountType", BybitAccountType.Unified);
         parameters.AddOptional("coin", asset);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitAccountBalance>>(_.BuildUri(_v5AccountWalletBalance), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitAccountBalance>>(null);
+        if (!result) return result.As<List<BybitAccountBalance>>(default!);
         return result.As(result.Data.Payload);
     }
 
@@ -75,7 +75,7 @@ public class BybitAccountRestApiClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitAccountBorrow>>> GetBorrowHistoryAsync(string asset = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitAccountBorrow>>> GetBorrowHistoryAsync(string? asset = null, long? startTime = null, long? endTime = null, int? limit = null, string? cursor = null, CancellationToken ct = default)
     {
         limit?.ValidateIntValues(nameof(limit), 1, 50);
         var parameters = new ParameterCollection();
@@ -86,7 +86,7 @@ public class BybitAccountRestApiClient
         parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitAccountBorrow>>(_.BuildUri(_v5AccountBorrowHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitAccountBorrow>>(null);
+        if (!result) return result.As<List<BybitAccountBorrow>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
@@ -100,13 +100,13 @@ public class BybitAccountRestApiClient
     /// <param name="asset">Asset currency of all current collateral</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitAccountCollateralInfo>>> GetCollateralInfoAsync(string asset = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitAccountCollateralInfo>>> GetCollateralInfoAsync(string? asset = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("currency", asset);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitAccountCollateralInfo>>(_.BuildUri(_v5AccountCollateralInfo), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitAccountCollateralInfo>>(null);
+        if (!result) return result.As<List<BybitAccountCollateralInfo>>(default!);
         return result.As(result.Data.Payload);
     }
 
@@ -116,13 +116,13 @@ public class BybitAccountRestApiClient
     /// <param name="baseAsset">Base coin. If not passed, all supported base coin greeks will be returned by default</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitAccountGreeks>>> GetGreeksAsync(string baseAsset = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitAccountGreeks>>> GetGreeksAsync(string? baseAsset = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("baseCoin", baseAsset);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitAccountGreeks>>(_.BuildUri(_v5AssetCoinGreeks), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitAccountGreeks>>(null);
+        if (!result) return result.As<List<BybitAccountGreeks>>(default!);
         return result.As(result.Data.Payload);
     }
 
@@ -134,7 +134,7 @@ public class BybitAccountRestApiClient
     /// <param name="baseAsset">Base coin. SOL, BTC, ETH. Valid for option</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitAccountFeeRate>>> GetFeeRateAsync(BybitCategory category, string symbol = null, string baseAsset = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitAccountFeeRate>>> GetFeeRateAsync(BybitCategory category, string? symbol = null, string? baseAsset = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddEnum("category", category);
@@ -142,7 +142,7 @@ public class BybitAccountRestApiClient
         parameters.AddOptional("baseCoin", baseAsset);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitAccountFeeRate>>(_.BuildUri(_v5AccountFeeRate), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitAccountFeeRate>>(null);
+        if (!result) return result.As<List<BybitAccountFeeRate>>(default!);
         return result.As(result.Data.Payload);
     }
 
@@ -172,7 +172,7 @@ public class BybitAccountRestApiClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitAccountTransaction>>> GetTransactionsAsync(BybitAccountType? account = null, BybitCategory? category = null, string asset = null, string baseAsset = null, BybitTransactionType? type = null, long? startTime = null, long? endTime = null, int? limit = null, string cursor = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitAccountTransaction>>> GetTransactionsAsync(BybitAccountType? account = null, BybitCategory? category = null, string? asset = null, string? baseAsset = null, BybitTransactionType? type = null, long? startTime = null, long? endTime = null, int? limit = null, string? cursor = null, CancellationToken ct = default)
     {
         limit?.ValidateIntValues(nameof(limit), 1, 50);
 
@@ -188,7 +188,7 @@ public class BybitAccountRestApiClient
         parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitAccountTransaction>>(_.BuildUri(_v5AccountTransactionLog), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitAccountTransaction>>(null);
+        if (!result) return result.As<List<BybitAccountTransaction>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
     
@@ -264,7 +264,7 @@ public class BybitAccountRestApiClient
         };
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitAccountMmp>>(_.BuildUri(_v5AccountMmpState), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitAccountMmp>>(null);
+        if (!result) return result.As<List<BybitAccountMmp>>(default!);
         return result.As(result.Data.Payload);
     }
     #endregion

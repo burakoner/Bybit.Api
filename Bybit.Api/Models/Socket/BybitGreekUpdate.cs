@@ -8,7 +8,7 @@ public class BybitGreekUpdate
     /// <summary>
     /// Base coin
     /// </summary>
-    public string BaseCoin { get; set; }
+    public string BaseCoin { get; set; } = string.Empty;
 
     /// <summary>
     /// Delta value

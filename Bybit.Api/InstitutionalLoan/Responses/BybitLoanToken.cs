@@ -20,7 +20,7 @@ public class BybitLoanToken
     /// <summary>
     /// Product id
     /// </summary>
-    public string ProductId { get; set; }
+    public string ProductId { get; set; } = string.Empty;
 
     /// <summary>
     /// Spot Tokens
@@ -43,7 +43,7 @@ public class BybitLendingTokenData
     /// <summary>
     /// Token
     /// </summary>
-    public string Token { get; set; }
+    public string Token { get; set; } = string.Empty;
 
     /// <summary>
     /// Convert ratio

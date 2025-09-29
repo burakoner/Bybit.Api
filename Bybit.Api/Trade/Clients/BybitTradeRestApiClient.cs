@@ -141,7 +141,7 @@ public class BybitTradeRestApiClient
         decimal quantity,
         BybitUnit? marketUnit = null,
         decimal? price = null,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         bool? isLeverage = null,
 
         BybitTriggerDirection? triggerDirection = null,
@@ -250,8 +250,8 @@ public class BybitTradeRestApiClient
     public async Task<BybitRestCallResult<BybitTradingOrderId>> AmendOrderAsync(
         BybitCategory category,
         string symbol,
-        string orderId = null,
-        string clientOrderId = null,
+        string? orderId = null,
+        string? clientOrderId = null,
 
         decimal? orderIv = null,
         decimal? quantity = null,
@@ -318,8 +318,8 @@ public class BybitTradeRestApiClient
     public async Task<BybitRestCallResult<BybitTradingOrderId>> CancelOrderAsync(
         BybitCategory category,
         string symbol,
-        string orderId = null,
-        string clientOrderId = null,
+        string? orderId = null,
+        string? clientOrderId = null,
         BybitOrderFilter? orderFilter = null,
 
         CancellationToken ct = default)
@@ -376,15 +376,15 @@ public class BybitTradeRestApiClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitTradingOrder>>> GetOrdersAsync(
         BybitCategory category,
-        string symbol = null,
-        string baseAsset = null,
-        string settleAsset = null,
-        string orderId = null,
-        string clientOrderId = null,
+        string? symbol = null,
+        string? baseAsset = null,
+        string? settleAsset = null,
+        string? orderId = null,
+        string? clientOrderId = null,
         BybitQueryOpenOnly? openOnly = null,
         BybitOrderFilter? orderFilter = null,
         int? limit = null,
-        string cursor = null,
+        string? cursor = null,
         CancellationToken ct = default)
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 50);
@@ -401,7 +401,7 @@ public class BybitTradeRestApiClient
         parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingOrder>>(_.BuildUri(_v5OrderRealtime), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitTradingOrder>>(null);
+        if (!result) return result.As<List<BybitTradingOrder>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
@@ -440,9 +440,9 @@ public class BybitTradeRestApiClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitTradingOrderId>>> CancelOrdersAsync(
         BybitCategory category,
-        string symbol = null,
-        string baseAsset = null,
-        string settleAsset = null,
+        string? symbol = null,
+        string? baseAsset = null,
+        string? settleAsset = null,
         BybitOrderFilter? orderFilter = null,
         BybitStopOrderType? stopOrderType = null,
         CancellationToken ct = default)
@@ -456,7 +456,7 @@ public class BybitTradeRestApiClient
         parameters.AddOptionalEnum("stopOrderType", stopOrderType);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingOrderId>>(_.BuildUri(_v5OrderCancelAll), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitTradingOrderId>>(null);
+        if (!result) return result.As<List<BybitTradingOrderId>>(default!);
         return result.As(result.Data.Payload);
     }
 
@@ -505,17 +505,17 @@ public class BybitTradeRestApiClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitTradingOrder>>> GetOrderHistoryAsync(
         BybitCategory category,
-        string symbol = null,
-        string baseAsset = null,
-        string settleAsset = null,
-        string orderId = null,
-        string clientOrderId = null,
+        string? symbol = null,
+        string? baseAsset = null,
+        string? settleAsset = null,
+        string? orderId = null,
+        string? clientOrderId = null,
         BybitOrderFilter? orderFilter = null,
         BybitOrderStatus? orderStatus = null,
         long? startTime = null,
         long? endTime = null,
         int? limit = null,
-        string cursor = null,
+        string? cursor = null,
         CancellationToken ct = default)
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 50);
@@ -534,7 +534,7 @@ public class BybitTradeRestApiClient
         parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingOrder>>(_.BuildUri(_v5OrderHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitTradingOrder>>(null);
+        if (!result) return result.As<List<BybitTradingOrder>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
@@ -576,15 +576,15 @@ public class BybitTradeRestApiClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitTradingExecution>>> GetTradeHistoryAsync(
         BybitCategory category,
-        string symbol = null,
-        string orderId = null,
-        string clientOrderId = null,
-        string baseAsset = null,
+        string? symbol = null,
+        string? orderId = null,
+        string? clientOrderId = null,
+        string? baseAsset = null,
         long? startTime = null,
         long? endTime = null,
         BybitExecutionType? executionType = null,
         int? limit = null,
-        string cursor = null,
+        string? cursor = null,
         CancellationToken ct = default)
     {
         limit?.ValidateIntBetween(nameof(limit), 1, 100);
@@ -601,7 +601,7 @@ public class BybitTradeRestApiClient
         parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingExecution>>(_.BuildUri(_v5ExecutionList), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitTradingExecution>>(null);
+        if (!result) return result.As<List<BybitTradingExecution>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
@@ -630,7 +630,7 @@ public class BybitTradeRestApiClient
         parameters.Add("request", requests);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingBatchPlaceOrder>, BybitListResponse<BybitTradingBatchError>>(_.BuildUri(_v5OrderCreateBatch), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<BybitRestApiResponse<List<BybitTradingBatchPlaceOrder>, List<BybitTradingBatchError>>>(null);
+        if (!result) return result.As<BybitRestApiResponse<List<BybitTradingBatchPlaceOrder>, List<BybitTradingBatchError>>>(default!);
         return result.As(new BybitRestApiResponse<List<BybitTradingBatchPlaceOrder>, List<BybitTradingBatchError>>
         {
             Result = result.Data.Result.Payload,
@@ -659,7 +659,7 @@ public class BybitTradeRestApiClient
         parameters.Add("request", requests);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingBatchAmendOrder>, BybitListResponse<BybitTradingBatchError>>(_.BuildUri(_v5OrderAmendBatch), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<BybitRestApiResponse<List<BybitTradingBatchAmendOrder>, List<BybitTradingBatchError>>>(null);
+        if (!result) return result.As<BybitRestApiResponse<List<BybitTradingBatchAmendOrder>, List<BybitTradingBatchError>>>(default!);
         return result.As(new BybitRestApiResponse<List<BybitTradingBatchAmendOrder>, List<BybitTradingBatchError>>
         {
             Result = result.Data.Result.Payload,
@@ -690,7 +690,7 @@ public class BybitTradeRestApiClient
         parameters.Add("request", requests);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingBatchCancelOrder>, BybitListResponse<BybitTradingBatchError>>(_.BuildUri(_v5OrderCancelBatch), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<BybitRestApiResponse<List<BybitTradingBatchCancelOrder>, List<BybitTradingBatchError>>>(null);
+        if (!result) return result.As<BybitRestApiResponse<List<BybitTradingBatchCancelOrder>, List<BybitTradingBatchError>>>(default!);
         return result.As(new BybitRestApiResponse<List<BybitTradingBatchCancelOrder>, List<BybitTradingBatchError>>
         {
             Result = result.Data.Result.Payload,
