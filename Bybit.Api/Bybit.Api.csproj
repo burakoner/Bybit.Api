@@ -38,4 +38,12 @@
 		<PackageReference Include="ApiSharp" Version="4.0.5" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Affiliate\" />
+	  <Folder Include="CryptoLoan\" />
+	  <Folder Include="Broker\" />
+	  <Folder Include="Earn\" />
+	  <Folder Include="Spread\" />
+	</ItemGroup>
+
 </Project>

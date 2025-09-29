@@ -7,7 +7,6 @@ global using ApiSharp.Extensions;
 global using ApiSharp.Models;
 global using ApiSharp.Throttling;
 global using ApiSharp.Throttling.Enums;
-global using ApiSharp.Throttling.Interfaces;
 global using ApiSharp.WebSocket;
 global using Bybit.Api.Authentication;
 global using Bybit.Api.Common;
