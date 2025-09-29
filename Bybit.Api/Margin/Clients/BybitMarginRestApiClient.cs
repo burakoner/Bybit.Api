@@ -7,6 +7,7 @@ public class BybitMarginRestApiClient
 {
     // Spot Margin Trade (UTA) Endpoints
     private const string _v5SpotMarginTradeDataMode = "v5/spot-margin-trade/data"; // TODO
+    // GET /v5/spot-margin-trade/collateral
     private const string _v5SpotMarginTradeInterestRateHistory = "v5/v5/spot-margin-trade/interest-rate-history"; // TODO
     private const string _v5SpotMarginTradeSwitchMode = "v5/spot-margin-trade/switch-mode";
     private const string _v5SpotMarginTradeSetLeverage = "v5/spot-margin-trade/set-leverage";

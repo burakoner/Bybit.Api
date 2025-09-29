@@ -111,13 +111,6 @@ internal class Program
         var user_09 = await api.User.DeleteMasterAccountApiKeyAsync(/* ...optional parameters... */);
         var user_10 = await api.User.DeleteSubAccountApiKeyAsync(/* ...optional parameters... */);
 
-        // Leverage Tokens API Methods (Private)
-        var ltoken_01 = await api.LeverageToken.GetTokensAsync(/* ...optional parameters... */);
-        var ltoken_02 = await api.LeverageToken.GetMarketsAsync("BTC3L" /* ...optional parameters... */);
-        var ltoken_03 = await api.LeverageToken.PurchaseAsync("BTC3L", 1.0m /* ...optional parameters... */);
-        var ltoken_04 = await api.LeverageToken.RedeemAsync("BTC3L", 1.0m/* ...optional parameters... */);
-        var ltoken_05 = await api.LeverageToken.GetHistoryAsync(/* ...optional parameters... */);
-
         // Margin API Methods (Private)
         var margin_01 = await api.Margin.SwitchMarginModeAsync(true /* ...optional parameters... */);
         var margin_02 = await api.Margin.SetLeverageAsync(10.0m /* ...optional parameters... */);
@@ -190,21 +183,6 @@ internal class Program
         });
 
         await ws.SubscribeToLiquidationsAsync(BybitCategory.Inverse, "BTCUSDT", (data) =>
-        {
-            // ... Your logic here
-        });
-
-        await ws.SubscribeToLeverageTokenKlinesAsync("BTC3L", BybitInterval.OneDay, (data) =>
-        {
-            // ... Your logic here
-        });
-
-        await ws.SubscribeToLeverageTokenTickersAsync("BTC3L", (data) =>
-        {
-            // ... Your logic here
-        });
-
-        await ws.SubscribeToLeverageTokenNetAssetValuesAsync("BTC3L", (data) =>
         {
             // ... Your logic here
         });

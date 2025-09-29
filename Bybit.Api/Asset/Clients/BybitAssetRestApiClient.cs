@@ -26,13 +26,13 @@ public class BybitAssetRestApiClient
     private const string _v5AssetTransferQueryUniversalTransferList = "v5/asset/transfer/query-universal-transfer-list";
 
     // Deposit
-    private const string _v5AssetDepositQueryAllowedList = "v5/asset/deposit/query-allowed-list";
     private const string _v5AssetDepositDepositToAccount = "v5/asset/deposit/deposit-to-account";
     private const string _v5AssetDepositQueryRecord = "v5/asset/deposit/query-record";
     private const string _v5AssetDepositQuerySubMemberRecord = "v5/asset/deposit/query-sub-member-record";
     private const string _v5AssetDepositQueryInternalRecord = "v5/asset/deposit/query-internal-record";
     private const string _v5AssetDepositQueryAddress = "v5/asset/deposit/query-address";
     private const string _v5AssetDepositQuerySubMemberAddress = "v5/asset/deposit/query-sub-member-address";
+    private const string _v5AssetDepositQueryAllowedList = "v5/asset/deposit/query-allowed-list";
 
     // Withdraw
     private const string _v5AssetWithdrawQueryRecord = "v5/asset/withdraw/query-record";
@@ -404,29 +404,6 @@ public class BybitAssetRestApiClient
     }
     
     /// <summary>
-    /// Query allowed deposit coin information. To find out paired chain of coin, please refer coin info api.
-    /// </summary>
-    /// <param name="asset">Coin. coin and chain must be paired if passed</param>
-    /// <param name="network">Chain. coin and chain must be paired if passed</param>
-    /// <param name="limit">Limit for data size per page. [1, 35]. Default: 10</param>
-    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitAssetDepositAllow>>> GetDepositAllowedAssetsAsync(string asset = null, string network = null, int? limit = null, string cursor = null, CancellationToken ct = default)
-    {
-        limit?.ValidateIntBetween(nameof(limit), 1, 35);
-        var parameters = new ParameterCollection();
-        parameters.AddOptional("coin", asset);
-        parameters.AddOptional("chain", network);
-        parameters.AddOptional("limit", limit);
-        parameters.AddOptional("cursor", cursor);
-
-        var result = await _.SendBybitRequest<BybitListResponse<BybitAssetDepositAllow>>(_.BuildUri(_v5AssetDepositQueryAllowedList), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitAssetDepositAllow>>(null);
-        return result.As(result.Data.Payload, result.Data.NextPageCursor);
-    }
-
-    /// <summary>
     /// Set auto transfer account after deposit. The same function as the setting for Deposit on web GUI
     /// </summary>
     /// <param name="account">Account type</param>
@@ -562,6 +539,29 @@ public class BybitAssetRestApiClient
             { "subMemberId", subUserId },
         };
         return await _.SendBybitRequest<BybitAssetDepositAddress>(_.BuildUri(_v5AssetDepositQuerySubMemberAddress), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Query allowed deposit coin information. To find out paired chain of coin, please refer coin info api.
+    /// </summary>
+    /// <param name="asset">Coin. coin and chain must be paired if passed</param>
+    /// <param name="network">Chain. coin and chain must be paired if passed</param>
+    /// <param name="limit">Limit for data size per page. [1, 35]. Default: 10</param>
+    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitAssetDepositAllow>>> GetDepositAllowedAssetsAsync(string asset = null, string network = null, int? limit = null, string cursor = null, CancellationToken ct = default)
+    {
+        limit?.ValidateIntBetween(nameof(limit), 1, 35);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("coin", asset);
+        parameters.AddOptional("chain", network);
+        parameters.AddOptional("limit", limit);
+        parameters.AddOptional("cursor", cursor);
+
+        var result = await _.SendBybitRequest<BybitListResponse<BybitAssetDepositAllow>>(_.BuildUri(_v5AssetDepositQueryAllowedList), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitAssetDepositAllow>>(null);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>

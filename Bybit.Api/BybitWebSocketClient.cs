@@ -2,7 +2,7 @@
 using Bybit.Api.Common.Requests;
 using Bybit.Api.Market;
 using Bybit.Api.Models.Socket;
-using Bybit.Api.Trading;
+using Bybit.Api.Trade;
 
 namespace Bybit.Api;
 
@@ -272,6 +272,8 @@ public class BybitWebSocketClient : WebSocketApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
+    // TODO: RPI Orderbook
+
     /// <summary>
     /// Subscribe to the recent trades stream.
     /// After subscription, you will be pushed trade messages in real-time.
@@ -465,6 +467,9 @@ public class BybitWebSocketClient : WebSocketApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
+    // TODO: All Liquidation
+    // TODO: Remove SubscribeToLiquidationsAsync
+
     /// <summary>
     /// Subscribe to the liquidation stream, at most one order is published per second per symbol
     /// </summary>
@@ -499,109 +504,7 @@ public class BybitWebSocketClient : WebSocketApiClient
         }, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    /// <summary>
-    /// Subscribe to the leveraged token kline stream.
-    /// </summary>
-    /// <param name="symbol">Symbol</param>
-    /// <param name="interval">Interval</param>
-    /// <param name="handler">Update Handler</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeverageTokenKlinesAsync(string symbol, BybitInterval interval, Action<WebSocketDataEvent<BybitKlineUpdate>> handler, CancellationToken ct = default)
-    {
-        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
-        {
-            var type = data.Data["type"]; if (type == null) return;
-            var topic = data.Data["topic"]; if (topic == null) return;
-            var internalData = data.Data["data"]; if (internalData == null) return;
-
-            var desResult = Deserialize<List<BybitKlineUpdate>>(internalData);
-            if (!desResult)
-            {
-                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitKlineUpdate)} object: " + desResult.Error);
-                return;
-            }
-
-            foreach (var item in desResult.Data)
-            {
-                handler(data.As(item, topic.ToString()));
-            }
-        });
-
-        return await SubscribeAsync(GetStreamAddress(BybitCategory.Spot, false), new BybitSocketRequest()
-        {
-            RequestId = Guid.NewGuid().ToString(),
-            Operation = "subscribe",
-            Parameters = [$"kline_lt.{MapConverter.GetString(interval)}.{symbol}"]
-        }, null, false, internalHandler, ct).ConfigureAwait(false);
-    }
-
-    /// <summary>
-    /// Subscribe to the leveraged token ticker stream.
-    /// Push frequency: 300ms
-    /// </summary>
-    /// <param name="symbol">Symbol</param>
-    /// <param name="handler">Update Handler</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeverageTokenTickersAsync(string symbol, Action<WebSocketDataEvent<BybitLeverageTokenTickerStream>> handler, CancellationToken ct = default)
-    {
-        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
-        {
-            var type = data.Data["type"]; if (type == null) return;
-            var topic = data.Data["topic"]; if (topic == null) return;
-            var internalData = data.Data["data"]; if (internalData == null) return;
-
-            var desResult = Deserialize<BybitLeverageTokenTickerStream>(internalData);
-            if (!desResult)
-            {
-                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitLeverageTokenTickerStream)} object: " + desResult.Error);
-                return;
-            }
-
-            handler(data.As(desResult.Data, topic.ToString()));
-        });
-
-        return await SubscribeAsync(GetStreamAddress(BybitCategory.Spot, false), new BybitSocketRequest
-        {
-            RequestId = Guid.NewGuid().ToString(),
-            Operation = "subscribe",
-            Parameters = [$"tickers_lt.{symbol}"]
-        }, null, false, internalHandler, ct).ConfigureAwait(false);
-    }
-
-    /// <summary>
-    /// Subscribe to the leveraged token nav stream.
-    /// </summary>
-    /// <param name="symbol">Symbol</param>
-    /// <param name="handler">Update Handler</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLeverageTokenNetAssetValuesAsync(string symbol, Action<WebSocketDataEvent<BybitNetAssetValueUpdate>> handler, CancellationToken ct = default)
-    {
-        var internalHandler = new Action<WebSocketDataEvent<JToken>>(data =>
-        {
-            var type = data.Data["type"]; if (type == null) return;
-            var topic = data.Data["topic"]; if (topic == null) return;
-            var internalData = data.Data["data"]; if (internalData == null) return;
-
-            var desResult = Deserialize<BybitNetAssetValueUpdate>(internalData);
-            if (!desResult)
-            {
-                this._logger.Log(LogLevel.Warning, $"Failed to deserialize {nameof(BybitNetAssetValueUpdate)} object: " + desResult.Error);
-                return;
-            }
-
-            handler(data.As(desResult.Data, topic.ToString()));
-        });
-
-        return await SubscribeAsync(GetStreamAddress(BybitCategory.Spot, false), new BybitSocketRequest
-        {
-            RequestId = Guid.NewGuid().ToString(),
-            Operation = "subscribe",
-            Parameters = [$"lt.{symbol}"]
-        }, null, false, internalHandler, ct).ConfigureAwait(false);
-    }
+    // TODO: Order Price Limit
     #endregion
 
     #region Private Streams
@@ -675,6 +578,8 @@ public class BybitWebSocketClient : WebSocketApiClient
             Parameters = ["execution"]
         }, null, true, internalHandler, ct).ConfigureAwait(false);
     }
+
+    // TODO: Fast Execution
 
     /// <summary>
     /// Subscribe to the order stream to see changes to your orders in real-time.
@@ -786,4 +691,6 @@ public class BybitWebSocketClient : WebSocketApiClient
     #endregion
 
     // TODO: Websocket Trade
+
+    // TODO: System Status
 }

@@ -1,10 +1,9 @@
 ﻿using Bybit.Api.Account;
 using Bybit.Api.Asset;
-using Bybit.Api.Loan;
+using Bybit.Api.InstitutionalLoan;
 using Bybit.Api.Margin;
 using Bybit.Api.Market;
-using Bybit.Api.Tokens;
-using Bybit.Api.Trading;
+using Bybit.Api.Trade;
 using Bybit.Api.User;
 
 namespace Bybit.Api;
@@ -34,6 +33,8 @@ public class BybitRestApiClient
     /// </summary>
     public BybitPositionRestApiClient Position { get; } // OK-1009
 
+    // TODO: Pre-upgrade
+
     /// <summary>
     /// Account Client
     /// </summary>
@@ -49,22 +50,24 @@ public class BybitRestApiClient
     /// </summary>
     public BybitUserRestApiClient User { get; } // OK-1011
 
-    /// <summary>
-    /// Leverage Tokens Client
-    /// </summary>
-    public BybitLeverageTokenRestApiClient LeverageToken { get; } // OK-1011
+    // TODO: Spread
+    // TODO: Affiliate
 
     /// <summary>
     /// Margin Client
     /// </summary>
     public BybitMarginRestApiClient Margin { get; } // OK-1011
 
+    // TODO: Crypto Loan
+    // NOT TO DO: Crypto Loan (legacy)
+
     /// <summary>
     /// Lending Client
     /// </summary>
-    public BybitLoanRestApiClient Loan { get; } // OK-1011
+    public BybitInstitutionalLoanRestApiClient Loan { get; } // OK-1011
 
     // TODO: Broker
+    // TODO: Earn
 
     /// <summary>
     /// Create a new instance of the Bybit Rest API Client
@@ -98,9 +101,8 @@ public class BybitRestApiClient
         this.Account = new BybitAccountRestApiClient(this);
         this.Asset = new BybitAssetRestApiClient(this);
         this.User = new BybitUserRestApiClient(this);
-        this.LeverageToken = new BybitLeverageTokenRestApiClient(this);
         this.Margin = new BybitMarginRestApiClient(this);
-        this.Loan = new BybitLoanRestApiClient(this);
+        this.Loan = new BybitInstitutionalLoanRestApiClient(this);
     }
 
     /// <summary>

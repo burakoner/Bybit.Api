@@ -6,6 +6,7 @@
 public class BybitMarketRestApiClient
 {
     // Market Endpoints
+    // TODO: v5/system/status
     private const string _v5MarketTime = "v5/market/time";
     private const string _v5MarketKline = "v5/market/kline";
     private const string _v5MarketMarkPriceKline = "v5/market/mark-price-kline";
@@ -13,6 +14,7 @@ public class BybitMarketRestApiClient
     private const string _v5MarketPremiumIndexPriceKline = "v5/market/premium-index-price-kline";
     private const string _v5InstrumentsInfo = "v5/market/instruments-info";
     private const string _v5MarketOrderbook = "v5/market/orderbook";
+    // TODO: Get RPI Orderbook
     private const string _v5MarketTickers = "v5/market/tickers";
     private const string _v5MarketFundingHistory = "v5/market/funding/history";
     private const string _v5MarketRecentTrade = "v5/market/recent-trade";
@@ -21,7 +23,12 @@ public class BybitMarketRestApiClient
     private const string _v5MarketInsurance = "v5/market/insurance";
     private const string _v5MarketRiskLimit = "v5/market/risk-limit";
     private const string _v5MarketDeliveryPrice = "v5/market/delivery-price";
+    // TODO: Get New Delivery Price
     private const string _v5MarketAccountRatio = "/v5/market/account-ratio";
+    // TODO: Get Index Price Components
+    // TODO: Get Order Price Limit
+    // TODO: Get ADL Alert
+    // TODO: Get Fee Group Structure
 
     #region Internal
     internal BybitBaseRestApiClient _ { get; }

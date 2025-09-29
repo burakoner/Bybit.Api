@@ -10,6 +10,7 @@ public class BybitUserRestApiClient
     private const string _v5UserCreateSubApi = "v5/user/create-sub-api";
     private const string _v5UserQuerySubMembers = "v5/user/query-sub-members";
     private const string _v5UserSubMembers = "v5/user/submembers"; // TODO
+    // GET /v5/user/escrow_sub_members
     private const string _v5UserFrozenSubMember = "v5/user/frozen-sub-member";
     private const string _v5UserQueryApi = "v5/user/query-api";
     private const string _v5UserSubApikeys = "v5/user/sub-apikeys"; // TODO
@@ -19,7 +20,6 @@ public class BybitUserRestApiClient
     private const string _v5UserDelSubMember = "v5/user/del-submember"; // TODO
     private const string _v5UserDeleteApi = "v5/user/delete-api";
     private const string _v5UserDeleteSubApi = "v5/user/delete-sub-api";
-    private const string _v5UserAffCustomerInfo = "v5/user/aff-customer-info"; // TODO
 
     #region Internal
     internal BybitBaseRestApiClient _ { get; }
