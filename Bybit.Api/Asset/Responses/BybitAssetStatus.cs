@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Process Status
 /// </summary>
-public class BybitAssetStatus
+public record BybitAssetStatus
 {
     /// <summary>
     /// Status

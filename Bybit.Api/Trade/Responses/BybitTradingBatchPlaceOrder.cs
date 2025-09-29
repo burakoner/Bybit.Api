@@ -3,7 +3,7 @@
 /// <summary>
 /// Batch place order response model.
 /// </summary>
-public class BybitTradingBatchPlaceOrder
+public record BybitTradingBatchPlaceOrder
 {
     /// <summary>
     /// Product type

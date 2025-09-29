@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Risk Limit
 /// </summary>
-public class BybitMarketRiskLimit
+public record BybitMarketRiskLimit
 {
     /// <summary>
     /// Risk limit id

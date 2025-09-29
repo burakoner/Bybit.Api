@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Transfer Id
 /// </summary>
-public class BybitAssetTransferId
+public record BybitAssetTransferId
 {
     /// <summary>
     /// Transfer Id

@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Volatility
 /// </summary>
-public class BybitMarketVolatility
+public record BybitMarketVolatility
 {
     /// <summary>
     /// Period

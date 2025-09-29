@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Deposit Allowed Asset
 /// </summary>
-public class BybitAssetDepositAllow
+public record BybitAssetDepositAllow
 {
     /// <summary>
     /// Asset

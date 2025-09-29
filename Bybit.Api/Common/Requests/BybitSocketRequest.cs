@@ -1,6 +1,6 @@
 ﻿namespace Bybit.Api.Common.Requests;
 
-internal class BybitSocketRequest
+internal record BybitSocketRequest
 {
     [JsonProperty("req_id")]
     public string RequestId { get; set; } = string.Empty;

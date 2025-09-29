@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit API Key Permissions
 /// </summary>
-public class BybitUserApiKeyPermissions
+public record BybitUserApiKeyPermissions
 {
     /// <summary>
     /// Contract Trade. ["Order","Position"]

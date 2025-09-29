@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit API Key Information
 /// </summary>
-public class BybitUserApiKeyInformation
+public record BybitUserApiKeyInformation
 {
     /// <summary>
     /// Unique ID. Internal use

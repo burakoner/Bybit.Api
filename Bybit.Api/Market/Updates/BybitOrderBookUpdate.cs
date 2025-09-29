@@ -5,7 +5,7 @@ namespace Bybit.Api.Market;
 /// <summary>
 /// Bybit Order Book Update
 /// </summary>
-public class BybitOrderBookUpdate
+public record BybitOrderBookUpdate
 {
     /// <summary>
     /// Stream Type

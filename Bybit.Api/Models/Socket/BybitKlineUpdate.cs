@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Kline Stream
 /// </summary>
-public class BybitKlineUpdate
+public record BybitKlineUpdate
 {
     /// <summary>
     /// The start timestamp (ms)

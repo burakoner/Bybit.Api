@@ -3,7 +3,7 @@
 /// <summary>
 /// Borrow quota model.
 /// </summary>
-public class BybitTradingBorrowQuota
+public record BybitTradingBorrowQuota
 {
     /// <summary>
     /// Symbol

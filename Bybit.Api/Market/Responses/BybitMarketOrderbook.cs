@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Orderbook
 /// </summary>
-public class BybitMarketOrderbook
+public record BybitMarketOrderbook
 {
     /// <summary>
     /// Symbol name
@@ -67,7 +67,7 @@ public class BybitMarketOrderbook
 /// Bybit Orderbook Row
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class BybitMarketOrderbookRow
+public record BybitMarketOrderbookRow
 {
     /// <summary>
     /// Price

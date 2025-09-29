@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Lending Product Leverage
 /// </summary>
-public class BybitLoanLeverage
+public record BybitLoanLeverage
 {
     /// <summary>
     /// Symbol name

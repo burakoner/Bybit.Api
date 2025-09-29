@@ -3,7 +3,7 @@
 /// <summary>
 /// Batch cancel order response
 /// </summary>
-public class BybitTradingBatchCancelOrder
+public record BybitTradingBatchCancelOrder
 {
     /// <summary>
     /// Product type

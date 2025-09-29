@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Open Interest
 /// </summary>
-public class BybitMarketOpenInterest
+public record BybitMarketOpenInterest
 {
     /// <summary>
     /// Open interest. The value is the sum of both sides

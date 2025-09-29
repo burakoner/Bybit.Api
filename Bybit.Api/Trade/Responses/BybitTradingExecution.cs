@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Execution
 /// </summary>
-public class BybitTradingExecution
+public record BybitTradingExecution
 {
     /// <summary>
     /// Symbol name

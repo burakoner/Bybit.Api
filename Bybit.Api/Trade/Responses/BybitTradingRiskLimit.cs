@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Risk Limit
 /// </summary>
-public class BybitTradingRiskLimit
+public record BybitTradingRiskLimit
 {
     /// <summary>
     /// Category

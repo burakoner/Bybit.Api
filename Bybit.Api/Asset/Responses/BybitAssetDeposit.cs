@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Deposit
 /// </summary>
-public class BybitAssetDeposit
+public record BybitAssetDeposit
 {
     /// <summary>
     /// Coin

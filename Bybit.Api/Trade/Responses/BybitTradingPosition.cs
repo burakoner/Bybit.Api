@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Position
 /// </summary>
-public class BybitTradingPosition
+public record BybitTradingPosition
 {
     /// <summary>
     /// Position Index

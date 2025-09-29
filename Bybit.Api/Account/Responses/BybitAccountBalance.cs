@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Account Balance
 /// </summary>
-public class BybitAccountBalance
+public record BybitAccountBalance
 {
     /// <summary>
     /// Account type
@@ -74,7 +74,7 @@ public class BybitAccountBalance
 /// <summary>
 /// Asset balance info
 /// </summary>
-public class BybitAccountBalanceItem
+public record BybitAccountBalanceItem
 {
     /// <summary>
     /// Asset name

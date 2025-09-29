@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Delivery Record
 /// </summary>
-public class BybitAssetDelivery
+public record BybitAssetDelivery
 {
     /// <summary>
     /// Delivery time (ms)

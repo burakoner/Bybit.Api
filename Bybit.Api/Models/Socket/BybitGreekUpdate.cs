@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Greek stream
 /// </summary>
-public class BybitGreekUpdate
+public record BybitGreekUpdate
 {
     /// <summary>
     /// Base coin

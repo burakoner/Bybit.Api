@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Spot Ticker Update
 /// </summary>
-public class BybitSpotTickerStream
+public record BybitSpotTickerStream
 {
     /// <summary>
     /// Symbol name
@@ -70,7 +70,7 @@ public class BybitSpotTickerStream
 /// <summary>
 /// Bybit Futures Ticker Update
 /// </summary>
-public class BybitFuturesTickerStream
+public record BybitFuturesTickerStream
 {
     /// <summary>
     /// Symbol name
@@ -228,7 +228,7 @@ public class BybitFuturesTickerStream
 /// <summary>
 /// Bybit Option Ticker Update
 /// </summary>
-public class BybitOptionTickerStream
+public record BybitOptionTickerStream
 {
     /// <summary>
     /// Symbol name
@@ -367,7 +367,7 @@ public class BybitOptionTickerStream
 /// <summary>
 /// Bybit Leverage Token Ticker Update
 /// </summary>
-public class BybitLeverageTokenTickerStream
+public record BybitLeverageTokenTickerStream
 {
     /// <summary>
     /// Symbol name

@@ -3,7 +3,7 @@
 /// <summary>
 /// Borrow history info
 /// </summary>
-public class BybitAccountBorrow
+public record BybitAccountBorrow
 {
     /// <summary>
     /// Asset

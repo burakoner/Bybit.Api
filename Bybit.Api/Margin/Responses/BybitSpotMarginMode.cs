@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Spot Margin Mode
 /// </summary>
-public class BybitSpotMarginMode
+public record BybitSpotMarginMode
 {
     /// <summary>
     /// Spot Margin Mode

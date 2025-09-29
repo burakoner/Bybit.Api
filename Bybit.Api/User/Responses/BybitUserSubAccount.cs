@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Sub Account
 /// </summary>
-public class BybitUserSubAccount
+public record BybitUserSubAccount
 {
     /// <summary>
     /// Sub user Id

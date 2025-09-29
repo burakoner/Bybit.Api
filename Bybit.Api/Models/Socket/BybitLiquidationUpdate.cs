@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Liquidation Stream
 /// </summary>
-public class BybitLiquidationUpdate
+public record BybitLiquidationUpdate
 {
     /// <summary>
     /// The updated timestamp (ms)

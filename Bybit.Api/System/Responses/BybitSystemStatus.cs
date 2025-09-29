@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit System Status
 /// </summary>
-public class BybitSystemStatus
+public record BybitSystemStatus
 {
     /// <summary>
     /// Id

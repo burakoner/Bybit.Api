@@ -3,7 +3,7 @@
 /// <summary>
 /// Batch amend order response
 /// </summary>
-public class BybitTradingBatchAmendOrder
+public record BybitTradingBatchAmendOrder
 {
     /// <summary>
     /// Product type

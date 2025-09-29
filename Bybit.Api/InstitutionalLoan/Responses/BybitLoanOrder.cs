@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Lending Loan Order Container
 /// </summary>
-internal class BybitLendingLoanOrderContainer
+internal record BybitLendingLoanOrderContainer
 {
     [JsonProperty("loanInfo")]
     public List<BybitLoanOrder> Payload { get; set; } = [];
@@ -12,7 +12,7 @@ internal class BybitLendingLoanOrderContainer
 /// <summary>
 /// Bybit Lending Loan Order
 /// </summary>
-public class BybitLoanOrder
+public record BybitLoanOrder
 {
     /// <summary>
     /// Loan order ID

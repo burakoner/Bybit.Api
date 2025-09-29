@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit trade stream
 /// </summary>
-public class BybitTradeUpdate
+public record BybitTradeUpdate
 {
     /// <summary>
     /// Trade ID

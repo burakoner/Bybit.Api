@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Asset Information
 /// </summary>
-public class BybitAsset
+public record BybitAsset
 {
     /// <summary>
     /// Coin name
@@ -32,7 +32,7 @@ public class BybitAsset
 /// <summary>
 /// Bybit Asset Network
 /// </summary>
-public class BybitAssetChain
+public record BybitAssetChain
 {
     /// <summary>
     /// Chain type

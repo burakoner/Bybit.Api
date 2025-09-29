@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit order update
 /// </summary>
-public class BybitOrderUpdate
+public record BybitOrderUpdate
 {
     /// <summary>
     /// Product type

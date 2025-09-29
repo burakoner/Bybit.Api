@@ -3,7 +3,7 @@
 /// <summary>
 /// BybitLendingTokenContainer
 /// </summary>
-internal class BybitLendingTokenContainer
+internal record BybitLendingTokenContainer
 {
     /// <summary>
     /// Payload
@@ -15,7 +15,7 @@ internal class BybitLendingTokenContainer
 /// <summary>
 /// Bybit lending token
 /// </summary>
-public class BybitLoanToken
+public record BybitLoanToken
 {
     /// <summary>
     /// Product id
@@ -38,7 +38,7 @@ public class BybitLoanToken
 /// <summary>
 /// Bybit lending token data
 /// </summary>
-public class BybitLendingTokenData
+public record BybitLendingTokenData
 {
     /// <summary>
     /// Token

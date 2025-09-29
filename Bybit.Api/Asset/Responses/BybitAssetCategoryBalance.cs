@@ -8,7 +8,7 @@ internal class BybitAssetCategoryBalance
 /// <summary>
 /// Bybit Category Balance
 /// </summary>
-public class BybitAssetSpotBalance
+public record BybitAssetSpotBalance
 {
     /// <summary>
     /// account status. ACCOUNT_STATUS_NORMAL: normal, ACCOUNT_STATUS_UNSPECIFIED: banned
@@ -24,7 +24,7 @@ public class BybitAssetSpotBalance
 /// <summary>
 /// Bybit Category Balance Item
 /// </summary>
-public class BybitAssetSpotBalanceItem
+public record BybitAssetSpotBalanceItem
 {
     /// <summary>
     /// Coin

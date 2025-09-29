@@ -4,7 +4,7 @@
 /// Bybit Kline
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class BybitMarketKline
+public record BybitMarketKline
 {
     /// <summary>
     /// Open time
@@ -53,7 +53,7 @@ public class BybitMarketKline
 /// Bybit Mark Price Kline
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class BybitMarketMarkPriceKline
+public record BybitMarketMarkPriceKline
 {
     /// <summary>
     /// Open time
@@ -90,7 +90,7 @@ public class BybitMarketMarkPriceKline
 /// Bybit Index Price Kline
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class BybitMarketIndexPriceKline
+public record BybitMarketIndexPriceKline
 {
     /// <summary>
     /// Open time
@@ -127,7 +127,7 @@ public class BybitMarketIndexPriceKline
 /// Bybit Premium Index Price Kline
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class BybitMarketPremiumIndexPriceKline
+public record BybitMarketPremiumIndexPriceKline
 {
     /// <summary>
     /// Open time

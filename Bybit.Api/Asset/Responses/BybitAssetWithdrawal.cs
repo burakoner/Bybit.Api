@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Withdrawal
 /// </summary>
-public class BybitAssetWithdrawal
+public record BybitAssetWithdrawal
 {
     /// <summary>
     /// Withdrawal Id

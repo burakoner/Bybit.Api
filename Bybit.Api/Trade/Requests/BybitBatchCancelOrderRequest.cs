@@ -3,7 +3,7 @@
 /// <summary>
 /// Batch cancel order request model.
 /// </summary>
-public class BybitBatchCancelOrderRequest
+public record BybitBatchCancelOrderRequest
 {
     /// <summary>
     /// Symbol name

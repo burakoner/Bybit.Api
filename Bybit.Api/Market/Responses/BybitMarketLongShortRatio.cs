@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Long Short Ratio
 /// </summary>
-public class BybitMarketLongShortRatio
+public record BybitMarketLongShortRatio
 {
     /// <summary>
     /// Symbol

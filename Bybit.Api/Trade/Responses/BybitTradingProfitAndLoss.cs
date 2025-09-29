@@ -3,7 +3,7 @@
 /// <summary>
 /// Profit and Loss
 /// </summary>
-public class BybitTradingProfitAndLoss
+public record BybitTradingProfitAndLoss
 {
     /// <summary>
     /// Symbol

@@ -3,7 +3,7 @@
 /// <summary>
 /// Batch amend order request
 /// </summary>
-public class BybitBatchAmendOrderRequest
+public record BybitBatchAmendOrderRequest
 {
     /// <summary>
     /// Symbol name

@@ -3,7 +3,7 @@
 /// <summary>
 /// Fee info
 /// </summary>
-public class BybitAccountFeeRate
+public record BybitAccountFeeRate
 {
     /// <summary>
     /// Symbol

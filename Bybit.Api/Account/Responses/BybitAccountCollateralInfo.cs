@@ -3,7 +3,7 @@
 /// <summary>
 /// Collateral info
 /// </summary>
-public class BybitAccountCollateralInfo
+public record BybitAccountCollateralInfo
 {
     /// <summary>
     /// Asset

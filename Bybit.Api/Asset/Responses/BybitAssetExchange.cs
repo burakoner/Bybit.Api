@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Asset Record
 /// </summary>
-public class BybitAssetExchange
+public record BybitAssetExchange
 {
     /// <summary>
     /// From Asset

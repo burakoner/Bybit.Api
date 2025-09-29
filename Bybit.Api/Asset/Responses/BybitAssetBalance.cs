@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Asset Balances
 /// </summary>
-public class BybitAssetBalance
+public record BybitAssetBalance
 {
     /// <summary>
     /// Account type
@@ -38,7 +38,7 @@ public class BybitAssetBalance
 /// <summary>
 /// Bybit Single Asset Balance Item
 /// </summary>
-public class BybitAssetBalanceItem
+public record BybitAssetBalanceItem
 {
     /// <summary>
     /// Currency type

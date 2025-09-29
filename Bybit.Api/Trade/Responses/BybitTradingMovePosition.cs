@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit move position response
 /// </summary>
-public class BybitTradingMovePosition
+public record BybitTradingMovePosition
 {
     /// <summary>
     /// Block trade ID

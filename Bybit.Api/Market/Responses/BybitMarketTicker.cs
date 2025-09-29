@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Spot Ticker
 /// </summary>
-public class BybitMarketSpotTicker
+public record BybitMarketSpotTicker
 {
     /// <summary>
     /// Symbol
@@ -90,7 +90,7 @@ public class BybitMarketSpotTicker
 /// <summary>
 /// Bybit Linear Inverse Ticker
 /// </summary>
-public class BybitMarketFuturesTicker
+public record BybitMarketFuturesTicker
 {
     /// <summary>
     /// Symbol
@@ -259,7 +259,7 @@ public class BybitMarketFuturesTicker
 /// <summary>
 /// Bybit Option Ticker
 /// </summary>
-public class BybitMarketOptionTicker
+public record BybitMarketOptionTicker
 {
     /// <summary>
     /// Symbol

@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Funding History
 /// </summary>
-public class BybitMarketFundingHistory
+public record BybitMarketFundingHistory
 {
     /// <summary>
     /// Symbol

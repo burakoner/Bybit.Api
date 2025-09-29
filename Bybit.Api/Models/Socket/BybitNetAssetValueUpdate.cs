@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Net Asset Value Update
 /// </summary>
-public class BybitNetAssetValueUpdate
+public record BybitNetAssetValueUpdate
 {
     /// <summary>
     /// The generated timestamp of nav

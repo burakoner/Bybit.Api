@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Unified Account Upgrade Response
 /// </summary>
-public class BybitAccountUpgrade
+public record BybitAccountUpgrade
 {
     /// <summary>
     /// Status of the unified account upgrade
@@ -21,7 +21,7 @@ public class BybitAccountUpgrade
 /// <summary>
 /// Bybit Unified Account Upgrade Message
 /// </summary>
-public class BybitAccountUpgradeMessage
+public record BybitAccountUpgradeMessage
 {
     /// <summary>
     /// Messages

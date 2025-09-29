@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Take Profit Stop Loss State
 /// </summary>
-public class BybitTakeProfitStopLossState
+public record BybitTakeProfitStopLossState
 {
     /// <summary>
     /// Take Profit Stop Loss Mode

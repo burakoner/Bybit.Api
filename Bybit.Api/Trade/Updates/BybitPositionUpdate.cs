@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit position update
 /// </summary>
-public class BybitPositionUpdate
+public record BybitPositionUpdate
 {
     /// <summary>
     /// Product type

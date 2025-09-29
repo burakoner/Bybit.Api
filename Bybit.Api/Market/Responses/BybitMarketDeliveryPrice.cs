@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Delivery Price
 /// </summary>
-public class BybitMarketDeliveryPrice
+public record BybitMarketDeliveryPrice
 {
     /// <summary>
     /// Symbol

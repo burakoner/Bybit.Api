@@ -3,7 +3,7 @@
 /// <summary>
 /// Batch error response from Bybit.
 /// </summary>
-public class BybitTradingBatchError
+public record BybitTradingBatchError
 {
     /// <summary>
     /// Error code.

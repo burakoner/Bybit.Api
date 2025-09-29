@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Deposit Address
 /// </summary>
-public class BybitAssetDepositAddress
+public record BybitAssetDepositAddress
 {
     /// <summary>
     /// Asset
@@ -21,7 +21,7 @@ public class BybitAssetDepositAddress
 /// <summary>
 /// Bybit Deposit Address Item
 /// </summary>
-public class BybitAssetDepositAddressByChain
+public record BybitAssetDepositAddressByChain
 {
     /// <summary>
     /// Chain type

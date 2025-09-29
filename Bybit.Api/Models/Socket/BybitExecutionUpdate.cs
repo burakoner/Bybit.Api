@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit execution update
 /// </summary>
-public class BybitExecutionUpdate
+public record BybitExecutionUpdate
 {
     /// <summary>
     /// Product type

@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Order
 /// </summary>
-public class BybitTradingOrder
+public record BybitTradingOrder
 {
     /// <summary>
     /// Order Id

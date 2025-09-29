@@ -3,7 +3,7 @@
 /// <summary>
 /// Place Batch Order Request
 /// </summary>
-public class BybitBatchPlaceOrderRequest
+public record BybitBatchPlaceOrderRequest
 {
     /// <summary>
     /// Symbol name

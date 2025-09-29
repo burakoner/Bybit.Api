@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Market Maker Protection State
 /// </summary>
-public class BybitAccountMmp
+public record BybitAccountMmp
 {
     /// <summary>
     /// Base coin

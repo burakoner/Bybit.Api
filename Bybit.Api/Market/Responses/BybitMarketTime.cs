@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Time
 /// </summary>
-public class BybitMarketTime
+public record BybitMarketTime
 {
     /// <summary>
     /// Epoch Seconds

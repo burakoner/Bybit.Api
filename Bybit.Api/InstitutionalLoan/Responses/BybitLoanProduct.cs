@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Lending Product Container
 /// </summary>
-internal class BybitLendingProductContainer
+internal record BybitLendingProductContainer
 {
     [JsonProperty("marginProductInfo")]
     public List<BybitLoanProduct> Payload { get; set; } = [];
@@ -12,7 +12,7 @@ internal class BybitLendingProductContainer
 /// <summary>
 /// Bybit Lending Product
 /// </summary>
-public class BybitLoanProduct
+public record BybitLoanProduct
 {
     /// <summary>
     /// Product Id

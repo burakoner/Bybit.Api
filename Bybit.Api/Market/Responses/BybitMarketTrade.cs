@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Trade History
 /// </summary>
-public class BybitMarketTrade
+public record BybitMarketTrade
 {
     /// <summary>
     /// Trade Id

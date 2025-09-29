@@ -1,6 +1,6 @@
 ﻿namespace Bybit.Api.Common;
 
-internal class BybitListResponse<T>
+internal record BybitListResponse<T>
 {
     public List<T> Payload { get; set; } = [];
 
@@ -38,7 +38,7 @@ internal class BybitListResponse<T>
 /// <summary>
 /// BybitRestApiResponse
 /// </summary>
-public class BybitRestApiResponse
+public record BybitRestApiResponse
 {
     /// <summary>
     /// Return code
@@ -63,7 +63,7 @@ public class BybitRestApiResponse
 /// BybitRestApiResponse
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class BybitRestApiResponse<T> : BybitRestApiResponse
+public record BybitRestApiResponse<T> : BybitRestApiResponse
 {
     /// <summary>
     /// Result
@@ -77,7 +77,7 @@ public class BybitRestApiResponse<T> : BybitRestApiResponse
 /// </summary>
 /// <typeparam name="TResult"></typeparam>
 /// <typeparam name="TExtra"></typeparam>
-public class BybitRestApiResponse<TResult, TExtra> : BybitRestApiResponse<TResult>
+public record BybitRestApiResponse<TResult, TExtra> : BybitRestApiResponse<TResult>
 {
     /// <summary>
     /// Return extra info

@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Account Information
 /// </summary>
-public class BybitAccount
+public record BybitAccount
 {
     /// <summary>
     /// Account status

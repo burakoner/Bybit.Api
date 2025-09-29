@@ -3,7 +3,7 @@
 /// <summary>
 /// Greeks
 /// </summary>
-public class BybitAccountGreeks
+public record BybitAccountGreeks
 {
     /// <summary>
     /// Asset

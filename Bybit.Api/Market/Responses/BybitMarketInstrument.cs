@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Spot Instrument
 /// </summary>
-public class BybitMarketSpotInstrument
+public record BybitMarketSpotInstrument
 {
     /// <summary>
     /// Symbol name
@@ -60,7 +60,7 @@ public class BybitMarketSpotInstrument
 /// <summary>
 /// Spot Instrument Lot Size Filters
 /// </summary>
-public class BybitMarketSpotInstrumentLotSizeFilter
+public record BybitMarketSpotInstrumentLotSizeFilter
 {
     /// <summary>
     /// The precision of base coin
@@ -100,7 +100,7 @@ public class BybitMarketSpotInstrumentLotSizeFilter
 /// <summary>
 /// Spot Instrument Price Filters
 /// </summary>
-public class BybitMarketSpotInstrumentPriceFilter
+public record BybitMarketSpotInstrumentPriceFilter
 {
     /// <summary>
     /// The step to increase/reduce order price
@@ -111,7 +111,7 @@ public class BybitMarketSpotInstrumentPriceFilter
 /// <summary>
 /// Spot Instrument Risk Parameters
 /// </summary>
-public class BybitMarketSpotInstrumentRiskParameters
+public record BybitMarketSpotInstrumentRiskParameters
 {
     /// <summary>
     /// Price limit on Limit order. For example, "0.05" means 5%, so the order price of your buy order cannot exceed 105% of the Last Traded Price, while the order price of your sell order cannot be lower than 95% of the Last Traded Price
@@ -129,7 +129,7 @@ public class BybitMarketSpotInstrumentRiskParameters
 /// <summary>
 /// Bybit Linear/Inverse Instrument
 /// </summary>
-public class BybitMarketFuturesInstrument
+public record BybitMarketFuturesInstrument
 {
     /// <summary>
     /// Symbol name
@@ -249,7 +249,7 @@ public class BybitMarketFuturesInstrument
 /// <summary>
 /// Bybit Linear/Inverse Instrument Leverage Filter
 /// </summary>
-public class BybitMarketFuturesInstrumentLeverageFilter
+public record BybitMarketFuturesInstrumentLeverageFilter
 {
     /// <summary>
     /// Minimum leverage
@@ -272,7 +272,7 @@ public class BybitMarketFuturesInstrumentLeverageFilter
 /// <summary>
 /// Bybit Linear/Inverse Instrument Price Filter
 /// </summary>
-public class BybitMarketFuturesInstrumentPriceFilter
+public record BybitMarketFuturesInstrumentPriceFilter
 {
     /// <summary>
     /// Minimum price
@@ -295,7 +295,7 @@ public class BybitMarketFuturesInstrumentPriceFilter
 /// <summary>
 /// Bybit Linear/Inverse Instrument Lot Size Filter
 /// </summary>
-public class BybitMarketFuturesInstrumentLotSizeFilter
+public record BybitMarketFuturesInstrumentLotSizeFilter
 {
     /// <summary>
     /// Minimum notional value
@@ -331,7 +331,7 @@ public class BybitMarketFuturesInstrumentLotSizeFilter
 /// <summary>
 /// BybitFuturesInstrumentPreListingDetails
 /// </summary>
-public class BybitMarketFuturesInstrumentPreListingData
+public record BybitMarketFuturesInstrumentPreListingData
 {
     /// <summary>
     /// The current auction phase
@@ -355,7 +355,7 @@ public class BybitMarketFuturesInstrumentPreListingData
 /// <summary>
 /// BybitFuturesInstrumentPreListingPhase
 /// </summary>
-public class BybitMarketFuturesInstrumentPreListingPhase
+public record BybitMarketFuturesInstrumentPreListingPhase
 {
     /// <summary>
     /// pre-market trading phase
@@ -379,7 +379,7 @@ public class BybitMarketFuturesInstrumentPreListingPhase
 /// <summary>
 /// BybitFuturesInstrumentPreListingAuctionFee
 /// </summary>
-public class BybitMarketFuturesInstrumentPreListingAuctionFee
+public record BybitMarketFuturesInstrumentPreListingAuctionFee
 {
     /// <summary>
     /// The trading fee rate during auction phase
@@ -404,7 +404,7 @@ public class BybitMarketFuturesInstrumentPreListingAuctionFee
 /// <summary>
 /// Bybit Option Instrument
 /// </summary>
-public class BybitMarketOptionInstrument
+public record BybitMarketOptionInstrument
 {
     /// <summary>
     /// Symbol name
@@ -470,7 +470,7 @@ public class BybitMarketOptionInstrument
 /// <summary>
 /// Bybit Options Instrument Price Filter
 /// </summary>
-public class BybitMarketOptionsInstrumentPriceFilter
+public record BybitMarketOptionsInstrumentPriceFilter
 {
     /// <summary>
     /// Minimum order price
@@ -494,7 +494,7 @@ public class BybitMarketOptionsInstrumentPriceFilter
 /// <summary>
 /// Bybit Options Instrument Lot Size Filter
 /// </summary>
-public class BybitMarketOptionsInstrumentLotSizeFilter
+public record BybitMarketOptionsInstrumentLotSizeFilter
 {
     /// <summary>
     /// Maximum order quantity

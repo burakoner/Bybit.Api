@@ -3,7 +3,7 @@
 /// <summary>
 /// Transaction info
 /// </summary>
-public class BybitAccountTransaction
+public record BybitAccountTransaction
 {
     /// <summary>
     /// Unique id

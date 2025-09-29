@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Settlement Record
 /// </summary>
-public class BybitAssetSettlement
+public record BybitAssetSettlement
 {
     /// <summary>
     /// Symbol

@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Insurance
 /// </summary>
-public class BybitMarketInsurance
+public record BybitMarketInsurance
 {
     /// <summary>
     /// Coin

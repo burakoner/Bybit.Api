@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Reason
 /// </summary>
-public class BybitAccountReason
+public record BybitAccountReason
 {
     /// <summary>
     /// Reason Code

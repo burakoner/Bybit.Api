@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit move position history
 /// </summary>
-public class BybitTradingMoveHistory
+public record BybitTradingMoveHistory
 {
     /// <summary>
     /// Block trade ID

@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Universal Transfer
 /// </summary>
-public class BybitAssetTransferUniversal
+public record BybitAssetTransferUniversal
 {
     /// <summary>
     /// Transfer Id

@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit move position request
 /// </summary>
-public class BybitMovePositionRequest
+public record BybitMovePositionRequest
 {
     /// <summary>
     /// Product type. linear, spot, option

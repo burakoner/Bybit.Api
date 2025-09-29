@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Sub User Ids
 /// </summary>
-public class BybitAssetSubUserIds
+public record BybitAssetSubUserIds
 {
     /// <summary>
     /// All sub UIDs under the main UID

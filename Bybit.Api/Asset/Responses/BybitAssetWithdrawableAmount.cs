@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Withdrawable Quantity
 /// </summary>
-public class BybitAssetWithdrawableAmount
+public record BybitAssetWithdrawableAmount
 {
     /// <summary>
     /// The frozen amount due to risk, in USD
@@ -21,7 +21,7 @@ public class BybitAssetWithdrawableAmount
 /// <summary>
 /// Bybit Withdrawable Quantity Category
 /// </summary>
-public class BybitAssetWithdrawableAmountData
+public record BybitAssetWithdrawableAmountData
 {
     /// <summary>
     /// Spot wallet, it is not returned if spot wallet is removed
@@ -37,7 +37,7 @@ public class BybitAssetWithdrawableAmountData
 /// <summary>
 /// Bybit Withdrawable Quantity Category Item
 /// </summary>
-public class BybitAssetWithdrawableAmountItem
+public record BybitAssetWithdrawableAmountItem
 {
     /// <summary>
     /// Coin name

@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Internal Deposit
 /// </summary>
-public class BybitAssetDepositInternal
+public record BybitAssetDepositInternal
 {
     /// <summary>
     /// Id
