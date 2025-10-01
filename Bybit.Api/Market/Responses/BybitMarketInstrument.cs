@@ -30,6 +30,12 @@ public record BybitMarketSpotInstrument
     public bool Innovation { get; set; }
 
     /// <summary>
+    /// the region to which the trading pair belongs
+    /// </summary>
+    [JsonProperty("symbolType")]
+    public BybitInstrumentType? Type { get; set; }
+
+    /// <summary>
     /// Instrument status
     /// </summary>
     public BybitInstrumentStatus Status { get; set; }
@@ -38,6 +44,12 @@ public record BybitMarketSpotInstrument
     /// Margin trade symbol or not
     /// </summary>
     public BybitMarginTradingStatus MarginTrading { get; set; }
+
+    /// <summary>
+    /// Whether or not it has an special treatment label. 0: false, 1: true
+    /// </summary>
+    [JsonConverter(typeof(BooleanConverter))]
+    public bool SpecialTreatment { get; set; }
 
     /// <summary>
     /// Size attributes
@@ -52,8 +64,9 @@ public record BybitMarketSpotInstrument
     public BybitMarketSpotInstrumentPriceFilter PriceFilter { get; set; } = default!;
 
     /// <summary>
-    /// Price limit parameters
+    /// Risk parameters for limit order price. Note that the formula changed in Jan 2025
     /// </summary>
+    [JsonProperty("riskParameters")]
     public BybitMarketSpotInstrumentRiskParameters RiskParameters { get; set; } = default!;
 }
 
@@ -114,16 +127,16 @@ public record BybitMarketSpotInstrumentPriceFilter
 public record BybitMarketSpotInstrumentRiskParameters
 {
     /// <summary>
-    /// Price limit on Limit order. For example, "0.05" means 5%, so the order price of your buy order cannot exceed 105% of the Last Traded Price, while the order price of your sell order cannot be lower than 95% of the Last Traded Price
+    /// PriceLimitRatioX
     /// </summary>
-    [JsonProperty("limitParameter")]
-    public decimal LimitPricePercentageLimit { get; set; }
+    [JsonProperty("priceLimitRatioX")]
+    public decimal? PriceLimitRatioX { get; set; }
 
     /// <summary>
-    /// Price limit on Market order. For example, assuming the market order limit for MNT/USDT is 5%. When the last traded price is at 2 USDT, a trader places a market order for 100,000 USDT. Any portion that could have been filled at above 2.1 USDT will be canceled. Assuming only 80,000 USDT order value can be filled at a price of 2.1 USDT or below, the remaining 20,000 USDT order value will be canceled since the deviation exceeds the 5% threshold.
+    /// PriceLimitRatioY
     /// </summary>
-    [JsonProperty("marketParameter")]
-    public decimal MarketPricePercentageLimit { get; set; }
+    [JsonProperty("priceLimitRatioY")]
+    public decimal? PriceLimitRatioY { get; set; }
 }
 
 /// <summary>
@@ -159,10 +172,16 @@ public record BybitMarketFuturesInstrument
     public string QuoteAsset { get; set; } = string.Empty;
 
     /// <summary>
+    /// the region to which the trading pair belongs
+    /// </summary>
+    [JsonProperty("symbolType")]
+    public BybitInstrumentType? Type { get; set; }
+
+    /// <summary>
     /// Launch time
     /// </summary>
     [JsonConverter(typeof(DateTimeConverter))]
-    public DateTime LaunchTime { get; set; }
+    public DateTime? LaunchTime { get; set; }
 
     /// <summary>
     /// Delivery time
@@ -233,6 +252,18 @@ public record BybitMarketFuturesInstrument
     public decimal LowerFundingRate { get; set; }
 
     /// <summary>
+    /// The USDC futures &amp; perpetual name displayed in the Web or App
+    /// </summary>
+    [JsonProperty("displayName")]
+    public string DisplayName { get; set; } = "";
+
+    /// <summary>
+    /// Risk parameters for limit order price. Note that the formula changed in Jan 2025
+    /// </summary>
+    [JsonProperty("riskParameters")]
+    public BybitMarketFuturesInstrumentRiskParameters RiskParameters { get; set; } = default!;
+
+    /// <summary>
     /// Whether the contract is a pre-market contract
     /// When the pre-market contract is converted to official contract, it will be false
     /// </summary>
@@ -243,7 +274,7 @@ public record BybitMarketFuturesInstrument
     /// If isPreListing=true, preListingInfo is an object
     /// </summary>
     [JsonProperty("preListingInfo")]
-    public BybitMarketFuturesInstrumentPreListingData PreListingDetails { get; set; } = default!;
+    public BybitMarketFuturesInstrumentPreListingInformation PreListingInformation{ get; set; } = default!;
 }
 
 /// <summary>
@@ -329,9 +360,27 @@ public record BybitMarketFuturesInstrumentLotSizeFilter
 }
 
 /// <summary>
+/// Bybit Linear/Inverse Instrument Risk Parameters
+/// </summary>
+public record BybitMarketFuturesInstrumentRiskParameters
+{
+    /// <summary>
+    /// PriceLimitRatioX
+    /// </summary>
+    [JsonProperty("priceLimitRatioX")]
+    public decimal? PriceLimitRatioX { get; set; }
+
+    /// <summary>
+    /// PriceLimitRatioY
+    /// </summary>
+    [JsonProperty("priceLimitRatioY")]
+    public decimal? PriceLimitRatioY { get; set; }
+}
+
+/// <summary>
 /// BybitFuturesInstrumentPreListingDetails
 /// </summary>
-public record BybitMarketFuturesInstrumentPreListingData
+public record BybitMarketFuturesInstrumentPreListingInformation
 {
     /// <summary>
     /// The current auction phase
@@ -443,13 +492,13 @@ public record BybitMarketOptionInstrument
     /// Launch timestamp (ms)
     /// </summary>
     [JsonConverter(typeof(DateTimeConverter))]
-    public DateTime LaunchTime { get; set; }
+    public DateTime? LaunchTime { get; set; }
 
     /// <summary>
     /// Delivery timestamp (ms)
     /// </summary>
     [JsonConverter(typeof(DateTimeConverter))]
-    public DateTime DeliveryTime { get; set; }
+    public DateTime? DeliveryTime { get; set; }
 
     /// <summary>
     /// Delivery fee rate
@@ -465,6 +514,12 @@ public record BybitMarketOptionInstrument
     /// Size attributes
     /// </summary>
     public BybitMarketOptionsInstrumentLotSizeFilter LotSizeFilter { get; set; } = default!;
+
+    /// <summary>
+    /// The option name displayed in the Web or App
+    /// </summary>
+    [JsonProperty("displayName")]
+    public string DisplayName { get; set; } = "";
 }
 
 /// <summary>

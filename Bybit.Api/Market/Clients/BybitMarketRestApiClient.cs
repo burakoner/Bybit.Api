@@ -1,4 +1,6 @@
-﻿namespace Bybit.Api.Market;
+﻿using System.Reflection.Emit;
+
+namespace Bybit.Api.Market;
 
 /// <summary>
 /// Bybit Rest API Market Client
@@ -13,7 +15,7 @@ public class BybitMarketRestApiClient
     private const string _v5MarketPremiumIndexPriceKline = "v5/market/premium-index-price-kline";
     private const string _v5InstrumentsInfo = "v5/market/instruments-info";
     private const string _v5MarketOrderbook = "v5/market/orderbook";
-    // TODO: Get RPI Orderbook
+    private const string _v5MarketRpiOrderbook = "v5/market/rpi_orderbook";
     private const string _v5MarketTickers = "v5/market/tickers";
     private const string _v5MarketFundingHistory = "v5/market/funding/history";
     private const string _v5MarketRecentTrade = "v5/market/recent-trade";
@@ -22,7 +24,7 @@ public class BybitMarketRestApiClient
     private const string _v5MarketInsurance = "v5/market/insurance";
     private const string _v5MarketRiskLimit = "v5/market/risk-limit";
     private const string _v5MarketDeliveryPrice = "v5/market/delivery-price";
-    // TODO: Get New Delivery Price
+    private const string _v5MarketNewDeliveryPrice = "v5/market/new-delivery-price";
     private const string _v5MarketAccountRatio = "/v5/market/account-ratio";
     // TODO: Get Index Price Components
     // TODO: Get Order Price Limit
@@ -234,7 +236,7 @@ public class BybitMarketRestApiClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitMarketSpotInstrument>>> GetSpotInstrumentsAsync(string? symbol = null, BybitInstrumentStatus? status = null,int limit = 500, string? cursor = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitMarketSpotInstrument>>> GetSpotInstrumentsAsync(string? symbol = null, BybitInstrumentStatus? status = null, int limit = 500, string? cursor = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddEnum("category", BybitCategory.Spot);
@@ -356,7 +358,30 @@ public class BybitMarketRestApiClient
 
         return await _.SendBybitRequest<BybitMarketOrderbook>(_.BuildUri(_v5MarketOrderbook), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
-    
+
+    /// <summary>
+    /// Query for orderbook depth data.
+    /// Covers: Spot / USDT contract / USDC contract / Inverse contract /
+    /// Contract: 50-level of RPI orderbook data
+    /// Spot: 50-level of RPI orderbook data
+    /// </summary>
+    /// <param name="category">Product type. spot, linear, inverse, option</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="limit">Limit size for each bid and ask: [1, 50]</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitMarketOrderbook>> GetRpiOrderbookAsync(BybitCategory category, string symbol, int? limit = null, CancellationToken ct = default)
+    {
+        limit?.ValidateIntBetween(nameof(limit), 1, 50);
+
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("category", category);
+        parameters.Add("symbol", symbol);
+        parameters.AddOptional("limit", limit);
+
+        return await _.SendBybitRequest<BybitMarketOrderbook>(_.BuildUri(_v5MarketRpiOrderbook), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+    }
+
     /// <summary>
     /// Query for the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
     /// Covers: Spot / USDT perpetual / USDC contract / Inverse contract / Option
@@ -668,10 +693,11 @@ public class BybitMarketRestApiClient
     /// </summary>
     /// <param name="category">Product type. linear,inverse</param>
     /// <param name="symbol">Symbol name</param>
+    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<BybitRestCallResult<List<BybitMarketRiskLimit>>> GetRiskLimitAsync(BybitCategory category, string? symbol = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitMarketRiskLimit>>> GetRiskLimitAsync(BybitCategory category, string? symbol = null, string? cursor = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -679,6 +705,7 @@ public class BybitMarketRestApiClient
         var parameters = new ParameterCollection();
         parameters.AddEnum("category", category);
         parameters.AddOptional("symbol", symbol);
+        parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitMarketRiskLimit>>(_.BuildUri(_v5MarketRiskLimit), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMarketRiskLimit>>(default!);
@@ -695,12 +722,13 @@ public class BybitMarketRestApiClient
     /// <param name="category">Product type. linear, inverse, option</param>
     /// <param name="symbol">Symbol name</param>
     /// <param name="baseAsset">Base coin. Default: BTC. valid for option only</param>
+    /// <param name="settleAsset">Settle coin, uppercase only. Default: USDC.</param>
     /// <param name="limit">Limit for data size per page. [1, 200]. Default: 50</param>
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<BybitRestCallResult<List<BybitMarketDeliveryPrice>>> GetDeliveryPriceAsync(BybitCategory category, string? symbol = null, string? baseAsset = null, int? limit = null, string? cursor = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitMarketDeliveryPrice>>> GetDeliveryPriceAsync(BybitCategory category, string? symbol = null, string? baseAsset = null, string? settleAsset = null, int? limit = null, string? cursor = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse, BybitCategory.Option))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -710,11 +738,39 @@ public class BybitMarketRestApiClient
         parameters.AddEnum("category", category);
         parameters.AddOptional("symbol", symbol);
         parameters.AddOptional("baseCoin", baseAsset);
+        parameters.AddOptional("settleCoin", settleAsset);
         parameters.AddOptional("limit", limit);
         parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitMarketDeliveryPrice>>(_.BuildUri(_v5MarketDeliveryPrice), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMarketDeliveryPrice>>(default!);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
+    }
+
+    /// <summary>
+    /// Get New Delivery Price
+    /// Get historical option delivery prices.
+    /// It is recommended to query this endpoint 1 minute after settlement is completed, because the data returned by this endpoint may be delayed by 1 minute.
+    /// By default, the most recent 50 records are returned in reverse order of "deliveryTime".
+    /// </summary>
+    /// <param name="category">Product type. Valid for option only</param>
+    /// <param name="baseAsset">Base coin, uppercase only. Valid for option only</param>
+    /// <param name="settleAsset">	Settle coin, uppercase only. Default: USDT.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult<List<BybitMarketDeliveryPriceNew>>> GetNewDeliveryPriceAsync(BybitCategory category,  string baseAsset, string? settleAsset = null, CancellationToken ct = default)
+    {
+        if (category.IsNotIn(BybitCategory.Option))
+            throw new NotSupportedException($"{category} is not supported for this endpoint.");
+
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("category", category);
+        parameters.AddOptional("baseCoin", baseAsset);
+        parameters.AddOptional("settleCoin", settleAsset);
+
+        var result = await _.SendBybitRequest<BybitListResponse<BybitMarketDeliveryPriceNew>>(_.BuildUri(_v5MarketNewDeliveryPrice), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitMarketDeliveryPriceNew>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
@@ -725,24 +781,29 @@ public class BybitMarketRestApiClient
     /// <param name="symbol">Symbol name</param>
     /// <param name="period">Data recording period. 5min, 15min, 30min, 1h, 4h, 1d</param>
     /// <param name="limit">Limit for data size per page. [1, 500]. Default: 50</param>
+    /// <param name="startTime">The start timestamp (ms)</param>
+    /// <param name="endTime">The end timestamp (ms)</param>
+    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<BybitRestCallResult<List<BybitMarketLongShortRatio>>> GetLongShortRatioAsync(BybitCategory category, string symbol, BybitRecordPeriod period, int limit = 50, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitMarketLongShortRatio>>> GetLongShortRatioAsync(BybitCategory category, string symbol, BybitRecordPeriod period, long? startTime = null, long? endTime = null, int? limit = null, string? cursor = null, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
 
-        limit.ValidateIntBetween(nameof(limit), 1, 500);
+        limit?.ValidateIntBetween(nameof(limit), 1, 500);
         var parameters = new ParameterCollection();
         parameters.AddEnum("category", category);
         parameters.Add("symbol", symbol);
         parameters.AddEnum("period", period);
-        parameters.Add("limit", limit);
+        parameters.AddOptional("startTime", startTime);
+        parameters.AddOptional("endTime", endTime);
+        parameters.AddOptional("limit", limit);
+        parameters.AddOptional("cursor", cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitMarketLongShortRatio>>(_.BuildUri(_v5MarketAccountRatio), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMarketLongShortRatio>>(default!);
         return result.As(result.Data.Payload);
     }
-
 }

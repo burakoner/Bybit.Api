@@ -49,6 +49,11 @@ public record BybitMarketTrade
     public bool IsBlockTrade { get; set; }
 
     /// <summary>
+    /// Whether the trade is RPI trade
+    /// </summary>
+    public bool IsRpiTrade { get; set; }
+
+    /// <summary>
     /// [Option only] Mark price
     /// </summary>
     [JsonProperty("mP")]
@@ -71,4 +76,10 @@ public record BybitMarketTrade
     /// </summary>
     [JsonProperty("iv")]
     public decimal? IndexIv { get; set; }
+
+    /// <summary>
+    /// cross sequence
+    /// </summary>
+    [JsonProperty("seq")]
+    public string? Sequence { get; set; }
 }

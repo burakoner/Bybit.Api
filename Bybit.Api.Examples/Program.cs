@@ -11,9 +11,9 @@ internal class Program
         // Market API Methods (Public)
         var market_01 = await api.Market.GetServerTimeAsync(/* ...optional parameters... */);
         var market_02 = await api.Market.GetKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitInterval.OneHour /* ...optional parameters... */);
-        var market_03 = await api.Market.GetMarkKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitInterval.OneHour /* ...optional parameters... */);
-        var market_04 = await api.Market.GetIndexKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitInterval.OneHour /* ...optional parameters... */);
-        var market_05 = await api.Market.GetPremiumIndexKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitInterval.OneHour /* ...optional parameters... */);
+        var market_03 = await api.Market.GetMarkKlinesAsync(BybitCategory.Linear, "BTCUSDT", BybitInterval.OneHour /* ...optional parameters... */);
+        var market_04 = await api.Market.GetIndexKlinesAsync(BybitCategory.Inverse, "BTCUSDT", BybitInterval.OneHour /* ...optional parameters... */);
+        var market_05 = await api.Market.GetPremiumIndexKlinesAsync(BybitCategory.Linear, "BTCUSDT", BybitInterval.OneHour /* ...optional parameters... */);
         var market_06 = await api.Market.GetSpotInstrumentsAsync(/* ...optional parameters... */);
         var market_07 = await api.Market.GetLinearInstrumentsAsync(/* ...optional parameters... */);
         var market_08 = await api.Market.GetInverseInstrumentsAsync(/* ...optional parameters... */);
