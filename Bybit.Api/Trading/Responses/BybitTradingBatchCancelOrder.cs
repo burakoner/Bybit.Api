@@ -1,24 +1,30 @@
-﻿namespace Bybit.Api.Trade;
+﻿namespace Bybit.Api.Trading;
 
 /// <summary>
-/// Batch cancel order request model.
+/// Batch cancel order response
 /// </summary>
-public record BybitBatchCancelOrderRequest
+public record BybitTradingBatchCancelOrder
 {
     /// <summary>
-    /// Symbol name
+    /// Product type
+    /// </summary>
+    [JsonProperty("category")]
+    public BybitCategory Category { get; set; }
+
+    /// <summary>
+    /// Symbol
     /// </summary>
     [JsonProperty("symbol")]
     public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
-    /// Order ID. Either orderId or orderLinkId is required
+    /// Order ID
     /// </summary>
     [JsonProperty("orderId")]
     public string OrderId { get; set; } = string.Empty;
 
     /// <summary>
-    /// User customised order ID. Either orderId or orderLinkId is required
+    /// User customised order ID
     /// </summary>
     [JsonProperty("orderLinkId")]
     public string ClientOrderId { get; set; } = string.Empty;

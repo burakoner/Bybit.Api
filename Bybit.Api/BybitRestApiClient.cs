@@ -3,7 +3,7 @@ using Bybit.Api.Asset;
 using Bybit.Api.InstitutionalLoan;
 using Bybit.Api.Margin;
 using Bybit.Api.Market;
-using Bybit.Api.Trade;
+using Bybit.Api.Trading;
 using Bybit.Api.User;
 using Bybit.Api.System;
 
@@ -22,17 +22,17 @@ public class BybitRestApiClient
     /// <summary>
     /// System Client
     /// </summary>
-    public BybitSystemRestApiClient System { get; } // OK-929
+    public BybitSystemRestApiClient System { get; } // OK-1001
 
     /// <summary>
     /// Market Client
     /// </summary>
-    public BybitMarketRestApiClient Market { get; } // OK-1009
+    public BybitMarketRestApiClient Market { get; } // OK-1001
 
     /// <summary>
     /// Trade Client
     /// </summary>
-    public BybitTradeRestApiClient Trade { get; } // OK-1009
+    public BybitTradeRestApiClient Trade { get; } // OK-1001
 
     /// <summary>
     /// Position Client

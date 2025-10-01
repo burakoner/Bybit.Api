@@ -2,7 +2,7 @@
 using Bybit.Api.Common.Requests;
 using Bybit.Api.Market;
 using Bybit.Api.Models.Socket;
-using Bybit.Api.Trade;
+using Bybit.Api.Trading;
 
 namespace Bybit.Api;
 

@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Trade;
+﻿namespace Bybit.Api.Trading;
 
 /// <summary>
 /// Bybit Execution
@@ -44,6 +44,14 @@ public record BybitTradingExecution
     public decimal? RemainingQuantity { get; set; }
 
     /// <summary>
+    /// Order create type
+    /// classic account &amp; UTA1.0(category=inverse): always ""
+    /// Spot, Option do not have this key
+    /// </summary>
+    [JsonProperty("createType")]
+    public string? CreateType { get; set; }
+
+    /// <summary>
     /// Order Type
     /// </summary>
     public BybitOrderType? OrderType { get; set; }
@@ -58,6 +66,12 @@ public record BybitTradingExecution
     /// </summary>
     [JsonProperty("execFee")]
     public decimal? Fee { get; set; }
+
+    /// <summary>
+    /// Spot leg transaction fee, only works for execType=FutureSpread
+    /// </summary>
+    [JsonProperty("execFeeV2")]
+    public decimal? FeeV2 { get; set; }
 
     /// <summary>
     /// Execution ID

@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Trade;
+﻿namespace Bybit.Api.Trading;
 
 /// <summary>
 /// Bybit Risk Limit

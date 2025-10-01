@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Trade;
+﻿namespace Bybit.Api.Trading;
 
 /// <summary>
 /// Place Batch Order Request

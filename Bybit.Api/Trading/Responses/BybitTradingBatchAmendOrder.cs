@@ -1,9 +1,9 @@
-﻿namespace Bybit.Api.Trade;
+﻿namespace Bybit.Api.Trading;
 
 /// <summary>
-/// Batch cancel order response
+/// Batch amend order response
 /// </summary>
-public record BybitTradingBatchCancelOrder
+public record BybitTradingBatchAmendOrder
 {
     /// <summary>
     /// Product type

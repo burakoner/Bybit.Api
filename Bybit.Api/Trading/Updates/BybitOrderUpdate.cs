@@ -1,10 +1,18 @@
-﻿namespace Bybit.Api.Trade;
+﻿namespace Bybit.Api.Trading;
 
 /// <summary>
-/// Bybit Order
+/// Bybit order update
 /// </summary>
-public record BybitTradingOrder
+public record BybitOrderUpdate
 {
+    /// <summary>
+    /// Product type
+    /// Unified account: spot, linear, inverse, option
+    /// Classic account: spot, linear, inverse.
+    /// </summary>
+    [JsonProperty("category")]
+    public BybitCategory Category { get; set; }
+
     /// <summary>
     /// Order Id
     /// </summary>
@@ -15,6 +23,12 @@ public record BybitTradingOrder
     /// </summary>
     [JsonProperty("orderLinkId")]
     public string ClientOrderId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Whether to borrow. Unified spot only. 0: false, 1: true. Classic spot is not supported, always 0
+    /// </summary>
+    [JsonConverter(typeof(BooleanConverter))]
+    public bool? IsLeverage { get; set; }
 
     /// <summary>
     /// Block Trade Id
@@ -43,12 +57,6 @@ public record BybitTradingOrder
     public BybitOrderSide Side { get; set; }
 
     /// <summary>
-    /// Whether to borrow. Unified spot only. 0: false, 1: true. Classic spot is not supported, always 0
-    /// </summary>
-    [JsonConverter(typeof(BooleanConverter))]
-    public bool? IsLeverage { get; set; }
-
-    /// <summary>
     /// Position index. Used to identify positions in different position modes.
     /// </summary>
     [JsonProperty("positionIdx")]
@@ -60,14 +68,26 @@ public record BybitTradingOrder
     public BybitOrderStatus OrderStatus { get; set; }
 
     /// <summary>
+    /// Order create type
+    /// Only for category=linear or inverse
+    /// Spot, Option do not have this key
+    /// </summary>
+    [JsonProperty("createType")]
+    public string CreateType { get; set; } = string.Empty; // TODO: Make this field an enum (?)
+
+    /// <summary>
     /// Order Cancel Type
     /// </summary>
-    public BybitOrderCancelType? CancelType { get; set; }
+    [JsonProperty("cancelType")]
+    // public BybitOrderCancelType? CancelType { get; set; }
+    public string? CancelType { get; set; }
 
     /// <summary>
     /// Reject reason. Classic spot is not supported
     /// </summary>
-    public BybitOrderRejectReason RejectReason { get; set; }
+    [JsonProperty("rejectReason")]
+    // public BybitOrderRejectReason RejectReason { get; set; }
+    public string? RejectReason { get; set; }
 
     /// <summary>
     /// Average filled price
@@ -106,6 +126,12 @@ public record BybitTradingOrder
     /// </summary>
     [JsonProperty("cumExecFee")]
     public decimal? CumulativeExecutedFee { get; set; }
+    
+    /// <summary>
+    /// Trading fee currency for Spot only. Please understand Spot trading fee currency here
+    /// </summary>
+    [JsonProperty("feeCurrency")]
+    public string FeeCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Time in force
@@ -123,6 +149,12 @@ public record BybitTradingOrder
     /// </summary>
     [JsonProperty("stopOrderType")]
     public BybitOrderStopType? StopOrderType { get; set; }
+    
+    /// <summary>
+    /// The trigger type of Spot OCO order.OcoTriggerByUnknown, OcoTriggerByTp, OcoTriggerByBySl. Classic spot is not supported
+    /// </summary>
+    [JsonProperty("ocoTriggerBy")]
+    public BybitOcoTriggerBy? OcoTriggerBy { get; set; }
 
     /// <summary>
     /// Implied volatility
@@ -159,12 +191,6 @@ public record BybitTradingOrder
     /// </summary>
     [JsonProperty("tpslMode")]
     public BybitTakeProfitStopLossMode? TakeProfitStopLossMode { get; set; }
-
-    /// <summary>
-    /// The trigger type of Spot OCO order.OcoTriggerByUnknown, OcoTriggerByTp, OcoTriggerByBySl. Classic spot is not supported
-    /// </summary>
-    [JsonProperty("ocoTriggerBy")]
-    public BybitOcoTriggerBy? OcoTriggerBy { get; set; }
 
     /// <summary>
     /// The limit order price when take profit price is triggered

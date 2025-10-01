@@ -1,9 +1,9 @@
-﻿namespace Bybit.Api.Trade;
+﻿namespace Bybit.Api.Trading;
 
 /// <summary>
 /// Bybit Take Profit Stop Loss State
 /// </summary>
-public record BybitTakeProfitStopLossState
+public record BybitTradingTakeProfitStopLossState
 {
     /// <summary>
     /// Take Profit Stop Loss Mode

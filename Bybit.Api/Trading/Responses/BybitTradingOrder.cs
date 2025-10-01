@@ -1,18 +1,10 @@
-﻿namespace Bybit.Api.Trade;
+﻿namespace Bybit.Api.Trading;
 
 /// <summary>
-/// Bybit order update
+/// Bybit Order
 /// </summary>
-public record BybitOrderUpdate
+public record BybitTradingOrder
 {
-    /// <summary>
-    /// Product type
-    /// Unified account: spot, linear, inverse, option
-    /// Classic account: spot, linear, inverse.
-    /// </summary>
-    [JsonProperty("category")]
-    public BybitCategory Category { get; set; }
-
     /// <summary>
     /// Order Id
     /// </summary>
@@ -23,12 +15,6 @@ public record BybitOrderUpdate
     /// </summary>
     [JsonProperty("orderLinkId")]
     public string ClientOrderId { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Whether to borrow. Unified spot only. 0: false, 1: true. Classic spot is not supported, always 0
-    /// </summary>
-    [JsonConverter(typeof(BooleanConverter))]
-    public bool? IsLeverage { get; set; }
 
     /// <summary>
     /// Block Trade Id
@@ -57,6 +43,12 @@ public record BybitOrderUpdate
     public BybitOrderSide Side { get; set; }
 
     /// <summary>
+    /// Whether to borrow. Unified spot only. 0: false, 1: true. Classic spot is not supported, always 0
+    /// </summary>
+    [JsonConverter(typeof(BooleanConverter))]
+    public bool? IsLeverage { get; set; }
+
+    /// <summary>
     /// Position index. Used to identify positions in different position modes.
     /// </summary>
     [JsonProperty("positionIdx")]
@@ -73,17 +65,21 @@ public record BybitOrderUpdate
     /// Spot, Option do not have this key
     /// </summary>
     [JsonProperty("createType")]
-    public string CreateType { get; set; } = string.Empty; // TODO: Make this field an enum
+    public string? CreateType { get; set; }
 
     /// <summary>
     /// Order Cancel Type
     /// </summary>
-    public BybitOrderCancelType? CancelType { get; set; }
+    [JsonProperty("cancelType")]
+    // public BybitOrderCancelType? CancelType { get; set; }
+    public string? CancelType { get; set; }
 
     /// <summary>
     /// Reject reason. Classic spot is not supported
     /// </summary>
-    public BybitOrderRejectReason RejectReason { get; set; }
+    [JsonProperty("rejectReason")]
+    // public BybitOrderRejectReason RejectReason { get; set; }
+    public string? RejectReason { get; set; }
 
     /// <summary>
     /// Average filled price
@@ -122,12 +118,6 @@ public record BybitOrderUpdate
     /// </summary>
     [JsonProperty("cumExecFee")]
     public decimal? CumulativeExecutedFee { get; set; }
-    
-    /// <summary>
-    /// Trading fee currency for Spot only. Please understand Spot trading fee currency here
-    /// </summary>
-    [JsonProperty("feeCurrency")]
-    public string FeeCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Time in force
@@ -145,12 +135,6 @@ public record BybitOrderUpdate
     /// </summary>
     [JsonProperty("stopOrderType")]
     public BybitOrderStopType? StopOrderType { get; set; }
-    
-    /// <summary>
-    /// The trigger type of Spot OCO order.OcoTriggerByUnknown, OcoTriggerByTp, OcoTriggerByBySl. Classic spot is not supported
-    /// </summary>
-    [JsonProperty("ocoTriggerBy")]
-    public BybitOcoTriggerBy? OcoTriggerBy { get; set; }
 
     /// <summary>
     /// Implied volatility
@@ -187,6 +171,12 @@ public record BybitOrderUpdate
     /// </summary>
     [JsonProperty("tpslMode")]
     public BybitTakeProfitStopLossMode? TakeProfitStopLossMode { get; set; }
+
+    /// <summary>
+    /// The trigger type of Spot OCO order.OcoTriggerByUnknown, OcoTriggerByTp, OcoTriggerByBySl. Classic spot is not supported
+    /// </summary>
+    [JsonProperty("ocoTriggerBy")]
+    public BybitOcoTriggerBy? OcoTriggerBy { get; set; }
 
     /// <summary>
     /// The limit order price when take profit price is triggered
@@ -228,6 +218,11 @@ public record BybitOrderUpdate
     /// Last price when place the order
     /// </summary>
     public decimal? LastPriceOnCreated { get; set; }
+
+    /// <summary>
+    /// Last price when place the order, Spot has this field only
+    /// </summary>
+    public bool? BasePrice { get; set; }
 
     /// <summary>
     /// Reduce only. true means reduce position size
@@ -284,4 +279,10 @@ public record BybitOrderUpdate
     /// Order updated time
     /// </summary>
     public DateTime UpdatedTime { get => UpdatedTimestamp.ConvertFromMilliseconds(); }
+
+    /// <summary>
+    /// Cumulative trading fee details instead of cumExecFee
+    /// </summary>
+    [JsonProperty("cumFeeDetail")]
+    public Dictionary<string, decimal> CumulativeTradingFees { get; set; } = [];
 }

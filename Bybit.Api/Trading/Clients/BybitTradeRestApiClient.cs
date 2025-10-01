@@ -1,4 +1,6 @@
-﻿namespace Bybit.Api.Trade;
+﻿using System.Diagnostics;
+
+namespace Bybit.Api.Trading;
 
 /// <summary>
 /// Bybit Rest API Trade Client
@@ -18,7 +20,7 @@ public class BybitTradeRestApiClient
     private const string _v5OrderCancelBatch = "v5/order/cancel-batch";
     private const string _v5OrderSpotBorrowCheck = "v5/order/spot-borrow-check";
     private const string _v5OrderDisconnectedCancelAll = "v5/order/disconnected-cancel-all";
-    // POST /v5/order/pre-check
+    // TODO: POST /v5/order/pre-check
 
     #region Internal
     internal BybitBaseRestApiClient _ { get; }
@@ -130,6 +132,19 @@ public class BybitTradeRestApiClient
     /// linear &amp; inverse: only works when tpslMode=Partial and slOrderType=Limit
     /// Spot(UTA): it is required when the order has stopLoss and slOrderType=Limit
     /// </param>
+    /// <param name="slippageToleranceType">Slippage tolerance Type for market order, TickSize, Percent
+    /// Support linear, inverse, spot trading, but take profit, stoploss, conditional orders are not supported
+    /// 
+    /// TickSize: 
+    /// the highest price of Buy order = ask1 + slippageTolerance x tickSize;
+    /// the lowest price of Sell order = bid1 - slippageTolerance x tickSize
+    /// 
+    /// Percent:
+    /// the highest price of Buy order = ask1 x(1 + slippageTolerance x 0.01);
+    /// the lowest price of Sell order = bid1 x(1 - slippageTolerance x 0.01)</param>
+    /// <param name="slippageTolerance">Slippage tolerance value
+    /// TickSize: range is [1, 10000], integer only
+    /// Percent: range is [0.01 %, 10 %], up to 2 decimals</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitTradingOrderId>> PlaceOrderAsync(
@@ -143,6 +158,9 @@ public class BybitTradeRestApiClient
         decimal? price = null,
         string? clientOrderId = null,
         bool? isLeverage = null,
+
+        BybitSlippageToleranceType? slippageToleranceType = null,
+        decimal? slippageTolerance = null,
 
         BybitTriggerDirection? triggerDirection = null,
         BybitOrderFilter? orderFilter = null,
@@ -180,6 +198,15 @@ public class BybitTradeRestApiClient
         parameters.AddOptional("orderLinkId", clientOrderId);
         parameters.AddOptionalEnum("marketUnit", marketUnit);
         parameters.AddOptional("isLeverage", isLeverage != null ? isLeverage == true ? 1 : 0 : null);
+
+        parameters.AddOptionalEnum("slippageToleranceType", slippageToleranceType);
+        if (slippageToleranceType != null && slippageTolerance != null)
+        {
+            if (slippageToleranceType == BybitSlippageToleranceType.TickSize)
+                parameters.AddOptionalString("slippageTolerance", Convert.ToInt32(slippageTolerance));
+            else if (slippageToleranceType == BybitSlippageToleranceType.Percent)
+                parameters.AddOptionalString("slippageTolerance", slippageTolerance);
+        }
 
         parameters.AddOptionalString("price", price);
         parameters.AddOptionalEnum("triggerDirection", triggerDirection);
@@ -321,7 +348,6 @@ public class BybitTradeRestApiClient
         string? orderId = null,
         string? clientOrderId = null,
         BybitOrderFilter? orderFilter = null,
-
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();

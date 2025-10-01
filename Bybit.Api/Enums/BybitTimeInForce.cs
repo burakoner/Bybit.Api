@@ -28,4 +28,14 @@ public enum BybitTimeInForce
     /// </summary>
     [Map("PostOnly")]
     PostOnly = 4,
+
+    /// <summary>
+    /// Exclusive Matching: Only match non-algorithmic users; no execution against orders from Open API.
+    /// Post-Only Mechanism: Act as maker orders, adding liquidity
+    /// Lower Priority: Execute after non-RPI orders at the same price level.
+    /// Limited Access: Initially for select market makers across multiple pairs.
+    /// Order Book Updates: Excluded from API but displayed on the GUI.
+    /// </summary>
+    [Map("RPI")]
+    RPI = 5,
 }
