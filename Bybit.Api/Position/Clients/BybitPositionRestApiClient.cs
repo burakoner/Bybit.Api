@@ -373,7 +373,7 @@ public class BybitPositionRestApiClient
     /// startTime and endTime are not passed, return 1 days by default
     /// Only startTime is passed, return range between startTime and startTime+1 days
     /// Only endTime is passed, return range between endTime-1 days and endTime
-    /// If both are passed, the rule is endTime - startTime <= 7 days</param>
+    /// If both are passed, the rule is endTime - startTime &lt;= 7 days</param>
     /// <param name="endTime">The end timestamp (ms)</param>
     /// <param name="limit">Limit for data size per page. [1, 100]. Default: 50</param>
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
