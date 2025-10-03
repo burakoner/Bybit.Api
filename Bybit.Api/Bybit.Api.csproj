@@ -9,10 +9,10 @@
 	<PropertyGroup>
 		<PackageId>Bybit.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>5.5.1001</Version>
-		<FileVersion>5.5.1001</FileVersion>
-		<PackageVersion>5.5.1001</PackageVersion>
-		<AssemblyVersion>5.5.1001</AssemblyVersion>
+		<Version>5.5.1003</Version>
+		<FileVersion>5.5.1003</FileVersion>
+		<PackageVersion>5.5.1003</PackageVersion>
+		<AssemblyVersion>5.5.1003</AssemblyVersion>
 		<Description>Bybit API v5 Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible Bybit Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>Bybit;V5;OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -20,18 +20,18 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>Please refer to changelog at Github https://github.com/burakoner/Bybit.Api/blob/master/CHANGELOG.md</PackageReleaseNotes>
-		<PackageIcon>Bybit.png</PackageIcon>
-		<PackageIconUrl />
 		<PackageProjectUrl>https://github.com/burakoner/Bybit.Api</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/burakoner/Bybit.Api</RepositoryUrl>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>Bybit.png</PackageIcon>
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="Bybit.png" Pack="true" PackagePath="" />
+		<None Include="Bybit.png" Pack="true" PackagePath="\" />
 		<None Include="../README.md" Pack="true" PackagePath="\" />
+		<None Include="../CHANGELOG.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>

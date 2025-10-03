@@ -42,10 +42,16 @@ public record BybitAccountCollateralInfo
     public decimal BorrowAmount { get; set; }
 
     /// <summary>
+    /// The sum of borrowing amount for other accounts under the same main account
+    /// </summary>
+    [JsonProperty("otherBorrowAmount")]
+    public decimal OtherBorrowAmount { get; set; }
+
+    /// <summary>
     /// Free borrowing amount
     /// </summary>
     [JsonProperty("freeBorrowingAmount")]
-    public decimal FreeBorrowingAmount { get; set; }
+    public decimal? FreeBorrowingAmount { get; set; }
 
     /// <summary>
     /// Available to borrow
@@ -70,6 +76,13 @@ public record BybitAccountCollateralInfo
     /// </summary>
     [JsonProperty("marginCollateral")]
     public bool MarginCollateral { get; set; }
+
+    /// <summary>
+    /// Whether the collateral is turned on by user (user), true: ON, false: OFF
+    /// When marginCollateral = true, then collateralSwitch is meaningful
+    /// </summary>
+    [JsonProperty("collateralSwitch")]
+    public bool CollateralSwitch { get; set; }
 
     /// <summary>
     /// Collateral ratio

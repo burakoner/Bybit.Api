@@ -1,9 +1,9 @@
-﻿namespace Bybit.Api.Trading;
+﻿namespace Bybit.Api.Position;
 
 /// <summary>
 /// Bybit move position request
 /// </summary>
-public record BybitMovePositionRequest
+public record BybitPositionMoveRequest
 {
     /// <summary>
     /// Product type. linear, spot, option

@@ -1,4 +1,4 @@
-﻿namespace Bybit.Api.Trading;
+﻿namespace Bybit.Api.Position;
 
 /// <summary>
 /// Bybit Rest API Position Client
@@ -14,7 +14,7 @@ public class BybitPositionRestApiClient
     private const string _v5PositionSetAutoAddMargin = "v5/position/set-auto-add-margin";
     private const string _v5PositionAddMargin = "v5/position/add-margin";
     private const string _v5PositionClosedPnl = "v5/position/closed-pnl";
-    // GET /v5/position/get-closed-positions
+    private const string _v5PositionGetClosedPositions = "v5/position/get-closed-positions";
     private const string _v5PositionMovePositions = "v5/position/move-positions";
     private const string _v5PositionMoveHistory = "v5/position/move-history";
     private const string _v5PositionConfirmPendingMmr = "v5/position/confirm-pending-mmr";
@@ -53,7 +53,7 @@ public class BybitPositionRestApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public async Task<BybitRestCallResult<List<BybitTradingPosition>>> GetPositionsAsync(
+    public async Task<BybitRestCallResult<List<BybitPosition>>> GetPositionsAsync(
         BybitCategory category, 
         string? symbol = null, 
         string? baseAsset = null, 
@@ -74,8 +74,8 @@ public class BybitPositionRestApiClient
         parameters.AddOptional("limit", limit);
         parameters.AddOptional("cursor", cursor);
 
-        var result = await _.SendBybitRequest<BybitListResponse<BybitTradingPosition>>(_.BuildUri(_v5PositionList), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitTradingPosition>>(default!);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitPosition>>(_.BuildUri(_v5PositionList), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitPosition>>(default!);
         return result.As(result.Data.Payload);
     }
 
@@ -164,9 +164,9 @@ public class BybitPositionRestApiClient
 
         var parameters = new ParameterCollection();
         parameters.AddEnum("category", category);
-        parameters.Add("mode", mode);
         parameters.AddOptional("symbol", symbol);
         parameters.AddOptional("coin", asset);
+        parameters.Add("mode", mode);
 
         return await _.SendBybitRequest(_.BuildUri(_v5PositionSwitchMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
@@ -303,7 +303,7 @@ public class BybitPositionRestApiClient
     /// <param name="positionIndex">Used to identify positions in different position modes. For hedge mode position, this param is required</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<BybitTradingPosition>> AddMarginAsync(
+    public async Task<BybitRestCallResult<BybitPosition>> AddOrReduceMarginAsync(
         BybitCategory category,
         string symbol,
         decimal margin,
@@ -315,7 +315,7 @@ public class BybitPositionRestApiClient
         parameters.Add("symbol", symbol);
         parameters.AddString("margin", margin);
         parameters.AddOptionalEnum("positionIdx", positionIndex);
-        return await _.SendBybitRequest<BybitTradingPosition>(_.BuildUri(_v5PositionAddMargin), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitPosition>(_.BuildUri(_v5PositionAddMargin), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
     
     /// <summary>
@@ -342,7 +342,7 @@ public class BybitPositionRestApiClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitTradingProfitAndLoss>>> GetClosedPnlAsync(
+    public async Task<BybitRestCallResult<List<BybitPositionProfitAndLoss>>> GetClosedPnlAsync(
         BybitCategory category,
         string? symbol = null,
         long? startTime = null,
@@ -360,8 +360,45 @@ public class BybitPositionRestApiClient
         parameters.AddOptional("limit", limit);
         parameters.AddOptional("cursor", cursor);
 
-        var result = await _.SendBybitRequest<BybitListResponse<BybitTradingProfitAndLoss>>(_.BuildUri(_v5PositionClosedPnl), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitTradingProfitAndLoss>>(default!);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitPositionProfitAndLoss>>(_.BuildUri(_v5PositionClosedPnl), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitPositionProfitAndLoss>>([]);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
+    }
+
+    /// <summary>
+    /// Query user's closed options positions, sorted by closeTime in descending order.
+    /// </summary>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="startTime">The start timestamp (ms)
+    /// startTime and endTime are not passed, return 1 days by default
+    /// Only startTime is passed, return range between startTime and startTime+1 days
+    /// Only endTime is passed, return range between endTime-1 days and endTime
+    /// If both are passed, the rule is endTime - startTime <= 7 days</param>
+    /// <param name="endTime">The end timestamp (ms)</param>
+    /// <param name="limit">Limit for data size per page. [1, 100]. Default: 50</param>
+    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitOptionsPosition>>> GetClosedOptionsPositionsAsync(
+    // BybitCategory category,
+    string? symbol = null,
+    long? startTime = null,
+    long? endTime = null,
+    int? limit = null,
+    string? cursor = null,
+    CancellationToken ct = default)
+    {
+        limit?.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("category", BybitCategory.Option);
+        parameters.AddOptional("symbol", symbol);
+        parameters.AddOptional("startTime", startTime);
+        parameters.AddOptional("endTime", endTime);
+        parameters.AddOptional("limit", limit);
+        parameters.AddOptional("cursor", cursor);
+
+        var result = await _.SendBybitRequest<BybitListResponse<BybitOptionsPosition>>(_.BuildUri(_v5PositionGetClosedPositions), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitOptionsPosition>>([]);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
@@ -386,7 +423,7 @@ public class BybitPositionRestApiClient
     /// <param name="list">Object. Up to 25 legs per request</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<BybitTradingMovePosition>> MovePositionsAsync(string fromUid, string toUid, IEnumerable<BybitMovePositionRequest> list, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<BybitPositionMove>> MovePositionsAsync(string fromUid, string toUid, IEnumerable<BybitPositionMoveRequest> list, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
         {
@@ -395,7 +432,7 @@ public class BybitPositionRestApiClient
             { "list", list },
         };
 
-        return await _.SendBybitRequest<BybitTradingMovePosition>(_.BuildUri(_v5PositionMovePositions), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitPositionMove>(_.BuildUri(_v5PositionMovePositions), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -413,7 +450,7 @@ public class BybitPositionRestApiClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitTradingMoveHistory>>> GetMoveHistoryAsync(
+    public async Task<BybitRestCallResult<List<BybitPositionMoveHistory>>> GetMoveHistoryAsync(
         BybitCategory category,
         string? symbol = null,
         long? startTime = null,
@@ -435,8 +472,8 @@ public class BybitPositionRestApiClient
         parameters.AddOptional("limit", limit);
         parameters.AddOptional("cursor", cursor);
 
-        var result = await _.SendBybitRequest<BybitListResponse<BybitTradingMoveHistory>>(_.BuildUri(_v5PositionMoveHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
-        if (!result) return result.As<List<BybitTradingMoveHistory>>(default!);
+        var result = await _.SendBybitRequest<BybitListResponse<BybitPositionMoveHistory>>(_.BuildUri(_v5PositionMoveHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitPositionMoveHistory>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 

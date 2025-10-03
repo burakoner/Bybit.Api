@@ -6,6 +6,7 @@ using Bybit.Api.Market;
 using Bybit.Api.Trading;
 using Bybit.Api.User;
 using Bybit.Api.System;
+using Bybit.Api.Position;
 
 namespace Bybit.Api;
 
@@ -22,29 +23,29 @@ public class BybitRestApiClient
     /// <summary>
     /// System Client
     /// </summary>
-    public BybitSystemRestApiClient System { get; } // OK-1001
+    public BybitSystemRestApiClient System { get; }
 
     /// <summary>
     /// Market Client
     /// </summary>
-    public BybitMarketRestApiClient Market { get; } // OK-1001
+    public BybitMarketRestApiClient Market { get; }
 
     /// <summary>
     /// Trade Client
     /// </summary>
-    public BybitTradeRestApiClient Trade { get; } // OK-1001
+    public BybitTradeRestApiClient Trade { get; }
 
     /// <summary>
     /// Position Client
     /// </summary>
-    public BybitPositionRestApiClient Position { get; } // OK-1009
+    public BybitPositionRestApiClient Position { get; }
 
     // TODO: Pre-upgrade
 
     /// <summary>
     /// Account Client
     /// </summary>
-    public BybitAccountRestApiClient Account { get; } // OK-1010
+    public BybitAccountRestApiClient Account { get; }
 
     /// <summary>
     /// Asset Client
@@ -68,9 +69,9 @@ public class BybitRestApiClient
     // NOT TO DO: Crypto Loan (legacy)
 
     /// <summary>
-    /// Lending Client
+    /// Institutional Loan Client
     /// </summary>
-    public BybitInstitutionalLoanRestApiClient Loan { get; } // OK-1011
+    public BybitInstitutionalLoanRestApiClient InstitutionalLoan { get; } // OK-1011
 
     // TODO: Broker
     // TODO: Earn
@@ -109,7 +110,7 @@ public class BybitRestApiClient
         this.Asset = new BybitAssetRestApiClient(this);
         this.User = new BybitUserRestApiClient(this);
         this.Margin = new BybitMarginRestApiClient(this);
-        this.Loan = new BybitInstitutionalLoanRestApiClient(this);
+        this.InstitutionalLoan = new BybitInstitutionalLoanRestApiClient(this);
     }
 
     /// <summary>

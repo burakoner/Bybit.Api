@@ -53,7 +53,7 @@ internal class Program
         var position_05 = await api.Position.SwitchPositionModeAsync(BybitCategory.Linear, BybitPositionMode.BothSides /* ...optional parameters... */);
         var position_07 = await api.Position.SetTradingStopAsync(BybitCategory.Linear, "BTCUSDT", BybitPositionIndex.OneWayModePosition /* ...optional parameters... */);
         var position_08 = await api.Position.SetAutoAddMarginAsync(BybitCategory.Linear, "BTCUSDT", true /* ...optional parameters... */);
-        var position_09 = await api.Position.AddMarginAsync(BybitCategory.Linear, "BTCUSDT", 10.0m /* ...optional parameters... */);
+        var position_09 = await api.Position.AddOrReduceMarginAsync(BybitCategory.Linear, "BTCUSDT", 10.0m /* ...optional parameters... */);
         var position_10 = await api.Position.GetClosedPnlAsync(BybitCategory.Linear /* ...optional parameters... */);
         var position_11 = await api.Position.MovePositionsAsync("-----FROM-UID-----", "-----TO-UID-----", [] /* ...optional parameters... */);
         var position_12 = await api.Position.GetMoveHistoryAsync(BybitCategory.Linear /* ...optional parameters... */);
@@ -116,9 +116,9 @@ internal class Program
         var margin_02 = await api.Margin.SetLeverageAsync(10.0m /* ...optional parameters... */);
 
         // Lending API Methods (Private)
-        var lending_01 = await api.Loan.GetProductsAsync(/* ...optional parameters... */);
-        var lending_02 = await api.Loan.GetLoanOrdersAsync(/* ...optional parameters... */);
-        var lending_03 = await api.Loan.GetRepayOrdersAsync(/* ...optional parameters... */);
+        var lending_01 = await api.InstitutionalLoan.GetProductsAsync(/* ...optional parameters... */);
+        var lending_02 = await api.InstitutionalLoan.GetLoanOrdersAsync(/* ...optional parameters... */);
+        var lending_03 = await api.InstitutionalLoan.GetRepayOrdersAsync(/* ...optional parameters... */);
         #endregion
 
         #region WebSocket API Examples

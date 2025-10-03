@@ -1,9 +1,9 @@
-﻿namespace Bybit.Api.Trading;
+﻿namespace Bybit.Api.Position;
 
 /// <summary>
 /// Profit and Loss
 /// </summary>
-public record BybitTradingProfitAndLoss
+public record BybitPositionProfitAndLoss
 {
     /// <summary>
     /// Symbol
@@ -40,7 +40,7 @@ public record BybitTradingProfitAndLoss
     /// Execution Type
     /// </summary>
     [JsonProperty("execType")]
-    public BybitExecutionType TradeType { get; set; }
+    public BybitExecutionType ExecutionType { get; set; }
 
     /// <summary>
     /// Closed Quantity
@@ -86,6 +86,16 @@ public record BybitTradingProfitAndLoss
     /// The leverage of the order
     /// </summary>
     public decimal Leverage { get; set; }
+
+    /// <summary>
+    /// Open position trading fee
+    /// </summary>
+    public decimal? OpenFee { get; set; }
+
+    /// <summary>
+    /// Close position trading fee
+    /// </summary>
+    public decimal? CloseFee { get; set; }
 
     /// <summary>
     /// The created time (ms)

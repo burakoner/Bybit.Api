@@ -1,9 +1,9 @@
-﻿namespace Bybit.Api.Trading;
+﻿namespace Bybit.Api.Position;
 
 /// <summary>
 /// Bybit move position history
 /// </summary>
-public record BybitTradingMoveHistory
+public record BybitPositionMoveHistory
 {
     /// <summary>
     /// Block trade ID

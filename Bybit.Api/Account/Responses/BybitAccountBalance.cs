@@ -8,61 +8,91 @@ public record BybitAccountBalance
     /// <summary>
     /// Account type
     /// </summary>
-    public BybitAccountType Account { get; set; }
+    public BybitAccountType AccountType { get; set; }
 
     /// <summary>
     /// Account initial margin rate
     /// </summary>
     [JsonProperty("accountIMRate")]
-    public decimal? AccountInitialMarginRate { get; set; }
+    public decimal AccountInitialMarginRate { get; set; }
 
     /// <summary>
     /// Account maintenance margin rate
     /// </summary>
     [JsonProperty("accountMMRate")]
-    public decimal? AccountMaintenanceMarginRate { get; set; }
+    public decimal AccountMaintenanceMarginRate { get; set; }
 
     /// <summary>
     /// Account equity in USD
     /// </summary>
     [JsonProperty("totalEquity")]
-    public decimal? TotalEquity { get; set; }
+    public decimal TotalEquity { get; set; }
 
     /// <summary>
     /// Total wallet balance in USD
     /// </summary>
     [JsonProperty("totalWalletBalance")]
-    public decimal? TotalWalletBalance { get; set; }
+    public decimal TotalWalletBalance { get; set; }
 
     /// <summary>
     /// Total margin balance in USD
     /// </summary>
     [JsonProperty("totalMarginBalance")]
-    public decimal? TotalMarginBalance { get; set; }
+    public decimal TotalMarginBalance { get; set; }
 
     /// <summary>
     /// Total available balance in USD
     /// </summary>
     [JsonProperty("totalAvailableBalance")]
-    public decimal? TotalAvailableBalance { get; set; }
+    public decimal TotalAvailableBalance { get; set; }
 
     /// <summary>
     /// Unrealized profit and loss in USD
     /// </summary>
     [JsonProperty("totalPerpUPL")]
-    public decimal? TotalPerpUnrealizedPnl { get; set; }
+    public decimal TotalPerpUnrealizedPnl { get; set; }
 
     /// <summary>
     /// Iniital margin in USD
     /// </summary>
     [JsonProperty("totalInitialMargin")]
-    public decimal? TotalInitialMargin { get; set; }
+    public decimal TotalInitialMargin { get; set; }
 
     /// <summary>
     /// Maintenance margin in USD
     /// </summary>
     [JsonProperty("totalMaintenanceMargin")]
-    public decimal? TotalMaintenanceMargin { get; set; }
+    public decimal TotalMaintenanceMargin { get; set; }
+
+    /// <summary>
+    /// Account LTV
+    /// </summary>
+    [JsonProperty("accountLTV")]
+    public decimal AccountLTV { get; set; }
+
+    /// <summary>
+    /// Total Maintenance Margin by Mark Price
+    /// </summary>
+    [JsonProperty("totalMaintenanceMarginByMp")]
+    public decimal TotalMaintenanceMarginByMarkPrice { get; set; }
+
+    /// <summary>
+    /// Account MM Rate by Mark Price
+    /// </summary>
+    [JsonProperty("accountMMRateByMp")]
+    public decimal AccountMMRateByMarkPrice { get; set; }
+
+    /// <summary>
+    /// Account IM Rate by Mark Price
+    /// </summary>
+    [JsonProperty("accountIMRateByMp")]
+    public decimal AccountIMRateByMarkPrice { get; set; }
+
+    /// <summary>
+    /// Total Initial Margin by Mark Price
+    /// </summary>
+    [JsonProperty("totalInitialMarginByMp")]
+    public decimal TotalInitialMarginByMarkPrice { get; set; }
 
     /// <summary>
     /// Asset info
@@ -101,12 +131,6 @@ public record BybitAccountBalanceItem
     public decimal WalletBalance { get; set; }
 
     /// <summary>
-    /// [Spot] Available balance
-    /// </summary>
-    [JsonProperty("free")]
-    public decimal Free { get; set; }
-
-    /// <summary>
     /// [Spot] Locked balance
     /// </summary>
     [JsonProperty("locked")]
@@ -140,31 +164,31 @@ public record BybitAccountBalanceItem
     /// Accrued interest
     /// </summary>
     [JsonProperty("accruedInterest")]
-    public decimal? AccruedInterest { get; set; }
+    public decimal AccruedInterest { get; set; }
 
     /// <summary>
     /// Total order initial margin
     /// </summary>
     [JsonProperty("totalOrderIM")]
-    public decimal? TotalOrderInitialMargin { get; set; }
+    public decimal TotalOrderInitialMargin { get; set; }
 
     /// <summary>
     /// Total position maintenance marging
     /// </summary>
     [JsonProperty("totalPositionIM")]
-    public decimal? TotalPositionInitialMargin { get; set; }
+    public decimal TotalPositionInitialMargin { get; set; }
 
     /// <summary>
     /// Total position maintenance margin
     /// </summary>
     [JsonProperty("totalPositionMM")]
-    public decimal? TotalPositionMaintenanceMargin { get; set; }
+    public decimal TotalPositionMaintenanceMargin { get; set; }
 
     /// <summary>
     /// Unrealized profit and loss
     /// </summary>
     [JsonProperty("unrealisedPnl")]
-    public decimal? UnrealizedPnl { get; set; }
+    public decimal UnrealizedPnl { get; set; }
 
     /// <summary>
     /// Realized profit and loss
@@ -176,6 +200,12 @@ public record BybitAccountBalanceItem
     /// [Unified] Bonus
     /// </summary>
     public decimal? Bonus { get; set; }
+
+    /// <summary>
+    /// Spot Borrow
+    /// </summary>
+    [JsonProperty("spotBorrow")]
+    public decimal SpotBorrow { get; set; }
 
     /// <summary>
     /// Whether the collateral is turned on by user (user)

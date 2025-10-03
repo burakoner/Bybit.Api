@@ -1,9 +1,9 @@
-﻿namespace Bybit.Api.Trading;
+﻿namespace Bybit.Api.Position;
 
 /// <summary>
 /// Bybit Position
 /// </summary>
-public record BybitTradingPosition
+public record BybitPosition
 {
     /// <summary>
     /// Position Index
@@ -93,10 +93,22 @@ public record BybitTradingPosition
     public decimal? InitialMargin { get; set; }
 
     /// <summary>
+    /// Initial margin calculated by mark price
+    /// </summary>
+    [JsonProperty("positionIMByMp")]
+    public decimal? InitialMarginByMarkPrice { get; set; }
+
+    /// <summary>
     /// Maintenance Margin
     /// </summary>
     [JsonProperty("positionMM")]
     public decimal? MaintenanceMargin { get; set; }
+
+    /// <summary>
+    /// Maintenance margin calculated by mark price
+    /// </summary>
+    [JsonProperty("positionMMByMp")]
+    public decimal? MaintenanceMarginByMarkPrice { get; set; }
 
     /// <summary>
     /// Position Balance

@@ -16,16 +16,6 @@ public record BybitAccount
     public BybitMarginMode MarginMode { get; set; }
 
     /// <summary>
-    /// Disconnected-CancelAll-Prevention status: ON, OFF
-    /// </summary>
-    public string DcpStatus { get; set; } = "";
-
-    /// <summary>
-    /// DCP trigger time window which user pre-set. Between [3, 300] seconds, default: 10 sec
-    /// </summary>
-    public int DcpTimeWindow { get; set; }
-
-    /// <summary>
     /// Whether the account is a master trader (copytrading). true, false
     /// </summary>
     public bool IsMasterTrader { get; set; }

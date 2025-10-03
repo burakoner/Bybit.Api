@@ -90,10 +90,6 @@ public class BybitAccountRestApiClient
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
-    // TODO
-    // TODO
-    // TODO
-
     /// <summary>
     /// Get the collateral information of the current unified margin account, including loan interest rate, loanable amount, collateral conversion rate, whether it can be mortgaged as margin, etc.
     /// </summary>
@@ -156,8 +152,6 @@ public class BybitAccountRestApiClient
         return await _.SendBybitRequest<BybitAccount>(_.BuildUri(_v5AccountInfo), HttpMethod.Get, ct, true).ConfigureAwait(false);
     }
 
-    // TODO
-
     /// <summary>
     /// Query transaction logs in Unified account, it supports up to 2 years data
     /// </summary>
@@ -191,8 +185,36 @@ public class BybitAccountRestApiClient
         if (!result) return result.As<List<BybitAccountTransaction>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
-    
-    // TODO
+
+    /// <summary>
+    /// Query transaction logs in the derivatives wallet (classic account), and inverse derivatives account (upgraded to UTA)
+    /// </summary>
+    /// <param name="asset">Currency</param>
+    /// <param name="baseAsset">BaseCoin. e.g., BTC of BTCPERP</param>
+    /// <param name="type">Types of transaction logs</param>
+    /// <param name="startTime">The start timestamp (ms)</param>
+    /// <param name="endTime">The end timestamp (ms)</param>
+    /// <param name="limit">Limit for data size per page. [1, 50]. Default: 20</param>
+    /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitAccountTransactionClassic>>> GetClassicAccountTransactionsAsync(string? asset = null, string? baseAsset = null, BybitTransactionType? type = null, long? startTime = null, long? endTime = null, int? limit = null, string? cursor = null, CancellationToken ct = default)
+    {
+        limit?.ValidateIntValues(nameof(limit), 1, 50);
+
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("currency", asset);
+        parameters.AddOptional("baseCoin", baseAsset);
+        parameters.AddOptionalEnum("type", type);
+        parameters.AddOptional("startTime", startTime);
+        parameters.AddOptional("endTime", endTime);
+        parameters.AddOptional("limit", limit);
+        parameters.AddOptional("cursor", cursor);
+
+        var result = await _.SendBybitRequest<BybitListResponse<BybitAccountTransactionClassic>>(_.BuildUri(_v5AccountContractTransactionLog), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitAccountTransactionClassic>>(default!);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
+    }
 
     /// <summary>
     /// Set Margin Mode
@@ -208,8 +230,6 @@ public class BybitAccountRestApiClient
         return await _.SendBybitRequest<List<BybitAccountReason>>(_.BuildUri(_v5AccountSetMarginMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
     
-    // TODO
-
     /// <summary>
     /// Sets Market Maker Protection
     /// </summary>
