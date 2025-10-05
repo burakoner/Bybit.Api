@@ -131,10 +131,22 @@ public record BybitAccountBalanceItem
     public decimal WalletBalance { get; set; }
 
     /// <summary>
+    /// Free balance for classic spot account
+    /// </summary>
+    [JsonProperty("free")]
+    public decimal? FreeBalanceForClassicSpotAccount { get; set; }
+
+    /// <summary>
     /// [Spot] Locked balance
     /// </summary>
     [JsonProperty("locked")]
     public decimal Locked { get; set; }
+
+    /// <summary>
+    /// Available Balance
+    /// </summary>
+    [JsonIgnore]
+    public decimal Free { get => Equity - Locked; }
 
     /// <summary>
     /// [Unified] The spot asset quantity that is used to hedge in the portfolio margin, truncate to 8 decimals and "0" by default
