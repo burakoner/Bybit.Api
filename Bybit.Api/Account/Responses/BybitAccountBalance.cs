@@ -182,19 +182,19 @@ public record BybitAccountBalanceItem
     /// Total order initial margin
     /// </summary>
     [JsonProperty("totalOrderIM")]
-    public decimal TotalOrderInitialMargin { get; set; }
+    public decimal? TotalOrderInitialMargin { get; set; }
 
     /// <summary>
     /// Total position maintenance marging
     /// </summary>
     [JsonProperty("totalPositionIM")]
-    public decimal TotalPositionInitialMargin { get; set; }
+    public decimal? TotalPositionInitialMargin { get; set; }
 
     /// <summary>
     /// Total position maintenance margin
     /// </summary>
     [JsonProperty("totalPositionMM")]
-    public decimal TotalPositionMaintenanceMargin { get; set; }
+    public decimal? TotalPositionMaintenanceMargin { get; set; }
 
     /// <summary>
     /// Unrealized profit and loss
