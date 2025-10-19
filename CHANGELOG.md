@@ -1,3 +1,7 @@
+Version 5.5.1019 - 19 Oct 2025
+- ApSharp updated to 4.1.0
+- Merged pull request Fix: make nullable balance fields to avoid JsonSerializationException https://github.com/burakoner/Bybit.Api/pull/10
+
 Version 5.5.1003 - 03 Oct 2025
 Enhance Bybit API client with new features and records
 - Added new constants for RPI orderbook and delivery price APIs.
