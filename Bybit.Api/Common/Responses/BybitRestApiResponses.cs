@@ -28,11 +28,20 @@ internal record BybitListResponse<T>
     [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     protected List<T> Result { set => Payload = value; get => Payload; }
 
+    [JsonProperty("records", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+    protected List<T> Records { set => Payload = value; get => Payload; }
+
+    [JsonProperty("accounts", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+    protected List<T> Accounts { set => Payload = value; get => Payload; }
+
     [JsonProperty("category", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public BybitCategory? Category { get; set; }
 
     [JsonProperty("nextPageCursor", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public string NextPageCursor { get; set; } = string.Empty;
+
+    [JsonProperty("nextCursor", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+    public string NextCursor { get; set; } = string.Empty;
 
     [JsonProperty("updatedTime", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public long? UpdateTimestamp { get; set; }

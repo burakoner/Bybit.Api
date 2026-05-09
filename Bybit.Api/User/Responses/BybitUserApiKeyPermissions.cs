@@ -55,4 +55,44 @@ public record BybitUserApiKeyPermissions
     /// Permission of Affiliate. Only affiliate can have this permission, otherwise always []
     /// </summary>
     public List<string> Affiliate { get; set; } = [];
+
+    /// <summary>
+    /// Earn product. ["Earn"]
+    /// </summary>
+    public List<string> Earn { get; set; } = [];
+
+    /// <summary>
+    /// P2P. ["FiatP2POrder", "Advertising"]
+    /// </summary>
+    public List<string> FiatP2P { get; set; } = [];
+
+    /// <summary>
+    /// Deprecated Bybit Pay permission. Use FiatBitPay instead.
+    /// </summary>
+    public List<string> FiatBybitPay { get; set; } = [];
+
+    /// <summary>
+    /// Bybit Pay. ["FaitPayOrder"]
+    /// </summary>
+    public List<string> FiatBitPay { get; set; } = [];
+
+    /// <summary>
+    /// Fiat convert broker. ["FiatConvertBrokerOrder"]
+    /// </summary>
+    public List<string> FiatConvertBroker { get; set; } = [];
+
+    /// <summary>
+    /// Fiat global pay permission.
+    /// </summary>
+    public List<string> FiatGlobalPay { get; set; } = [];
+
+    /// <summary>
+    /// Bybit card permission. ["BitCard"]
+    /// </summary>
+    public List<string> BitCard { get; set; } = [];
+
+    /// <summary>
+    /// Community post permission. ["ByXPost"]
+    /// </summary>
+    public List<string> ByXPost { get; set; } = [];
 }

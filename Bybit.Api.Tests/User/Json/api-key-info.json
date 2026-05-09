@@ -1,0 +1,78 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "id": "2208369",
+    "note": "testnet",
+    "apiKey": "XXXXXXXX",
+    "readOnly": 1,
+    "secret": "",
+    "permissions": {
+      "ContractTrade": [
+        "Order",
+        "Position"
+      ],
+      "Spot": [
+        "SpotTrade"
+      ],
+      "Wallet": [
+        "AccountTransfer",
+        "SubMemberTransfer"
+      ],
+      "Options": [],
+      "Derivatives": [
+        "DerivativesTrade"
+      ],
+      "CopyTrading": [],
+      "BlockTrade": [],
+      "Exchange": [
+        "ExchangeHistory"
+      ],
+      "NFT": [],
+      "Affiliate": [],
+      "Earn": [
+        "Earn"
+      ],
+      "FiatP2P": [
+        "FiatP2POrder"
+      ],
+      "FiatBitPay": [
+        "FaitPayOrder"
+      ],
+      "FiatConvertBroker": [
+        "FiatConvertBrokerOrder"
+      ],
+      "FiatGlobalPay": [],
+      "BitCard": [
+        "BitCard"
+      ],
+      "ByXPost": [
+        "ByXPost"
+      ]
+    },
+    "ips": [
+      "*"
+    ],
+    "type": 1,
+    "deadlineDay": 21,
+    "expiredAt": "2023-12-01T02:36:06Z",
+    "createdAt": "2023-08-25T06:42:39Z",
+    "uta": 1,
+    "userID": 100400345,
+    "inviterID": 0,
+    "vipLevel": "No VIP",
+    "mktMakerLevel": "0",
+    "affiliateID": 0,
+    "rsaPublicKey": "",
+    "isMaster": true,
+    "parentUid": "0",
+    "kycLevel": "LEVEL_2",
+    "kycRegion": "TUR",
+    "unified": 1,
+    "userIDInt64": "0",
+    "inviterIDInt64": "0",
+    "affiliateIDInt64": "0"
+  },
+  "retExtInfo": {},
+  "time": 1676430842094
+}

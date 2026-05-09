@@ -31,6 +31,12 @@ Version 5.6.507 - 09 May 2026
 - Added request-object overloads for complex Asset queries, transfer/deposit/withdrawal histories, transfer creation, withdrawals, and Convert flows while preserving existing method signatures.
 - Fixed Asset response mappings for coin chain limits, deposit tax fields, internal deposit sender IDs, withdrawable UTA/Earn wallets, string withdrawal IDs, withdrawal address timestamps, VASP lists, and Convert statuses.
 - Added focused Asset JSON deserialization and request serialization tests.
+- Updated User REST API coverage against the current Bybit v5 documentation.
+- Added User endpoints for signing agreements, fund custodial sub account lists, sub account API key lists, UID wallet types, deleting sub UIDs, and friend referrals.
+- Added request-object overloads for sub account creation, sub API key creation, paged sub account lists, API key updates, sub API key lists, and referral queries while preserving existing method signatures.
+- Fixed User request handling for optional quick login, sub account pagination cursors, optional read-only updates, IP binding strings, and the current master API key update request shape.
+- Added User response mappings for fund custodial account type, UTA 2.0 account modes, expanded API key permissions, API key metadata, wallet types, and friend referrals.
+- Added focused User JSON deserialization and request serialization tests.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

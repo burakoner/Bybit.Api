@@ -181,16 +181,27 @@ internal class Program
         var asset_37 = await api.Asset.GetConvertHistoryAsync(/* ...optional parameters... */);
 
         // User API Methods (Private)
-        var user_01 = await api.User.CreateSubAccountAsync(BybitSubAccountType.NormalSubAccount, "-----USERNAME-----" /* ...optional parameters... */);
-        var user_02 = await api.User.CreateSubAccountApiKeyAsync(1_000_001, false, new BybitUserApiKeyPermissions() /* ...optional parameters... */);
-        var user_03 = await api.User.GetSubAccountsAsync(/* ...optional parameters... */);
-        var user_04 = await api.User.GetSubAccountsAsync(100 /* ...optional parameters... */);
-        var user_05 = await api.User.FreezeSubAccountAsync(1_000_001, false /* ...optional parameters... */);
-        var user_06 = await api.User.GetApiKeyInformationAsync(/* ...optional parameters... */);
-        var user_07 = await api.User.ModifyMasterAccountApiKeyAsync(new BybitUserApiKeyPermissions() /* ...optional parameters... */);
-        var user_08 = await api.User.ModifySubAccountApiKeyAsync(new BybitUserApiKeyPermissions() /* ...optional parameters... */);
-        var user_09 = await api.User.DeleteMasterAccountApiKeyAsync(/* ...optional parameters... */);
-        var user_10 = await api.User.DeleteSubAccountApiKeyAsync(/* ...optional parameters... */);
+        var user_01 = await api.User.SignAgreementAsync(categoryV2: 2 /* ...optional parameters... */);
+        var user_02 = await api.User.CreateSubAccountAsync(BybitSubAccountType.NormalSubAccount, "-----USERNAME-----" /* ...optional parameters... */);
+        var user_03 = await api.User.CreateSubAccountAsync(new BybitUserCreateSubAccountRequest(BybitSubAccountType.NormalSubAccount, "-----USERNAME-----")
+        {
+            QuickLogin = true,
+            Label = "example",
+        });
+        var user_04 = await api.User.CreateSubAccountApiKeyAsync(1_000_001, false, new BybitUserApiKeyPermissions() /* ...optional parameters... */);
+        var user_05 = await api.User.GetSubAccountsAsync(/* ...optional parameters... */);
+        var user_06 = await api.User.GetSubAccountsAsync(100 /* ...optional parameters... */);
+        var user_07 = await api.User.GetFundCustodialSubAccountsAsync(/* ...optional parameters... */);
+        var user_08 = await api.User.FreezeSubAccountAsync(1_000_001, false /* ...optional parameters... */);
+        var user_09 = await api.User.GetApiKeyInformationAsync(/* ...optional parameters... */);
+        var user_10 = await api.User.GetSubAccountApiKeysAsync("-----SUB-UID-----" /* ...optional parameters... */);
+        var user_11 = await api.User.GetWalletTypesAsync("-----SUB-UID-----" /* ...optional parameters... */);
+        var user_12 = await api.User.ModifyMasterAccountApiKeyAsync(new BybitUserApiKeyPermissions() /* ...optional parameters... */);
+        var user_13 = await api.User.ModifySubAccountApiKeyAsync(new BybitUserApiKeyPermissions() /* ...optional parameters... */);
+        var user_14 = await api.User.DeleteSubAccountAsync("-----SUB-UID-----" /* ...optional parameters... */);
+        var user_15 = await api.User.DeleteMasterAccountApiKeyAsync(/* ...optional parameters... */);
+        var user_16 = await api.User.DeleteSubAccountApiKeyAsync(/* ...optional parameters... */);
+        var user_17 = await api.User.GetFriendReferralsAsync(status: 0, size: 20 /* ...optional parameters... */);
 
         // Margin API Methods (Public / Private)
         var margin_01 = await api.Margin.GetVipMarginDataAsync(/* ...optional parameters... */);

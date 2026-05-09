@@ -1,0 +1,18 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "nextCursor": "",
+    "records": [
+      {
+        "id": "6866",
+        "inviteeUid": "1447787",
+        "status": 0,
+        "createdAt": "1681206247",
+        "updatedAt": "1681206247"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1772095760428
+}

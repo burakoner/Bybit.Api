@@ -16,4 +16,10 @@ public enum BybitSubAccountType
     /// </summary>
     [Map("6")]
     CustodialSubAccount = 6,
+
+    /// <summary>
+    /// Fund Custodial Account
+    /// </summary>
+    [Map("12")]
+    FundCustodialAccount = 12,
 }

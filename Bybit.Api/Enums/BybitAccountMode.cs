@@ -22,4 +22,22 @@ public enum BybitAccountMode
     /// </summary>
     [Map("3")]
     UTA = 3,
+
+    /// <summary>
+    /// UTA 1.0 Pro
+    /// </summary>
+    [Map("4")]
+    UTA1Pro = 4,
+
+    /// <summary>
+    /// UTA 2.0
+    /// </summary>
+    [Map("5")]
+    UTA2 = 5,
+
+    /// <summary>
+    /// UTA 2.0 Pro
+    /// </summary>
+    [Map("6")]
+    UTA2Pro = 6,
 }

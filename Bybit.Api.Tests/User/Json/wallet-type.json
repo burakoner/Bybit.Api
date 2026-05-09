@@ -1,0 +1,17 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "accounts": [
+      {
+        "uid": "533285",
+        "accountType": [
+          "UNIFIED",
+          "FUND"
+        ]
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1686884974151
+}

@@ -8,7 +8,15 @@ public record BybitUserApiKeyInformation
     /// <summary>
     /// Unique ID. Internal use
     /// </summary>
-    public string ID { get; set; } = string.Empty;
+    [JsonProperty("id")]
+    public string Id { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Unique ID. Internal use.
+    /// </summary>
+    [Obsolete("Use Id instead.")]
+    [JsonIgnore]
+    public string ID { get => Id; set => Id = value; }
 
     /// <summary>
     /// The remark
@@ -29,8 +37,14 @@ public record BybitUserApiKeyInformation
     /// <summary>
     /// 0：Read and Write. 1：Read only
     /// </summary>
-    [JsonConverter(typeof(BooleanConverter))]
+    [JsonProperty("readOnly"), JsonConverter(typeof(BooleanConverter))]
     public bool Readonly { get; set; }
+
+    /// <summary>
+    /// Read only.
+    /// </summary>
+    [JsonIgnore]
+    public bool ReadOnly { get => Readonly; set => Readonly = value; }
 
     /// <summary>
     /// The types of permission
@@ -52,7 +66,7 @@ public record BybitUserApiKeyInformation
     /// The remaining valid days of api key. Only for those api key with no IP bound or the password has been changed
     /// </summary>
     [JsonProperty("deadlineDay")]
-    public int DeadlineDays { get; set; }
+    public int? DeadlineDays { get; set; }
 
     /// <summary>
     /// The expiry day of the api key. Only for those api key with no IP bound or the password has been changed
@@ -64,7 +78,7 @@ public record BybitUserApiKeyInformation
     /// The create day of the api key
     /// </summary>
     [JsonProperty("createdAt")]
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
     /// <summary>
     /// Whether the account to which the account upgrade to unified trade account. 0：regular account; 1：unified trade account
     /// </summary>
@@ -74,11 +88,13 @@ public record BybitUserApiKeyInformation
     /// <summary>
     /// User ID
     /// </summary>
+    [JsonProperty("userID")]
     public long UserId { get; set; }
 
     /// <summary>
     /// Inviter ID (the UID of the account which invited this account to the platform)
     /// </summary>
+    [JsonProperty("inviterID")]
     public long? InviterId { get; set; }
 
     /// <summary>
@@ -95,6 +111,7 @@ public record BybitUserApiKeyInformation
     /// <summary>
     /// Affiliate Id. 0 represents that there is no binding relationship.
     /// </summary>
+    [JsonProperty("affiliateID")]
     public long AffiliateId { get; set; }
 
     /// <summary>
@@ -110,7 +127,7 @@ public record BybitUserApiKeyInformation
     /// <summary>
     /// The main account uid. Returns "0" when the endpoint is called by main account
     /// </summary>
-    public long ParentUid { get; set; }
+    public string ParentUid { get; set; } = string.Empty;
 
     /// <summary>
     /// KycLevel
@@ -121,4 +138,27 @@ public record BybitUserApiKeyInformation
     /// KycRegion
     /// </summary>
     public string KycRegion { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Deprecated unified flag returned by Bybit.
+    /// </summary>
+    public int? Unified { get; set; }
+
+    /// <summary>
+    /// User ID as an Int64 field.
+    /// </summary>
+    [JsonProperty("userIDInt64")]
+    public long? UserIdInt64 { get; set; }
+
+    /// <summary>
+    /// Inviter ID as an Int64 field.
+    /// </summary>
+    [JsonProperty("inviterIDInt64")]
+    public long? InviterIdInt64 { get; set; }
+
+    /// <summary>
+    /// Affiliate ID as an Int64 field.
+    /// </summary>
+    [JsonProperty("affiliateIDInt64")]
+    public long? AffiliateIdInt64 { get; set; }
 }
