@@ -8,7 +8,7 @@ public record BybitMarketSpotInstrument
     /// <summary>
     /// The ID of symbol name
     /// </summary>
-    public int? SymbolId { get; set; }
+    public long? SymbolId { get; set; }
 
     /// <summary>
     /// Symbol name
@@ -176,7 +176,7 @@ public record BybitMarketFuturesInstrument
     /// <summary>
     /// The ID of symbol name
     /// </summary>
-    public int? SymbolId { get; set; }
+    public long? SymbolId { get; set; }
 
     /// <summary>
     /// Symbol name
@@ -509,7 +509,7 @@ public record BybitMarketOptionInstrument
     /// <summary>
     /// The ID of symbol name
     /// </summary>
-    public int? SymbolId { get; set; }
+    public long? SymbolId { get; set; }
 
     /// <summary>
     /// Symbol name

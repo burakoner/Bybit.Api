@@ -43,7 +43,7 @@ public class MarketJsonTests
         var result = DeserializeResult<MarketListResult<BybitMarketSpotInstrument>>("spot-instrument.json");
         var instrument = Assert.Single(result.List);
 
-        Assert.Equal(9, instrument.SymbolId);
+        Assert.Equal(9L, instrument.SymbolId);
         Assert.Equal("BTCUSDT", instrument.Name);
         Assert.True(instrument.SpecialTreatment);
         Assert.Equal(BybitInstrumentType.XStocks, instrument.Type);

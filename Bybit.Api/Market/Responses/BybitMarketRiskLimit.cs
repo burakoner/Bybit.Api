@@ -8,7 +8,7 @@ public record BybitMarketRiskLimit
     /// <summary>
     /// Risk limit id
     /// </summary>
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Symbol

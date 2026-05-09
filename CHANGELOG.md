@@ -4,6 +4,7 @@ Version 5.6.507 - 09 May 2026
 - Added request-object overloads for complex Market queries while preserving existing method signatures.
 - Fixed Market response mappings for option ticker IV fields, recent trade execution IDs, spot instrument `stTag`, RPI orderbook quantities, and nullable string numeric fields.
 - Added focused Market JSON deserialization tests and live public endpoint integration coverage.
+- Split Market request models into one file per request type and widened Market ID fields to `long`.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0
