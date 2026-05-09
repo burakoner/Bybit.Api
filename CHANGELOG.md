@@ -1,3 +1,10 @@
+Version 5.6.507 - 09 May 2026
+- Updated Market REST API coverage against the current Bybit v5 documentation.
+- Added Market endpoints for index price components, order price limit, ADL alert, and fee group structure.
+- Added request-object overloads for complex Market queries while preserving existing method signatures.
+- Fixed Market response mappings for option ticker IV fields, recent trade execution IDs, spot instrument `stTag`, RPI orderbook quantities, and nullable string numeric fields.
+- Added focused Market JSON deserialization tests and live public endpoint integration coverage.
+
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0
 - Merged pull request Fix: make nullable balance fields to avoid JsonSerializationException https://github.com/burakoner/Bybit.Api/pull/10

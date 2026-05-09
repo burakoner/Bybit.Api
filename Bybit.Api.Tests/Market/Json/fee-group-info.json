@@ -1,0 +1,40 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "groupName": "G1(Major Coins)",
+        "weightingFactor": 1,
+        "symbolsNumbers": 4,
+        "symbols": [
+          "ETHUSDT",
+          "XRPUSDT",
+          "SOLUSDT",
+          "BTCUSDT"
+        ],
+        "feeRates": {
+          "pro": [
+            {
+              "level": "Pro 1",
+              "takerFeeRate": "0.00028",
+              "makerFeeRate": "0.0001",
+              "makerRebate": ""
+            }
+          ],
+          "marketMaker": [
+            {
+              "level": "MM 1",
+              "takerFeeRate": "",
+              "makerFeeRate": "",
+              "makerRebate": "-0.0000075"
+            }
+          ]
+        },
+        "updateTime": "1753240500012"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1758627388542
+}

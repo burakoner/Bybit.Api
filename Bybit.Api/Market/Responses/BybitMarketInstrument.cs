@@ -6,6 +6,11 @@
 public record BybitMarketSpotInstrument
 {
     /// <summary>
+    /// The ID of symbol name
+    /// </summary>
+    public int? SymbolId { get; set; }
+
+    /// <summary>
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
@@ -36,6 +41,11 @@ public record BybitMarketSpotInstrument
     public BybitInstrumentType? Type { get; set; }
 
     /// <summary>
+    /// Xstock multiplier. Applies to xstocks trading pairs only.
+    /// </summary>
+    public decimal? XstockMultiplier { get; set; }
+
+    /// <summary>
     /// Instrument status
     /// </summary>
     public BybitInstrumentStatus Status { get; set; }
@@ -48,6 +58,7 @@ public record BybitMarketSpotInstrument
     /// <summary>
     /// Whether or not it has an special treatment label. 0: false, 1: true
     /// </summary>
+    [JsonProperty("stTag")]
     [JsonConverter(typeof(BooleanConverter))]
     public bool SpecialTreatment { get; set; }
 
@@ -108,6 +119,24 @@ public record BybitMarketSpotInstrumentLotSizeFilter
     /// </summary>
     [JsonProperty("maxOrderAmt")]
     public decimal MaximumOrderAmount { get; set; }
+
+    /// <summary>
+    /// Maximum limit order quantity
+    /// </summary>
+    [JsonProperty("maxLimitOrderQty")]
+    public decimal? MaximumLimitOrderQuantity { get; set; }
+
+    /// <summary>
+    /// Maximum market order quantity
+    /// </summary>
+    [JsonProperty("maxMarketOrderQty")]
+    public decimal? MaximumMarketOrderQuantity { get; set; }
+
+    /// <summary>
+    /// Maximum limit order size for Post-only and RPI orders
+    /// </summary>
+    [JsonProperty("postOnlyMaxLimitOrderSize")]
+    public decimal? PostOnlyMaximumLimitOrderSize { get; set; }
 }
 
 /// <summary>
@@ -144,6 +173,11 @@ public record BybitMarketSpotInstrumentRiskParameters
 /// </summary>
 public record BybitMarketFuturesInstrument
 {
+    /// <summary>
+    /// The ID of symbol name
+    /// </summary>
+    public int? SymbolId { get; set; }
+
     /// <summary>
     /// Symbol name
     /// </summary>
@@ -258,6 +292,12 @@ public record BybitMarketFuturesInstrument
     public string DisplayName { get; set; } = "";
 
     /// <summary>
+    /// Whether to prohibit unrealised profit withdrawal
+    /// </summary>
+    [JsonConverter(typeof(BooleanConverter))]
+    public bool? ForbidUplWithdrawal { get; set; }
+
+    /// <summary>
     /// Risk parameters for limit order price. Note that the formula changed in Jan 2025
     /// </summary>
     [JsonProperty("riskParameters")]
@@ -274,7 +314,7 @@ public record BybitMarketFuturesInstrument
     /// If isPreListing=true, preListingInfo is an object
     /// </summary>
     [JsonProperty("preListingInfo")]
-    public BybitMarketFuturesInstrumentPreListingInformation PreListingInformation{ get; set; } = default!;
+    public BybitMarketFuturesInstrumentPreListingInformation? PreListingInformation { get; set; }
 }
 
 /// <summary>
@@ -357,6 +397,12 @@ public record BybitMarketFuturesInstrumentLotSizeFilter
     /// </summary>
     [JsonProperty("qtyStep")]
     public decimal QuantityStep { get; set; }
+
+    /// <summary>
+    /// Deprecated, please use maxOrderQty
+    /// </summary>
+    [JsonProperty("postOnlyMaxOrderQty")]
+    public decimal? PostOnlyMaximumOrderQuantity { get; set; }
 }
 
 /// <summary>
@@ -399,6 +445,11 @@ public record BybitMarketFuturesInstrumentPreListingInformation
     /// </summary>
     [JsonProperty("auctionFeeInfo")]
     public BybitMarketFuturesInstrumentPreListingAuctionFee AuctionFees { get; set; } = default!;
+
+    /// <summary>
+    /// Whether the pre-market contract skips the call auction phase
+    /// </summary>
+    public bool? SkipCallAuction { get; set; }
 }
 
 /// <summary>
@@ -456,9 +507,20 @@ public record BybitMarketFuturesInstrumentPreListingAuctionFee
 public record BybitMarketOptionInstrument
 {
     /// <summary>
+    /// The ID of symbol name
+    /// </summary>
+    public int? SymbolId { get; set; }
+
+    /// <summary>
     /// Symbol name
     /// </summary>
     public string Symbol { get; set; } = string.Empty;
+
+    /// <summary>
+    /// the region to which the trading pair belongs
+    /// </summary>
+    [JsonProperty("symbolType")]
+    public BybitInstrumentType? Type { get; set; }
 
     /// <summary>
     /// Option type. Call, Put

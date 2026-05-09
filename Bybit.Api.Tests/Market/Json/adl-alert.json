@@ -1,0 +1,21 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "updatedTime": "1757733960000",
+    "list": [
+      {
+        "coin": "USDT",
+        "symbol": "BTCUSDT",
+        "balance": "92203504694.99632",
+        "maxBalance": "",
+        "insurancePnlRatio": "-0.3",
+        "pnlRatio": "-0.560973",
+        "adlTriggerThreshold": "10000",
+        "adlStopRatio": "-0.25"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1757734022014
+}

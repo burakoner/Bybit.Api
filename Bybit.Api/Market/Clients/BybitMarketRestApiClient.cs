@@ -26,10 +26,10 @@ public class BybitMarketRestApiClient
     private const string _v5MarketDeliveryPrice = "v5/market/delivery-price";
     private const string _v5MarketNewDeliveryPrice = "v5/market/new-delivery-price";
     private const string _v5MarketAccountRatio = "/v5/market/account-ratio";
-    // TODO: Get Index Price Components
-    // TODO: Get Order Price Limit
-    // TODO: Get ADL Alert
-    // TODO: Get Fee Group Structure
+    private const string _v5MarketIndexPriceComponents = "v5/market/index-price-components";
+    private const string _v5MarketPriceLimit = "v5/market/price-limit";
+    private const string _v5MarketAdlAlert = "v5/market/adlAlert";
+    private const string _v5MarketFeeGroupInfo = "v5/market/fee-group-info";
 
     #region Internal
     internal BybitBaseRestApiClient _ { get; }
@@ -93,6 +93,15 @@ public class BybitMarketRestApiClient
     }
 
     /// <summary>
+    /// Query for historical klines.
+    /// </summary>
+    /// <param name="request">Kline request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketKline>>> GetKlinesAsync(BybitMarketKlineRequest request, CancellationToken ct = default)
+        => await GetKlinesAsync(request.Category, request.Symbol, request.Interval, request.Start, request.End, request.Limit, ct).ConfigureAwait(false);
+
+    /// <summary>
     /// Query for historical mark price klines. Charts are returned in groups based on the requested interval.
     /// </summary>
     /// <param name="category">Product type. spot,linear,inverse. When category is not passed, use linear by default</param>
@@ -120,7 +129,7 @@ public class BybitMarketRestApiClient
     /// <exception cref="NotSupportedException"></exception>
     public async Task<BybitRestCallResult<List<BybitMarketMarkPriceKline>>> GetMarkKlinesAsync(BybitCategory category, string symbol, BybitInterval interval, long? start = null, long? end = null, int limit = 200, CancellationToken ct = default)
     {
-        if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
+        if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse, BybitCategory.Option))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
 
         limit.ValidateIntBetween(nameof(limit), 1, 1000);
@@ -136,6 +145,15 @@ public class BybitMarketRestApiClient
         if (!result) return result.As<List<BybitMarketMarkPriceKline>>(default!);
         return result.As(result.Data.Payload);
     }
+
+    /// <summary>
+    /// Query for historical mark price klines.
+    /// </summary>
+    /// <param name="request">Kline request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketMarkPriceKline>>> GetMarkKlinesAsync(BybitMarketKlineRequest request, CancellationToken ct = default)
+        => await GetMarkKlinesAsync(request.Category, request.Symbol, request.Interval, request.Start, request.End, request.Limit, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Query for historical index price klines. Charts are returned in groups based on the requested interval.
@@ -183,6 +201,15 @@ public class BybitMarketRestApiClient
     }
 
     /// <summary>
+    /// Query for historical index price klines.
+    /// </summary>
+    /// <param name="request">Kline request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketIndexPriceKline>>> GetIndexKlinesAsync(BybitMarketKlineRequest request, CancellationToken ct = default)
+        => await GetIndexKlinesAsync(request.Category, request.Symbol, request.Interval, request.Start, request.End, request.Limit, ct).ConfigureAwait(false);
+
+    /// <summary>
     /// Query for historical premium index klines. Charts are returned in groups based on the requested interval.
     /// </summary>
     /// <param name="category">Product type. linear</param>
@@ -228,6 +255,15 @@ public class BybitMarketRestApiClient
     }
 
     /// <summary>
+    /// Query for historical premium index klines.
+    /// </summary>
+    /// <param name="request">Kline request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketPremiumIndexPriceKline>>> GetPremiumIndexKlinesAsync(BybitMarketKlineRequest request, CancellationToken ct = default)
+        => await GetPremiumIndexKlinesAsync(request.Category, request.Symbol, request.Interval, request.Start, request.End, request.Limit, ct).ConfigureAwait(false);
+
+    /// <summary>
     /// Query for the instrument specification of online trading pairs.
     /// </summary>
     /// <param name="symbol">Symbol name</param>
@@ -244,6 +280,27 @@ public class BybitMarketRestApiClient
         parameters.AddOptionalEnum("status", status);
         parameters.AddOptional("limit", limit);
         parameters.AddOptional("cursor", cursor);
+
+        var result = await _.SendBybitRequest<BybitListResponse<BybitMarketSpotInstrument>>(_.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitMarketSpotInstrument>>(default!);
+        return result.As(result.Data.Payload);
+    }
+
+    /// <summary>
+    /// Query for the instrument specification of spot trading pairs.
+    /// </summary>
+    /// <param name="request">Instrument request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketSpotInstrument>>> GetSpotInstrumentsAsync(BybitMarketInstrumentsRequest request, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("category", BybitCategory.Spot);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptionalEnum("status", request.Status);
+        parameters.AddOptionalEnum("symbolType", request.SymbolType);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitMarketSpotInstrument>>(_.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMarketSpotInstrument>>(default!);
@@ -277,6 +334,29 @@ public class BybitMarketRestApiClient
     }
 
     /// <summary>
+    /// Query for the instrument specification of linear trading pairs.
+    /// </summary>
+    /// <param name="request">Instrument request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketFuturesInstrument>>> GetLinearInstrumentsAsync(BybitMarketInstrumentsRequest request, CancellationToken ct = default)
+    {
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 1000);
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("category", BybitCategory.Linear);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptionalEnum("status", request.Status);
+        parameters.AddOptionalEnum("symbolType", request.SymbolType);
+        parameters.AddOptional("baseCoin", request.BaseAsset);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
+
+        var result = await _.SendBybitRequest<BybitListResponse<BybitMarketFuturesInstrument>>(_.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitMarketFuturesInstrument>>(default!);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
+    }
+
+    /// <summary>
     /// Query for the instrument specification of online trading pairs.
     /// </summary>
     /// <param name="symbol">Symbol name</param>
@@ -296,6 +376,29 @@ public class BybitMarketRestApiClient
         parameters.AddOptional("baseCoin", baseAsset);
         parameters.AddOptional("limit", limit);
         parameters.AddOptional("cursor", cursor);
+
+        var result = await _.SendBybitRequest<BybitListResponse<BybitMarketFuturesInstrument>>(_.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitMarketFuturesInstrument>>(default!);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
+    }
+
+    /// <summary>
+    /// Query for the instrument specification of inverse trading pairs.
+    /// </summary>
+    /// <param name="request">Instrument request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketFuturesInstrument>>> GetInverseInstrumentsAsync(BybitMarketInstrumentsRequest request, CancellationToken ct = default)
+    {
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 1000);
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("category", BybitCategory.Inverse);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptionalEnum("status", request.Status);
+        parameters.AddOptionalEnum("symbolType", request.SymbolType);
+        parameters.AddOptional("baseCoin", request.BaseAsset);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitMarketFuturesInstrument>>(_.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMarketFuturesInstrument>>(default!);
@@ -323,6 +426,29 @@ public class BybitMarketRestApiClient
         parameters.AddOptional("baseCoin", baseAsset);
         parameters.AddOptional("limit", limit);
         parameters.AddOptional("cursor", cursor);
+
+        var result = await _.SendBybitRequest<BybitListResponse<BybitMarketOptionInstrument>>(_.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        if (!result) return result.As<List<BybitMarketOptionInstrument>>(default!);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
+    }
+
+    /// <summary>
+    /// Query for the instrument specification of option trading pairs.
+    /// </summary>
+    /// <param name="request">Instrument request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketOptionInstrument>>> GetOptionInstrumentsAsync(BybitMarketInstrumentsRequest request, CancellationToken ct = default)
+    {
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 1000);
+
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("category", BybitCategory.Option);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptionalEnum("status", request.Status);
+        parameters.AddOptional("baseCoin", request.BaseAsset);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitMarketOptionInstrument>>(_.BuildUri(_v5InstrumentsInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMarketOptionInstrument>>(default!);
@@ -372,6 +498,9 @@ public class BybitMarketRestApiClient
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitMarketOrderbook>> GetRpiOrderbookAsync(BybitCategory category, string symbol, int? limit = null, CancellationToken ct = default)
     {
+        if (category.IsNotIn(BybitCategory.Spot, BybitCategory.Linear, BybitCategory.Inverse))
+            throw new NotSupportedException($"{category} is not supported for this endpoint.");
+
         limit?.ValidateIntBetween(nameof(limit), 1, 50);
 
         var parameters = new ParameterCollection();
@@ -556,6 +685,15 @@ public class BybitMarketRestApiClient
     }
 
     /// <summary>
+    /// Query recent public trading data in Bybit.
+    /// </summary>
+    /// <param name="request">Trading history request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketTrade>>> GetTradingHistoryAsync(BybitMarketTradingHistoryRequest request, CancellationToken ct = default)
+        => await GetTradingHistoryAsync(request.Category, request.Symbol, request.BaseAsset, request.OptionType, request.Limit, ct).ConfigureAwait(false);
+
+    /// <summary>
     /// Get the open interest of each symbol.
     /// Covers: USDT perpetual / USDC contract / Inverse contract
     /// 
@@ -612,6 +750,15 @@ public class BybitMarketRestApiClient
     }
 
     /// <summary>
+    /// Get the open interest of each symbol.
+    /// </summary>
+    /// <param name="request">Open interest request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketOpenInterest>>> GetOpenInterestAsync(BybitMarketOpenInterestRequest request, CancellationToken ct = default)
+        => await GetOpenInterestAsync(request.Category, request.Symbol, request.Period, request.StartTime, request.EndTime, request.Limit, request.Cursor, ct).ConfigureAwait(false);
+
+    /// <summary>
     /// Get Historical Volatility
     /// Query option historical volatility
     /// 
@@ -635,6 +782,20 @@ public class BybitMarketRestApiClient
 
     /// <summary>
     /// Get Historical Volatility
+    /// </summary>
+    /// <param name="category">Product type. option</param>
+    /// <param name="startTime">The start timestamp</param>
+    /// <param name="endTime">The end timestamp</param>
+    /// <param name="baseAsset">Base coin. Default: return BTC data</param>
+    /// <param name="period">Period. If not specified, it will return data with a 7-day average by default</param>
+    /// <param name="quoteAsset">Quote coin. USD or USDT</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketVolatility>>> GetVolatilityAsync(BybitCategory category, DateTime startTime, DateTime endTime, string? baseAsset, BybitOptionPeriod? period, string? quoteAsset, CancellationToken ct = default)
+        => await GetVolatilityAsync(category, startTime.ConvertToMilliseconds(), endTime.ConvertToMilliseconds(), baseAsset, period, quoteAsset, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Get Historical Volatility
     /// Query option historical volatility
     /// 
     /// Covers: Option
@@ -653,6 +814,21 @@ public class BybitMarketRestApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitMarketVolatility>>> GetVolatilityAsync(BybitCategory category, long? startTime = null, long? endTime = null, string? baseAsset = null, BybitOptionPeriod? period = null, CancellationToken ct = default)
+        => await GetVolatilityAsync(category, startTime, endTime, baseAsset, period, null, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Get Historical Volatility
+    /// Query option historical volatility
+    /// </summary>
+    /// <param name="category">Product type. option</param>
+    /// <param name="startTime"></param>
+    /// <param name="endTime"></param>
+    /// <param name="baseAsset">Base coin. Default: return BTC data</param>
+    /// <param name="period">Period. If not specified, it will return data with a 7-day average by default</param>
+    /// <param name="quoteAsset">Quote coin. USD or USDT</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketVolatility>>> GetVolatilityAsync(BybitCategory category, long? startTime, long? endTime, string? baseAsset, BybitOptionPeriod? period, string? quoteAsset, CancellationToken ct = default)
     {
         if (category.IsNotIn(BybitCategory.Option))
             throw new NotSupportedException($"{category} is not supported for this endpoint.");
@@ -660,12 +836,22 @@ public class BybitMarketRestApiClient
         var parameters = new ParameterCollection();
         parameters.AddEnum("category", category);
         parameters.AddOptional("baseCoin", baseAsset);
+        parameters.AddOptional("quoteCoin", quoteAsset);
         parameters.AddOptionalEnum("period", period);
         parameters.AddOptional("startTime", startTime);
         parameters.AddOptional("endTime", endTime);
 
         return await _.SendBybitRequest<List<BybitMarketVolatility>>(_.BuildUri(_v5MarketHistoricalVolatility), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
+
+    /// <summary>
+    /// Get Historical Volatility.
+    /// </summary>
+    /// <param name="request">Volatility request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketVolatility>>> GetVolatilityAsync(BybitMarketVolatilityRequest request, CancellationToken ct = default)
+        => await GetVolatilityAsync(request.Category, request.StartTime, request.EndTime, request.BaseAsset, request.Period, request.QuoteAsset, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Query for Bybit insurance pool data (BTC/USDT/USDC etc). The data is updated every 24 hours.
@@ -684,6 +870,20 @@ public class BybitMarketRestApiClient
         var result = await _.SendBybitRequest<BybitListResponse<BybitMarketInsurance>>(_.BuildUri(_v5MarketInsurance), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMarketInsurance>>(default!);
         return result.As(result.Data.Payload);
+    }
+
+    /// <summary>
+    /// Query for Bybit insurance pool data with update timestamp.
+    /// </summary>
+    /// <param name="asset">coin. Default: return all insurance coins</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitMarketInsuranceInfo>> GetInsuranceInfoAsync(string? asset = null, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("coin", asset);
+
+        return await _.SendBybitRequest<BybitMarketInsuranceInfo>(_.BuildUri(_v5MarketInsurance), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -709,7 +909,7 @@ public class BybitMarketRestApiClient
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitMarketRiskLimit>>(_.BuildUri(_v5MarketRiskLimit), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMarketRiskLimit>>(default!);
-        return result.As(result.Data.Payload);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
 
     /// <summary>
@@ -746,6 +946,15 @@ public class BybitMarketRestApiClient
         if (!result) return result.As<List<BybitMarketDeliveryPrice>>(default!);
         return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
+
+    /// <summary>
+    /// Get the delivery price.
+    /// </summary>
+    /// <param name="request">Delivery price request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketDeliveryPrice>>> GetDeliveryPriceAsync(BybitMarketDeliveryPriceRequest request, CancellationToken ct = default)
+        => await GetDeliveryPriceAsync(request.Category, request.Symbol, request.BaseAsset, request.SettleAsset, request.Limit, request.Cursor, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Get New Delivery Price
@@ -804,6 +1013,114 @@ public class BybitMarketRestApiClient
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitMarketLongShortRatio>>(_.BuildUri(_v5MarketAccountRatio), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitMarketLongShortRatio>>(default!);
-        return result.As(result.Data.Payload);
+        return result.As(result.Data.Payload, result.Data.NextPageCursor);
     }
+
+    /// <summary>
+    /// Get Long Short Ratio
+    /// </summary>
+    /// <param name="request">Long short ratio request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitMarketLongShortRatio>>> GetLongShortRatioAsync(BybitMarketLongShortRatioRequest request, CancellationToken ct = default)
+        => await GetLongShortRatioAsync(request.Category, request.Symbol, request.Period, request.StartTime, request.EndTime, request.Limit, request.Cursor, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Get Index Price Components
+    /// </summary>
+    /// <param name="indexName">Index name, like BTCUSDT</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitMarketIndexPriceComponents>> GetIndexPriceComponentsAsync(string indexName, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.Add("indexName", indexName);
+
+        return await _.SendBybitRequest<BybitMarketIndexPriceComponents>(_.BuildUri(_v5MarketIndexPriceComponents), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Order Price Limit
+    /// </summary>
+    /// <param name="category">Product type. spot, linear, inverse. Defaults to linear on Bybit when not provided</param>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitMarketOrderPriceLimit>> GetOrderPriceLimitAsync(BybitCategory? category, string symbol, CancellationToken ct = default)
+    {
+        if (category.HasValue && category.Value.IsNotIn(BybitCategory.Spot, BybitCategory.Linear, BybitCategory.Inverse))
+            throw new NotSupportedException($"{category} is not supported for this endpoint.");
+
+        var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("category", category);
+        parameters.Add("symbol", symbol);
+
+        return await _.SendBybitRequest<BybitMarketOrderPriceLimit>(_.BuildUri(_v5MarketPriceLimit), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Order Price Limit
+    /// </summary>
+    /// <param name="symbol">Symbol name</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitMarketOrderPriceLimit>> GetOrderPriceLimitAsync(string symbol, CancellationToken ct = default)
+        => await GetOrderPriceLimitAsync(null, symbol, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Get Order Price Limit
+    /// </summary>
+    /// <param name="request">Order price limit request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitMarketOrderPriceLimit>> GetOrderPriceLimitAsync(BybitMarketOrderPriceLimitRequest request, CancellationToken ct = default)
+        => await GetOrderPriceLimitAsync(request.Category, request.Symbol, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Get ADL Alert
+    /// </summary>
+    /// <param name="symbol">Contract name</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitMarketAdlAlert>> GetAdlAlertAsync(string? symbol = null, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("symbol", symbol);
+
+        return await _.SendBybitRequest<BybitMarketAdlAlert>(_.BuildUri(_v5MarketAdlAlert), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get ADL Alert
+    /// </summary>
+    /// <param name="request">ADL alert request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitMarketAdlAlert>> GetAdlAlertAsync(BybitMarketAdlAlertRequest request, CancellationToken ct = default)
+        => await GetAdlAlertAsync(request.Symbol, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Get Fee Group Structure
+    /// </summary>
+    /// <param name="productType">Product type. contract only</param>
+    /// <param name="groupId">Group ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitMarketFeeGroupInfo>> GetFeeGroupInfoAsync(string productType, string? groupId = null, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.Add("productType", productType);
+        parameters.AddOptional("groupId", groupId);
+
+        return await _.SendBybitRequest<BybitMarketFeeGroupInfo>(_.BuildUri(_v5MarketFeeGroupInfo), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Fee Group Structure
+    /// </summary>
+    /// <param name="request">Fee group info request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitMarketFeeGroupInfo>> GetFeeGroupInfoAsync(BybitMarketFeeGroupInfoRequest request, CancellationToken ct = default)
+        => await GetFeeGroupInfoAsync(request.ProductType, request.GroupId, ct).ConfigureAwait(false);
 }

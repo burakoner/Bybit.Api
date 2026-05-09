@@ -22,4 +22,22 @@ public enum BybitInstrumentType
     /// </summary>
     [Map("xstocks")]
     XStocks = 3,
+
+    /// <summary>
+    /// Commodity
+    /// </summary>
+    [Map("commodity")]
+    Commodity = 4,
+
+    /// <summary>
+    /// Stock
+    /// </summary>
+    [Map("stock")]
+    Stock = 5,
+
+    /// <summary>
+    /// Foreign exchange
+    /// </summary>
+    [Map("forex")]
+    Forex = 6,
 }

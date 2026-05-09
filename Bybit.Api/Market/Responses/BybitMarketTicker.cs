@@ -84,7 +84,7 @@ public record BybitMarketSpotTicker
     /// Usd index price
     /// </summary>
     [JsonProperty("usdIndexPrice")]
-    public decimal UsdIndexPrice { get; set; }
+    public decimal? UsdIndexPrice { get; set; }
 }
 
 /// <summary>
@@ -253,7 +253,22 @@ public record BybitMarketFuturesTicker
     /// The current pre-market contract phase
     /// </summary>
     [JsonProperty("curPreListingPhase")]
-    public BybitPreListingPhase PreListingPhase { get; set; }
+    public BybitPreListingPhase? PreListingPhase { get; set; }
+
+    /// <summary>
+    /// Funding interval hour
+    /// </summary>
+    public int? FundingIntervalHour { get; set; }
+
+    /// <summary>
+    /// Funding rate upper and lower limits
+    /// </summary>
+    public decimal? FundingCap { get; set; }
+
+    /// <summary>
+    /// Annual basis rate
+    /// </summary>
+    public decimal? BasisRateYear { get; set; }
 }
 
 /// <summary>
@@ -281,7 +296,7 @@ public record BybitMarketOptionTicker
     /// <summary>
     /// Best bid IV
     /// </summary>
-    [JsonProperty("bid1lv")]
+    [JsonProperty("bid1Iv")]
     public decimal BestBidIv { get; set; }
 
     /// <summary>
@@ -299,7 +314,7 @@ public record BybitMarketOptionTicker
     /// <summary>
     /// Best ask IV
     /// </summary>
-    [JsonProperty("ask1lv")]
+    [JsonProperty("ask1Iv")]
     public decimal BestAskIv { get; set; }
 
     /// <summary>
@@ -389,7 +404,7 @@ public record BybitMarketOptionTicker
     /// <summary>
     /// Predicted delivery price
     /// </summary>
-    public decimal PredictedDeliveryPrice { get; set; }
+    public decimal? PredictedDeliveryPrice { get; set; }
 
     /// <summary>
     /// Change since 24h ago

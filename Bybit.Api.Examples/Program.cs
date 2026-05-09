@@ -30,7 +30,13 @@ internal class Program
         var market_19 = await api.Market.GetInsuranceAsync(/* ...optional parameters... */);
         var market_20 = await api.Market.GetRiskLimitAsync(BybitCategory.Linear /* ...optional parameters... */);
         var market_21 = await api.Market.GetDeliveryPriceAsync(BybitCategory.Linear /* ...optional parameters... */);
-        var market_22 = await api.Market.GetLongShortRatioAsync(BybitCategory.Linear, "BTCUSDT", BybitRecordPeriod.OneDay /* ...optional parameters... */);
+        var market_22 = await api.Market.GetNewDeliveryPriceAsync(BybitCategory.Option, "BTC" /* ...optional parameters... */);
+        var market_23 = await api.Market.GetLongShortRatioAsync(BybitCategory.Linear, "BTCUSDT", BybitRecordPeriod.OneDay /* ...optional parameters... */);
+        var market_24 = await api.Market.GetIndexPriceComponentsAsync("BTCUSDT" /* ...optional parameters... */);
+        var market_25 = await api.Market.GetOrderPriceLimitAsync(BybitCategory.Linear, "BTCUSDT" /* ...optional parameters... */);
+        var market_26 = await api.Market.GetAdlAlertAsync("BTCUSDT" /* ...optional parameters... */);
+        var market_27 = await api.Market.GetFeeGroupInfoAsync("contract" /* ...optional parameters... */);
+        var market_28 = await api.Market.GetOpenInterestAsync(new BybitMarketOpenInterestRequest(BybitCategory.Linear, "BTCUSDT", BybitRecordPeriod.OneDay) { Limit = 10 });
 
         // Trade API Methods (Private)
         var trade_01 = await api.Trade.PlaceOrderAsync(BybitCategory.Spot, "XRPUSDT", BybitOrderSide.Buy, BybitOrderType.Market, 100.0m /* ...optional parameters... */);

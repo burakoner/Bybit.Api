@@ -1,0 +1,21 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "indexName": "1000BTTUSDT",
+    "lastPrice": "0.0006496",
+    "updateTime": "1758182745072",
+    "components": [
+      {
+        "exchange": "GateIO",
+        "spotPair": "BTT_USDT",
+        "equivalentPrice": "0.0006485",
+        "multiplier": "1000",
+        "price": "0.0006485",
+        "weight": "0.1383220862762299"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1758182745621
+}

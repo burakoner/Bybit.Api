@@ -1,0 +1,43 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "category": "inverse",
+    "list": [
+      {
+        "symbol": "BTCUSD",
+        "lastPrice": "120635.50",
+        "indexPrice": "114890.92",
+        "markPrice": "114898.43",
+        "prevPrice24h": "105595.90",
+        "price24hPcnt": "0.142425",
+        "highPrice24h": "131309.30",
+        "lowPrice24h": "102007.60",
+        "prevPrice1h": "119806.10",
+        "openInterest": "240113967",
+        "openInterestValue": "2089.79",
+        "turnover24h": "115.6907",
+        "volume24h": "13713832.0000",
+        "fundingRate": "0.0001",
+        "nextFundingTime": "1760371200000",
+        "predictedDeliveryPrice": "",
+        "basisRate": "",
+        "deliveryFeeRate": "",
+        "deliveryTime": "0",
+        "ask1Size": "9854",
+        "bid1Price": "103401.00",
+        "ask1Price": "109152.80",
+        "bid1Size": "1063",
+        "basis": "",
+        "preOpenPrice": "",
+        "preQty": "",
+        "curPreListingPhase": "",
+        "fundingIntervalHour": "8",
+        "basisRateYear": "",
+        "fundingCap": "0.005"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1760352369814
+}

@@ -1,0 +1,22 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "category": "spot",
+    "list": [
+      {
+        "execId": "2100000000007764263",
+        "symbol": "BTCUSDT",
+        "price": "65000.01",
+        "size": "0.001",
+        "side": "Buy",
+        "time": "1758078286118",
+        "isBlockTrade": false,
+        "isRPITrade": true,
+        "seq": "454803359210"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1758078286162
+}

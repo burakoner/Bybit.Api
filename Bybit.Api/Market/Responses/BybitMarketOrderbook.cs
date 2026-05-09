@@ -80,4 +80,10 @@ public record BybitMarketOrderbookRow
     /// </summary>
     [ArrayProperty(1)]
     public decimal Quantity { get; set; }
+
+    /// <summary>
+    /// RPI size. Returned by the RPI orderbook endpoint.
+    /// </summary>
+    [ArrayProperty(2)]
+    public decimal? RpiQuantity { get; set; }
 }

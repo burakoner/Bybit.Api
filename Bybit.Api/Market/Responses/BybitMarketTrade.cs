@@ -9,7 +9,7 @@ public record BybitMarketTrade
     /// Trade Id
     /// </summary>
     [JsonProperty("execId")]
-    public long TradeId { get; set; }
+    public string TradeId { get; set; } = string.Empty;
 
     /// <summary>
     /// Symbol

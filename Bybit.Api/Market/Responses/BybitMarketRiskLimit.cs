@@ -45,5 +45,5 @@ public record BybitMarketRiskLimit
     /// The maintenance margin deduction value when risk limit tier changed
     /// </summary>
     [JsonProperty("mmDeduction")]
-    public decimal MaintenanceMarginDeduction { get; set; }
+    public decimal? MaintenanceMarginDeduction { get; set; }
 }
