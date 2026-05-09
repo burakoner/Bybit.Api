@@ -1,0 +1,22 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "currency": "BTC",
+        "flexibleManualBorrowable": true,
+        "minFlexibleManualBorrowQty": "0.001",
+        "flexibleManualBorrowAccuracy": "8",
+        "fixedManualBorrowable": false,
+        "minFixedManualBorrowQty": "",
+        "fixedManualBorrowAccuracy": "",
+        "fixedInterestRateAccuracy": "",
+        "minFixedInterestRate": "",
+        "maxFixedInterestRate": ""
+      }
+    ]
+  },
+  "retExtInfo": "{}",
+  "time": 1773220082091
+}

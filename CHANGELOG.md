@@ -11,6 +11,11 @@ Version 5.6.507 - 09 May 2026
 - Fixed Trade response mappings for spot `basePrice`, batch place `createAt`, OCO stop-loss trigger labels, future spread execution type, slippage fields, and extra fee fields.
 - Fixed batch trade request serialization so optional order IDs and quantities are omitted instead of sending empty strings or zero values.
 - Added focused Trade JSON deserialization and request serialization tests.
+- Updated Spot Margin Trade REST API coverage against the current Bybit v5 documentation.
+- Added Spot Margin endpoints for VIP margin data, tiered collateral ratios, currency data, historical interest, status/leverage, borrow limits, position tiers, coin state, repayment, auto-repay, fixed-rate borrow, and liability information.
+- Added request-object overloads for complex Spot Margin queries and fixed-rate borrow flows while preserving the existing margin mode and leverage calls.
+- Fixed the Spot Margin historical interest endpoint path and added currency-scoped spot margin leverage support.
+- Added focused Spot Margin JSON deserialization tests and live public endpoint integration coverage.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

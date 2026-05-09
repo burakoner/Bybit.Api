@@ -1,0 +1,16 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "timestamp": 1721469600000,
+        "currency": "USDC",
+        "hourlyBorrowRate": "0.000014621596",
+        "vipLevel": "No VIP"
+      }
+    ]
+  },
+  "retExtInfo": "{}",
+  "time": 1721899048991
+}

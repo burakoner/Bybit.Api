@@ -1,0 +1,16 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "list": [
+      {
+        "orderCurrency": "ETH",
+        "term": 30,
+        "annualRate": "0.026",
+        "qty": "0.1"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1775617874744
+}

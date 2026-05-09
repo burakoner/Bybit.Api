@@ -1,0 +1,26 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "list": [
+      {
+        "annualRate": "1.000000000000000000",
+        "borrowCurrency": "USDT",
+        "borrowTime": "1764162490000",
+        "interestPaid": "1.065753424657534247",
+        "loanId": "2092341042506646784",
+        "orderId": "FIXED_BORROW_a17089fc526441faa52eb99b0b9feb69185",
+        "repaymentTime": "1764288000000",
+        "residualPenaltyInterest": "0",
+        "residualPrincipal": "0.000000000000000000",
+        "status": 3,
+        "term": "1",
+        "repayType": "1",
+        "strategyType": "PARTIAL"
+      }
+    ],
+    "nextPageCursor": "0"
+  },
+  "retExtInfo": {},
+  "time": 1775617311081
+}

@@ -1,0 +1,18 @@
+{
+  "retCode": 0,
+  "retMsg": "Success",
+  "result": {
+    "list": [
+      {
+        "spotLeverage": 3,
+        "currency": "BTC"
+      },
+      {
+        "spotLeverage": "",
+        "currency": "USDT"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1756273703314
+}

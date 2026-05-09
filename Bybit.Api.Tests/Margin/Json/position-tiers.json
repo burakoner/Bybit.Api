@@ -1,0 +1,22 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "currency": "BTC",
+        "positionTiersRatioList": [
+          {
+            "tier": "1",
+            "borrowLimit": "390",
+            "positionMMR": "0.04",
+            "positionIMR": "0.2",
+            "maxLeverage": "5"
+          }
+        ]
+      }
+    ]
+  },
+  "retExtInfo": "{}",
+  "time": 1756272543440
+}

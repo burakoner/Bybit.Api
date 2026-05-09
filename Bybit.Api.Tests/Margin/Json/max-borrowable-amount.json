@@ -1,0 +1,10 @@
+{
+  "retCode": 0,
+  "retMsg": "Success",
+  "result": {
+    "maxLoan": "17.54689892",
+    "currency": "BTC"
+  },
+  "retExtInfo": {},
+  "time": 1756261353733
+}

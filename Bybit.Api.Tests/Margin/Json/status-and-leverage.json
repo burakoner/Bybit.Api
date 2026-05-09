@@ -1,0 +1,11 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "spotLeverage": "",
+    "spotMarginMode": "0",
+    "effectiveLeverage": ""
+  },
+  "retExtInfo": {},
+  "time": 1692696841231
+}

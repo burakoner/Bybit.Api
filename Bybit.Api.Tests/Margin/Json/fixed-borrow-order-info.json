@@ -1,0 +1,23 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "list": [
+      {
+        "annualRate": "1.000000000000000000",
+        "orderId": "FIXED_BORROW_a17089fc526441faa52eb99b0b9feb69185",
+        "orderTime": "1764120783000",
+        "filledQty": "1000.000000000000000000",
+        "orderQty": "1000.000000000000000000",
+        "orderCurrency": "USDT",
+        "state": 3,
+        "term": 1,
+        "repayType": "1",
+        "strategyType": "PARTIAL"
+      }
+    ],
+    "nextPageCursor": "30"
+  },
+  "retExtInfo": {},
+  "time": 1775616669348
+}

@@ -1,0 +1,25 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "currency": "BTC",
+        "collateralRatioList": [
+          {
+            "minQty": "0",
+            "maxQty": "1000000",
+            "collateralRatio": "0.85"
+          },
+          {
+            "minQty": "1000000",
+            "maxQty": "",
+            "collateralRatio": "0"
+          }
+        ]
+      }
+    ]
+  },
+  "retExtInfo": "{}",
+  "time": 1739848984945
+}

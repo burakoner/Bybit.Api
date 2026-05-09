@@ -129,9 +129,48 @@ internal class Program
         var user_09 = await api.User.DeleteMasterAccountApiKeyAsync(/* ...optional parameters... */);
         var user_10 = await api.User.DeleteSubAccountApiKeyAsync(/* ...optional parameters... */);
 
-        // Margin API Methods (Private)
-        var margin_01 = await api.Margin.SwitchMarginModeAsync(true /* ...optional parameters... */);
-        var margin_02 = await api.Margin.SetLeverageAsync(10.0m /* ...optional parameters... */);
+        // Margin API Methods (Public / Private)
+        var margin_01 = await api.Margin.GetVipMarginDataAsync(/* ...optional parameters... */);
+        var margin_02 = await api.Margin.GetTieredCollateralRatiosAsync(/* ...optional parameters... */);
+        var margin_03 = await api.Margin.GetCurrencyDataAsync(/* ...optional parameters... */);
+        var margin_04 = await api.Margin.GetHistoricalInterestRatesAsync(new BybitMarginInterestRateHistoryRequest("BTC")
+        {
+            VipLevel = "No VIP",
+        });
+        var margin_05 = await api.Margin.SwitchMarginModeAsync(true /* ...optional parameters... */);
+        var margin_06 = await api.Margin.SetLeverageAsync(10.0m /* ...optional parameters... */);
+        var margin_07 = await api.Margin.SetLeverageAsync(new BybitMarginSetLeverageRequest(4.0m)
+        {
+            Currency = "BTC",
+        });
+        var margin_08 = await api.Margin.GetStatusAndLeverageAsync(/* ...optional parameters... */);
+        var margin_09 = await api.Margin.GetMaxBorrowableAmountAsync("BTC" /* ...optional parameters... */);
+        var margin_10 = await api.Margin.GetPositionTiersAsync(/* ...optional parameters... */);
+        var margin_11 = await api.Margin.GetCoinStateAsync(/* ...optional parameters... */);
+        var margin_12 = await api.Margin.GetAvailableAmountToRepayAsync("BTC" /* ...optional parameters... */);
+        var margin_13 = await api.Margin.SetAutoRepayModeAsync(true /* ...optional parameters... */);
+        var margin_14 = await api.Margin.GetAutoRepayModeAsync(/* ...optional parameters... */);
+        var margin_15 = await api.Margin.GetFixedBorrowOrderQuotesAsync(new BybitMarginFixedBorrowQuoteRequest("ETH")
+        {
+            OrderBy = BybitFixedBorrowOrderBy.AnnualRate,
+            Limit = 10,
+        });
+        var margin_16 = await api.Margin.BorrowFixedRateAsync(new BybitMarginFixedBorrowRequest("BTC", 0.01m, 0.02m, 30)
+        {
+            RepayType = BybitFixedBorrowRepayType.AutoRepayment,
+        });
+        var margin_17 = await api.Margin.RenewFixedRateBorrowAsync("-----LOAN-ID-----" /* ...optional parameters... */);
+        var margin_18 = await api.Margin.GetFixedBorrowOrderInfoAsync(new BybitMarginFixedBorrowOrderInfoRequest
+        {
+            OrderCurrency = "ETH",
+            Limit = 10,
+        });
+        var margin_19 = await api.Margin.GetFixedBorrowContractInfoAsync(new BybitMarginFixedBorrowContractInfoRequest
+        {
+            OrderCurrency = "USDT",
+            Limit = 10,
+        });
+        var margin_20 = await api.Margin.GetLiabilityInfoAsync("BTC" /* ...optional parameters... */);
 
         // Lending API Methods (Private)
         var lending_01 = await api.InstitutionalLoan.GetProductsAsync(/* ...optional parameters... */);
