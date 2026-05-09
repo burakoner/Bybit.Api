@@ -1,0 +1,47 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "rows": [
+      {
+        "name": "MNT",
+        "coin": "MNT",
+        "remainAmount": "10000000",
+        "chains": [
+          {
+            "chainType": "Ethereum",
+            "confirmation": "6",
+            "withdrawFee": "3",
+            "depositMin": "0",
+            "withdrawMin": "3",
+            "chain": "ETH",
+            "chainDeposit": "1",
+            "chainWithdraw": "1",
+            "minAccuracy": "8",
+            "withdrawPercentageFee": "0.022",
+            "contractAddress": "0x3c3a81e81dc49a522a592e7622a7e711c06bf354",
+            "safeConfirmNumber": "65",
+            "withdrawMax": "10000000"
+          },
+          {
+            "chainType": "Mantle Network",
+            "confirmation": "100",
+            "withdrawFee": "",
+            "depositMin": "0",
+            "withdrawMin": "10",
+            "chain": "MANTLE",
+            "chainDeposit": "1",
+            "chainWithdraw": "1",
+            "minAccuracy": "8",
+            "withdrawPercentageFee": "0",
+            "contractAddress": "",
+            "safeConfirmNumber": "100",
+            "withdrawMax": "-1"
+          }
+        ]
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1736395486989
+}

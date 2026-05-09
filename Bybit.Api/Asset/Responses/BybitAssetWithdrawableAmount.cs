@@ -26,12 +26,23 @@ public record BybitAssetWithdrawableAmountData
     /// <summary>
     /// Spot wallet, it is not returned if spot wallet is removed
     /// </summary>
-    public BybitAssetWithdrawableAmountItem Spot { get; set; } = default!;
+    public BybitAssetWithdrawableAmountItem? Spot { get; set; }
 
     /// <summary>
     /// Funding wallet
     /// </summary>
-    public BybitAssetWithdrawableAmountItem Fund { get; set; } = default!;
+    public BybitAssetWithdrawableAmountItem? Fund { get; set; }
+
+    /// <summary>
+    /// Unified wallet.
+    /// </summary>
+    [JsonProperty("UTA")]
+    public BybitAssetWithdrawableAmountItem? UnifiedTradingAccount { get; set; }
+
+    /// <summary>
+    /// Earn account.
+    /// </summary>
+    public BybitAssetWithdrawableAmountItem? Earn { get; set; }
 }
 
 /// <summary>
@@ -49,7 +60,14 @@ public record BybitAssetWithdrawableAmountItem
     /// Amount that can be withdrawn
     /// </summary>
     [JsonProperty("withdrawableAmount")]
-    public decimal WithdrwawableQuantity { get; set; }
+    public decimal WithdrawableQuantity { get; set; }
+
+    /// <summary>
+    /// Amount that can be withdrawn.
+    /// </summary>
+    [Obsolete("Use WithdrawableQuantity instead.")]
+    [JsonIgnore]
+    public decimal WithdrwawableQuantity { get => WithdrawableQuantity; set => WithdrawableQuantity = value; }
 
     /// <summary>
     /// Available balance

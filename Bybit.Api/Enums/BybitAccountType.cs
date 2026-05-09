@@ -35,6 +35,15 @@ public enum BybitAccountType
     [Map("UNIFIED")]
     Unified = 5,
 
-    // [Map("INVESTMENT")]
-    // Investment,
+    /// <summary>
+    /// Investment Account
+    /// </summary>
+    [Map("INVESTMENT")]
+    Investment = 6,
+
+    /// <summary>
+    /// Earn Account
+    /// </summary>
+    [Map("EARN")]
+    Earn = 7,
 }

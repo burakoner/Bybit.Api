@@ -6,6 +6,12 @@
 public record BybitAssetDeposit
 {
     /// <summary>
+    /// Unique ID
+    /// </summary>
+    [JsonProperty("id")]
+    public string Id { get; set; } = string.Empty;
+
+    /// <summary>
     /// Coin
     /// </summary>
     [JsonProperty("coin")]
@@ -63,7 +69,7 @@ public record BybitAssetDeposit
     /// <summary>
     /// Number of confirmation blocks
     /// </summary>
-    public int Confirmations { get; set; }
+    public int? Confirmations { get; set; }
 
     /// <summary>
     /// Transaction sequence number
@@ -85,4 +91,19 @@ public record BybitAssetDeposit
     /// The deposit type. 0: normal deposit, 10: the deposit reaches daily deposit limit, 20: abnormal deposit
     /// </summary>
     public string DepositType { get; set; } = string.Empty;
+
+    /// <summary>
+    /// From address of deposit, only shown when unique.
+    /// </summary>
+    public string FromAddress { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Tax record ID for tax reporting, when applicable.
+    /// </summary>
+    public string TaxDepositRecordsId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Tax reporting status, when applicable.
+    /// </summary>
+    public int? TaxStatus { get; set; }
 }

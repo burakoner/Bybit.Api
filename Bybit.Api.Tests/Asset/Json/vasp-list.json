@@ -1,0 +1,14 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "vasp": [
+      {
+        "vaspEntityId": "basic-finance",
+        "vaspName": "Basic-finance"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1715067106163
+}

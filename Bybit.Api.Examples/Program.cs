@@ -138,30 +138,47 @@ internal class Program
         var account_30 = await api.Account.GetTradeAnalysisAsync("ETHUSDT" /* ...optional parameters... */);
 
         // Asset API Methods (Private)
-        var asset_01 = await api.Asset.GetExchangeHistoryAsync(/* ...optional parameters... */);
-        var asset_02 = await api.Asset.GetDeliveryHistoryAsync(BybitCategory.Option /* ...optional parameters... */);
-        var asset_03 = await api.Asset.GetSettlementHistoryAsync(BybitCategory.Linear /* ...optional parameters... */);
-        var asset_04 = await api.Asset.GetSpotBalancesAsync(/* ...optional parameters... */);
-        var asset_05 = await api.Asset.GetAssetBalancesAsync(BybitAccountType.Spot /* ...optional parameters... */);
-        var asset_06 = await api.Asset.GetAssetBalanceAsync("USDT", BybitAccountType.Fund /* ...optional parameters... */);
-        var asset_07 = await api.Asset.GetTransferableAssetsAsync(BybitAccountType.Fund, BybitAccountType.Spot /* ...optional parameters... */);
-        var asset_08 = await api.Asset.InternalTransferAsync("USDT", 100.0m, BybitAccountType.Fund, BybitAccountType.Spot /* ...optional parameters... */);
-        var asset_09 = await api.Asset.GetInternalTransfersAsync(/* ...optional parameters... */);
-        var asset_10 = await api.Asset.GetSubUsersAsync(/* ...optional parameters... */);
-        var asset_11 = await api.Asset.UniversalTransferAsync("USDT", 100.0m, "-----FROM-UID-----", "-----TO-UID-----", BybitAccountType.Fund, BybitAccountType.Fund /* ...optional parameters... */);
-        var asset_12 = await api.Asset.GetUniversalTransfersAsync(/* ...optional parameters... */);
-        var asset_13 = await api.Asset.GetDepositAllowedAssetsAsync(/* ...optional parameters... */);
-        var asset_14 = await api.Asset.SetDepositAccountAsync(BybitAccountType.Fund /* ...optional parameters... */);
-        var asset_15 = await api.Asset.GetDepositsAsync(/* ...optional parameters... */);
-        var asset_16 = await api.Asset.GetDepositsAsync(1_000_001 /* ...optional parameters... */);
-        var asset_17 = await api.Asset.GetInternalDepositsAsync(/* ...optional parameters... */);
-        var asset_18 = await api.Asset.GetDepositAddressAsync("USDT" /* ...optional parameters... */);
-        var asset_19 = await api.Asset.GetDepositAddressAsync(1_000_001, "USDT" /* ...optional parameters... */);
-        var asset_20 = await api.Asset.GetAssetAsync(/* ...optional parameters... */);
-        var asset_21 = await api.Asset.GetWithdrawalsAsync(/* ...optional parameters... */);
-        var asset_22 = await api.Asset.GetWithdrawableQuantityAsync("USDT" /* ...optional parameters... */);
-        var asset_23 = await api.Asset.WithdrawAsync("USDT", 100.0m, "-----ADDRESS-----" /* ...optional parameters... */);
-        var asset_24 = await api.Asset.CancelWithdrawalAsync("-----WITHDRAWAL-ID-----" /* ...optional parameters... */);
+        var asset_01 = await api.Asset.GetFundingHistoryAsync(/* ...optional parameters... */);
+        var asset_02 = await api.Asset.GetExchangeHistoryAsync(/* ...optional parameters... */);
+        var asset_03 = await api.Asset.GetDeliveryHistoryAsync(BybitCategory.Option /* ...optional parameters... */);
+        var asset_04 = await api.Asset.GetDeliveryHistoryAsync(new BybitAssetDeliveryHistoryRequest(BybitCategory.Option) { ExpiryDate = "25MAR22" });
+        var asset_05 = await api.Asset.GetSettlementHistoryAsync(BybitCategory.Linear /* ...optional parameters... */);
+        var asset_06 = await api.Asset.GetSubUsersAsync(/* ...optional parameters... */);
+        var asset_07 = await api.Asset.GetPortfolioMarginAsync(/* ...optional parameters... */);
+        var asset_08 = await api.Asset.GetTotalMembersAssetsAsync(/* ...optional parameters... */);
+        var asset_09 = await api.Asset.GetSpotBalancesAsync(/* ...optional parameters... */);
+        var asset_10 = await api.Asset.GetAssetBalancesAsync(BybitAccountType.Spot /* ...optional parameters... */);
+        var asset_11 = await api.Asset.GetAssetBalancesAsync(new BybitAssetBalancesRequest(BybitAccountType.Unified) { Asset = "USDT" });
+        var asset_12 = await api.Asset.GetAssetBalanceAsync("USDT", BybitAccountType.Fund /* ...optional parameters... */);
+        var asset_13 = await api.Asset.GetWithdrawableQuantityAsync("USDT" /* ...optional parameters... */);
+        var asset_14 = await api.Asset.GetAssetOverviewAsync(/* ...optional parameters... */);
+        var asset_15 = await api.Asset.GetTransferableAssetsAsync(BybitAccountType.Fund, BybitAccountType.Spot /* ...optional parameters... */);
+        var asset_16 = await api.Asset.InternalTransferAsync("USDT", 100.0m, BybitAccountType.Fund, BybitAccountType.Spot /* ...optional parameters... */);
+        var asset_17 = await api.Asset.GetInternalTransfersAsync(/* ...optional parameters... */);
+        var asset_18 = await api.Asset.UniversalTransferAsync("USDT", 100.0m, "-----FROM-UID-----", "-----TO-UID-----", BybitAccountType.Fund, BybitAccountType.Fund /* ...optional parameters... */);
+        var asset_19 = await api.Asset.GetUniversalTransfersAsync(/* ...optional parameters... */);
+        var asset_20 = await api.Asset.GetDepositAllowedAssetsAsync(/* ...optional parameters... */);
+        var asset_21 = await api.Asset.SetDepositAccountAsync(BybitAccountType.Fund /* ...optional parameters... */);
+        var asset_22 = await api.Asset.GetDepositsAsync(/* ...optional parameters... */);
+        var asset_23 = await api.Asset.GetDepositsAsync(1_000_001 /* ...optional parameters... */);
+        var asset_24 = await api.Asset.GetInternalDepositsAsync(/* ...optional parameters... */);
+        var asset_25 = await api.Asset.GetDepositAddressAsync("USDT" /* ...optional parameters... */);
+        var asset_26 = await api.Asset.GetDepositAddressAsync(1_000_001, "USDT" /* ...optional parameters... */);
+        var asset_27 = await api.Asset.GetAssetAsync(/* ...optional parameters... */);
+        var asset_28 = await api.Asset.GetWithdrawalsAsync(/* ...optional parameters... */);
+        var asset_29 = await api.Asset.GetWithdrawalAddressesAsync(/* ...optional parameters... */);
+        var asset_30 = await api.Asset.GetVaspsAsync(/* ...optional parameters... */);
+        var asset_31 = await api.Asset.WithdrawAsync(new BybitAssetWithdrawRequest("USDT", 100.0m, "-----ADDRESS-----")
+        {
+            AccountType = BybitAssetWithdrawAccountType.Fund,
+            Chain = "ETH",
+        });
+        var asset_32 = await api.Asset.CancelWithdrawalAsync("-----WITHDRAWAL-ID-----" /* ...optional parameters... */);
+        var asset_33 = await api.Asset.GetConvertCoinsAsync("eb_convert_funding" /* ...optional parameters... */);
+        var asset_34 = await api.Asset.RequestConvertQuoteAsync(new BybitAssetConvertQuoteRequest("eb_convert_funding", "ETH", "BTC", "ETH", 0.1m));
+        var asset_35 = await api.Asset.ConfirmConvertQuoteAsync("-----QUOTE-TX-ID-----" /* ...optional parameters... */);
+        var asset_36 = await api.Asset.GetConvertStatusAsync("-----QUOTE-TX-ID-----", "eb_convert_funding" /* ...optional parameters... */);
+        var asset_37 = await api.Asset.GetConvertHistoryAsync(/* ...optional parameters... */);
 
         // User API Methods (Private)
         var user_01 = await api.User.CreateSubAccountAsync(BybitSubAccountType.NormalSubAccount, "-----USERNAME-----" /* ...optional parameters... */);

@@ -57,4 +57,19 @@ public record BybitAssetDepositInternal
     /// </summary>
     [JsonProperty("txID")]
     public string TransactionId { get; set; } = "";
+
+    /// <summary>
+    /// Sender UID.
+    /// </summary>
+    public string FromMemberId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Tax record ID for tax reporting, when applicable.
+    /// </summary>
+    public string TaxDepositRecordsId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Tax reporting status, when applicable.
+    /// </summary>
+    public int? TaxStatus { get; set; }
 }

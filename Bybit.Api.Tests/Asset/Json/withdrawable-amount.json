@@ -1,0 +1,26 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "limitAmountUsd": "595051.7",
+    "withdrawableAmount": {
+      "FUND": {
+        "coin": "USDT",
+        "withdrawableAmount": "155805.847",
+        "availableBalance": "155805.847"
+      },
+      "UTA": {
+        "coin": "USDT",
+        "withdrawableAmount": "498751.0882",
+        "availableBalance": "498751.0882"
+      },
+      "EARN": {
+        "coin": "USDT",
+        "withdrawableAmount": "5",
+        "availableBalance": "5"
+      }
+    }
+  },
+  "retExtInfo": {},
+  "time": 1754009688289
+}

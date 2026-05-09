@@ -9,5 +9,20 @@ public record BybitAssetWithdrawalId
     /// Withdrawal Id
     /// </summary>
     [JsonProperty("id")]
-    public long? Id { get; set; }
+    public string Id { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Numeric withdrawal ID when the value is numeric.
+    /// </summary>
+    [JsonIgnore]
+    public long? NumericId
+    {
+        get
+        {
+            if (long.TryParse(Id, NumberStyles.Integer, CultureInfo.InvariantCulture, out var value))
+                return value;
+
+            return null;
+        }
+    }
 }

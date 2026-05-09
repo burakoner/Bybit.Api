@@ -1,0 +1,31 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "coins": [
+      {
+        "coin": "ETH",
+        "fullName": "Ethereum",
+        "icon": "https://example.invalid/eth.png",
+        "iconNight": "https://example.invalid/eth-night.png",
+        "accuracyLength": 8,
+        "coinType": "crypto",
+        "balance": "12.25",
+        "uBalance": "40000",
+        "singleFromMinLimit": "0.001",
+        "singleFromMaxLimit": "10",
+        "disableFrom": false,
+        "disableTo": true,
+        "timePeriod": 0,
+        "singleToMinLimit": "0.001",
+        "singleToMaxLimit": "10",
+        "dailyFromMinLimit": "0",
+        "dailyFromMaxLimit": "100",
+        "dailyToMinLimit": "0",
+        "dailyToMaxLimit": "100"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1720064061248
+}

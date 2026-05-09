@@ -26,6 +26,11 @@ Version 5.6.507 - 09 May 2026
 - Added request-object overloads for Account wallet balance, borrow history, fee rate, transaction logs, account instruments, manual borrow/repay, collateral batch updates, MMP updates, and trade analysis while preserving existing method signatures.
 - Fixed Account response mappings for nullable wallet account-wide fields, borrow history `costExemption`, Greeks `baseCoin`, MMP `deltaLimit`, transaction `extraFees`, account DCP/SMP fields, option asset info, pay info, and trade analysis data.
 - Added focused Account JSON deserialization and request serialization tests.
+- Updated Asset REST API coverage against the current Bybit v5 documentation.
+- Added Asset endpoints for funding history, portfolio margin info, total members assets, asset overview, withdrawal address book, VASP list, and standard Convert operations.
+- Added request-object overloads for complex Asset queries, transfer/deposit/withdrawal histories, transfer creation, withdrawals, and Convert flows while preserving existing method signatures.
+- Fixed Asset response mappings for coin chain limits, deposit tax fields, internal deposit sender IDs, withdrawable UTA/Earn wallets, string withdrawal IDs, withdrawal address timestamps, VASP lists, and Convert statuses.
+- Added focused Asset JSON deserialization and request serialization tests.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

@@ -1,0 +1,22 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "rows": [
+      {
+        "coin": "USDT",
+        "chain": "ETH",
+        "address": "0x99ced129603abc771c0dabe935c326ff6c86645d",
+        "tag": "",
+        "remark": "main withdrawal address",
+        "status": 0,
+        "addressType": 0,
+        "verified": 1,
+        "createAt": "1769904000"
+      }
+    ],
+    "nextPageCursor": ""
+  },
+  "retExtInfo": {},
+  "time": 1769904010000
+}

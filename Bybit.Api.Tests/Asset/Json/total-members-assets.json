@@ -1,0 +1,29 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "total": "12345.67",
+    "quoteTotal": "12345.67",
+    "stat": 0,
+    "list": [
+      {
+        "uid": 1234567890123456789,
+        "isM": true,
+        "type": 1,
+        "stat": 0,
+        "origb": "12345.67",
+        "quoteb": "12345.67",
+        "items": [
+          {
+            "type": "UNIFIED",
+            "origb": "10000",
+            "quoteb": "10000",
+            "stat": 0
+          }
+        ]
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1773230924000
+}

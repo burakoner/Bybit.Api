@@ -1,0 +1,23 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "nextPageCursor": "MTM3MTU3OTk=",
+    "list": [
+      {
+        "memberId": "290118",
+        "currency": "BTC",
+        "ioDirection": "I",
+        "txnAmt": "0.00003561",
+        "afterAmt": "7.5547230662687035",
+        "createTime": "1772626563",
+        "showBusiType": "fundingAccountRecordEarn",
+        "showBusiTypeEn": "Earn",
+        "description": "fundingAccountRecordFlexSavingInterestDistribution",
+        "descriptionEn": "Easy Earn | Flexible Interest Distribution"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1772699449372
+}

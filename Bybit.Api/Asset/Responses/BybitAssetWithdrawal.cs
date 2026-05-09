@@ -83,4 +83,34 @@ public record BybitAssetWithdrawal
     /// Withdraw updated timestamp
     /// </summary>
     public DateTime? UpdateTime { get => UpdateTimestamp?.ConvertFromMilliseconds(); }
+
+    /// <summary>
+    /// Withdrawal request ID provided by the client.
+    /// </summary>
+    public string RequestId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Withdrawal account type.
+    /// </summary>
+    public string AccountType { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Transaction output index when applicable.
+    /// </summary>
+    public string Vout { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Withdrawal transaction purpose.
+    /// </summary>
+    public string TransactionPurpose { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Receiver platform id for travel rule withdrawals.
+    /// </summary>
+    public string VaspEntityId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Beneficiary KYC name for travel rule withdrawals.
+    /// </summary>
+    public string BeneficiaryName { get; set; } = string.Empty;
 }

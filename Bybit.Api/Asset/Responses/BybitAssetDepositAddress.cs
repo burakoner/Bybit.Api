@@ -15,6 +15,7 @@ public record BybitAssetDepositAddress
     /// Chains
     /// </summary>
     [JsonProperty("chains")]
+    [JsonConverter(typeof(SafeCollectionConverter))]
     public List<BybitAssetDepositAddressByChain> Chains { get; set; } = [];
 }
 
@@ -51,4 +52,9 @@ public record BybitAssetDepositAddressByChain
     /// The deposit limit for this coin in this chain. "-1" means no limit
     /// </summary>
     public decimal BatchReleaseLimit { get; set; }
+
+    /// <summary>
+    /// The contract address suffix. Empty means no contract address.
+    /// </summary>
+    public string ContractAddress { get; set; } = string.Empty;
 }

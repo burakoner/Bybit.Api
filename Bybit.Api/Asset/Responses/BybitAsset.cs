@@ -20,6 +20,7 @@ public record BybitAsset
     /// Remaining amount
     /// </summary>
     [JsonProperty("remainAmount")]
+    [Obsolete("Bybit deprecated remainAmount; use chain-level limits instead.")]
     public decimal? RemainingWithdrawableQuantity { get; set; }
 
     /// <summary>
@@ -44,31 +45,31 @@ public record BybitAssetChain
     /// The number of confirmation for deposit
     /// </summary>
     [JsonProperty("confirmation")]
-    public int Confirmations { get; set; }
+    public int? Confirmations { get; set; }
 
     /// <summary>
     /// withdraw fee. If withdraw fee is empty, It means that this coin does not support withdrawal
     /// </summary>
     [JsonProperty("withdrawFee")]
-    public decimal WithdrawalFee { get; set; }
+    public decimal? WithdrawalFee { get; set; }
 
     /// <summary>
     /// Min. deposit
     /// </summary>
     [JsonProperty("depositMin")]
-    public decimal MinimumDeposit { get; set; }
+    public decimal? MinimumDeposit { get; set; }
 
     /// <summary>
     /// Min. withdraw
     /// </summary>
     [JsonProperty("withdrawMin")]
-    public decimal MinimumWithdrawal { get; set; }
+    public decimal? MinimumWithdrawal { get; set; }
 
     /// <summary>
     /// The precision of withdraw or deposit
     /// </summary>
     [JsonProperty("minAccuracy")]
-    public decimal MinimumAccuracy { get; set; }
+    public decimal? MinimumAccuracy { get; set; }
 
     /// <summary>
     /// The chain status of deposit. 0: suspend. 1: normal
@@ -88,6 +89,30 @@ public record BybitAssetChain
     /// The withdraw fee percentage. It is a real figure, e.g., 0.022 means 2.2%
     /// </summary>
     [JsonProperty("withdrawPercentageFee")]
-    public decimal WithdrawalPercentageFee { get; set; }
+    public decimal? WithdrawalPercentageFee { get; set; }
+
+    /// <summary>
+    /// Chain name.
+    /// </summary>
+    [JsonProperty("chain")]
+    public string Chain { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Contract address. Empty means no contract address.
+    /// </summary>
+    [JsonProperty("contractAddress")]
+    public string ContractAddress { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Number of security confirmations.
+    /// </summary>
+    [JsonProperty("safeConfirmNumber")]
+    public int? SafeConfirmations { get; set; }
+
+    /// <summary>
+    /// Maximum withdrawal amount per transaction on this chain. -1 means no limit.
+    /// </summary>
+    [JsonProperty("withdrawMax")]
+    public decimal? MaximumWithdrawal { get; set; }
 
 }

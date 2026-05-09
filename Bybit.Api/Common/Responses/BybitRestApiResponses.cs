@@ -16,6 +16,12 @@ internal record BybitListResponse<T>
     [JsonProperty("rows", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     protected List<T> Rows { set => Payload = value; get => Payload; }
 
+    [JsonProperty("coins", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+    protected List<T> Coins { set => Payload = value; get => Payload; }
+
+    [JsonProperty("vasp", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+    protected List<T> Vasp { set => Payload = value; get => Payload; }
+
     [JsonProperty("subMembers", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     protected List<T> SubMembers { set => Payload = value; get => Payload; }
 

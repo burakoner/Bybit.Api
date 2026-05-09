@@ -1,0 +1,26 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "result": {
+      "accountType": "eb_convert_funding",
+      "exchangeTxId": "10100108106409343501030232064",
+      "userId": "290118",
+      "fromCoin": "ETH",
+      "fromCoinType": "crypto",
+      "toCoin": "BTC",
+      "toCoinType": "crypto",
+      "fromAmount": "0.1",
+      "toAmount": "0.005",
+      "exchangeStatus": "success",
+      "extInfo": {
+        "paramType": "opFrom",
+        "paramValue": "broker-id-001"
+      },
+      "convertRate": "0.05",
+      "createdAt": "1720073014864"
+    }
+  },
+  "retExtInfo": {},
+  "time": 1720073659847
+}

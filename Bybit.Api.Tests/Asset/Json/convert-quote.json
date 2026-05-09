@@ -1,0 +1,19 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "quoteTxId": "10100108106409343501030232064",
+    "exchangeRate": "0.05",
+    "fromCoin": "ETH",
+    "fromCoinType": "crypto",
+    "toCoin": "BTC",
+    "toCoinType": "crypto",
+    "fromAmount": "0.1",
+    "toAmount": "0.005",
+    "expiredTime": "1720071092014",
+    "requestId": "test-00002",
+    "extTaxAndFee": []
+  },
+  "retExtInfo": {},
+  "time": 1720071077014
+}

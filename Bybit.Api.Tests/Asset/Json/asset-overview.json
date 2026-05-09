@@ -1,0 +1,40 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "totalEquity": "1024.55",
+    "list": [
+      {
+        "accountType": "UnifiedTradingAccount",
+        "totalEquity": "500.5",
+        "valuationCurrency": "USDT",
+        "snapshotTime": "1773230923530",
+        "coinDetail": [
+          {
+            "coin": "BTC",
+            "equity": "0.01",
+            "extMap": {
+              "priceUpper": "70000",
+              "priceLower": "60000",
+              "equityUnit": "BTC"
+            }
+          }
+        ],
+        "categories": [
+          {
+            "category": "SPOT",
+            "equity": "301",
+            "coinDetail": [
+              {
+                "coin": "USDT",
+                "equity": "301"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1773230924000
+}

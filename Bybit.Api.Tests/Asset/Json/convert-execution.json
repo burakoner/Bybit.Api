@@ -1,0 +1,10 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "quoteTxId": "10100108106409343501030232064",
+    "exchangeStatus": "processing"
+  },
+  "retExtInfo": {},
+  "time": 1720071899789
+}
