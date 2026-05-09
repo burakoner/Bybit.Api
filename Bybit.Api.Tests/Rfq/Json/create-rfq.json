@@ -1,0 +1,13 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "rfqId": "17526315514105706281",
+    "rfqLinkId": "rfq00993",
+    "status": "Active",
+    "expiresAt": "1752632151414",
+    "deskCode": "LP2"
+  },
+  "retExtInfo": {},
+  "time": 1752631551419
+}

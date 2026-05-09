@@ -1,0 +1,12 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "rfqId": "175740700350925204128457980089654",
+    "rfqLinkId": "",
+    "quoteId": "1757407015586174663206671159484665",
+    "status": "PendingFill"
+  },
+  "retExtInfo": {},
+  "time": 1757407058177
+}

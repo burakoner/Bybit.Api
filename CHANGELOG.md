@@ -41,6 +41,9 @@ Version 5.6.507 - 09 May 2026
 - Added Spread Market endpoints for instruments, orderbook, tickers, and recent public trades.
 - Added Spread Trade endpoints for create, amend, cancel, cancel all, open orders, order history, trade history, and maximum order quantity.
 - Added typed Spread request/response models, enums, examples, JSON deserialization tests, request serialization tests, and live public endpoint coverage.
+- Added RFQ Trading REST API coverage against the current Bybit v5 documentation.
+- Added RFQ endpoints for creating/canceling RFQs, accepting non-LP quotes, creating/executing/canceling quotes, querying RFQs, quotes, trade history, public trades, and RFQ configuration.
+- Added typed RFQ request/response models, enums, examples, JSON deserialization tests, request serialization tests, and client-side validation tests.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

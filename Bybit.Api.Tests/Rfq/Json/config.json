@@ -1,0 +1,36 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "deskCode": "1nu9d1",
+    "maxLegs": 25,
+    "maxLP": 50,
+    "rfqExpireTime": 10,
+    "maxActiveRfq": 10,
+    "minLimitQtySpotOrder": 10,
+    "minLimitQtyContractOrder": 10,
+    "minLimitQtyOptionOrder": 1,
+    "strategyTypes": [
+      {
+        "strategyName": "custom"
+      },
+      {
+        "strategyName": "FundingRate"
+      }
+    ],
+    "counterparties": [
+      {
+        "traderName": "1zQkH0y7Y3acALM",
+        "deskCode": "gIMhjitYqE9WG5F",
+        "type": "LP"
+      },
+      {
+        "traderName": "Normal Quoter",
+        "deskCode": "normalDesk",
+        "type": null
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1756870672013
+}

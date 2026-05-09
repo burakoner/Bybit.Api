@@ -1,0 +1,39 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "cursor": "",
+    "list": [
+      {
+        "rfqLinkId": "",
+        "rfqId": "175740578143743543930777169307022",
+        "quoteId": "1757405933130044334361923221559805",
+        "quoteLinkId": "",
+        "expiresAt": "1757405993126",
+        "status": "Expired",
+        "deskCode": "test0904",
+        "execQuoteSide": "",
+        "quoteBuyList": [
+          {
+            "category": "linear",
+            "symbol": "BTCUSDT",
+            "price": "113790",
+            "qty": "0.5"
+          }
+        ],
+        "quoteSellList": [
+          {
+            "category": "linear",
+            "symbol": "BTCUSDT",
+            "price": "110500",
+            "qty": "0.5"
+          }
+        ],
+        "createdAt": "1757405933126",
+        "updatedAt": "1757405999156"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1757406548275
+}

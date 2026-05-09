@@ -217,6 +217,27 @@ internal class Program
         var spread_11 = await api.Spread.GetTradeHistoryAsync(orderId: "-----ORDER-ID-----" /* ...optional parameters... */);
         var spread_12 = await api.Spread.GetMaxOrderQuantityAsync("SOLUSDT_SOL/USDT", BybitSpreadMaxQuantitySide.Buy, 21.0m /* ...optional parameters... */);
 
+        // RFQ Trading API Methods (Private)
+        var rfq_01 = await api.Rfq.GetRfqConfigAsync(/* ...optional parameters... */);
+        var rfq_02 = await api.Rfq.CreateRfqAsync(["LP4", "LP5"], [
+            new BybitRfqLegRequest(BybitCategory.Linear, "BTCUSDT", BybitOrderSide.Buy, 1.0m),
+        ] /* ...optional parameters... */);
+        var rfq_03 = await api.Rfq.CancelRfqAsync(rfqId: "-----RFQ-ID-----" /* ...optional parameters... */);
+        var rfq_04 = await api.Rfq.CancelAllRfqsAsync(/* ...optional parameters... */);
+        var rfq_05 = await api.Rfq.AcceptOtherQuoteAsync("-----RFQ-ID-----" /* ...optional parameters... */);
+        var rfq_06 = await api.Rfq.CreateQuoteAsync("-----RFQ-ID-----",
+            quoteBuyList: [new BybitRfqQuoteLegRequest(BybitCategory.Linear, "BTCUSDT", 106000.0m)],
+            quoteSellList: [new BybitRfqQuoteLegRequest(BybitCategory.Linear, "BTCUSDT", 126500.0m)] /* ...optional parameters... */);
+        var rfq_07 = await api.Rfq.ExecuteQuoteAsync("-----RFQ-ID-----", "-----QUOTE-ID-----", BybitOrderSide.Buy /* ...optional parameters... */);
+        var rfq_08 = await api.Rfq.CancelQuoteAsync(quoteId: "-----QUOTE-ID-----" /* ...optional parameters... */);
+        var rfq_09 = await api.Rfq.CancelAllQuotesAsync(/* ...optional parameters... */);
+        var rfq_10 = await api.Rfq.GetRfqsRealtimeAsync(/* ...optional parameters... */);
+        var rfq_11 = await api.Rfq.GetRfqsAsync(limit: 20 /* ...optional parameters... */);
+        var rfq_12 = await api.Rfq.GetQuotesRealtimeAsync(/* ...optional parameters... */);
+        var rfq_13 = await api.Rfq.GetQuotesAsync(limit: 20 /* ...optional parameters... */);
+        var rfq_14 = await api.Rfq.GetTradeHistoryAsync(limit: 20 /* ...optional parameters... */);
+        var rfq_15 = await api.Rfq.GetPublicTradesAsync(limit: 20 /* ...optional parameters... */);
+
         // Margin API Methods (Public / Private)
         var margin_01 = await api.Margin.GetVipMarginDataAsync(/* ...optional parameters... */);
         var margin_02 = await api.Margin.GetTieredCollateralRatiosAsync(/* ...optional parameters... */);

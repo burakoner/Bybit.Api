@@ -1,0 +1,54 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "cursor": "",
+    "list": [
+      {
+        "rfqId": "1755159541420049734454484077021786",
+        "rfqLinkId": "",
+        "quoteId": "175515955714692291558309160384918",
+        "quoteLinkId": "",
+        "quoteSide": "Buy",
+        "strategyType": "PerpBasis",
+        "status": "Failed",
+        "rfqDeskCode": "1nu9d1",
+        "quoteDeskCode": "lines100412673",
+        "legs": [
+          {
+            "category": "linear",
+            "symbol": "BTCUSDT-15AUG25",
+            "side": "Sell",
+            "price": "108887",
+            "qty": "1",
+            "orderId": "db852bcd-052e-49b7-ba10-059622e1219b",
+            "markPrice": "",
+            "execFee": "0",
+            "execId": "",
+            "resultCode": 111002,
+            "resultMessage": "Rejected caused by another legs",
+            "rejectParty": ""
+          },
+          {
+            "category": "linear",
+            "symbol": "BTCUSDT",
+            "side": "Buy",
+            "price": "132038",
+            "qty": "1",
+            "orderId": "69667acb-7048-48d7-90b9-ccbdfd423130",
+            "markPrice": "",
+            "execFee": "0",
+            "execId": "",
+            "resultCode": 110007,
+            "resultMessage": "Insufficient available balance",
+            "rejectParty": "taker"
+          }
+        ],
+        "createdAt": "1755159541421",
+        "updatedAt": "1755159654501"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1756891941267
+}

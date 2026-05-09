@@ -1,0 +1,27 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "cursor": "page_token%3D14912%26last_time%3D1756826273947000000%26",
+    "list": [
+      {
+        "rfqId": "1756892210565322771637442724834278",
+        "strategyType": "custom",
+        "legs": [
+          {
+            "category": "spot",
+            "symbol": "BTCUSDT",
+            "side": "Sell",
+            "price": "100000",
+            "qty": "0.5",
+            "markPrice": "110320"
+          }
+        ],
+        "createdAt": "1756892210567",
+        "updatedAt": "1756892215712"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1756892357602
+}

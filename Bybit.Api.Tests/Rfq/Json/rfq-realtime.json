@@ -1,0 +1,32 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "rfqLinkId": "",
+        "rfqId": "1756885055799241492396882271696580",
+        "counterparties": [
+          "hashwave2"
+        ],
+        "strategyType": "custom",
+        "expiresAt": "1756885655801",
+        "status": "Active",
+        "acceptOtherQuoteStatus": "false",
+        "deskCode": "1nu9d1",
+        "createdAt": "1756885055801",
+        "updatedAt": "1756885055801",
+        "legs": [
+          {
+            "category": "linear",
+            "symbol": "BTCUSDT",
+            "side": "Buy",
+            "qty": "1"
+          }
+        ]
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1756885059062
+}
