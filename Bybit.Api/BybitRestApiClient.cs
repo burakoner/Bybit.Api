@@ -7,6 +7,7 @@ using Bybit.Api.Trading;
 using Bybit.Api.User;
 using Bybit.Api.System;
 using Bybit.Api.Position;
+using Bybit.Api.Spread;
 
 namespace Bybit.Api;
 
@@ -57,7 +58,11 @@ public class BybitRestApiClient
     /// </summary>
     public BybitUserRestApiClient User { get; } // OK-1011
 
-    // TODO: Spread
+    /// <summary>
+    /// Spread Trading Client
+    /// </summary>
+    public BybitSpreadRestApiClient Spread { get; }
+
     // TODO: Affiliate
 
     /// <summary>
@@ -109,6 +114,7 @@ public class BybitRestApiClient
         this.Account = new BybitAccountRestApiClient(this);
         this.Asset = new BybitAssetRestApiClient(this);
         this.User = new BybitUserRestApiClient(this);
+        this.Spread = new BybitSpreadRestApiClient(this);
         this.Margin = new BybitMarginRestApiClient(this);
         this.InstitutionalLoan = new BybitInstitutionalLoanRestApiClient(this);
     }

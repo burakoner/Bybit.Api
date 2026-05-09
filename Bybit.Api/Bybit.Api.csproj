@@ -43,7 +43,6 @@
 	  <Folder Include="CryptoLoan\" />
 	  <Folder Include="Broker\" />
 	  <Folder Include="Earn\" />
-	  <Folder Include="Spread\" />
 	</ItemGroup>
 
 </Project>

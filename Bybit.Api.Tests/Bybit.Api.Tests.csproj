@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="**\Json\*.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="**\Json\*.json" Exclude="bin\**;obj\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,19 @@
+{
+  "retCode": 0,
+  "retMsg": "Success",
+  "result": {
+    "list": [
+      {
+        "execId": "c8512970-d6fb-5039-93a5-b4196dffbe88",
+        "symbol": "SOLUSDT_SOL/USDT",
+        "price": "20.2805",
+        "size": "3.3",
+        "side": "Sell",
+        "time": "1744078324035",
+        "seq": "123456"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1744078324682
+}

@@ -37,6 +37,10 @@ Version 5.6.507 - 09 May 2026
 - Fixed User request handling for optional quick login, sub account pagination cursors, optional read-only updates, IP binding strings, and the current master API key update request shape.
 - Added User response mappings for fund custodial account type, UTA 2.0 account modes, expanded API key permissions, API key metadata, wallet types, and friend referrals.
 - Added focused User JSON deserialization and request serialization tests.
+- Added Spread Trading REST API coverage against the current Bybit v5 documentation.
+- Added Spread Market endpoints for instruments, orderbook, tickers, and recent public trades.
+- Added Spread Trade endpoints for create, amend, cancel, cancel all, open orders, order history, trade history, and maximum order quantity.
+- Added typed Spread request/response models, enums, examples, JSON deserialization tests, request serialization tests, and live public endpoint coverage.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

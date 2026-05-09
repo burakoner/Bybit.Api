@@ -203,6 +203,20 @@ internal class Program
         var user_16 = await api.User.DeleteSubAccountApiKeyAsync(/* ...optional parameters... */);
         var user_17 = await api.User.GetFriendReferralsAsync(status: 0, size: 20 /* ...optional parameters... */);
 
+        // Spread Trading API Methods (Public / Private)
+        var spread_01 = await api.Spread.GetInstrumentsAsync(limit: 1 /* ...optional parameters... */);
+        var spread_02 = await api.Spread.GetOrderbookAsync("SOLUSDT_SOL/USDT", 1 /* ...optional parameters... */);
+        var spread_03 = await api.Spread.GetTickersAsync("SOLUSDT_SOL/USDT" /* ...optional parameters... */);
+        var spread_04 = await api.Spread.GetRecentTradesAsync("SOLUSDT_SOL/USDT", 10 /* ...optional parameters... */);
+        var spread_05 = await api.Spread.PlaceOrderAsync("SOLUSDT_SOL/USDT", BybitOrderSide.Buy, BybitOrderType.Limit, 0.1m, 21.0m, "-----CLIENT-ORDER-ID-----", BybitTimeInForce.PostOnly /* ...optional parameters... */);
+        var spread_06 = await api.Spread.AmendOrderAsync("SOLUSDT_SOL/USDT", clientOrderId: "-----CLIENT-ORDER-ID-----", quantity: 0.2m, price: 14.0m /* ...optional parameters... */);
+        var spread_07 = await api.Spread.CancelOrderAsync(clientOrderId: "-----CLIENT-ORDER-ID-----" /* ...optional parameters... */);
+        var spread_08 = await api.Spread.CancelAllOrdersAsync(symbol: "SOLUSDT_SOL/USDT" /* ...optional parameters... */);
+        var spread_09 = await api.Spread.GetOpenOrdersAsync(/* ...optional parameters... */);
+        var spread_10 = await api.Spread.GetOrderHistoryAsync(orderId: "-----ORDER-ID-----" /* ...optional parameters... */);
+        var spread_11 = await api.Spread.GetTradeHistoryAsync(orderId: "-----ORDER-ID-----" /* ...optional parameters... */);
+        var spread_12 = await api.Spread.GetMaxOrderQuantityAsync("SOLUSDT_SOL/USDT", BybitSpreadMaxQuantitySide.Buy, 21.0m /* ...optional parameters... */);
+
         // Margin API Methods (Public / Private)
         var margin_01 = await api.Margin.GetVipMarginDataAsync(/* ...optional parameters... */);
         var margin_02 = await api.Margin.GetTieredCollateralRatiosAsync(/* ...optional parameters... */);
