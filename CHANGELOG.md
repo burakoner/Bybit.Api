@@ -16,6 +16,11 @@ Version 5.6.507 - 09 May 2026
 - Added request-object overloads for complex Spot Margin queries and fixed-rate borrow flows while preserving the existing margin mode and leverage calls.
 - Fixed the Spot Margin historical interest endpoint path and added currency-scoped spot margin leverage support.
 - Added focused Spot Margin JSON deserialization tests and live public endpoint integration coverage.
+- Updated Position REST API coverage against the current Bybit v5 documentation.
+- Added request-object overloads for Position queries and commands while preserving existing method signatures.
+- Fixed move-position requests to use POST body parameters, aligned move-history with its optional category parameter, and allowed option trading-stop requests.
+- Added Position response mappings for break-even price, open time, MMR update aliases, auto-add-margin booleans, and long user IDs.
+- Added focused Position JSON deserialization and request serialization tests.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

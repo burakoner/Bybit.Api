@@ -2,6 +2,7 @@
 global using Bybit.Api.Enums;
 global using Bybit.Api.Margin;
 global using Bybit.Api.Market;
+global using Bybit.Api.Position;
 global using Bybit.Api.Trading;
 global using Bybit.Api.User;
 global using System;

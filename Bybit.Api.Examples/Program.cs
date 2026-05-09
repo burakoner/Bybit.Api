@@ -68,14 +68,42 @@ internal class Program
         var position_01 = await api.Position.GetPositionsAsync(BybitCategory.Linear /* ...optional parameters... */);
         var position_02 = await api.Position.SetLeverageAsync(BybitCategory.Linear, "BTCUSDT", 10.0m, 10.0m /* ...optional parameters... */);
         var position_03 = await api.Position.SwitchMarginModeAsync(BybitCategory.Linear, "BTCUSDT", BybitTradeMode.CrossMargin, 10.0m, 10.0m /* ...optional parameters... */);
+        var position_04 = await api.Position.GetPositionsAsync(new BybitPositionListRequest(BybitCategory.Option)
+        {
+            BaseAsset = "BTC",
+            Limit = 20,
+        });
         var position_05 = await api.Position.SwitchPositionModeAsync(BybitCategory.Linear, BybitPositionMode.BothSides /* ...optional parameters... */);
-        var position_07 = await api.Position.SetTradingStopAsync(BybitCategory.Linear, "BTCUSDT", BybitPositionIndex.OneWayModePosition /* ...optional parameters... */);
+        var position_06 = await api.Position.SetTradingStopAsync(BybitCategory.Linear, "BTCUSDT", BybitPositionIndex.OneWayModePosition /* ...optional parameters... */);
+        var position_07 = await api.Position.SetTradingStopAsync(new BybitPositionSetTradingStopRequest(BybitCategory.Linear, "BTCUSDT", BybitPositionIndex.OneWayModePosition)
+        {
+            TakeProfitStopLossMode = BybitTakeProfitStopLossMode.Partial,
+            TakeProfitPrice = 65000.0m,
+            StopLossPrice = 59000.0m,
+            TakeProfitTrigger = BybitTriggerPrice.MarkPrice,
+            StopLossTrigger = BybitTriggerPrice.IndexPrice,
+        });
         var position_08 = await api.Position.SetAutoAddMarginAsync(BybitCategory.Linear, "BTCUSDT", true /* ...optional parameters... */);
         var position_09 = await api.Position.AddOrReduceMarginAsync(BybitCategory.Linear, "BTCUSDT", 10.0m /* ...optional parameters... */);
         var position_10 = await api.Position.GetClosedPnlAsync(BybitCategory.Linear /* ...optional parameters... */);
-        var position_11 = await api.Position.MovePositionsAsync("-----FROM-UID-----", "-----TO-UID-----", [] /* ...optional parameters... */);
-        var position_12 = await api.Position.GetMoveHistoryAsync(BybitCategory.Linear /* ...optional parameters... */);
-        var position_13 = await api.Position.ConfirmNewRiskLimitAsync(BybitCategory.Linear, "BTCUSDT" /* ...optional parameters... */);
+        var position_11 = await api.Position.GetClosedOptionsPositionsAsync(/* ...optional parameters... */);
+        var position_12 = await api.Position.MovePositionsAsync("-----FROM-UID-----", "-----TO-UID-----", [] /* ...optional parameters... */);
+        var position_13 = await api.Position.MovePositionsAsync(new BybitPositionMovePositionsRequest("-----FROM-UID-----", "-----TO-UID-----", [
+            new BybitPositionMoveRequest
+            {
+                Category = BybitCategory.Spot,
+                Symbol = "BTCUSDT",
+                Side = BybitOrderSide.Sell,
+                Price = 100.0m,
+                Quantity = 0.01m,
+            }
+        ]));
+        var position_14 = await api.Position.GetMoveHistoryAsync(new BybitPositionMoveHistoryRequest
+        {
+            Status = BybitMoveStatus.Filled,
+            Limit = 20,
+        });
+        var position_15 = await api.Position.ConfirmNewRiskLimitAsync(BybitCategory.Linear, "BTCUSDT" /* ...optional parameters... */);
 
         // Account API Methods (Private)
         var account_01 = await api.Account.GetBalancesAsync(/* ...optional parameters... */);

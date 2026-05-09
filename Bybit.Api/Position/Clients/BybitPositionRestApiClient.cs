@@ -61,18 +61,35 @@ public class BybitPositionRestApiClient
         int? limit = null, 
         string? cursor = null, 
         CancellationToken ct = default)
-    {
-        if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse, BybitCategory.Option))
-            throw new NotSupportedException($"{category} is not supported for this endpoint.");
+        => await GetPositionsAsync(new BybitPositionListRequest(category)
+        {
+            Symbol = symbol,
+            BaseAsset = baseAsset,
+            SettleAsset = settleAsset,
+            Limit = limit,
+            Cursor = cursor,
+        }, ct).ConfigureAwait(false);
 
-        limit?.ValidateIntBetween(nameof(limit), 1, 200);
+    /// <summary>
+    /// Get Position Info.
+    /// </summary>
+    /// <param name="request">Get position info request.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult<List<BybitPosition>>> GetPositionsAsync(BybitPositionListRequest request, CancellationToken ct = default)
+    {
+        if (request.Category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse, BybitCategory.Option))
+            throw new NotSupportedException($"{request.Category} is not supported for this endpoint.");
+
+        request.Limit?.ValidateIntBetween(nameof(request.Limit), 1, 200);
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.AddOptional("symbol", symbol);
-        parameters.AddOptional("baseCoin", baseAsset);
-        parameters.AddOptional("settleCoin", settleAsset);
-        parameters.AddOptional("limit", limit);
-        parameters.AddOptional("cursor", cursor);
+        parameters.AddEnum("category", request.Category);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptional("baseCoin", request.BaseAsset);
+        parameters.AddOptional("settleCoin", request.SettleAsset);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitPosition>>(_.BuildUri(_v5PositionList), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitPosition>>(default!);
@@ -92,15 +109,25 @@ public class BybitPositionRestApiClient
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
     public async Task<BybitRestCallResult> SetLeverageAsync(BybitCategory category, string symbol, decimal buyLeverage, decimal sellLeverage, CancellationToken ct = default)
+        => await SetLeverageAsync(new BybitPositionSetLeverageRequest(category, symbol, buyLeverage, sellLeverage), ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Set the leverage.
+    /// </summary>
+    /// <param name="request">Set leverage request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult> SetLeverageAsync(BybitPositionSetLeverageRequest request, CancellationToken ct = default)
     {
-        if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
-            throw new NotSupportedException($"{category} is not supported for this endpoint.");
+        if (request.Category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
+            throw new NotSupportedException($"{request.Category} is not supported for this endpoint.");
 
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.Add("symbol", symbol);
-        parameters.AddString("buyLeverage", buyLeverage);
-        parameters.AddString("sellLeverage", sellLeverage);
+        parameters.AddEnum("category", request.Category);
+        parameters.Add("symbol", request.Symbol);
+        parameters.AddString("buyLeverage", request.BuyLeverage);
+        parameters.AddString("sellLeverage", request.SellLeverage);
 
         return await _.SendBybitRequest(_.BuildUri(_v5PositionSetLeverage), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
@@ -123,16 +150,26 @@ public class BybitPositionRestApiClient
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
     public async Task<BybitRestCallResult> SwitchMarginModeAsync(BybitCategory category, string symbol, BybitTradeMode tradeMode, decimal buyLeverage, decimal sellLeverage, CancellationToken ct = default)
+        => await SwitchMarginModeAsync(new BybitPositionSwitchMarginModeRequest(category, symbol, tradeMode, buyLeverage, sellLeverage), ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Switch Cross/Isolated Margin.
+    /// </summary>
+    /// <param name="request">Switch margin mode request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult> SwitchMarginModeAsync(BybitPositionSwitchMarginModeRequest request, CancellationToken ct = default)
     {
-        if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
-            throw new NotSupportedException($"{category} is not supported for this endpoint.");
+        if (request.Category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
+            throw new NotSupportedException($"{request.Category} is not supported for this endpoint.");
 
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.Add("symbol", symbol);
-        parameters.AddEnum("tradeMode", tradeMode);
-        parameters.AddString("buyLeverage", buyLeverage);
-        parameters.AddString("sellLeverage", sellLeverage);
+        parameters.AddEnum("category", request.Category);
+        parameters.Add("symbol", request.Symbol);
+        parameters.AddEnum("tradeMode", request.TradeMode);
+        parameters.AddString("buyLeverage", request.BuyLeverage);
+        parameters.AddString("sellLeverage", request.SellLeverage);
 
         return await _.SendBybitRequest(_.BuildUri(_v5PositionSwitchIsolated), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
@@ -158,15 +195,29 @@ public class BybitPositionRestApiClient
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
     public async Task<BybitRestCallResult> SwitchPositionModeAsync(BybitCategory category, BybitPositionMode mode, string? symbol = null, string? asset = null, CancellationToken ct = default)
+        => await SwitchPositionModeAsync(new BybitPositionSwitchPositionModeRequest(category, mode)
+        {
+            Symbol = symbol,
+            Asset = asset,
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Switch Position Mode.
+    /// </summary>
+    /// <param name="request">Switch position mode request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult> SwitchPositionModeAsync(BybitPositionSwitchPositionModeRequest request, CancellationToken ct = default)
     {
-        if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
-            throw new NotSupportedException($"{category} is not supported for this endpoint.");
+        if (request.Category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
+            throw new NotSupportedException($"{request.Category} is not supported for this endpoint.");
 
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.AddOptional("symbol", symbol);
-        parameters.AddOptional("coin", asset);
-        parameters.Add("mode", mode);
+        parameters.AddEnum("category", request.Category);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptional("coin", request.Asset);
+        parameters.Add("mode", request.Mode);
 
         return await _.SendBybitRequest(_.BuildUri(_v5PositionSwitchMode), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
@@ -231,31 +282,56 @@ public class BybitPositionRestApiClient
         decimal? trailingStopPrice = null,
 
         CancellationToken ct = default)
+        => await SetTradingStopAsync(new BybitPositionSetTradingStopRequest(category, symbol, positionIndex)
+        {
+            TakeProfitStopLossMode = takeProfitStopLossMode,
+            TakeProfitTrigger = takeProfitTrigger,
+            TakeProfitOrderType = takeProfitOrderType,
+            TakeProfitPrice = takeProfitPrice,
+            TakeProfitLimitPrice = takeProfitLimitPrice,
+            TakeProfitQuantity = takeProfitQuantity,
+            StopLossTrigger = stopLossTrigger,
+            StopLossOrderType = stopLossOrderType,
+            StopLossPrice = stopLossPrice,
+            StopLossLimitPrice = stopLossLimitPrice,
+            StopLossQuantity = stopLossQuantity,
+            TrailingStopDistance = trailingStopDistance,
+            TrailingStopPrice = trailingStopPrice,
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Set Trading Stop.
+    /// </summary>
+    /// <param name="request">Set trading stop request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult> SetTradingStopAsync(BybitPositionSetTradingStopRequest request, CancellationToken ct = default)
     {
-        if (category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
-            throw new NotSupportedException($"{category} is not supported for this endpoint.");
+        if (request.Category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse, BybitCategory.Option))
+            throw new NotSupportedException($"{request.Category} is not supported for this endpoint.");
 
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.Add("symbol", symbol);
-        parameters.AddEnum("positionIdx", positionIndex);
+        parameters.AddEnum("category", request.Category);
+        parameters.Add("symbol", request.Symbol);
+        parameters.AddEnum("positionIdx", request.PositionIndex);
 
-        parameters.AddOptionalEnum("tpslMode", takeProfitStopLossMode);
+        parameters.AddOptionalEnum("tpslMode", request.TakeProfitStopLossMode);
 
-        parameters.AddOptionalEnum("tpTriggerBy", takeProfitTrigger);
-        parameters.AddOptionalEnum("tpOrderType", takeProfitOrderType);
-        parameters.AddOptionalString("takeProfit", takeProfitPrice);
-        parameters.AddOptionalString("tpLimitPrice", takeProfitLimitPrice);
-        parameters.AddOptionalString("tpSize", takeProfitQuantity);
+        parameters.AddOptionalEnum("tpTriggerBy", request.TakeProfitTrigger);
+        parameters.AddOptionalEnum("tpOrderType", request.TakeProfitOrderType);
+        parameters.AddOptionalString("takeProfit", request.TakeProfitPrice);
+        parameters.AddOptionalString("tpLimitPrice", request.TakeProfitLimitPrice);
+        parameters.AddOptionalString("tpSize", request.TakeProfitQuantity);
 
-        parameters.AddOptionalEnum("slTriggerBy", stopLossTrigger);
-        parameters.AddOptionalEnum("slOrderType", stopLossOrderType);
-        parameters.AddOptionalString("stopLoss", stopLossPrice);
-        parameters.AddOptionalString("slLimitPrice", stopLossLimitPrice);
-        parameters.AddOptionalString("slSize", stopLossQuantity);
+        parameters.AddOptionalEnum("slTriggerBy", request.StopLossTrigger);
+        parameters.AddOptionalEnum("slOrderType", request.StopLossOrderType);
+        parameters.AddOptionalString("stopLoss", request.StopLossPrice);
+        parameters.AddOptionalString("slLimitPrice", request.StopLossLimitPrice);
+        parameters.AddOptionalString("slSize", request.StopLossQuantity);
 
-        parameters.AddOptionalString("trailingStop", trailingStopDistance);
-        parameters.AddOptionalString("activePrice", trailingStopPrice);
+        parameters.AddOptionalString("trailingStop", request.TrailingStopDistance);
+        parameters.AddOptionalString("activePrice", request.TrailingStopPrice);
 
         return await _.SendBybitRequest(_.BuildUri(_v5PositionTradingStop), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
@@ -279,12 +355,28 @@ public class BybitPositionRestApiClient
         bool autoAddMargin,
         BybitPositionIndex? positionIndex = null,
         CancellationToken ct = default)
+        => await SetAutoAddMarginAsync(new BybitPositionSetAutoAddMarginRequest(category, symbol, autoAddMargin)
+        {
+            PositionIndex = positionIndex,
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Turn on/off auto-add-margin for isolated margin position.
+    /// </summary>
+    /// <param name="request">Set auto-add-margin request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult> SetAutoAddMarginAsync(BybitPositionSetAutoAddMarginRequest request, CancellationToken ct = default)
     {
+        if (request.Category.IsNotIn(BybitCategory.Linear))
+            throw new NotSupportedException($"{request.Category} is not supported for this endpoint.");
+
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.Add("symbol", symbol);
-        parameters.Add("autoAddMargin", autoAddMargin ? 1 : 0);
-        parameters.AddOptionalEnum("positionIdx", positionIndex);
+        parameters.AddEnum("category", request.Category);
+        parameters.Add("symbol", request.Symbol);
+        parameters.Add("autoAddMargin", request.AutoAddMargin ? 1 : 0);
+        parameters.AddOptionalEnum("positionIdx", request.PositionIndex);
         return await _.SendBybitRequest(_.BuildUri(_v5PositionSetAutoAddMargin), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
@@ -309,12 +401,28 @@ public class BybitPositionRestApiClient
         decimal margin,
         BybitPositionIndex? positionIndex = null,
         CancellationToken ct = default)
+        => await AddOrReduceMarginAsync(new BybitPositionAddOrReduceMarginRequest(category, symbol, margin)
+        {
+            PositionIndex = positionIndex,
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Add Or Reduce Margin.
+    /// </summary>
+    /// <param name="request">Add or reduce margin request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult<BybitPosition>> AddOrReduceMarginAsync(BybitPositionAddOrReduceMarginRequest request, CancellationToken ct = default)
     {
+        if (request.Category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
+            throw new NotSupportedException($"{request.Category} is not supported for this endpoint.");
+
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.Add("symbol", symbol);
-        parameters.AddString("margin", margin);
-        parameters.AddOptionalEnum("positionIdx", positionIndex);
+        parameters.AddEnum("category", request.Category);
+        parameters.Add("symbol", request.Symbol);
+        parameters.AddString("margin", request.Margin);
+        parameters.AddOptionalEnum("positionIdx", request.PositionIndex);
         return await _.SendBybitRequest<BybitPosition>(_.BuildUri(_v5PositionAddMargin), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
     
@@ -350,15 +458,35 @@ public class BybitPositionRestApiClient
         int? limit = null,
         string? cursor = null,
         CancellationToken ct = default)
+        => await GetClosedPnlAsync(new BybitPositionClosedPnlRequest(category)
+        {
+            Symbol = symbol,
+            StartTime = startTime,
+            EndTime = endTime,
+            Limit = limit,
+            Cursor = cursor,
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Query user's closed profit and loss records.
+    /// </summary>
+    /// <param name="request">Closed PnL request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult<List<BybitPositionProfitAndLoss>>> GetClosedPnlAsync(BybitPositionClosedPnlRequest request, CancellationToken ct = default)
     {
-        limit?.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request.Category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
+            throw new NotSupportedException($"{request.Category} is not supported for this endpoint.");
+
+        request.Limit?.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.AddOptional("symbol", symbol);
-        parameters.AddOptional("startTime", startTime);
-        parameters.AddOptional("endTime", endTime);
-        parameters.AddOptional("limit", limit);
-        parameters.AddOptional("cursor", cursor);
+        parameters.AddEnum("category", request.Category);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptional("startTime", request.StartTime);
+        parameters.AddOptional("endTime", request.EndTime);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitPositionProfitAndLoss>>(_.BuildUri(_v5PositionClosedPnl), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitPositionProfitAndLoss>>([]);
@@ -380,22 +508,37 @@ public class BybitPositionRestApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<BybitRestCallResult<List<BybitOptionsPosition>>> GetClosedOptionsPositionsAsync(
-    // BybitCategory category,
-    string? symbol = null,
-    long? startTime = null,
-    long? endTime = null,
-    int? limit = null,
-    string? cursor = null,
-    CancellationToken ct = default)
+        string? symbol = null,
+        long? startTime = null,
+        long? endTime = null,
+        int? limit = null,
+        string? cursor = null,
+        CancellationToken ct = default)
+        => await GetClosedOptionsPositionsAsync(new BybitPositionClosedOptionsRequest
+        {
+            Symbol = symbol,
+            StartTime = startTime,
+            EndTime = endTime,
+            Limit = limit,
+            Cursor = cursor,
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Query user's closed options positions, sorted by closeTime in descending order.
+    /// </summary>
+    /// <param name="request">Closed options positions request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitOptionsPosition>>> GetClosedOptionsPositionsAsync(BybitPositionClosedOptionsRequest request, CancellationToken ct = default)
     {
-        limit?.ValidateIntBetween(nameof(limit), 1, 100);
+        request.Limit?.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
         parameters.AddEnum("category", BybitCategory.Option);
-        parameters.AddOptional("symbol", symbol);
-        parameters.AddOptional("startTime", startTime);
-        parameters.AddOptional("endTime", endTime);
-        parameters.AddOptional("limit", limit);
-        parameters.AddOptional("cursor", cursor);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptional("startTime", request.StartTime);
+        parameters.AddOptional("endTime", request.EndTime);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitOptionsPosition>>(_.BuildUri(_v5PositionGetClosedPositions), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitOptionsPosition>>([]);
@@ -424,15 +567,24 @@ public class BybitPositionRestApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<BybitRestCallResult<BybitPositionMove>> MovePositionsAsync(string fromUid, string toUid, IEnumerable<BybitPositionMoveRequest> list, CancellationToken ct = default)
+        => await MovePositionsAsync(new BybitPositionMovePositionsRequest(fromUid, toUid, list), ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// You can move positions between sub-master, master-sub, or sub-sub UIDs when necessary.
+    /// </summary>
+    /// <param name="request">Move positions request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitPositionMove>> MovePositionsAsync(BybitPositionMovePositionsRequest request, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
         {
-            { "fromUid", fromUid },
-            { "toUid", toUid },
-            { "list", list },
+            { "fromUid", request.FromUid },
+            { "toUid", request.ToUid },
+            { "list", request.List },
         };
 
-        return await _.SendBybitRequest<BybitPositionMove>(_.BuildUri(_v5PositionMovePositions), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<BybitPositionMove>(_.BuildUri(_v5PositionMovePositions), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -460,17 +612,44 @@ public class BybitPositionRestApiClient
         int? limit = null,
         string? cursor = null,
         CancellationToken ct = default)
+        => await GetMoveHistoryAsync(new BybitPositionMoveHistoryRequest
+        {
+            Category = category,
+            Symbol = symbol,
+            StartTime = startTime,
+            EndTime = endTime,
+            Status = status,
+            BlockTradeId = blockTradeId,
+            Limit = limit,
+            Cursor = cursor,
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Get Move Position History.
+    /// </summary>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitPositionMoveHistory>>> GetMoveHistoryAsync(CancellationToken ct = default)
+        => await GetMoveHistoryAsync(new BybitPositionMoveHistoryRequest(), ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Get Move Position History.
+    /// </summary>
+    /// <param name="request">Move position history request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitPositionMoveHistory>>> GetMoveHistoryAsync(BybitPositionMoveHistoryRequest request, CancellationToken ct = default)
     {
-        limit?.ValidateIntBetween(nameof(limit), 1, 200);
+        request.Limit?.ValidateIntBetween(nameof(request.Limit), 1, 200);
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.AddOptional("symbol", symbol);
-        parameters.AddOptional("startTime", startTime);
-        parameters.AddOptional("endTime", endTime);
-        parameters.AddOptionalEnum("status", status);
-        parameters.AddOptional("blockTradeId", blockTradeId);
-        parameters.AddOptional("limit", limit);
-        parameters.AddOptional("cursor", cursor);
+        parameters.AddOptionalEnum("category", request.Category);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptional("startTime", request.StartTime);
+        parameters.AddOptional("endTime", request.EndTime);
+        parameters.AddOptionalEnum("status", request.Status);
+        parameters.AddOptional("blockTradeId", request.BlockTradeId);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitPositionMoveHistory>>(_.BuildUri(_v5PositionMoveHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitPositionMoveHistory>>(default!);
@@ -490,10 +669,23 @@ public class BybitPositionRestApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<BybitRestCallResult> ConfirmNewRiskLimitAsync(BybitCategory category, string symbol, CancellationToken ct = default)
+        => await ConfirmNewRiskLimitAsync(new BybitPositionConfirmNewRiskLimitRequest(category, symbol), ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Confirm New Risk Limit.
+    /// </summary>
+    /// <param name="request">Confirm new risk limit request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult> ConfirmNewRiskLimitAsync(BybitPositionConfirmNewRiskLimitRequest request, CancellationToken ct = default)
     {
+        if (request.Category.IsNotIn(BybitCategory.Linear, BybitCategory.Inverse))
+            throw new NotSupportedException($"{request.Category} is not supported for this endpoint.");
+
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.Add("symbol", symbol);
+        parameters.AddEnum("category", request.Category);
+        parameters.Add("symbol", request.Symbol);
 
         return await _.SendBybitRequest(_.BuildUri(_v5PositionConfirmPendingMmr), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }

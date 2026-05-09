@@ -1,0 +1,9 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "blockTradeId": "e9bb926c95f54cf1ba3e315a58b8597b",
+    "status": "Processing",
+    "rejectParty": ""
+  }
+}

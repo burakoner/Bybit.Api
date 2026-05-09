@@ -58,6 +58,7 @@ public record BybitPosition
     /// Whether to add margin automatically
     /// </summary>
     [JsonProperty("autoAddMargin")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool AutoAddMargin { get; set; }
 
     /// <summary>
@@ -69,6 +70,11 @@ public record BybitPosition
     /// Leverage
     /// </summary>
     public decimal? Leverage { get; set; }
+
+    /// <summary>
+    /// Break even price.
+    /// </summary>
+    public decimal? BreakEvenPrice { get; set; }
 
     /// <summary>
     /// Mark Price
@@ -211,6 +217,17 @@ public record BybitPosition
     public DateTime? UpdateTime { get => UpdateTimestamp?.ConvertFromMilliseconds(); }
 
     /// <summary>
+    /// Position open timestamp (ms).
+    /// </summary>
+    [JsonProperty("openTime")]
+    public long? OpenTimestamp { get; set; }
+
+    /// <summary>
+    /// Position open time.
+    /// </summary>
+    public DateTime? OpenTime { get => OpenTimestamp is null or 0 ? null : OpenTimestamp.Value.ConvertFromMilliseconds(); }
+
+    /// <summary>
     /// Cross sequence, used to associate each fill and each position update
     /// Different symbols may have the same seq, please use seq + symbol to check unique
     /// Returns "-1" if the symbol has never been traded
@@ -241,4 +258,8 @@ public record BybitPosition
     [JsonProperty("leverageSysUpdatedTime")]
     [JsonConverter(typeof(DateTimeConverter))]
     public DateTime? LeverageUpdateTime { get; set; }
+
+    [JsonProperty("mmrSysUpdateTime")]
+    [JsonConverter(typeof(DateTimeConverter))]
+    private DateTime? MaintenanceMarginUpdateTimeAlias { set => MaintenanceMarginUpdateTime = value; }
 }

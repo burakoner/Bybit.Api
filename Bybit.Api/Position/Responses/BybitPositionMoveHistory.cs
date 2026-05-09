@@ -24,7 +24,7 @@ public record BybitPositionMoveHistory
     /// <summary>
     /// User ID
     /// </summary>
-    public string UserId { get; set; } = string.Empty;
+    public long UserId { get; set; }
 
     /// <summary>
     /// Symbol name
