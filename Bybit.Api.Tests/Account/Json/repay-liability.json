@@ -1,0 +1,18 @@
+{
+  "retCode": 0,
+  "retMsg": "SUCCESS",
+  "result": {
+    "list": [
+      {
+        "coin": "BTC",
+        "repaymentQty": "0.10549670"
+      },
+      {
+        "coin": "ETH",
+        "repaymentQty": "2.27768114"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1701848610941
+}

@@ -122,7 +122,7 @@ public record BybitAccountTransaction
     public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
-    /// Trading fee rate information. Currently, this data is returned only for spot orders placed on the Indonesian site or spot fiat currency orders placed on the EU site. In other cases, an empty string is returned. Enum: feeType, subFeeType
+    /// Extra fee details. The content is currently returned as an exchange-defined JSON string.
     /// </summary>
-    public decimal? ExtraFees { get; set; }
+    public string ExtraFees { get; set; } = string.Empty;
 }

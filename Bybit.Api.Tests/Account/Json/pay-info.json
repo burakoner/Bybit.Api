@@ -1,0 +1,37 @@
+{
+  "retCode": 0,
+  "retMsg": "Success",
+  "result": {
+    "collateralInfo": {
+      "collateralList": [
+        {
+          "availableValue": "13038.369918809215134556464993",
+          "coinScale": 4,
+          "borrowSize": "0",
+          "spotHedgeAmount": "0",
+          "assetFrozen": "0",
+          "availableSize": "13041.904274867704282417",
+          "coin": "USDT"
+        },
+        {
+          "availableValue": "0",
+          "coinScale": 9,
+          "borrowSize": "0.001000068",
+          "spotHedgeAmount": "-0.00100006728685180109293673123005419256514869630336761474609375",
+          "assetFrozen": "0",
+          "availableSize": "0",
+          "coin": "BTC"
+        }
+      ]
+    },
+    "borrowInfo": {
+      "borrowSize": "0.100068384926503532",
+      "assetFrozen": "0",
+      "borrowValue": "9.172497619169950215718876",
+      "coin": "SOL",
+      "availableBalance": "0"
+    }
+  },
+  "retExtInfo": {},
+  "time": 1774344990873
+}

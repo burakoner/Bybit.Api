@@ -1,0 +1,15 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "availableWithdrawal": "4.54549050",
+    "availableWithdrawalMap": {
+      "BTC": "4.54549050",
+      "SOL": "33.16713007",
+      "XRP": "10805.54548970",
+      "ETH": "17.76451865"
+    }
+  },
+  "retExtInfo": {},
+  "time": 1739858984601
+}

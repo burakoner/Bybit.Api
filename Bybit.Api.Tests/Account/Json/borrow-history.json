@@ -1,0 +1,19 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "currency": "USDT",
+        "createdTime": "1690872862481",
+        "borrowCost": "0.0001",
+        "hourlyBorrowRate": "0.000001",
+        "interestBearingBorrowSize": "100",
+        "costExemption": "0.5",
+        "borrowAmount": "100",
+        "unrealisedLoss": "0",
+        "freeBorrowedAmount": "10"
+      }
+    ]
+  }
+}

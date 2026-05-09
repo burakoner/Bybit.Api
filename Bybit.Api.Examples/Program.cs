@@ -118,6 +118,24 @@ internal class Program
         var account_10 = await api.Account.SetMmpAsync("ETH", 5000, 0, 1.0m, 0.1m /* ...optional parameters... */);
         var account_11 = await api.Account.ResetMmpAsync("ETH" /* ...optional parameters... */);
         var account_12 = await api.Account.GetMmpAsync("ETH" /* ...optional parameters... */);
+        var account_13 = await api.Account.GetTransferableAmountAsync("BTC,USDT" /* ...optional parameters... */);
+        var account_14 = await api.Account.GetAccountSpotInstrumentsAsync("BTCUSDT" /* ...optional parameters... */);
+        var account_15 = await api.Account.GetAccountFuturesInstrumentsAsync(BybitCategory.Linear /* ...optional parameters... */);
+        var account_16 = await api.Account.ManualBorrowAsync("USDT", 100.0m /* ...optional parameters... */);
+        var account_17 = await api.Account.ManualRepayWithoutConversionAsync("USDT", 10.0m /* ...optional parameters... */);
+        var account_18 = await api.Account.ManualRepayAsync("USDT", 10.0m /* ...optional parameters... */);
+        var account_19 = await api.Account.SetCollateralCoinAsync("BTC", BybitSwitchStatus.On /* ...optional parameters... */);
+        var account_20 = await api.Account.BatchSetCollateralCoinsAsync([new BybitAccountBatchSetCollateralItem("BTC", BybitSwitchStatus.On)] /* ...optional parameters... */);
+        var account_21 = await api.Account.GetDcpInfoAsync(/* ...optional parameters... */);
+        var account_22 = await api.Account.GetSmpGroupAsync(/* ...optional parameters... */);
+        var account_23 = await api.Account.SetSpotHedgingAsync(BybitSwitchStatus.Off /* ...optional parameters... */);
+        var account_24 = await api.Account.GetTradeBehaviorConfigAsync(/* ...optional parameters... */);
+        var account_25 = await api.Account.SetDeltaNeutralModeAsync(true /* ...optional parameters... */);
+        var account_26 = await api.Account.SetPriceLimitBehaviorAsync(BybitCategory.Spot, true /* ...optional parameters... */);
+        var account_27 = await api.Account.RepayLiabilityAsync("USDT" /* ...optional parameters... */);
+        var account_28 = await api.Account.GetOptionAssetInfoAsync(/* ...optional parameters... */);
+        var account_29 = await api.Account.GetPayInfoAsync("SOL" /* ...optional parameters... */);
+        var account_30 = await api.Account.GetTradeAnalysisAsync("ETHUSDT" /* ...optional parameters... */);
 
         // Asset API Methods (Private)
         var asset_01 = await api.Asset.GetExchangeHistoryAsync(/* ...optional parameters... */);

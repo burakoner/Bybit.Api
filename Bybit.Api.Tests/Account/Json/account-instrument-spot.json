@@ -1,0 +1,42 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "category": "spot",
+    "list": [
+      {
+        "symbolId": 9,
+        "symbol": "BTCUSDT",
+        "baseCoin": "BTC",
+        "quoteCoin": "USDT",
+        "innovation": "0",
+        "status": "Trading",
+        "marginTrading": "utaOnly",
+        "stTag": "0",
+        "lotSizeFilter": {
+          "basePrecision": "0.000001",
+          "quotePrecision": "0.00000001",
+          "minOrderQty": "0.000001",
+          "maxOrderQty": "17000",
+          "minOrderAmt": "5",
+          "maxOrderAmt": "1999999999",
+          "maxLimitOrderQty": "17000",
+          "maxMarketOrderQty": "8500",
+          "postOnlyMaxLimitOrderSize": "60000"
+        },
+        "priceFilter": {
+          "tickSize": "0.01"
+        },
+        "riskParameters": {
+          "priceLimitRatioX": "0.05",
+          "priceLimitRatioY": "0.05"
+        },
+        "symbolType": "",
+        "isPublicRpi": true,
+        "myRpiPermission": true
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1760682563907
+}

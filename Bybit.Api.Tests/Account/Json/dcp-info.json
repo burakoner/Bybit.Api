@@ -1,0 +1,20 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "dcpInfos": [
+      {
+        "product": "SPOT",
+        "dcpStatus": "ON",
+        "timeWindow": "10"
+      },
+      {
+        "product": "DERIVATIVES",
+        "dcpStatus": "ON",
+        "timeWindow": "10"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1717065531697
+}

@@ -1,0 +1,58 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "category": "linear",
+    "list": [
+      {
+        "symbol": "1000000BABYDOGEUSDT",
+        "symbolId": 527,
+        "contractType": "LinearPerpetual",
+        "status": "Trading",
+        "baseCoin": "1000000BABYDOGE",
+        "quoteCoin": "USDT",
+        "launchTime": "1718098044000",
+        "deliveryTime": "0",
+        "deliveryFeeRate": "",
+        "priceScale": "7",
+        "leverageFilter": {
+          "minLeverage": "1",
+          "maxLeverage": "25.00",
+          "leverageStep": "0.01"
+        },
+        "priceFilter": {
+          "minPrice": "0.0000001",
+          "maxPrice": "1.9999998",
+          "tickSize": "0.0000001"
+        },
+        "lotSizeFilter": {
+          "maxOrderQty": "60000000",
+          "minOrderQty": "100",
+          "qtyStep": "100",
+          "postOnlyMaxOrderQty": "60000000",
+          "maxMktOrderQty": "12000000",
+          "minNotionalValue": "5"
+        },
+        "unifiedMarginTrade": true,
+        "fundingInterval": 240,
+        "settleCoin": "USDT",
+        "copyTrading": "none",
+        "upperFundingRate": "0.02",
+        "lowerFundingRate": "-0.02",
+        "isPreListing": false,
+        "preListingInfo": null,
+        "riskParameters": {
+          "priceLimitRatioX": "0.15",
+          "priceLimitRatioY": "0.3"
+        },
+        "displayName": "",
+        "symbolType": "innovation",
+        "myRpiPermission": true,
+        "isPublicRpi": true
+      }
+    ],
+    "nextPageCursor": ""
+  },
+  "retExtInfo": {},
+  "time": 1760510800094
+}

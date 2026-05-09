@@ -14,7 +14,7 @@ public record BybitAccountUpgrade
     /// Unified account upgrade messages
     /// </summary>
     [JsonProperty("unifiedUpdateMsg")]
-    public BybitAccountUpgradeMessage UnifiedUpdateMessage { get; set; } = default!;
+    public BybitAccountUpgradeMessage? UnifiedUpdateMessage { get; set; }
 
 }
 

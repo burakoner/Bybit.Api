@@ -40,7 +40,17 @@ public record BybitAccountBorrow
     /// <summary>
     /// Cost exemption
     /// </summary>
-    public decimal CostExcemption { get; set; }
+    public decimal CostExemption { get; set; }
+
+    /// <summary>
+    /// Cost exemption
+    /// </summary>
+    [JsonIgnore, Obsolete("Use CostExemption.")]
+    public decimal CostExcemption
+    {
+        get => CostExemption;
+        set => CostExemption = value;
+    }
 
     /// <summary>
     /// Total borrow amount

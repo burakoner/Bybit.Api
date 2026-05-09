@@ -14,85 +14,85 @@ public record BybitAccountBalance
     /// Account initial margin rate
     /// </summary>
     [JsonProperty("accountIMRate")]
-    public decimal AccountInitialMarginRate { get; set; }
+    public decimal? AccountInitialMarginRate { get; set; }
 
     /// <summary>
     /// Account maintenance margin rate
     /// </summary>
     [JsonProperty("accountMMRate")]
-    public decimal AccountMaintenanceMarginRate { get; set; }
+    public decimal? AccountMaintenanceMarginRate { get; set; }
 
     /// <summary>
     /// Account equity in USD
     /// </summary>
     [JsonProperty("totalEquity")]
-    public decimal TotalEquity { get; set; }
+    public decimal? TotalEquity { get; set; }
 
     /// <summary>
     /// Total wallet balance in USD
     /// </summary>
     [JsonProperty("totalWalletBalance")]
-    public decimal TotalWalletBalance { get; set; }
+    public decimal? TotalWalletBalance { get; set; }
 
     /// <summary>
     /// Total margin balance in USD
     /// </summary>
     [JsonProperty("totalMarginBalance")]
-    public decimal TotalMarginBalance { get; set; }
+    public decimal? TotalMarginBalance { get; set; }
 
     /// <summary>
     /// Total available balance in USD
     /// </summary>
     [JsonProperty("totalAvailableBalance")]
-    public decimal TotalAvailableBalance { get; set; }
+    public decimal? TotalAvailableBalance { get; set; }
 
     /// <summary>
     /// Unrealized profit and loss in USD
     /// </summary>
     [JsonProperty("totalPerpUPL")]
-    public decimal TotalPerpUnrealizedPnl { get; set; }
+    public decimal? TotalPerpUnrealizedPnl { get; set; }
 
     /// <summary>
     /// Iniital margin in USD
     /// </summary>
     [JsonProperty("totalInitialMargin")]
-    public decimal TotalInitialMargin { get; set; }
+    public decimal? TotalInitialMargin { get; set; }
 
     /// <summary>
     /// Maintenance margin in USD
     /// </summary>
     [JsonProperty("totalMaintenanceMargin")]
-    public decimal TotalMaintenanceMargin { get; set; }
+    public decimal? TotalMaintenanceMargin { get; set; }
 
     /// <summary>
     /// Account LTV
     /// </summary>
     [JsonProperty("accountLTV")]
-    public decimal AccountLTV { get; set; }
+    public decimal? AccountLTV { get; set; }
 
     /// <summary>
     /// Total Maintenance Margin by Mark Price
     /// </summary>
     [JsonProperty("totalMaintenanceMarginByMp")]
-    public decimal TotalMaintenanceMarginByMarkPrice { get; set; }
+    public decimal? TotalMaintenanceMarginByMarkPrice { get; set; }
 
     /// <summary>
     /// Account MM Rate by Mark Price
     /// </summary>
     [JsonProperty("accountMMRateByMp")]
-    public decimal AccountMMRateByMarkPrice { get; set; }
+    public decimal? AccountMMRateByMarkPrice { get; set; }
 
     /// <summary>
     /// Account IM Rate by Mark Price
     /// </summary>
     [JsonProperty("accountIMRateByMp")]
-    public decimal AccountIMRateByMarkPrice { get; set; }
+    public decimal? AccountIMRateByMarkPrice { get; set; }
 
     /// <summary>
     /// Total Initial Margin by Mark Price
     /// </summary>
     [JsonProperty("totalInitialMarginByMp")]
-    public decimal TotalInitialMarginByMarkPrice { get; set; }
+    public decimal? TotalInitialMarginByMarkPrice { get; set; }
 
     /// <summary>
     /// Asset info
@@ -222,12 +222,12 @@ public record BybitAccountBalanceItem
     /// <summary>
     /// Whether the collateral is turned on by user (user)
     /// </summary>
-    [JsonProperty("marginCollateral")]
+    [JsonProperty("marginCollateral"), JsonConverter(typeof(BooleanConverter))]
     public bool MarginCollateral { get; set; }
 
     /// <summary>
     /// Whether it can be used as a margin collateral currency
     /// </summary>
-    [JsonProperty("collateralSwitch")]
+    [JsonProperty("collateralSwitch"), JsonConverter(typeof(BooleanConverter))]
     public bool CollateralSwitch { get; set; }
 }

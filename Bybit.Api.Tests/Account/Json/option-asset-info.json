@@ -1,0 +1,19 @@
+{
+  "retCode": 0,
+  "retMsg": "Success",
+  "result": {
+    "result": [
+      {
+        "totalDelta": "0.0118",
+        "assetIM": "0.0000",
+        "totalUPL": "-47.6318",
+        "totalRPL": "-0.2790",
+        "assetMM": "0.0000",
+        "coin": "BTC",
+        "sendTime": 1773230923530
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1773230923533
+}

@@ -62,7 +62,7 @@ public record BybitAccountCollateralInfo
     /// <summary>
     /// Is borrowable
     /// </summary>
-    [JsonProperty("borrowable")]
+    [JsonProperty("borrowable"), JsonConverter(typeof(BooleanConverter))]
     public bool Borrowable { get; set; }
 
     /// <summary>
@@ -74,19 +74,19 @@ public record BybitAccountCollateralInfo
     /// <summary>
     /// Whether it can be used as a margin collateral currency
     /// </summary>
-    [JsonProperty("marginCollateral")]
+    [JsonProperty("marginCollateral"), JsonConverter(typeof(BooleanConverter))]
     public bool MarginCollateral { get; set; }
 
     /// <summary>
     /// Whether the collateral is turned on by user (user), true: ON, false: OFF
     /// When marginCollateral = true, then collateralSwitch is meaningful
     /// </summary>
-    [JsonProperty("collateralSwitch")]
+    [JsonProperty("collateralSwitch"), JsonConverter(typeof(BooleanConverter))]
     public bool CollateralSwitch { get; set; }
 
     /// <summary>
     /// Collateral ratio
     /// </summary>
     [JsonProperty("collateralRatio")]
-    public decimal CollateralRatio { get; set; }
+    public decimal? CollateralRatio { get; set; }
 }

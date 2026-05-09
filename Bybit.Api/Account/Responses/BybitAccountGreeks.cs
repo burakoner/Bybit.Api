@@ -8,6 +8,7 @@ public record BybitAccountGreeks
     /// <summary>
     /// Asset
     /// </summary>
+    [JsonProperty("baseCoin")]
     public string BaseAsset { get; set; } = string.Empty;
 
     /// <summary>

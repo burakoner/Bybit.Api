@@ -1,0 +1,33 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "id": "2100000000007764263",
+        "symbol": "BTCUSDT",
+        "category": "linear",
+        "side": "Buy",
+        "transactionTime": "1690872862481",
+        "type": "TRADE",
+        "transSubType": "movePosition",
+        "qty": "0.01",
+        "size": "0.01",
+        "currency": "USDT",
+        "tradePrice": "65000",
+        "funding": "",
+        "fee": "0.1",
+        "cashFlow": "-650",
+        "change": "-650.1",
+        "cashBalance": "1000",
+        "feeRate": "0.0006",
+        "bonusChange": "",
+        "tradeId": "exec-1",
+        "orderId": "order-1",
+        "orderLinkId": "client-1",
+        "extraFees": ""
+      }
+    ],
+    "nextPageCursor": ""
+  }
+}

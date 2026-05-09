@@ -21,6 +21,11 @@ Version 5.6.507 - 09 May 2026
 - Fixed move-position requests to use POST body parameters, aligned move-history with its optional category parameter, and allowed option trading-stop requests.
 - Added Position response mappings for break-even price, open time, MMR update aliases, auto-add-margin booleans, and long user IDs.
 - Added focused Position JSON deserialization and request serialization tests.
+- Updated Account REST API coverage against the current Bybit v5 documentation.
+- Added Account endpoints for transferable amount, account instruments, manual borrow/repay, collateral switches, DCP/SMP info, spot hedging, trade behavior settings, delta-neutral mode, price-limit behavior, liability repayment, option asset info, pay info, and trade analysis.
+- Added request-object overloads for Account wallet balance, borrow history, fee rate, transaction logs, account instruments, manual borrow/repay, collateral batch updates, MMP updates, and trade analysis while preserving existing method signatures.
+- Fixed Account response mappings for nullable wallet account-wide fields, borrow history `costExemption`, Greeks `baseCoin`, MMP `deltaLimit`, transaction `extraFees`, account DCP/SMP fields, option asset info, pay info, and trade analysis data.
+- Added focused Account JSON deserialization and request serialization tests.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

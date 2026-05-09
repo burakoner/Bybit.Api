@@ -35,7 +35,7 @@ public record BybitAccountMmp
     /// <summary>
     /// Delta limit
     /// </summary>
-    [JsonProperty("qtyLimit")]
+    [JsonProperty("deltaLimit")]
     public decimal DeltaLimit { get; set; }
 
     /// <summary>

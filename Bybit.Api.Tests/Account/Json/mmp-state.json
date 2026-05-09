@@ -1,0 +1,18 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "baseCoin": "ETH",
+        "mmpEnabled": true,
+        "window": 5000,
+        "frozenPeriod": 0,
+        "qtyLimit": "1",
+        "deltaLimit": "0.1",
+        "mmpFrozenUntil": 0,
+        "mmpFrozen": false
+      }
+    ]
+  }
+}
