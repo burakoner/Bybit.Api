@@ -15,13 +15,13 @@ public record BybitBatchAmendOrderRequest
     /// Order ID. Either orderId or orderLinkId is required
     /// </summary>
     [JsonProperty("orderId", NullValueHandling = NullValueHandling.Ignore)]
-    public string OrderId { get; set; } = string.Empty;
+    public string? OrderId { get; set; }
 
     /// <summary>
     /// User customised order ID. Either orderId or orderLinkId is required
     /// </summary>
     [JsonProperty("orderLinkId", NullValueHandling = NullValueHandling.Ignore)]
-    public string ClientOrderId { get; set; } = string.Empty;
+    public string? ClientOrderId { get; set; }
 
     /// <summary>
     /// Implied volatility. option only. Pass the real value, e.g for 10%, 0.1 should be passed.
@@ -39,7 +39,7 @@ public record BybitBatchAmendOrderRequest
     /// Order quantity after modification. Do not pass it if not modify the qty
     /// </summary>
     [JsonProperty("qty", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(DecimalToStringConverter))]
-    public decimal Quantity { get; set; }
+    public decimal? Quantity { get; set; }
 
     /// <summary>
     /// Order price after modification. Do not pass it if not modify the price

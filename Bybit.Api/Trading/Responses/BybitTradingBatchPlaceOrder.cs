@@ -32,7 +32,7 @@ public record BybitTradingBatchPlaceOrder
     /// <summary>
     /// Order created time (ms)
     /// </summary>
-    [JsonProperty("createAt"), JsonConverter(typeof(DateTimeConverter))]
+    [JsonProperty("createAt")]
     public long CreateAtTimestamp { get; set; }
 
     /// <summary>

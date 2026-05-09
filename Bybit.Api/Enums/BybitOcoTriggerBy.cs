@@ -20,6 +20,6 @@ public enum BybitOcoTriggerBy
     /// <summary>
     /// Stop Loss
     /// </summary>
-    [Map("OcoTriggerByBySl")]
+    [Map("OcoTriggerByBySl", "OcoTriggerBySl")]
     StopLoss = 2,
 }

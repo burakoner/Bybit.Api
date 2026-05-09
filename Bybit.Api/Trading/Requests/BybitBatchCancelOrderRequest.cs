@@ -14,12 +14,12 @@ public record BybitBatchCancelOrderRequest
     /// <summary>
     /// Order ID. Either orderId or orderLinkId is required
     /// </summary>
-    [JsonProperty("orderId")]
-    public string OrderId { get; set; } = string.Empty;
+    [JsonProperty("orderId", NullValueHandling = NullValueHandling.Ignore)]
+    public string? OrderId { get; set; }
 
     /// <summary>
     /// User customised order ID. Either orderId or orderLinkId is required
     /// </summary>
-    [JsonProperty("orderLinkId")]
-    public string ClientOrderId { get; set; } = string.Empty;
+    [JsonProperty("orderLinkId", NullValueHandling = NullValueHandling.Ignore)]
+    public string? ClientOrderId { get; set; }
 }

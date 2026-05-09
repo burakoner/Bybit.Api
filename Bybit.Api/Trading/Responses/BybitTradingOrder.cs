@@ -222,7 +222,7 @@ public record BybitTradingOrder
     /// <summary>
     /// Last price when place the order, Spot has this field only
     /// </summary>
-    public bool? BasePrice { get; set; }
+    public decimal? BasePrice { get; set; }
 
     /// <summary>
     /// Reduce only. true means reduce position size
@@ -257,6 +257,21 @@ public record BybitTradingOrder
     /// </summary>
     [JsonProperty("smpOrderId")]
     public string SelfMatchPreventionOrderId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Slippage tolerance type.
+    /// </summary>
+    public BybitSlippageToleranceType? SlippageToleranceType { get; set; }
+
+    /// <summary>
+    /// Slippage tolerance value.
+    /// </summary>
+    public decimal? SlippageTolerance { get; set; }
+
+    /// <summary>
+    /// Extra fee details. The content is currently returned as an exchange-defined JSON string.
+    /// </summary>
+    public string ExtraFees { get; set; } = string.Empty;
 
     /// <summary>
     /// Order created timestamp (ms)

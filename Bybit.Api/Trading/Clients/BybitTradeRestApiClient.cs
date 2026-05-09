@@ -20,7 +20,7 @@ public class BybitTradeRestApiClient
     private const string _v5OrderCancelBatch = "v5/order/cancel-batch";
     private const string _v5OrderSpotBorrowCheck = "v5/order/spot-borrow-check";
     private const string _v5OrderDisconnectedCancelAll = "v5/order/disconnected-cancel-all";
-    // TODO: POST /v5/order/pre-check
+    private const string _v5OrderPreCheck = "v5/order/pre-check";
 
     #region Internal
     internal BybitBaseRestApiClient _ { get; }
@@ -188,52 +188,61 @@ public class BybitTradeRestApiClient
 
         CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.Add("symbol", symbol);
-        parameters.AddEnum("side", side);
-        parameters.AddEnum("orderType", type);
-        parameters.AddString("qty", quantity);
-
-        parameters.AddOptional("orderLinkId", clientOrderId);
-        parameters.AddOptionalEnum("marketUnit", marketUnit);
-        parameters.AddOptional("isLeverage", isLeverage != null ? isLeverage == true ? 1 : 0 : null);
-
-        parameters.AddOptionalEnum("slippageToleranceType", slippageToleranceType);
-        if (slippageToleranceType != null && slippageTolerance != null)
+        var request = new BybitPlaceOrderRequest(category, symbol, side, type, quantity)
         {
-            if (slippageToleranceType == BybitSlippageToleranceType.TickSize)
-                parameters.AddOptionalString("slippageTolerance", Convert.ToInt32(slippageTolerance));
-            else if (slippageToleranceType == BybitSlippageToleranceType.Percent)
-                parameters.AddOptionalString("slippageTolerance", slippageTolerance);
-        }
+            MarketUnit = marketUnit,
+            Price = price,
+            ClientOrderId = clientOrderId,
+            IsLeverage = isLeverage,
+            SlippageToleranceType = slippageToleranceType,
+            SlippageTolerance = slippageTolerance,
+            TriggerDirection = triggerDirection,
+            OrderFilter = orderFilter,
+            TriggerPrice = triggerPrice,
+            TriggerBy = triggerBy,
+            OrderIv = orderIv,
+            TimeInForce = timeInForce,
+            PositionIndex = positionIndex,
+            ReduceOnly = reduceOnly,
+            CloseOnTrigger = closeOnTrigger,
+            Mmp = mmp,
+            SelfMatchPrevention = smp,
+            TakeProfitStopLossMode = takeProfitStopLossMode,
+            TakeProfitOrderType = takeProfitOrderType,
+            TakeProfitTriggerBy = takeProfitTriggerBy,
+            TakeProfitPrice = takeProfitPrice,
+            TakeProfitLimitPrice = takeProfitLimitPrice,
+            StopLossOrderType = stopLossOrderType,
+            StopLossTriggerBy = stopLossTriggerBy,
+            StopLossPrice = stopLossPrice,
+            StopLossLimitPrice = stopLossLimitPrice,
+        };
 
-        parameters.AddOptionalString("price", price);
-        parameters.AddOptionalEnum("triggerDirection", triggerDirection);
-        parameters.AddOptionalEnum("orderFilter", orderFilter);
-        parameters.AddOptionalString("triggerPrice", triggerPrice);
-        parameters.AddOptionalEnum("triggerBy", triggerBy);
-        parameters.AddOptionalString("orderIv", orderIv);
-        parameters.AddOptionalEnum("timeInForce", timeInForce);
-        parameters.AddOptionalEnum("positionIdx", positionIndex);
+        return await PlaceOrderAsync(request, ct).ConfigureAwait(false);
+    }
 
-        parameters.AddOptional("reduceOnly", reduceOnly);
-        parameters.AddOptional("closeOnTrigger", closeOnTrigger);
-        parameters.AddOptional("mmp", mmp);
-        parameters.AddOptionalEnum("smpType", smp);
-
-        parameters.AddOptionalEnum("tpslMode", takeProfitStopLossMode);
-        parameters.AddOptionalEnum("tpOrderType", takeProfitOrderType);
-        parameters.AddOptionalEnum("tpTriggerBy", takeProfitTriggerBy);
-        parameters.AddOptionalString("takeProfit", takeProfitPrice);
-        parameters.AddOptionalString("tpLimitPrice", takeProfitLimitPrice);
-
-        parameters.AddOptionalEnum("slOrderType", stopLossOrderType);
-        parameters.AddOptionalEnum("slTriggerBy", stopLossTriggerBy);
-        parameters.AddOptionalString("stopLoss", stopLossPrice);
-        parameters.AddOptionalString("slLimitPrice", stopLossLimitPrice);
-
+    /// <summary>
+    /// Place Order.
+    /// </summary>
+    /// <param name="request">Place order request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitTradingOrderId>> PlaceOrderAsync(BybitPlaceOrderRequest request, CancellationToken ct = default)
+    {
+        var parameters = CreatePlaceOrderParameters(request);
         return await _.SendBybitRequest<BybitTradingOrderId>(_.BuildUri(_v5OrderCreate), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Pre Check Order.
+    /// </summary>
+    /// <param name="request">Pre-check order request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitPreCheckOrder>> PreCheckOrderAsync(BybitPreCheckOrderRequest request, CancellationToken ct = default)
+    {
+        var parameters = CreatePlaceOrderParameters(request);
+        return await _.SendBybitRequest<BybitPreCheckOrder>(_.BuildUri(_v5OrderPreCheck), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -298,28 +307,36 @@ public class BybitTradeRestApiClient
 
         CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.Add("symbol", symbol);
+        var request = new BybitAmendOrderRequest(category, symbol)
+        {
+            OrderId = orderId,
+            ClientOrderId = clientOrderId,
+            OrderIv = orderIv,
+            Quantity = quantity,
+            Price = price,
+            TriggerPrice = triggerPrice,
+            TriggerBy = triggerBy,
+            TakeProfitStopLossMode = takeProfitStopLossMode,
+            TakeProfitTriggerBy = takeProfitTriggerBy,
+            TakeProfitPrice = takeProfitPrice,
+            TakeProfitLimitPrice = takeProfitLimitPrice,
+            StopLossTriggerBy = stopLossTriggerBy,
+            StopLossPrice = stopLossPrice,
+            StopLossLimitPrice = stopLossLimitPrice,
+        };
 
-        parameters.AddOptional("orderId", orderId);
-        parameters.AddOptional("orderLinkId", clientOrderId);
-        parameters.AddOptionalString("orderIv", orderIv);
-        parameters.AddOptionalString("qty", quantity);
-        parameters.AddOptionalString("price", price);
+        return await AmendOrderAsync(request, ct).ConfigureAwait(false);
+    }
 
-        parameters.AddOptionalString("triggerPrice", triggerPrice);
-        parameters.AddOptionalEnum("triggerBy", triggerBy);
-        parameters.AddOptionalEnum("tpslMode", takeProfitStopLossMode);
-
-        parameters.AddOptionalEnum("tpTriggerBy", takeProfitTriggerBy);
-        parameters.AddOptionalString("takeProfit", takeProfitPrice);
-        parameters.AddOptionalString("tpLimitPrice", takeProfitLimitPrice);
-
-        parameters.AddOptionalEnum("slTriggerBy", stopLossTriggerBy);
-        parameters.AddOptionalString("stopLoss", stopLossPrice);
-        parameters.AddOptionalString("slLimitPrice", stopLossLimitPrice);
-
+    /// <summary>
+    /// Amend Order.
+    /// </summary>
+    /// <param name="request">Amend order request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitTradingOrderId>> AmendOrderAsync(BybitAmendOrderRequest request, CancellationToken ct = default)
+    {
+        var parameters = CreateAmendOrderParameters(request);
         return await _.SendBybitRequest<BybitTradingOrderId>(_.BuildUri(_v5OrderAmend), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
@@ -350,12 +367,30 @@ public class BybitTradeRestApiClient
         BybitOrderFilter? orderFilter = null,
         CancellationToken ct = default)
     {
+        var request = new BybitCancelOrderRequest(category, symbol)
+        {
+            OrderId = orderId,
+            ClientOrderId = clientOrderId,
+            OrderFilter = orderFilter,
+        };
+
+        return await CancelOrderAsync(request, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Cancel Order.
+    /// </summary>
+    /// <param name="request">Cancel order request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<BybitTradingOrderId>> CancelOrderAsync(BybitCancelOrderRequest request, CancellationToken ct = default)
+    {
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.Add("symbol", symbol);
-        parameters.AddOptional("orderId", orderId);
-        parameters.AddOptional("orderLinkId", clientOrderId);
-        parameters.AddOptionalEnum("orderFilter", orderFilter);
+        parameters.AddEnum("category", request.Category);
+        parameters.Add("symbol", request.Symbol);
+        parameters.AddOptional("orderId", request.OrderId);
+        parameters.AddOptional("orderLinkId", request.ClientOrderId);
+        parameters.AddOptionalEnum("orderFilter", request.OrderFilter);
 
         return await _.SendBybitRequest<BybitTradingOrderId>(_.BuildUri(_v5OrderCancel), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
@@ -413,18 +448,42 @@ public class BybitTradeRestApiClient
         string? cursor = null,
         CancellationToken ct = default)
     {
-        limit?.ValidateIntBetween(nameof(limit), 1, 50);
+        var request = new BybitGetOrdersRequest(category)
+        {
+            Symbol = symbol,
+            BaseAsset = baseAsset,
+            SettleAsset = settleAsset,
+            OrderId = orderId,
+            ClientOrderId = clientOrderId,
+            OpenOnly = openOnly,
+            OrderFilter = orderFilter,
+            Limit = limit,
+            Cursor = cursor,
+        };
+
+        return await GetOrdersAsync(request, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Open and Closed Orders.
+    /// </summary>
+    /// <param name="request">Get orders request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitTradingOrder>>> GetOrdersAsync(BybitGetOrdersRequest request, CancellationToken ct = default)
+    {
+        request.Limit?.ValidateIntBetween(nameof(request.Limit), 1, 50);
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.AddOptional("symbol", symbol);
-        parameters.AddOptional("baseCoin", baseAsset);
-        parameters.AddOptional("settleCoin", settleAsset);
-        parameters.AddOptional("orderId", orderId);
-        parameters.AddOptional("orderLinkId", clientOrderId);
-        parameters.AddOptionalEnum("openOnly", openOnly);
-        parameters.AddOptionalEnum("orderFilter", orderFilter);
-        parameters.AddOptional("limit", limit);
-        parameters.AddOptional("cursor", cursor);
+        parameters.AddEnum("category", request.Category);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptional("baseCoin", request.BaseAsset);
+        parameters.AddOptional("settleCoin", request.SettleAsset);
+        parameters.AddOptional("orderId", request.OrderId);
+        parameters.AddOptional("orderLinkId", request.ClientOrderId);
+        parameters.AddOptionalEnum("openOnly", request.OpenOnly);
+        parameters.AddOptionalEnum("orderFilter", request.OrderFilter);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingOrder>>(_.BuildUri(_v5OrderRealtime), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitTradingOrder>>(default!);
@@ -473,13 +532,33 @@ public class BybitTradeRestApiClient
         BybitStopOrderType? stopOrderType = null,
         CancellationToken ct = default)
     {
+        var request = new BybitCancelAllOrdersRequest(category)
+        {
+            Symbol = symbol,
+            BaseAsset = baseAsset,
+            SettleAsset = settleAsset,
+            OrderFilter = orderFilter,
+            StopOrderType = stopOrderType,
+        };
+
+        return await CancelOrdersAsync(request, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Cancel all open orders.
+    /// </summary>
+    /// <param name="request">Cancel all orders request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitTradingOrderId>>> CancelOrdersAsync(BybitCancelAllOrdersRequest request, CancellationToken ct = default)
+    {
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.AddOptional("symbol", symbol);
-        parameters.AddOptional("baseCoin", baseAsset);
-        parameters.AddOptional("settleCoin", settleAsset);
-        parameters.AddOptionalEnum("orderFilter", orderFilter);
-        parameters.AddOptionalEnum("stopOrderType", stopOrderType);
+        parameters.AddEnum("category", request.Category);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptional("baseCoin", request.BaseAsset);
+        parameters.AddOptional("settleCoin", request.SettleAsset);
+        parameters.AddOptionalEnum("orderFilter", request.OrderFilter);
+        parameters.AddOptionalEnum("stopOrderType", request.StopOrderType);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingOrderId>>(_.BuildUri(_v5OrderCancelAll), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitTradingOrderId>>(default!);
@@ -544,20 +623,46 @@ public class BybitTradeRestApiClient
         string? cursor = null,
         CancellationToken ct = default)
     {
-        limit?.ValidateIntBetween(nameof(limit), 1, 50);
+        var request = new BybitGetOrderHistoryRequest(category)
+        {
+            Symbol = symbol,
+            BaseAsset = baseAsset,
+            SettleAsset = settleAsset,
+            OrderId = orderId,
+            ClientOrderId = clientOrderId,
+            OrderFilter = orderFilter,
+            OrderStatus = orderStatus,
+            StartTime = startTime,
+            EndTime = endTime,
+            Limit = limit,
+            Cursor = cursor,
+        };
+
+        return await GetOrderHistoryAsync(request, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Order History.
+    /// </summary>
+    /// <param name="request">Get order history request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitTradingOrder>>> GetOrderHistoryAsync(BybitGetOrderHistoryRequest request, CancellationToken ct = default)
+    {
+        request.Limit?.ValidateIntBetween(nameof(request.Limit), 1, 50);
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.AddOptional("symbol", symbol);
-        parameters.AddOptional("baseCoin", baseAsset);
-        parameters.AddOptional("settleCoin", settleAsset);
-        parameters.AddOptional("orderId", orderId);
-        parameters.AddOptional("orderLinkId", clientOrderId);
-        parameters.AddOptionalEnum("orderFilter", orderFilter);
-        parameters.AddOptionalEnum("orderStatus", orderStatus);
-        parameters.AddOptional("startTime", startTime);
-        parameters.AddOptional("endTime", endTime);
-        parameters.AddOptional("limit", limit);
-        parameters.AddOptional("cursor", cursor);
+        parameters.AddEnum("category", request.Category);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptional("baseCoin", request.BaseAsset);
+        parameters.AddOptional("settleCoin", request.SettleAsset);
+        parameters.AddOptional("orderId", request.OrderId);
+        parameters.AddOptional("orderLinkId", request.ClientOrderId);
+        parameters.AddOptionalEnum("orderFilter", request.OrderFilter);
+        parameters.AddOptionalEnum("orderStatus", request.OrderStatus);
+        parameters.AddOptional("startTime", request.StartTime);
+        parameters.AddOptional("endTime", request.EndTime);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingOrder>>(_.BuildUri(_v5OrderHistory), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitTradingOrder>>(default!);
@@ -613,18 +718,43 @@ public class BybitTradeRestApiClient
         string? cursor = null,
         CancellationToken ct = default)
     {
-        limit?.ValidateIntBetween(nameof(limit), 1, 100);
+        var request = new BybitGetTradeHistoryRequest(category)
+        {
+            Symbol = symbol,
+            OrderId = orderId,
+            ClientOrderId = clientOrderId,
+            BaseAsset = baseAsset,
+            StartTime = startTime,
+            EndTime = endTime,
+            ExecutionType = executionType,
+            Limit = limit,
+            Cursor = cursor,
+        };
+
+        return await GetTradeHistoryAsync(request, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Trade History.
+    /// </summary>
+    /// <param name="request">Get trade history request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<List<BybitTradingExecution>>> GetTradeHistoryAsync(BybitGetTradeHistoryRequest request, CancellationToken ct = default)
+    {
+        request.Limit?.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.AddOptional("symbol", symbol);
-        parameters.AddOptional("baseCoin", baseAsset);
-        parameters.AddOptional("orderId", orderId);
-        parameters.AddOptional("orderLinkId", clientOrderId);
-        parameters.AddOptional("startTime", startTime);
-        parameters.AddOptional("endTime", endTime);
-        parameters.AddOptionalEnum("execType", executionType);
-        parameters.AddOptional("limit", limit);
-        parameters.AddOptional("cursor", cursor);
+        parameters.AddEnum("category", request.Category);
+        parameters.AddOptional("symbol", request.Symbol);
+        parameters.AddOptional("baseCoin", request.BaseAsset);
+        parameters.AddOptional("settleCoin", request.SettleAsset);
+        parameters.AddOptional("orderId", request.OrderId);
+        parameters.AddOptional("orderLinkId", request.ClientOrderId);
+        parameters.AddOptional("startTime", request.StartTime);
+        parameters.AddOptional("endTime", request.EndTime);
+        parameters.AddOptionalEnum("execType", request.ExecutionType);
+        parameters.AddOptional("limit", request.Limit);
+        parameters.AddOptional("cursor", request.Cursor);
 
         var result = await _.SendBybitRequest<BybitListResponse<BybitTradingExecution>>(_.BuildUri(_v5ExecutionList), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
         if (!result) return result.As<List<BybitTradingExecution>>(default!);
@@ -735,20 +865,33 @@ public class BybitTradeRestApiClient
     /// <exception cref="NotSupportedException"></exception>
     public async Task<BybitRestCallResult<BybitTradingBorrowQuota>> GetBorrowQuotaAsync(BybitCategory category, string symbol, BybitOrderSide side, CancellationToken ct = default)
     {
-        if (category.IsNotIn(BybitCategory.Spot))
-            throw new NotSupportedException($"{category} is not supported for this endpoint.");
+        var request = new BybitBorrowQuotaRequest(category, symbol, side);
+        return await GetBorrowQuotaAsync(request, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Query the available balance for Spot trading and Margin trading.
+    /// </summary>
+    /// <param name="request">Borrow quota request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<BybitRestCallResult<BybitTradingBorrowQuota>> GetBorrowQuotaAsync(BybitBorrowQuotaRequest request, CancellationToken ct = default)
+    {
+        if (request.Category.IsNotIn(BybitCategory.Spot))
+            throw new NotSupportedException($"{request.Category} is not supported for this endpoint.");
 
         var parameters = new ParameterCollection();
-        parameters.AddEnum("category", category);
-        parameters.Add("symbol", symbol);
-        parameters.AddEnum("side", side);
+        parameters.AddEnum("category", request.Category);
+        parameters.Add("symbol", request.Symbol);
+        parameters.AddEnum("side", request.Side);
 
         return await _.SendBybitRequest<BybitTradingBorrowQuota>(_.BuildUri(_v5OrderSpotBorrowCheck), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
     /// Set Disconnect Cancel All
-    /// Covers: Option (Unified Account)
+    /// Covers: Inverse perpetual / inverse futures / USDT perpetual / USDT futures / USDC perpetual / USDC futures / Spot / Options
     /// 
     /// INFO
     /// What is Disconnection Protect (DCP)?
@@ -758,7 +901,7 @@ public class BybitTradeRestApiClient
     /// If you need to turn it on/off, you can contact your client manager for consultation and application. The default time window is 10 seconds.
     /// 
     /// Applicable
-    /// Effective for options only.
+    /// Effective for futures, spot, and options.
     /// 
     /// TIP
     /// After the request is successfully sent, the system needs a certain time to take effect. It is recommended to query or set again after 10 seconds
@@ -772,13 +915,119 @@ public class BybitTradeRestApiClient
     /// <exception cref="NotSupportedException"></exception>
     public async Task<BybitRestCallResult<object>> SetDisconnectProtectionAsync(int timeWindow, CancellationToken ct = default)
     {
-        timeWindow.ValidateIntBetween(nameof(timeWindow), 3, 300);
+        return await SetDisconnectProtectionAsync(new BybitSetDisconnectProtectionRequest(timeWindow), ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Set Disconnect Cancel All.
+    /// </summary>
+    /// <param name="timeWindow">Disconnection timing window time. [3, 300], unit: second.</param>
+    /// <param name="product">Product scope.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<object>> SetDisconnectProtectionAsync(int timeWindow, BybitDcpProduct product, CancellationToken ct = default)
+    {
+        return await SetDisconnectProtectionAsync(new BybitSetDisconnectProtectionRequest(timeWindow) { Product = product }, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Set Disconnect Cancel All.
+    /// </summary>
+    /// <param name="request">Set disconnect cancel all request.</param>
+    /// <param name="ct">Cancellation Token.</param>
+    /// <returns></returns>
+    public async Task<BybitRestCallResult<object>> SetDisconnectProtectionAsync(BybitSetDisconnectProtectionRequest request, CancellationToken ct = default)
+    {
+        request.TimeWindow.ValidateIntBetween(nameof(request.TimeWindow), 3, 300);
         var parameters = new ParameterCollection
         {
-            { "timeWindow", timeWindow },
+            { "timeWindow", request.TimeWindow },
         };
+        parameters.AddOptionalEnum("product", request.Product);
 
-        return await _.SendBybitRequest<object>(_.BuildUri(_v5OrderDisconnectedCancelAll), HttpMethod.Post, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await _.SendBybitRequest<object>(_.BuildUri(_v5OrderDisconnectedCancelAll), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
+    }
+
+    private static ParameterCollection CreatePlaceOrderParameters(BybitPlaceOrderRequest request)
+    {
+        request.BboLevel?.ValidateIntBetween(nameof(request.BboLevel), 1, 5);
+
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("category", request.Category);
+        parameters.Add("symbol", request.Symbol);
+        parameters.AddEnum("side", request.Side);
+        parameters.AddEnum("orderType", request.Type);
+        parameters.AddString("qty", request.Quantity);
+
+        parameters.AddOptional("orderLinkId", request.ClientOrderId);
+        parameters.AddOptionalEnum("marketUnit", request.MarketUnit);
+        parameters.AddOptional("isLeverage", request.IsLeverageField);
+
+        parameters.AddOptionalEnum("slippageToleranceType", request.SlippageToleranceType);
+        if (request.SlippageToleranceType != null && request.SlippageTolerance != null)
+        {
+            if (request.SlippageToleranceType == BybitSlippageToleranceType.TickSize)
+                parameters.AddOptionalString("slippageTolerance", Convert.ToInt32(request.SlippageTolerance));
+            else if (request.SlippageToleranceType == BybitSlippageToleranceType.Percent)
+                parameters.AddOptionalString("slippageTolerance", request.SlippageTolerance);
+        }
+
+        parameters.AddOptionalString("price", request.Price);
+        parameters.AddOptionalEnum("triggerDirection", request.TriggerDirection);
+        parameters.AddOptionalEnum("orderFilter", request.OrderFilter);
+        parameters.AddOptionalString("triggerPrice", request.TriggerPrice);
+        parameters.AddOptionalEnum("triggerBy", request.TriggerBy);
+        parameters.AddOptionalString("orderIv", request.OrderIv);
+        parameters.AddOptionalEnum("timeInForce", request.TimeInForce);
+        parameters.AddOptionalEnum("positionIdx", request.PositionIndex);
+
+        parameters.AddOptional("reduceOnly", request.ReduceOnly);
+        parameters.AddOptional("closeOnTrigger", request.CloseOnTrigger);
+        parameters.AddOptional("mmp", request.Mmp);
+        parameters.AddOptionalEnum("smpType", request.SelfMatchPrevention);
+
+        parameters.AddOptionalEnum("tpslMode", request.TakeProfitStopLossMode);
+        parameters.AddOptionalEnum("tpOrderType", request.TakeProfitOrderType);
+        parameters.AddOptionalEnum("tpTriggerBy", request.TakeProfitTriggerBy);
+        parameters.AddOptionalString("takeProfit", request.TakeProfitPrice);
+        parameters.AddOptionalString("tpLimitPrice", request.TakeProfitLimitPrice);
+
+        parameters.AddOptionalEnum("slOrderType", request.StopLossOrderType);
+        parameters.AddOptionalEnum("slTriggerBy", request.StopLossTriggerBy);
+        parameters.AddOptionalString("stopLoss", request.StopLossPrice);
+        parameters.AddOptionalString("slLimitPrice", request.StopLossLimitPrice);
+
+        parameters.AddOptionalEnum("bboSideType", request.BboSideType);
+        parameters.AddOptionalString("bboLevel", request.BboLevel);
+
+        return parameters;
+    }
+
+    private static ParameterCollection CreateAmendOrderParameters(BybitAmendOrderRequest request)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("category", request.Category);
+        parameters.Add("symbol", request.Symbol);
+
+        parameters.AddOptional("orderId", request.OrderId);
+        parameters.AddOptional("orderLinkId", request.ClientOrderId);
+        parameters.AddOptionalString("orderIv", request.OrderIv);
+        parameters.AddOptionalString("qty", request.Quantity);
+        parameters.AddOptionalString("price", request.Price);
+
+        parameters.AddOptionalString("triggerPrice", request.TriggerPrice);
+        parameters.AddOptionalEnum("triggerBy", request.TriggerBy);
+        parameters.AddOptionalEnum("tpslMode", request.TakeProfitStopLossMode);
+
+        parameters.AddOptionalEnum("tpTriggerBy", request.TakeProfitTriggerBy);
+        parameters.AddOptionalString("takeProfit", request.TakeProfitPrice);
+        parameters.AddOptionalString("tpLimitPrice", request.TakeProfitLimitPrice);
+
+        parameters.AddOptionalEnum("slTriggerBy", request.StopLossTriggerBy);
+        parameters.AddOptionalString("stopLoss", request.StopLossPrice);
+        parameters.AddOptionalString("slLimitPrice", request.StopLossLimitPrice);
+
+        return parameters;
     }
     #endregion
 

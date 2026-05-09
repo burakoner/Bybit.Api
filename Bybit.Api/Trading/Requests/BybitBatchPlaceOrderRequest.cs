@@ -122,7 +122,7 @@ public record BybitBatchPlaceOrderRequest
     /// - always unique
     /// </summary>
     [JsonProperty("orderLinkId", NullValueHandling = NullValueHandling.Ignore)]
-    public string ClientOrderId { get; set; } = string.Empty;
+    public string? ClientOrderId { get; set; }
 
     /// <summary>
     /// Take profit price

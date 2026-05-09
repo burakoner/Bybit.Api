@@ -51,6 +51,18 @@ internal class Program
         var trade_10 = await api.Trade.CancelOrdersAsync(BybitCategory.Spot, []/* ...optional parameters... */);
         var trade_11 = await api.Trade.GetBorrowQuotaAsync(BybitCategory.Spot, "XRPUSDT", BybitOrderSide.Buy /* ...optional parameters... */);
         var trade_12 = await api.Trade.SetDisconnectProtectionAsync(10 /* ...optional parameters... */);
+        var trade_13 = await api.Trade.PlaceOrderAsync(new BybitPlaceOrderRequest(BybitCategory.Linear, "BTCUSDT", BybitOrderSide.Buy, BybitOrderType.Limit, 1.0m)
+        {
+            Price = 25000.0m,
+            TimeInForce = BybitTimeInForce.GoodTillCancel,
+            BboSideType = BybitBboSideType.Queue,
+            BboLevel = 1,
+        });
+        var trade_14 = await api.Trade.PreCheckOrderAsync(new BybitPreCheckOrderRequest(BybitCategory.Linear, "BTCUSDT", BybitOrderSide.Buy, BybitOrderType.Limit, 1.0m)
+        {
+            Price = 25000.0m,
+            TimeInForce = BybitTimeInForce.GoodTillCancel,
+        });
 
         // Position API Methods (Private)
         var position_01 = await api.Position.GetPositionsAsync(BybitCategory.Linear /* ...optional parameters... */);

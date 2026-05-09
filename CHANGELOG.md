@@ -5,6 +5,12 @@ Version 5.6.507 - 09 May 2026
 - Fixed Market response mappings for option ticker IV fields, recent trade execution IDs, spot instrument `stTag`, RPI orderbook quantities, and nullable string numeric fields.
 - Added focused Market JSON deserialization tests and live public endpoint integration coverage.
 - Split Market request models into one file per request type and widened Market ID fields to `long`.
+- Updated Trade REST API coverage against the current Bybit v5 documentation.
+- Added the Trade pre-check order endpoint and request-object overloads for place, amend, cancel, query, history, borrow quota, and DCP calls.
+- Added BBO order placement fields, DCP product scope support, and the missing `settleCoin` trade history request model field.
+- Fixed Trade response mappings for spot `basePrice`, batch place `createAt`, OCO stop-loss trigger labels, future spread execution type, slippage fields, and extra fee fields.
+- Fixed batch trade request serialization so optional order IDs and quantities are omitted instead of sending empty strings or zero values.
+- Added focused Trade JSON deserialization and request serialization tests.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

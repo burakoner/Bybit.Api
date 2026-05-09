@@ -64,4 +64,10 @@ public enum BybitExecutionType
     /// </summary>
     [Map("SessionSettlePnL")]
     SessionSettlePnL = 9,
+
+    /// <summary>
+    /// Futures spread execution.
+    /// </summary>
+    [Map("FutureSpread")]
+    FutureSpread = 10,
 }

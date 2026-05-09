@@ -173,4 +173,9 @@ public record BybitTradingExecution
     /// </summary>
     [JsonProperty("seq")]
     public long? Sequence { get; set; }
+
+    /// <summary>
+    /// Extra fee details. The content is currently returned as an exchange-defined JSON string.
+    /// </summary>
+    public string ExtraFees { get; set; } = string.Empty;
 }
