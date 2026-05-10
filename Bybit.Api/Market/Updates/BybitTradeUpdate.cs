@@ -6,6 +6,24 @@
 public record BybitTradeUpdate
 {
     /// <summary>
+    /// Stream type.
+    /// </summary>
+    [JsonIgnore]
+    public Bybit.Api.Common.Requests.BybitStreamType StreamType { get; set; }
+
+    /// <summary>
+    /// The timestamp (ms) that the system generates the data.
+    /// </summary>
+    [JsonIgnore]
+    public long StreamTimestamp { get; set; }
+
+    /// <summary>
+    /// The timestamp that the system generates the data.
+    /// </summary>
+    [JsonIgnore]
+    public DateTime StreamTime { get => StreamTimestamp.ConvertFromMilliseconds(); }
+
+    /// <summary>
     /// Trade ID
     /// </summary>
     [JsonProperty("i")]
@@ -57,6 +75,18 @@ public record BybitTradeUpdate
     /// </summary>
     [JsonProperty("BT")]
     public bool BlockTrade { get; set; }
+
+    /// <summary>
+    /// Whether it is an RPI trade or not
+    /// </summary>
+    [JsonProperty("RPI")]
+    public bool? IsRpiTrade { get; set; }
+
+    /// <summary>
+    /// Cross sequence
+    /// </summary>
+    [JsonProperty("seq")]
+    public long? Sequence { get; set; }
 
     /// <summary>
     /// Mark price, unique field for option

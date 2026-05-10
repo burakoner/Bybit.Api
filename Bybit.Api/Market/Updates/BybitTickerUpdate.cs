@@ -6,6 +6,30 @@
 public record BybitSpotTickerStream
 {
     /// <summary>
+    /// Stream type
+    /// </summary>
+    [JsonIgnore]
+    public Bybit.Api.Common.Requests.BybitStreamType StreamType { get; set; }
+
+    /// <summary>
+    /// The timestamp (ms) that the system generates the data
+    /// </summary>
+    [JsonIgnore]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// The timestamp that the system generates the data
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time { get => Timestamp.ConvertFromMilliseconds(); }
+
+    /// <summary>
+    /// Cross sequence
+    /// </summary>
+    [JsonIgnore]
+    public long? CrossSequence { get; set; }
+
+    /// <summary>
     /// Symbol name
     /// </summary>
     [JsonProperty("symbol")]
@@ -72,6 +96,30 @@ public record BybitSpotTickerStream
 /// </summary>
 public record BybitFuturesTickerStream
 {
+    /// <summary>
+    /// Stream type
+    /// </summary>
+    [JsonIgnore]
+    public Bybit.Api.Common.Requests.BybitStreamType StreamType { get; set; }
+
+    /// <summary>
+    /// The timestamp (ms) that the system generates the data
+    /// </summary>
+    [JsonIgnore]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// The timestamp that the system generates the data
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time { get => Timestamp.ConvertFromMilliseconds(); }
+
+    /// <summary>
+    /// Cross sequence
+    /// </summary>
+    [JsonIgnore]
+    public long? CrossSequence { get; set; }
+
     /// <summary>
     /// Symbol name
     /// </summary>
@@ -178,6 +226,38 @@ public record BybitFuturesTickerStream
     /// Funding rate
     /// </summary>
     public decimal FundingRate { get; set; }
+
+    /// <summary>
+    /// Estimated pre-market contract open price
+    /// </summary>
+    public decimal? PreOpenPrice { get; set; }
+
+    /// <summary>
+    /// Estimated pre-market contract open quantity
+    /// </summary>
+    [JsonProperty("preQty")]
+    public decimal? PreOpenQuantity { get; set; }
+
+    /// <summary>
+    /// The current pre-market contract phase
+    /// </summary>
+    [JsonProperty("curPreListingPhase")]
+    public BybitPreListingPhase? PreListingPhase { get; set; }
+
+    /// <summary>
+    /// Funding interval hour
+    /// </summary>
+    public int? FundingIntervalHour { get; set; }
+
+    /// <summary>
+    /// Funding rate upper and lower limits
+    /// </summary>
+    public decimal? FundingCap { get; set; }
+
+    /// <summary>
+    /// Annual basis rate
+    /// </summary>
+    public decimal? BasisRateYear { get; set; }
     
     /// <summary>
     /// Best bid price
@@ -230,6 +310,30 @@ public record BybitFuturesTickerStream
 /// </summary>
 public record BybitOptionTickerStream
 {
+    /// <summary>
+    /// Stream type
+    /// </summary>
+    [JsonIgnore]
+    public Bybit.Api.Common.Requests.BybitStreamType StreamType { get; set; }
+
+    /// <summary>
+    /// The timestamp (ms) that the system generates the data
+    /// </summary>
+    [JsonIgnore]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// The timestamp that the system generates the data
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time { get => Timestamp.ConvertFromMilliseconds(); }
+
+    /// <summary>
+    /// Message ID
+    /// </summary>
+    [JsonIgnore]
+    public string MessageId { get; set; } = string.Empty;
+
     /// <summary>
     /// Symbol name
     /// </summary>
@@ -299,7 +403,7 @@ public record BybitOptionTickerStream
     /// <summary>
     /// Mark price iv
     /// </summary>
-    [JsonProperty("markIv")]
+    [JsonProperty("markPriceIv")]
     public decimal MarkPriceIv { get; set; }
 
     /// <summary>

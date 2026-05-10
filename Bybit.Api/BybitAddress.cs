@@ -36,6 +36,26 @@ public class BybitAddress
     public string WebSocketPrivateAddress { get; set; } = string.Empty;
 
     /// <summary>
+    /// WebSocket Spread Address
+    /// </summary>
+    public string WebSocketSpreadAddress { get; set; } = string.Empty;
+
+    /// <summary>
+    /// WebSocket RFQ Address
+    /// </summary>
+    public string WebSocketRfqAddress { get; set; } = string.Empty;
+
+    /// <summary>
+    /// WebSocket Order Entry Address
+    /// </summary>
+    public string WebSocketTradeAddress { get; set; } = string.Empty;
+
+    /// <summary>
+    /// WebSocket System Status Address
+    /// </summary>
+    public string WebSocketSystemStatusAddress { get; set; } = string.Empty;
+
+    /// <summary>
     /// MainNet Environment
     /// </summary>
     public static BybitAddress MainNet = new()
@@ -46,6 +66,10 @@ public class BybitAddress
         WebSocketInverseAddress = "wss://stream.bybit.com/v5/public/inverse",
         WebSocketOptionAddress = "wss://stream.bybit.com/v5/public/option",
         WebSocketPrivateAddress = "wss://stream.bybit.com/v5/private",
+        WebSocketSpreadAddress = "wss://stream.bybit.com/v5/public/spread",
+        WebSocketRfqAddress = "wss://stream.bybit.com/v5/public/rfq",
+        WebSocketTradeAddress = "wss://stream.bybit.com/v5/trade",
+        WebSocketSystemStatusAddress = "wss://stream.bybit.com/v5/public/misc/status",
     };
 
     /// <summary>
@@ -59,6 +83,10 @@ public class BybitAddress
         WebSocketInverseAddress = "wss://stream-testnet.bybit.com/v5/public/inverse",
         WebSocketOptionAddress = "wss://stream-testnet.bybit.com/v5/public/option",
         WebSocketPrivateAddress = "wss://stream-testnet.bybit.com/v5/private",
+        WebSocketSpreadAddress = "wss://stream-testnet.bybit.com/v5/public/spread",
+        WebSocketRfqAddress = "wss://stream-testnet.bybit.com/v5/public/rfq",
+        WebSocketTradeAddress = "wss://stream-testnet.bybit.com/v5/trade",
+        WebSocketSystemStatusAddress = "wss://stream-testnet.bybit.com/v5/public/misc/status",
     };
     
     /// <summary>
@@ -72,5 +100,9 @@ public class BybitAddress
         WebSocketInverseAddress = "wss://stream.bybit.com/v5/public/inverse",
         WebSocketOptionAddress = "wss://stream.bybit.com/v5/public/option",
         WebSocketPrivateAddress = "wss://stream.bybit.com/v5/private",
+        WebSocketSpreadAddress = "wss://stream.bybit.com/v5/public/spread",
+        WebSocketRfqAddress = "wss://stream.bybit.com/v5/public/rfq",
+        WebSocketTradeAddress = "wss://stream.bybit.com/v5/trade",
+        WebSocketSystemStatusAddress = "wss://stream.bybit.com/v5/public/misc/status",
     };
 }

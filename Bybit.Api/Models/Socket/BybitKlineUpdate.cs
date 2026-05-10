@@ -6,6 +6,24 @@
 public record BybitKlineUpdate
 {
     /// <summary>
+    /// Stream type.
+    /// </summary>
+    [JsonIgnore]
+    public Bybit.Api.Common.Requests.BybitStreamType StreamType { get; set; }
+
+    /// <summary>
+    /// The timestamp (ms) that the system generates the data.
+    /// </summary>
+    [JsonIgnore]
+    public long StreamTimestamp { get; set; }
+
+    /// <summary>
+    /// The timestamp that the system generates the data.
+    /// </summary>
+    [JsonIgnore]
+    public DateTime StreamTime { get => StreamTimestamp.ConvertFromMilliseconds(); }
+
+    /// <summary>
     /// The start timestamp (ms)
     /// </summary>
     [JsonProperty("start")]

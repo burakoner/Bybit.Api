@@ -1,9 +1,9 @@
-﻿namespace Bybit.Api.Models.Socket;
+namespace Bybit.Api.Market;
 
 /// <summary>
-/// Bybit Liquidation Stream
+/// Bybit all liquidation stream update.
 /// </summary>
-public record BybitLiquidationUpdate
+public record BybitAllLiquidationUpdate
 {
     /// <summary>
     /// Stream type.
@@ -12,49 +12,50 @@ public record BybitLiquidationUpdate
     public Bybit.Api.Common.Requests.BybitStreamType StreamType { get; set; }
 
     /// <summary>
-    /// The timestamp (ms) that the system generates the data.
+    /// Stream generated timestamp in milliseconds.
     /// </summary>
     [JsonIgnore]
     public long StreamTimestamp { get; set; }
 
     /// <summary>
-    /// The timestamp that the system generates the data.
+    /// Stream generated time.
     /// </summary>
     [JsonIgnore]
     public DateTime StreamTime { get => StreamTimestamp.ConvertFromMilliseconds(); }
 
     /// <summary>
-    /// The updated timestamp (ms)
+    /// The updated timestamp in milliseconds.
     /// </summary>
-    [JsonProperty("updateTime")]
+    [JsonProperty("T")]
     public long UpdateTimestamp { get; set; }
 
     /// <summary>
-    /// The updated timestamp (ms)
+    /// The updated time.
     /// </summary>
+    [JsonIgnore]
     public DateTime UpdateTime { get => UpdateTimestamp.ConvertFromMilliseconds(); }
 
     /// <summary>
-    /// Symbol name
+    /// Symbol name.
     /// </summary>
-    [JsonProperty("symbol")]
+    [JsonProperty("s")]
     public string Symbol { get; set; } = string.Empty;
 
     /// <summary>
-    /// Position side. Buy,Sell. When you receive a Buy update, this means that a long position has been liquidated
+    /// Liquidated position side.
     /// </summary>
-    [JsonProperty("side")]
+    [JsonProperty("S")]
     public BybitOrderSide Side { get; set; }
 
     /// <summary>
-    /// Executed size
+    /// Executed size.
     /// </summary>
-    [JsonProperty("size")]
+    [JsonProperty("v")]
     public decimal Quantity { get; set; }
 
     /// <summary>
-    /// Bankruptcy price
+    /// Bankruptcy price.
     /// </summary>
-    [JsonProperty("price")]
+    [JsonProperty("p")]
     public decimal Price { get; set; }
 }

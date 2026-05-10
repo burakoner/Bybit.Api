@@ -1,0 +1,47 @@
+{
+  "id": "execution-1",
+  "topic": "execution.linear",
+  "creationTime": 1672211918471,
+  "data": [
+    {
+      "category": "linear",
+      "symbol": "BTCUSDT",
+      "isLeverage": "0",
+      "orderId": "1321003749386327552",
+      "orderLinkId": "linear-004",
+      "side": "Buy",
+      "orderPrice": "16500",
+      "orderQty": "0.001",
+      "leavesQty": "0",
+      "createType": "CreateByUser",
+      "orderType": "Limit",
+      "stopOrderType": "",
+      "execFee": "0.000001",
+      "execId": "e0cbe81d-0f18-5866-9415-cf319b5dab3b",
+      "execPrice": "16500",
+      "execQty": "0.001",
+      "execType": "Trade",
+      "execValue": "16.5",
+      "execPnl": "0.001",
+      "execTime": "1672211918471",
+      "isMaker": true,
+      "marketUnit": "baseCoin",
+      "feeRate": "0.0006",
+      "tradeIv": "",
+      "markIv": "",
+      "markPrice": "16501",
+      "indexPrice": "",
+      "underlyingPrice": "",
+      "blockTradeId": "",
+      "closedSize": "0.001",
+      "feeCurrency": "USDT",
+      "extraFees": [
+        {
+          "feeToken": "USDT",
+          "fee": "0.000001"
+        }
+      ],
+      "seq": 4688002127
+    }
+  ]
+}

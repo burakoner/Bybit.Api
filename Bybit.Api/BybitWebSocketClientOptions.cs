@@ -31,6 +31,26 @@ public class BybitWebSocketClientOptions : WebSocketApiClientOptions
     public string WebSocketPrivateAddress { get; set; }
 
     /// <summary>
+    /// WebSocket Spread Address
+    /// </summary>
+    public string WebSocketSpreadAddress { get; set; }
+
+    /// <summary>
+    /// WebSocket RFQ Address
+    /// </summary>
+    public string WebSocketRfqAddress { get; set; }
+
+    /// <summary>
+    /// WebSocket Order Entry Address
+    /// </summary>
+    public string WebSocketTradeAddress { get; set; }
+
+    /// <summary>
+    /// WebSocket System Status Address
+    /// </summary>
+    public string WebSocketSystemStatusAddress { get; set; }
+
+    /// <summary>
     /// Heart Beat Interval
     /// </summary>
     public TimeSpan PingInterval { get; set; }
@@ -45,6 +65,10 @@ public class BybitWebSocketClientOptions : WebSocketApiClientOptions
         this.WebSocketInverseAddress = BybitAddress.MainNet.WebSocketInverseAddress;
         this.WebSocketOptionAddress = BybitAddress.MainNet.WebSocketOptionAddress;
         this.WebSocketPrivateAddress = BybitAddress.MainNet.WebSocketPrivateAddress;
+        this.WebSocketSpreadAddress = BybitAddress.MainNet.WebSocketSpreadAddress;
+        this.WebSocketRfqAddress = BybitAddress.MainNet.WebSocketRfqAddress;
+        this.WebSocketTradeAddress = BybitAddress.MainNet.WebSocketTradeAddress;
+        this.WebSocketSystemStatusAddress = BybitAddress.MainNet.WebSocketSystemStatusAddress;
 
         // Heartbeat
         this.PingInterval = TimeSpan.FromSeconds(20);

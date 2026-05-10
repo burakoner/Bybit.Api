@@ -406,91 +406,234 @@ internal class Program
         // Public Streams
         foreach (var pair in pairs)
         {
-            await ws.SubscribeToTradesAsync(BybitCategory.Spot, pair, (data) =>
-            {
-                // ... Your logic here
-            });
-
-            await ws.SubscribeToTradesAsync(BybitCategory.Spot, pair, (data) =>
+            await ws.SubscribeToTradesAsync(BybitCategory.Spot, pair, data =>
             {
                 // ... Your logic here
             });
         }
 
-        await ws.SubscribeToSpotTickersAsync("BTCUSDT", (data) =>
+        await ws.SubscribeToOrderBookAsync(BybitCategory.Linear, "BTCUSDT", 50, data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToLinearTickersAsync("BTCUSDT", (data) =>
+        await ws.SubscribeToRpiOrderBookAsync(BybitCategory.Linear, "BTCUSDT", data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToInverseTickersAsync("BTCUSDT", (data) =>
+        await ws.SubscribeToSpotTickersAsync("BTCUSDT", data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToSpotTickersAsync(pairs, (data) =>
+        await ws.SubscribeToLinearTickersAsync("BTCUSDT", data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToLinearTickersAsync(pairs, (data) =>
+        await ws.SubscribeToInverseTickersAsync("BTCUSDT", data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToInverseTickersAsync(pairs, (data) =>
+        await ws.SubscribeToSpotTickersAsync(pairs, data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToOptionTickersAsync(pairs, (data) =>
+        await ws.SubscribeToLinearTickersAsync(pairs, data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitInterval.OneHour, (data) =>
+        await ws.SubscribeToInverseTickersAsync(pairs, data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToLiquidationsAsync(BybitCategory.Inverse, "BTCUSDT", (data) =>
+        await ws.SubscribeToOptionTickersAsync(pairs, data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToKlinesAsync(BybitCategory.Spot, "BTCUSDT", BybitInterval.OneHour, data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToLiquidationsAsync(BybitCategory.Inverse, "BTCUSDT", data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToAllLiquidationsAsync(BybitCategory.Linear, "BTCUSDT", data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToOrderPriceLimitAsync(BybitCategory.Linear, "BTCUSDT", data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToInsurancePoolAsync(BybitCategory.Linear, [BybitInsurancePool.USDT, BybitInsurancePool.USDC], data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToAdlAlertsAsync(BybitCategory.Linear, BybitInsurancePool.USDT, data =>
         {
             // ... Your logic here
         });
 
         // Private Streams
-        await ws.SubscribeToPositionUpdatesAsync((data) =>
+        await ws.SubscribeToPositionUpdatesAsync(data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToExecutionUpdatesAsync((data) =>
+        await ws.SubscribeToPositionUpdatesAsync(BybitCategory.Linear, data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToOrderUpdatesAsync((data) =>
+        await ws.SubscribeToExecutionUpdatesAsync(data =>
         {
             // ... Your logic here
         });
 
-        await ws.SubscribeToWalletUpdatesAsync((data) =>
+        await ws.SubscribeToFastExecutionUpdatesAsync(BybitCategory.Linear, data =>
         {
             // ... Your logic here
         });
 
-        var sub = await ws.SubscribeToGreekUpdatesAsync((data) =>
+        await ws.SubscribeToOrderUpdatesAsync(data =>
         {
             // ... Your logic here
         });
+
+        await ws.SubscribeToOrderUpdatesAsync(BybitCategory.Spot, data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToWalletUpdatesAsync(data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToDcpAsync(BybitDcpTopic.Future, data =>
+        {
+            // ... Your logic here
+        });
+
+        var sub = await ws.SubscribeToGreekUpdatesAsync(data =>
+        {
+            // ... Your logic here
+        });
+
+        // System, Spread, and RFQ Streams
+        await ws.SubscribeToSystemStatusUpdatesAsync(data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToSpreadOrderBookAsync("SOLUSDT_SOL/USDT", data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToSpreadTradesAsync("SOLUSDT_SOL/USDT", data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToSpreadTickersAsync("SOLUSDT_SOL/USDT", data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToSpreadOrderUpdatesAsync(data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToSpreadExecutionUpdatesAsync(data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToRfqPublicTradesAsync(data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToRfqQuoteUpdatesAsync(data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToRfqExecutionUpdatesAsync(data =>
+        {
+            // ... Your logic here
+        });
+
+        await ws.SubscribeToRfqUpdatesAsync(data =>
+        {
+            // ... Your logic here
+        });
+
+        // WebSocket Order Entry
+        var wsTrade_01 = await ws.PlaceOrderAsync(new BybitPlaceOrderRequest(BybitCategory.Linear, "BTCUSDT", BybitOrderSide.Buy, BybitOrderType.Limit, 0.001m)
+        {
+            Price = 65000m,
+            ClientOrderId = "example-ws-order-1",
+        });
+        var wsTrade_02 = await ws.AmendOrderAsync(new BybitAmendOrderRequest(BybitCategory.Linear, "BTCUSDT")
+        {
+            ClientOrderId = "example-ws-order-1",
+            Price = 65100m,
+        });
+        var wsTrade_03 = await ws.CancelOrderAsync(new BybitCancelOrderRequest(BybitCategory.Linear, "BTCUSDT")
+        {
+            ClientOrderId = "example-ws-order-1",
+        });
+        var wsTrade_04 = await ws.PlaceOrdersAsync(BybitCategory.Linear, [
+            new BybitBatchPlaceOrderRequest
+            {
+                Symbol = "BTCUSDT",
+                Side = BybitOrderSide.Buy,
+                Type = BybitOrderType.Limit,
+                Quantity = 0.001m,
+                Price = 65000m,
+                ClientOrderId = "example-ws-batch-1",
+            }
+        ]);
+        var wsTrade_05 = await ws.AmendOrdersAsync(BybitCategory.Linear, [
+            new BybitBatchAmendOrderRequest
+            {
+                Symbol = "BTCUSDT",
+                ClientOrderId = "example-ws-batch-1",
+                Price = 65100m,
+            }
+        ]);
+        var wsTrade_06 = await ws.CancelOrdersAsync(BybitCategory.Linear, [
+            new BybitBatchCancelOrderRequest
+            {
+                Symbol = "BTCUSDT",
+                ClientOrderId = "example-ws-batch-1",
+            }
+        ]);
+
+        _ = (wsTrade_01, wsTrade_02, wsTrade_03, wsTrade_04, wsTrade_05, wsTrade_06);
 
         // Unsubscribe
-        await ws.UnsubscribeAsync(sub.Data); // or
-        await ws.UnsubscribeAsync(sub.Data.Id);
+        if (sub.Data is not null)
+        {
+            await ws.UnsubscribeAsync(sub.Data); // or
+            await ws.UnsubscribeAsync(sub.Data.Id);
+        }
         #endregion
     }
 }

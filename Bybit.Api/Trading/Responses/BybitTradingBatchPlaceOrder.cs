@@ -33,10 +33,10 @@ public record BybitTradingBatchPlaceOrder
     /// Order created time (ms)
     /// </summary>
     [JsonProperty("createAt")]
-    public long CreateAtTimestamp { get; set; }
+    public long? CreateAtTimestamp { get; set; }
 
     /// <summary>
     /// Order created time
     /// </summary>
-    public DateTime CreateAtTime { get => CreateAtTimestamp.ConvertFromMilliseconds(); }
+    public DateTime? CreateAtTime { get => CreateAtTimestamp?.ConvertFromMilliseconds(); }
 }

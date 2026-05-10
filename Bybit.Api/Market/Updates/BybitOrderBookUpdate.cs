@@ -14,6 +14,30 @@ public record BybitOrderBookUpdate
     public BybitStreamType StreamType { get; set; }
 
     /// <summary>
+    /// The timestamp (ms) that the system generates the data
+    /// </summary>
+    [JsonIgnore]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// The timestamp that the system generates the data
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time { get => Timestamp.ConvertFromMilliseconds(); }
+
+    /// <summary>
+    /// The timestamp from the matching engine when this orderbook data is produced
+    /// </summary>
+    [JsonIgnore]
+    public long? CreateTimestamp { get; set; }
+
+    /// <summary>
+    /// The timestamp from the matching engine when this orderbook data is produced
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? CreateTime { get => CreateTimestamp?.ConvertFromMilliseconds(); }
+
+    /// <summary>
     /// Symbol
     /// </summary>
     [JsonProperty("s")]

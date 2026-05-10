@@ -25,6 +25,12 @@ public record BybitOrderUpdate
     public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
+    /// Parent order link ID for TP/SL child orders.
+    /// </summary>
+    [JsonProperty("parentOrderLinkId")]
+    public string ParentClientOrderId { get; set; } = string.Empty;
+
+    /// <summary>
     /// Whether to borrow. Unified spot only. 0: false, 1: true. Classic spot is not supported, always 0
     /// </summary>
     [JsonConverter(typeof(BooleanConverter))]
@@ -126,6 +132,12 @@ public record BybitOrderUpdate
     /// </summary>
     [JsonProperty("cumExecFee")]
     public decimal? CumulativeExecutedFee { get; set; }
+
+    /// <summary>
+    /// Cumulative trading fee details. Bybit can return an object or an empty string.
+    /// </summary>
+    [JsonProperty("cumFeeDetail")]
+    public JToken? CumulativeFeeDetail { get; set; }
     
     /// <summary>
     /// Trading fee currency for Spot only. Please understand Spot trading fee currency here
@@ -167,6 +179,16 @@ public record BybitOrderUpdate
     /// </summary>
     [JsonProperty("marketUnit")]
     public BybitUnit? MarketUnit { get; set; }
+
+    /// <summary>
+    /// Slippage tolerance type.
+    /// </summary>
+    public BybitSlippageToleranceType? SlippageToleranceType { get; set; }
+
+    /// <summary>
+    /// Slippage tolerance value.
+    /// </summary>
+    public decimal? SlippageTolerance { get; set; }
 
     /// <summary>
     /// Trigger price. If stopOrderType=TrailingStop, it is activate price. Otherwise, it is trigger price

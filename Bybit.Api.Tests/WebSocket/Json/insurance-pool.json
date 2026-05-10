@@ -1,0 +1,13 @@
+{
+  "topic": "insurance.USDT",
+  "type": "delta",
+  "ts": 1747722930000,
+  "data": [
+    {
+      "coin": "USDT",
+      "symbols": "GRIFFAINUSDT",
+      "balance": "25614.92972633",
+      "updateTime": "1747722930000"
+    }
+  ]
+}

@@ -111,6 +111,12 @@ public record BybitExecutionUpdate
     public decimal? Value { get; set; }
 
     /// <summary>
+    /// Profit and loss for each close position execution.
+    /// </summary>
+    [JsonProperty("execPnl")]
+    public decimal? ProfitAndLoss { get; set; }
+
+    /// <summary>
     /// Execution Time
     /// </summary>
     [JsonProperty("execTime")]
@@ -125,6 +131,11 @@ public record BybitExecutionUpdate
     /// Is maker order. true: maker, false: taker
     /// </summary>
     public bool IsMaker { get; set; }
+
+    /// <summary>
+    /// The unit for spot market order quantity.
+    /// </summary>
+    public BybitUnit? MarketUnit { get; set; }
 
     /// <summary>
     /// Trading fee rate. Classic spot is not supported
@@ -166,6 +177,16 @@ public record BybitExecutionUpdate
     /// </summary>
     [JsonProperty("closedSize")]
     public decimal? ClosedQuantity { get; set; }
+
+    /// <summary>
+    /// Trading fee currency.
+    /// </summary>
+    public string FeeCurrency { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Extra fee details. Bybit can return an array or an empty string depending on account region and trade.
+    /// </summary>
+    public JToken? ExtraFees { get; set; }
 
     /// <summary>
     /// Cross sequence, used to associate each fill and each position update

@@ -1,0 +1,9 @@
+{
+  "topic": "priceLimit.BTCUSDT",
+  "data": {
+    "symbol": "BTCUSDT",
+    "buyLmt": "114450.00",
+    "sellLmt": "103550.00"
+  },
+  "ts": 1750059683782
+}

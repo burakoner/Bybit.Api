@@ -1,0 +1,20 @@
+{
+  "id": "fast-execution-1",
+  "topic": "execution.fast.linear",
+  "creationTime": 1672211918471,
+  "data": [
+    {
+      "category": "linear",
+      "symbol": "BTCUSDT",
+      "orderId": "1321003749386327552",
+      "isMaker": true,
+      "orderLinkId": "linear-004",
+      "execId": "2100000000007764263",
+      "execPrice": "16500",
+      "execQty": "0.001",
+      "side": "Buy",
+      "execTime": "1672211918471",
+      "seq": 4688002127
+    }
+  ]
+}

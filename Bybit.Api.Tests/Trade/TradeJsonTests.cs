@@ -60,7 +60,8 @@ public class TradeJsonTests
 
         Assert.Equal(BybitCategory.Linear, order.Category);
         Assert.Equal(1672211918471L, order.CreateAtTimestamp);
-        Assert.Equal(2022, order.CreateAtTime.Year);
+        Assert.NotNull(order.CreateAtTime);
+        Assert.Equal(2022, order.CreateAtTime.Value.Year);
     }
 
     [Fact]

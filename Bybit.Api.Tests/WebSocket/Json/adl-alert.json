@@ -1,0 +1,17 @@
+{
+  "topic": "adlAlert.USDT",
+  "type": "snapshot",
+  "ts": 1750302284491,
+  "data": [
+    {
+      "c": "USDT",
+      "s": "BTCUSDT",
+      "b": "100000.27064825",
+      "mb": "",
+      "i_pr": "-0.3",
+      "pr": "-0.28",
+      "adl_tt": "0.1",
+      "adl_sr": "0.05"
+    }
+  ]
+}

@@ -20,7 +20,7 @@ public record BybitPositionUpdate
     /// Position side. Buy,Sell
     /// </summary>
     [JsonProperty("side")]
-    public BybitOrderSide Side { get; set; }
+    public BybitOrderSide? Side { get; set; }
     
     /// <summary>
     /// Position size
@@ -61,6 +61,11 @@ public record BybitPositionUpdate
     public decimal EntryPrice { get; set; }
 
     /// <summary>
+    /// Break-even price, only for linear and inverse.
+    /// </summary>
+    public decimal? BreakEvenPrice { get; set; }
+
+    /// <summary>
     /// Mark price
     /// </summary>
     public decimal MarkPrice { get; set; }
@@ -85,6 +90,16 @@ public record BybitPositionUpdate
     /// Position maintenance margin. Note: for portfolio margin mode, it returns ""
     /// </summary>
     public decimal? PositionMM { get; set; }
+
+    /// <summary>
+    /// Initial margin calculated by mark price.
+    /// </summary>
+    public decimal? PositionIMByMp { get; set; }
+
+    /// <summary>
+    /// Maintenance margin calculated by mark price.
+    /// </summary>
+    public decimal? PositionMMByMp { get; set; }
 
     /// <summary>
     /// Position initial margin. Note: for portfolio margin mode, it returns ""
@@ -230,6 +245,18 @@ public record BybitPositionUpdate
     /// Timestamp of the first time a position was created on this symbol
     /// </summary>
     public DateTime CreatedTime { get => CreatedTimestamp.ConvertFromMilliseconds(); }
+
+    /// <summary>
+    /// Position opening timestamp in milliseconds.
+    /// </summary>
+    [JsonProperty("openTime")]
+    public long? OpenTimestamp { get; set; }
+
+    /// <summary>
+    /// Position opening time.
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? OpenTime { get => OpenTimestamp?.ConvertFromMilliseconds(); }
 
     /// <summary>
     /// Position data updated timestamp (ms)
