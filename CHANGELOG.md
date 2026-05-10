@@ -54,6 +54,9 @@ Version 5.6.507 - 09 May 2026
 - Added Institutional Loan margin coin, loan-to-value, UID association, and repayment endpoints with request-object overloads while preserving existing method signatures.
 - Fixed Institutional Loan response mappings for nullable product/order line fields, repayment business type and status values, current margin coin conversion tiers, LTV liquidation states, and repayment command status.
 - Added Institutional Loan examples, focused JSON deserialization tests, request serialization tests, client-side validation tests, and live public endpoint coverage.
+- Added Exchange Broker REST API coverage against the current Bybit v5 documentation.
+- Added Broker endpoints for earnings, account info, subaccount deposit records, rate limit setup/query, and voucher reward operations.
+- Added typed Broker request/response models, enums, examples, JSON deserialization tests, request serialization tests, client-side validation tests, and documented rate limit rules.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

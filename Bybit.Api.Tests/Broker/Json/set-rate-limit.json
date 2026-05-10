@@ -1,0 +1,17 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "result": [
+      {
+        "uids": "290118",
+        "bizType": "SPOT",
+        "rate": 600,
+        "success": true,
+        "msg": "API limit updated successfully"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1754894296913
+}

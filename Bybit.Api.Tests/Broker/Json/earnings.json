@@ -1,0 +1,40 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "totalEarningCat": {
+      "spot": [],
+      "derivatives": [
+        {
+          "coin": "USDT",
+          "earning": "0.00027844"
+        }
+      ],
+      "options": [],
+      "convert": [],
+      "total": [
+        {
+          "coin": "USDT",
+          "earning": "0.00027844"
+        }
+      ]
+    },
+    "details": [
+      {
+        "userId": "117894077",
+        "bizType": "DERIVATIVES",
+        "symbol": "DOGEUSDT",
+        "coin": "USDT",
+        "earning": "0.00016166",
+        "markupEarning": "0.000032332",
+        "baseFeeEarning": "0.000129328",
+        "orderId": "ec2132f2-a7e0-4a0c-9219-9f3cbcd8e878",
+        "execId": "c8f418a0-2ccc-594f-ae72-effedf24d0c4",
+        "execTime": "1701275846033"
+      }
+    ],
+    "nextPageCursor": ""
+  },
+  "retExtInfo": {},
+  "time": 1701398193964
+}

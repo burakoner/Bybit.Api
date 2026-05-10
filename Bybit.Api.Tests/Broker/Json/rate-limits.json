@@ -1,0 +1,16 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "list": [
+      {
+        "uids": "104270393,1674166,1190923,101446030",
+        "bizType": "SPOT",
+        "rate": 223
+      }
+    ],
+    "nextPageCursor": ""
+  },
+  "retExtInfo": {},
+  "time": 1758857701702
+}

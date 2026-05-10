@@ -1,0 +1,15 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "id": "80209",
+    "coin": "USDT",
+    "amountUnit": "AWARD_AMOUNT_UNIT_USD",
+    "productLine": "PRODUCT_LINE_CONTRACT",
+    "subProductLine": "SUB_PRODUCT_LINE_CONTRACT_DEFAULT",
+    "totalAmount": "10000",
+    "usedAmount": "100"
+  },
+  "retExtInfo": {},
+  "time": 1726107086313
+}

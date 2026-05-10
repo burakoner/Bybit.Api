@@ -1,0 +1,32 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "rows": [
+      {
+        "id": "123456789",
+        "subMemberId": "117894077",
+        "coin": "USDT",
+        "chain": "TRX",
+        "amount": "100.123456",
+        "txID": "0xabc123",
+        "status": 3,
+        "toAddress": "TExampleAddress",
+        "tag": "",
+        "depositFee": "0",
+        "successAt": "1672192441000",
+        "confirmations": "12",
+        "txIndex": "42",
+        "blockHash": "0000000000000000000abc",
+        "batchReleaseLimit": "-1",
+        "depositType": "0",
+        "fromAddress": "TFromAddress",
+        "taxDepositRecordsId": "",
+        "taxStatus": 0
+      }
+    ],
+    "nextPageCursor": "cursor-1"
+  },
+  "retExtInfo": {},
+  "time": 1672192441742
+}

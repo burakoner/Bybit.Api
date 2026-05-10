@@ -133,6 +133,13 @@ public class BybitRestApiClientOptions : RestApiClientOptions
             .AddPartialEndpointLimit("/v5/spot-cross-margin-trade/loan", 20, TimeSpan.FromSeconds(1), HttpMethod.Post, true, true)
             .AddPartialEndpointLimit("/v5/spot-cross-margin-trade/repay", 20, TimeSpan.FromSeconds(1), HttpMethod.Post, true, true)
             .AddPartialEndpointLimit("/v5/spot-cross-margin-trade/switch", 20, TimeSpan.FromSeconds(1), HttpMethod.Post, true, true)
+
+            .AddPartialEndpointLimit("/v5/broker/earnings-info", 10, TimeSpan.FromSeconds(1), HttpMethod.Get, true, true)
+            .AddPartialEndpointLimit("/v5/broker/account-info", 10, TimeSpan.FromSeconds(1), HttpMethod.Get, true, true)
+            .AddPartialEndpointLimit("/v5/broker/asset/query-sub-member-deposit-record", 300, TimeSpan.FromMinutes(1), HttpMethod.Get, true, true)
+            .AddPartialEndpointLimit("/v5/broker/apilimit/set", 1, TimeSpan.FromSeconds(1), HttpMethod.Post, true, true)
+            .AddPartialEndpointLimit("/v5/broker/apilimit/query-cap", 5, TimeSpan.FromSeconds(1), HttpMethod.Get, true, true)
+            .AddPartialEndpointLimit("/v5/broker/apilimit/query-all", 1, TimeSpan.FromSeconds(1), HttpMethod.Get, true, true)
         ];
         RateLimitingBehavior = RateLimitingBehavior.Wait;
 

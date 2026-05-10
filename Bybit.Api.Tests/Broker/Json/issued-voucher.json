@@ -1,0 +1,16 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "accountId": "5714139",
+    "awardId": "189528",
+    "specCode": "demo000",
+    "amount": "1",
+    "isClaimed": true,
+    "startAt": "1725926400",
+    "endAt": "1733788800",
+    "effectiveAt": "1726531200",
+    "ineffectiveAt": "1733817600",
+    "usedAmount": ""
+  }
+}

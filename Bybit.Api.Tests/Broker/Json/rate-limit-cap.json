@@ -1,0 +1,16 @@
+{
+  "retCode": 0,
+  "retMsg": "success",
+  "result": {
+    "list": [
+      {
+        "ebCap": "900",
+        "uidCap": "100",
+        "totalRate": "825",
+        "bizType": "SPOT"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1770610126806
+}

@@ -252,6 +252,17 @@ internal class Program
         });
         var affiliate_03 = await api.Affiliate.GetUserInfoAsync(1_513_500 /* ...optional parameters... */);
 
+        // Broker API Methods (Private)
+        var broker_01 = await api.Broker.GetEarningsAsync(BybitBrokerBusinessType.Spot, begin: "20231201", end: "20231207" /* ...optional parameters... */);
+        var broker_02 = await api.Broker.GetAccountInfoAsync(/* ...optional parameters... */);
+        var broker_03 = await api.Broker.GetSubAccountDepositRecordsAsync(coin: "USDT", limit: 50 /* ...optional parameters... */);
+        var broker_04 = await api.Broker.SetRateLimitsAsync([new BybitBrokerSetRateLimitItem("-----UID-----", BybitBrokerBusinessType.Spot, 600)] /* ...optional parameters... */);
+        var broker_05 = await api.Broker.GetRateLimitCapAsync(/* ...optional parameters... */);
+        var broker_06 = await api.Broker.GetRateLimitsAsync(limit: 1000 /* ...optional parameters... */);
+        var broker_07 = await api.Broker.GetVoucherSpecAsync("-----VOUCHER-ID-----" /* ...optional parameters... */);
+        var broker_08 = await api.Broker.IssueVoucherAsync("-----ACCOUNT-ID-----", "-----AWARD-ID-----", "demo000", 100m, "-----BROKER-ID-----" /* ...optional parameters... */);
+        var broker_09 = await api.Broker.GetIssuedVoucherAsync("-----ACCOUNT-ID-----", "-----AWARD-ID-----", "demo000", withUsedAmount: false /* ...optional parameters... */);
+
         // Crypto Loan API Methods (Public / Private)
         var cryptoLoan_01 = await api.CryptoLoan.GetBorrowableCoinsAsync(currency: "BTC" /* ...optional parameters... */);
         var cryptoLoan_02 = await api.CryptoLoan.GetCollateralCoinsAsync(currency: "BTC" /* ...optional parameters... */);
