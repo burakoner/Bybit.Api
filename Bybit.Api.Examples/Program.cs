@@ -263,6 +263,14 @@ internal class Program
         var broker_08 = await api.Broker.IssueVoucherAsync("-----ACCOUNT-ID-----", "-----AWARD-ID-----", "demo000", 100m, "-----BROKER-ID-----" /* ...optional parameters... */);
         var broker_09 = await api.Broker.GetIssuedVoucherAsync("-----ACCOUNT-ID-----", "-----AWARD-ID-----", "demo000", withUsedAmount: false /* ...optional parameters... */);
 
+        // Bybit Card API Methods (Private)
+        var bybitCard_01 = await api.BybitCard.GetAssetRecordsAsync(limit: 10, page: 1 /* ...optional parameters... */);
+        var bybitCard_02 = await api.BybitCard.GetPointBalanceAsync(/* ...optional parameters... */);
+        var bybitCard_03 = await api.BybitCard.GetPointRecordsAsync(pageSize: 10, pageNo: 1 /* ...optional parameters... */);
+        var bybitCard_04 = await api.BybitCard.GetTierInfoAsync(/* ...optional parameters... */);
+        var bybitCard_05 = await api.BybitCard.GetMallItemsAsync(pageNo: 1, pageSize: 10 /* ...optional parameters... */);
+        var bybitCard_06 = await api.BybitCard.GetCashbackDetailAsync("-----BUSINESS-TRANSACTION-ID-----" /* ...optional parameters... */);
+
         // Crypto Loan API Methods (Public / Private)
         var cryptoLoan_01 = await api.CryptoLoan.GetBorrowableCoinsAsync(currency: "BTC" /* ...optional parameters... */);
         var cryptoLoan_02 = await api.CryptoLoan.GetCollateralCoinsAsync(currency: "BTC" /* ...optional parameters... */);

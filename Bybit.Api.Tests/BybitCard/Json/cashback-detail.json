@@ -1,0 +1,20 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "points": "500",
+    "amt": "1.00",
+    "ccy": "USDT",
+    "ccyType": "CRYPTO",
+    "createTime": "2023-01-01 12:00:00",
+    "bizTxnId": "TXN20230101001",
+    "sourceId": 12345,
+    "sourceCode": "ORD20230101001",
+    "orderStatus": 1,
+    "orderSubStatus": 0,
+    "orderShowStatus": "ORDER_SUCCESS",
+    "failedBizCode": ""
+  },
+  "retExtInfo": {},
+  "time": 1672211918471
+}

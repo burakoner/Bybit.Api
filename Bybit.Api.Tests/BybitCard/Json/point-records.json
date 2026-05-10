@@ -1,0 +1,35 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "pageSize": 10,
+    "pageNo": 1,
+    "totalCount": 50,
+    "data": [
+      {
+        "outOrderId": "ORD20230101001",
+        "point": 100,
+        "side": "1",
+        "type": "CASHBACK",
+        "subType": "",
+        "createTime": 1672211918471,
+        "updateTime": 1672211918471,
+        "bizId": "BIZ20230101001",
+        "bizTxnId": "TXN20230101001",
+        "transactionDate": "2023-01-01 12:00:00",
+        "transactionId": "TXN20230101001",
+        "transactionAmount": "100.00",
+        "basicCurrency": "USD",
+        "merchCategoryDesc": "Grocery Stores",
+        "merchName": "Amazon",
+        "merchCountry": "US",
+        "merchCity": "New York",
+        "pan4": "1234",
+        "payFiatAmount": "0",
+        "transactionCurrencyAmount": "100.00"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1672211918471
+}

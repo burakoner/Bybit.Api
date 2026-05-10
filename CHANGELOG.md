@@ -57,6 +57,9 @@ Version 5.6.507 - 09 May 2026
 - Added Exchange Broker REST API coverage against the current Bybit v5 documentation.
 - Added Broker endpoints for earnings, account info, subaccount deposit records, rate limit setup/query, and voucher reward operations.
 - Added typed Broker request/response models, enums, examples, JSON deserialization tests, request serialization tests, client-side validation tests, and documented rate limit rules.
+- Added Bybit Card REST API coverage against the current Bybit v5 documentation.
+- Added Bybit Card endpoints for asset records, point balance, point records, tier info, mall item lists, and cashback details.
+- Added typed Bybit Card request/response models, enums, examples, JSON deserialization tests, request serialization tests, and client-side validation tests.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

@@ -1,0 +1,14 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "accountId": "100001",
+    "availablePoint": 5000,
+    "pendingPoint": 200,
+    "status": "active",
+    "updateTime": 1672211918471,
+    "settlementPeriod": 30
+  },
+  "retExtInfo": {},
+  "time": 1672211918471
+}

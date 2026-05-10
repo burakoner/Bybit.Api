@@ -2,6 +2,7 @@
 using Bybit.Api.Asset;
 using Bybit.Api.Affiliate;
 using Bybit.Api.Broker;
+using Bybit.Api.BybitCard;
 using Bybit.Api.CryptoLoan;
 using Bybit.Api.InstitutionalLoan;
 using Bybit.Api.Margin;
@@ -99,6 +100,11 @@ public class BybitRestApiClient
     /// </summary>
     public BybitBrokerRestApiClient Broker { get; }
 
+    /// <summary>
+    /// Bybit Card Client
+    /// </summary>
+    public BybitCardRestApiClient BybitCard { get; }
+
     // TODO: Earn
 
     /// <summary>
@@ -138,6 +144,7 @@ public class BybitRestApiClient
         this.Rfq = new BybitRfqRestApiClient(this);
         this.Affiliate = new BybitAffiliateRestApiClient(this);
         this.Broker = new BybitBrokerRestApiClient(this);
+        this.BybitCard = new BybitCardRestApiClient(this);
         this.Margin = new BybitMarginRestApiClient(this);
         this.CryptoLoan = new BybitCryptoLoanRestApiClient(this);
         this.InstitutionalLoan = new BybitInstitutionalLoanRestApiClient(this);

@@ -1,0 +1,13 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "usedLimit": "10.00",
+    "limit": "500.00",
+    "unit": "1",
+    "tier": "GOLD",
+    "autoCashback": true
+  },
+  "retExtInfo": {},
+  "time": 1672211918471
+}

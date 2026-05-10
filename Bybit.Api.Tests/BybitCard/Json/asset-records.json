@@ -1,0 +1,46 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "pageSize": 100,
+    "pageNo": 1,
+    "totalCount": 2,
+    "data": [
+      {
+        "pan4": "1234",
+        "pan6": "456789",
+        "tradeStatus": "1",
+        "side": "3",
+        "basicAmount": "101.50",
+        "basicCurrency": "USD",
+        "transactionAmount": "100.00",
+        "transactionCurrency": "USD",
+        "txnCreate": 1672211918471,
+        "merchCountry": "US",
+        "merchCity": "New York",
+        "merchName": "Amazon",
+        "txnId": "TXN20230101001",
+        "declinedReason": "",
+        "totalFees": "1.50",
+        "uid": 100001,
+        "transactionCurrencyAmount": "100.00",
+        "fxPad": "",
+        "interchangeFee": "0.50",
+        "billAmount": "101.50",
+        "paidAmount": "101.50",
+        "paidCurrency": "USDT",
+        "bonusAmount": "0",
+        "foreignTransactionFee": "0",
+        "totalTax": "1.50",
+        "paidFiat": "0",
+        "withdrawalFee": "0",
+        "status": "1",
+        "orderNo": "ORD20230101001",
+        "mccCode": "5411",
+        "merchCategoryDesc": "Grocery Stores"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1672211918471
+}

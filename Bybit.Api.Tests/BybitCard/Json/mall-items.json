@@ -1,0 +1,29 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "pageNo": 1,
+    "pageSize": 10,
+    "totalCount": 5,
+    "data": [
+      {
+        "itemId": "ITEM001",
+        "itemName": "Amazon Gift Card $10",
+        "priority": 1,
+        "onTime": "1672211918471",
+        "offTime": "1704000000000",
+        "price": "5000",
+        "discountPrice": "4500",
+        "totalNum": 1000,
+        "redeemNum": 200,
+        "picPath": "/images/item001.png",
+        "currency": "POINT",
+        "currencyType": 3,
+        "itemType": 1,
+        "itemBizType": 1
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1672211918471
+}
