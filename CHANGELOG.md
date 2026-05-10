@@ -76,6 +76,7 @@ Version 5.6.507 - 09 May 2026
 - Added categorised private subscriptions, fast execution streams, DCP updates, system status, spread public/private streams, RFQ streams, and WebSocket order-entry create/amend/cancel batch flows.
 - Fixed WebSocket auth/query response handling and refreshed stream models for current Bybit payload fields, nullable numeric strings, and WebSocket batch `createAt` empty-string responses.
 - Added WebSocket examples and focused JSON fixture tests for public, private, system, and order-entry payloads.
+- Added XML documentation comments for Asset request and response models to remove CS1591 package documentation warnings.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

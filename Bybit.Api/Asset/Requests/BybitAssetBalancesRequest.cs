@@ -5,6 +5,10 @@ namespace Bybit.Api.Asset;
 /// </summary>
 public record BybitAssetBalancesRequest
 {
+    /// <summary>
+    /// Initializes a new all-coins balance request.
+    /// </summary>
+    /// <param name="account">Account type to query.</param>
     public BybitAssetBalancesRequest(BybitAccountType account)
     {
         Account = account;

@@ -5,6 +5,10 @@ namespace Bybit.Api.Asset;
 /// </summary>
 public record BybitAssetSettlementHistoryRequest
 {
+    /// <summary>
+    /// Initializes a new settlement history request.
+    /// </summary>
+    /// <param name="category">Product type.</param>
     public BybitAssetSettlementHistoryRequest(BybitCategory category)
     {
         Category = category;
