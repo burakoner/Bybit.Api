@@ -1,4 +1,4 @@
-Version 5.6.507 - 09 May 2026
+﻿Version 5.6.510 - 10 May 2026
 - Updated Market REST API coverage against the current Bybit v5 documentation.
 - Added Market endpoints for index price components, order price limit, ADL alert, and fee group structure.
 - Added request-object overloads for complex Market queries while preserving existing method signatures.
