@@ -1,0 +1,21 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "adjustId": 27511,
+        "adjustTime": 1752627997907,
+        "afterLTV": "0.813743",
+        "amount": "0.08",
+        "collateralCurrency": "BTC",
+        "direction": 1,
+        "preLTV": "0.524602",
+        "status": 1
+      }
+    ],
+    "nextPageCursor": "27491"
+  },
+  "retExtInfo": {},
+  "time": 1752628288732
+}

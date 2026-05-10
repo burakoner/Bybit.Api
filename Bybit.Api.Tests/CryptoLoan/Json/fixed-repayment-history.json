@@ -1,0 +1,31 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "details": [
+          {
+            "loanCurrency": "ETH",
+            "loanId": "568",
+            "repayAmount": "0.1"
+          },
+          {
+            "loanCurrency": "ETH",
+            "loanId": "571",
+            "repayAmount": "1.4"
+          }
+        ],
+        "loanCurrency": "ETH",
+        "repayAmount": "1.5",
+        "repayId": "1782",
+        "repayStatus": 1,
+        "repayTime": 1752717174353,
+        "repayType": 1
+      }
+    ],
+    "nextPageCursor": "1674"
+  },
+  "retExtInfo": {},
+  "time": 1752717183557
+}

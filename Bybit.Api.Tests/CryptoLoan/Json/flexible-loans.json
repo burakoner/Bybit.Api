@@ -1,0 +1,17 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "hourlyInterestRate": "0.0000018847396",
+        "loanCurrency": "ETH",
+        "totalDebt": "0.10000019",
+        "unpaidAmount": "0.1",
+        "unpaidInterest": "0.00000019"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1760452029499
+}

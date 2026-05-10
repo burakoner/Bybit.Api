@@ -1,0 +1,19 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "loanCurrency": "BTC",
+        "repayAmount": "0.007",
+        "repayId": "1773",
+        "repayStatus": 1,
+        "repayTime": 1752570731274,
+        "repayType": 1
+      }
+    ],
+    "nextPageCursor": "1769"
+  },
+  "retExtInfo": {},
+  "time": 1752570745493
+}

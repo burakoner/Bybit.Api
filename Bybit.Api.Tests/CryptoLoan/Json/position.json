@@ -1,0 +1,36 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "borrowList": [
+      {
+        "fixedTotalDebt": "0",
+        "fixedTotalDebtUSD": "0",
+        "flexibleHourlyInterestRate": "0.0000001361462",
+        "flexibleTotalDebt": "0.08800022",
+        "flexibleTotalDebtUSD": "9355.37",
+        "loanCurrency": "BTC"
+      }
+    ],
+    "collateralList": [
+      {
+        "amount": "0.12",
+        "amountUSD": "9930.11",
+        "currency": "BTC"
+      }
+    ],
+    "ltv": "0.524344",
+    "supplyList": [
+      {
+        "amount": "800.13041095890410959",
+        "amountUSD": "800.13",
+        "currency": "USDT"
+      }
+    ],
+    "totalCollateral": "18381.41",
+    "totalDebt": "9638.17",
+    "totalSupply": "800.13"
+  },
+  "retExtInfo": {},
+  "time": 1752627962000
+}

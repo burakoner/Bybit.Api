@@ -1,0 +1,26 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "annualRate": "0.022",
+        "autoRepay": "true",
+        "borrowCurrency": "ETH",
+        "borrowTime": "1752633756068",
+        "interestPaid": "0.002531506849315069",
+        "loanId": "571",
+        "orderId": "13007",
+        "repayType": "1",
+        "repaymentTime": "1755225756068",
+        "residualPenaltyInterest": "0",
+        "residualPrincipal": "1.4",
+        "status": 1,
+        "term": "30"
+      }
+    ],
+    "nextPageCursor": "568"
+  },
+  "retExtInfo": {},
+  "time": 1752652692603
+}

@@ -1,0 +1,25 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "actualRedemptionTime": "1753087596082",
+        "annualRate": "0.01",
+        "interest": "0.13041095890410959",
+        "orderId": "13564",
+        "penaltyInterest": "0",
+        "redemptionTime": "1753087596082",
+        "status": 1,
+        "supplyAmount": "800",
+        "supplyCurrency": "USDT",
+        "supplyId": "567",
+        "supplyTime": "1752482796082",
+        "term": "7"
+      }
+    ],
+    "nextPageCursor": "567"
+  },
+  "retExtInfo": {},
+  "time": 1752654377461
+}

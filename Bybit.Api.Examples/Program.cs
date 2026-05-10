@@ -252,6 +252,36 @@ internal class Program
         });
         var affiliate_03 = await api.Affiliate.GetUserInfoAsync(1_513_500 /* ...optional parameters... */);
 
+        // Crypto Loan API Methods (Public / Private)
+        var cryptoLoan_01 = await api.CryptoLoan.GetBorrowableCoinsAsync(currency: "BTC" /* ...optional parameters... */);
+        var cryptoLoan_02 = await api.CryptoLoan.GetCollateralCoinsAsync(currency: "BTC" /* ...optional parameters... */);
+        var cryptoLoan_03 = await api.CryptoLoan.GetMaxCollateralReductionAmountAsync("BTC" /* ...optional parameters... */);
+        var cryptoLoan_04 = await api.CryptoLoan.AdjustCollateralAsync("BTC", 0.01m, BybitCryptoLoanAdjustmentDirection.AddCollateral /* ...optional parameters... */);
+        var cryptoLoan_05 = await api.CryptoLoan.GetCollateralAdjustmentHistoryAsync(collateralCurrency: "BTC", limit: 10 /* ...optional parameters... */);
+        var cryptoLoan_06 = await api.CryptoLoan.GetPositionAsync(/* ...optional parameters... */);
+        var cryptoLoan_07 = await api.CryptoLoan.GetMaxLoanAmountAsync("BTC", [new BybitCryptoLoanMaxLoanCollateralRequestItem("USDT", 1000m)] /* ...optional parameters... */);
+        var cryptoLoan_08 = await api.CryptoLoan.BorrowFlexibleAsync("BTC", 0.01m, [new BybitCryptoLoanCollateralRequestItem("USDT", 1000m)] /* ...optional parameters... */);
+        var cryptoLoan_09 = await api.CryptoLoan.RepayFlexibleAsync("BTC", 0.005m /* ...optional parameters... */);
+        var cryptoLoan_10 = await api.CryptoLoan.RepayFlexibleWithCollateralAsync("USDT", "BTC", 500m /* ...optional parameters... */);
+        var cryptoLoan_11 = await api.CryptoLoan.GetFlexibleLoansAsync("BTC" /* ...optional parameters... */);
+        var cryptoLoan_12 = await api.CryptoLoan.GetFlexibleBorrowHistoryAsync(limit: 10 /* ...optional parameters... */);
+        var cryptoLoan_13 = await api.CryptoLoan.GetFlexibleRepaymentHistoryAsync(loanCurrency: "BTC" /* ...optional parameters... */);
+        var cryptoLoan_14 = await api.CryptoLoan.GetFixedLendingMarketAsync("USDT", BybitFixedBorrowOrderBy.AnnualRate /* ...optional parameters... */);
+        var cryptoLoan_15 = await api.CryptoLoan.GetFixedBorrowingMarketAsync("USDT", BybitFixedBorrowOrderBy.AnnualRate /* ...optional parameters... */);
+        var cryptoLoan_16 = await api.CryptoLoan.BorrowFixedAsync("ETH", 1.5m, 0.022m, 30, repayType: BybitFixedBorrowRepayType.AutoRepayment /* ...optional parameters... */);
+        var cryptoLoan_17 = await api.CryptoLoan.RenewFixedBorrowAsync("-----LOAN-ID-----" /* ...optional parameters... */);
+        var cryptoLoan_18 = await api.CryptoLoan.SupplyFixedAsync("USDT", 2002.21m, 0.35m, 7 /* ...optional parameters... */);
+        var cryptoLoan_19 = await api.CryptoLoan.CancelFixedBorrowOrderAsync("-----BORROW-ORDER-ID-----" /* ...optional parameters... */);
+        var cryptoLoan_20 = await api.CryptoLoan.CancelFixedSupplyOrderAsync("-----SUPPLY-ORDER-ID-----" /* ...optional parameters... */);
+        var cryptoLoan_21 = await api.CryptoLoan.GetFixedBorrowContractsAsync(orderCurrency: "ETH" /* ...optional parameters... */);
+        var cryptoLoan_22 = await api.CryptoLoan.GetFixedSupplyContractsAsync(supplyCurrency: "USDT" /* ...optional parameters... */);
+        var cryptoLoan_23 = await api.CryptoLoan.GetFixedBorrowOrdersAsync(orderId: "-----BORROW-ORDER-ID-----" /* ...optional parameters... */);
+        var cryptoLoan_24 = await api.CryptoLoan.GetFixedRenewOrdersAsync(limit: 10 /* ...optional parameters... */);
+        var cryptoLoan_25 = await api.CryptoLoan.GetFixedSupplyOrdersAsync(orderId: "-----SUPPLY-ORDER-ID-----" /* ...optional parameters... */);
+        var cryptoLoan_26 = await api.CryptoLoan.RepayFixedAsync(loanId: "-----LOAN-ID-----" /* ...optional parameters... */);
+        var cryptoLoan_27 = await api.CryptoLoan.RepayFixedWithCollateralAsync("ETH", "USDT", 0.1m /* ...optional parameters... */);
+        var cryptoLoan_28 = await api.CryptoLoan.GetFixedRepaymentHistoryAsync(repayId: "-----REPAY-ID-----" /* ...optional parameters... */);
+
         // Margin API Methods (Public / Private)
         var margin_01 = await api.Margin.GetVipMarginDataAsync(/* ...optional parameters... */);
         var margin_02 = await api.Margin.GetTieredCollateralRatiosAsync(/* ...optional parameters... */);

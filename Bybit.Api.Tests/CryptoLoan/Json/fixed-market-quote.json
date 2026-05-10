@@ -1,0 +1,16 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "annualRate": "0.04",
+        "orderCurrency": "USDT",
+        "qty": "988.78",
+        "term": 14
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1752719158890
+}

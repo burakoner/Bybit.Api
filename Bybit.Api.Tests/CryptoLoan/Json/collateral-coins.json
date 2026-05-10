@@ -1,0 +1,31 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "collateralRatioConfigList": [
+      {
+        "collateralRatioList": [
+          {
+            "collateralRatio": "0.8",
+            "maxValue": "10000",
+            "minValue": "0"
+          },
+          {
+            "collateralRatio": "0.7",
+            "maxValue": "20000",
+            "minValue": "10000"
+          }
+        ],
+        "currencies": "ATOM,AAVE,BTC,BOB"
+      }
+    ],
+    "currencyLiquidationList": [
+      {
+        "currency": "BTC",
+        "liquidationOrder": 1
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1752627381571
+}

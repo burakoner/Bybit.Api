@@ -2,6 +2,7 @@
 global using Bybit.Api.Account;
 global using Bybit.Api.Affiliate;
 global using Bybit.Api.Asset;
+global using Bybit.Api.CryptoLoan;
 global using Bybit.Api.Enums;
 global using Bybit.Api.Margin;
 global using Bybit.Api.Market;

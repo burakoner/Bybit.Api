@@ -1,0 +1,21 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "annualRate": "0.01",
+        "filledQty": "800",
+        "orderCurrency": "USDT",
+        "orderId": 13564,
+        "orderQty": "1020",
+        "orderTime": "1752482751043",
+        "state": 2,
+        "term": 7
+      }
+    ],
+    "nextPageCursor": ""
+  },
+  "retExtInfo": {},
+  "time": 1752655993869
+}

@@ -1,0 +1,12 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "currency": "BTC",
+    "maxLoan": "0.1722",
+    "notionalUsd": "16456.06",
+    "remainingQuota": "9999999.9421"
+  },
+  "retExtInfo": {},
+  "time": 1768533990031
+}

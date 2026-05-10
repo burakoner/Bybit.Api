@@ -1,0 +1,18 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "borrowTime": 1752569950643,
+        "initialLoanAmount": "0.006",
+        "loanCurrency": "BTC",
+        "orderId": "1364",
+        "status": 1
+      }
+    ],
+    "nextPageCursor": "1363"
+  },
+  "retExtInfo": {},
+  "time": 1752570519414
+}

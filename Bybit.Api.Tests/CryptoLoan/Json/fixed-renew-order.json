@@ -1,0 +1,22 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "amount": "11",
+        "autoRepay": 2,
+        "borrowCurrency": "USDT",
+        "contractNo": "2092164378648656896",
+        "dueTime": "1766750400000",
+        "loanId": "2364",
+        "orderId": 49,
+        "renewLoanNo": "2092170365690461952",
+        "time": "1764142142913"
+      }
+    ],
+    "nextPageCursor": ""
+  },
+  "retExtInfo": {},
+  "time": 1764208336537
+}

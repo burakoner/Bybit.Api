@@ -1,0 +1,22 @@
+{
+  "retCode": 0,
+  "retMsg": "ok",
+  "result": {
+    "list": [
+      {
+        "annualRate": "0.01",
+        "filledQty": "0",
+        "orderCurrency": "MANA",
+        "orderId": 13010,
+        "orderQty": "2000",
+        "orderTime": "1752654035179",
+        "repayType": "2",
+        "state": 1,
+        "term": 30
+      }
+    ],
+    "nextPageCursor": ""
+  },
+  "retExtInfo": {},
+  "time": 1752655241090
+}
