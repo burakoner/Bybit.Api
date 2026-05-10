@@ -44,6 +44,9 @@ Version 5.6.507 - 09 May 2026
 - Added RFQ Trading REST API coverage against the current Bybit v5 documentation.
 - Added RFQ endpoints for creating/canceling RFQs, accepting non-LP quotes, creating/executing/canceling quotes, querying RFQs, quotes, trade history, public trades, and RFQ configuration.
 - Added typed RFQ request/response models, enums, examples, JSON deserialization tests, request serialization tests, and client-side validation tests.
+- Added Affiliate REST API coverage against the current Bybit v5 documentation.
+- Added Affiliate endpoints for affiliate user lists and affiliate user information.
+- Added typed Affiliate request/response models, examples, JSON deserialization tests, request serialization tests, and client-side validation tests.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

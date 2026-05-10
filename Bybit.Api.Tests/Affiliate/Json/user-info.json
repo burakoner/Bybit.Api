@@ -1,0 +1,38 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "uid": "1087997",
+    "takerVol30Day": "17061.64983",
+    "makerVol30Day": "10756.454142",
+    "tradeVol30Day": "27818.103972",
+    "depositAmount30Day": "0",
+    "takerVol365Day": "1183752.53919162",
+    "makerVol365Day": "44349.42819772",
+    "tradeVol365Day": "1228101.96738934",
+    "depositAmount365Day": "0",
+    "totalWalletBalance": "4",
+    "depositUpdateTime": "2026-02-04 00:00:00",
+    "vipLevel": "5",
+    "volUpdateTime": "2026-02-04 00:00:00",
+    "KycLevel": 0,
+    "tradfiTradeVol30Day": "1828890.6352",
+    "tradfiTradeVol365Day": "1828890.6352",
+    "commissions30Day": {
+      "BTC": "",
+      "ETH": "",
+      "MNT": "2.14012088",
+      "USDC": "",
+      "USDT": "17.0461748"
+    },
+    "commissions365Day": {
+      "BTC": "0.00012928",
+      "ETH": "0.00099384",
+      "MNT": "95.72886531",
+      "USDC": "2.81382591",
+      "USDT": "130.48078429"
+    }
+  },
+  "retExtInfo": {},
+  "time": 1770197061282
+}

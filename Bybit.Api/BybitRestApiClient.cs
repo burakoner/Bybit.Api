@@ -1,5 +1,6 @@
 ﻿using Bybit.Api.Account;
 using Bybit.Api.Asset;
+using Bybit.Api.Affiliate;
 using Bybit.Api.InstitutionalLoan;
 using Bybit.Api.Margin;
 using Bybit.Api.Market;
@@ -69,7 +70,10 @@ public class BybitRestApiClient
     /// </summary>
     public BybitRfqRestApiClient Rfq { get; }
 
-    // TODO: Affiliate
+    /// <summary>
+    /// Affiliate Client
+    /// </summary>
+    public BybitAffiliateRestApiClient Affiliate { get; }
 
     /// <summary>
     /// Margin Client
@@ -122,6 +126,7 @@ public class BybitRestApiClient
         this.User = new BybitUserRestApiClient(this);
         this.Spread = new BybitSpreadRestApiClient(this);
         this.Rfq = new BybitRfqRestApiClient(this);
+        this.Affiliate = new BybitAffiliateRestApiClient(this);
         this.Margin = new BybitMarginRestApiClient(this);
         this.InstitutionalLoan = new BybitInstitutionalLoanRestApiClient(this);
     }

@@ -238,6 +238,20 @@ internal class Program
         var rfq_14 = await api.Rfq.GetTradeHistoryAsync(limit: 20 /* ...optional parameters... */);
         var rfq_15 = await api.Rfq.GetPublicTradesAsync(limit: 20 /* ...optional parameters... */);
 
+        // Affiliate API Methods (Private)
+        var affiliate_01 = await api.Affiliate.GetUsersAsync(size: 2, need365Day: true, need30Day: true, needDeposit: true /* ...optional parameters... */);
+        var affiliate_02 = await api.Affiliate.GetUsersAsync(new BybitAffiliateUserListRequest
+        {
+            Size = 2,
+            Cursor = "0",
+            Need365Day = true,
+            Need30Day = true,
+            NeedDeposit = true,
+            StartDate = "2025-10-21",
+            EndDate = "2025-10-22",
+        });
+        var affiliate_03 = await api.Affiliate.GetUserInfoAsync(1_513_500 /* ...optional parameters... */);
+
         // Margin API Methods (Public / Private)
         var margin_01 = await api.Margin.GetVipMarginDataAsync(/* ...optional parameters... */);
         var margin_02 = await api.Margin.GetTieredCollateralRatiosAsync(/* ...optional parameters... */);
