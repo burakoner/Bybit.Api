@@ -283,6 +283,22 @@ internal class Program
         var web3_09 = await api.Web3.GetAssetsAsync(/* ...optional parameters... */);
         var web3_10 = await api.Web3.GetAssetDetailAsync("ETH", "0x6982508145454ce325ddbe47a25d4ec3d2311933" /* ...optional parameters... */);
 
+        // SBE codec helpers (MMWS / Gateway binary WebSocket)
+        var sbe_01 = BybitSbeTopic.BestBidOfferRpi("BTCUSDT");
+        var sbe_02 = BybitSbeTradeEncoder.EncodeAuth(new BybitSbeAuthRequest("req-1", "-----API-KEY-----", DateTimeOffset.UtcNow.AddSeconds(30).ToUnixTimeMilliseconds(), "-----SBE-SIGNATURE-----"));
+        var sbe_03 = BybitSbeTradeEncoder.EncodeCreateOrder(new BybitSbeCreateOrderRequest(
+            BybitSbeCategory.Linear,
+            9_000_001,
+            BybitSbeSide.Buy,
+            BybitSbeOrderType.Limit,
+            new BybitSbeDecimal64(-4, 10_000),
+            new BybitSbeDecimal64(-2, 6_500_000),
+            "-----CLIENT-ORDER-ID-----")
+        {
+            Header = new BybitSbeApiRequestHeader("req-2"),
+            TimeInForce = BybitSbeTimeInForce.GoodTillCancel,
+        });
+
         // Crypto Loan API Methods (Public / Private)
         var cryptoLoan_01 = await api.CryptoLoan.GetBorrowableCoinsAsync(currency: "BTC" /* ...optional parameters... */);
         var cryptoLoan_02 = await api.CryptoLoan.GetCollateralCoinsAsync(currency: "BTC" /* ...optional parameters... */);
