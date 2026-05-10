@@ -1,0 +1,28 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "marginToken": [
+      {
+        "productId": "81",
+        "tokenInfo": [
+          {
+            "token": "USDT",
+            "convertRatioList": [
+              {
+                "ladder": "0-500",
+                "convertRatio": "0.95"
+              },
+              {
+                "ladder": "500-1000",
+                "convertRatio": "0.9"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1683276016497
+}

@@ -1,0 +1,35 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "ltvInfo": [
+      {
+        "ltv": "0.75",
+        "rst": "",
+        "parentUid": "xxxxx",
+        "subAccountUids": [
+          "60568258"
+        ],
+        "unpaidAmount": "30",
+        "unpaidInfo": [
+          {
+            "token": "USDT",
+            "unpaidQty": "30",
+            "unpaidInterest": "0"
+          }
+        ],
+        "balance": "40",
+        "balanceInfo": [
+          {
+            "token": "USDT",
+            "price": "1",
+            "qty": "40",
+            "convertedAmount": "40"
+          }
+        ]
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1686638166323
+}

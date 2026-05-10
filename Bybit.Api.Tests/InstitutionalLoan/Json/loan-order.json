@@ -1,0 +1,66 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "loanInfo": [
+      {
+        "orderId": "1468005106166530304",
+        "orderProductId": "96",
+        "parentUid": "1631521",
+        "loanTime": "1689735916000",
+        "loanCoin": "USDT",
+        "loanAmount": "204",
+        "unpaidAmount": "52.07924201",
+        "unpaidInterest": "0",
+        "repaidAmount": "151.92075799",
+        "repaidInterest": "0",
+        "interestRate": "0.00019178",
+        "status": "1",
+        "leverage": "4",
+        "supportSpot": "1",
+        "supportContract": "1",
+        "withdrawLine": "",
+        "transferLine": "",
+        "spotBuyLine": "0.71",
+        "spotSellLine": "0.71",
+        "contractOpenLine": "0.71",
+        "deferredLiquidationLine": "",
+        "deferredLiquidationTime": "",
+        "reserveToken": "USDT",
+        "reserveQuantity": "25",
+        "liquidationLine": "0.75",
+        "stopLiquidationLine": "0.35000000",
+        "contractLeverage": "7",
+        "transferRatio": "1",
+        "spotSymbols": [],
+        "contractSymbols": [],
+        "supportUSDCContract": "1",
+        "supportUSDCOptions": "1",
+        "supportMarginTrading": "1",
+        "USDTPerpetualOpenLine": "0.71",
+        "USDCContractOpenLine": "0.71",
+        "USDCOptionsOpenLine": "0.71",
+        "USDTPerpetualCloseLine": "0.71",
+        "USDCContractCloseLine": "0.71",
+        "USDCOptionsCloseLine": "0.71",
+        "USDCContractSymbols": [],
+        "USDCOptionsSymbols": [],
+        "marginLeverage": "4",
+        "USDTPerpetualLeverage": [
+          {
+            "symbol": "SUSHIUSDT",
+            "leverage": "7"
+          }
+        ],
+        "USDCContractLeverage": [
+          {
+            "symbol": "BTCPERP",
+            "leverage": "8"
+          }
+        ]
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1689745773187
+}

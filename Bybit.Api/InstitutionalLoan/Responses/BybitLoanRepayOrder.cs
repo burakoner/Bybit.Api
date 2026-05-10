@@ -46,13 +46,20 @@ public record BybitLoanRepayOrder
     public decimal Interest { get; set; }
 
     /// <summary>
-    /// Repaid type. 1：normal repayment; 2：repaid by liquidation
+    /// Repaid type. 1: normal repayment; 2: repaid by liquidation.
     /// </summary>
-    public BybitLendingRepayType Type { get; set; }
+    [JsonProperty("businessType")]
+    public BybitLendingRepayType BusinessType { get; set; }
 
     /// <summary>
-    /// 1：outstanding; 2：paid off
+    /// Repaid type. 1: normal repayment; 2: repaid by liquidation.
     /// </summary>
-    public BybitLendingOrderStatus Status { get; set; }
+    [JsonIgnore]
+    public BybitLendingRepayType Type { get => BusinessType; set => BusinessType = value; }
+
+    /// <summary>
+    /// Repayment order status.
+    /// </summary>
+    public BybitLoanRepayStatus Status { get; set; }
 
 }

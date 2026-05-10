@@ -1,0 +1,43 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "marginProductInfo": [
+      {
+        "productId": "91",
+        "leverage": "4.00000000",
+        "supportSpot": 1,
+        "supportContract": 0,
+        "supportMarginTrading": 1,
+        "deferredLiquidationLine": "",
+        "deferredLiquidationTime": "",
+        "withdrawLine": "",
+        "transferLine": "",
+        "spotBuyLine": "",
+        "spotSellLine": "",
+        "contractOpenLine": "",
+        "liquidationLine": "0.75",
+        "stopLiquidationLine": "0.35000000",
+        "contractLeverage": "0",
+        "transferRatio": "0",
+        "spotSymbols": [],
+        "contractSymbols": [],
+        "supportUSDCContract": 0,
+        "supportUSDCOptions": 0,
+        "USDTPerpetualOpenLine": "",
+        "USDCContractOpenLine": "",
+        "USDCOptionsOpenLine": "",
+        "USDTPerpetualCloseLine": "",
+        "USDCContractCloseLine": "",
+        "USDCOptionsCloseLine": "",
+        "USDCContractSymbols": [],
+        "USDCOptionsSymbols": [],
+        "marginLeverage": "0",
+        "USDTPerpetualLeverage": [],
+        "USDCContractLeverage": []
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1689747746332
+}

@@ -27,6 +27,7 @@ public record BybitLoanOrder
     /// <summary>
     /// The designated UID that used to bind INS loan product
     /// </summary>
+    [JsonProperty("parentUid")]
     public long ParentUID { get; set; }
 
     /// <summary>
@@ -101,32 +102,42 @@ public record BybitLoanOrder
     /// <summary>
     /// Restrict line for withdrawal
     /// </summary>
-    public decimal WithdrawLine { get; set; }
+    public decimal? WithdrawLine { get; set; }
 
     /// <summary>
     /// Restrict line for transfer
     /// </summary>
-    public decimal TransferLine { get; set; }
+    public decimal? TransferLine { get; set; }
 
     /// <summary>
     /// Restrict line for SPOT buy
     /// </summary>
-    public decimal SpotBuyLine { get; set; }
+    public decimal? SpotBuyLine { get; set; }
 
     /// <summary>
     /// Restrict line for SPOT sell
     /// </summary>
-    public decimal SpotSellLine { get; set; }
+    public decimal? SpotSellLine { get; set; }
 
     /// <summary>
     /// Restrict line for USDT Perpetual open position
     /// </summary>
-    public decimal ContractOpenLine { get; set; }
+    public decimal? ContractOpenLine { get; set; }
 
     /// <summary>
     /// Line for deferred liquidation
     /// </summary>
-    public decimal DeferredLiquidationLine { get; set; }
+    public decimal? DeferredLiquidationLine { get; set; }
+
+    /// <summary>
+    /// Reserve token.
+    /// </summary>
+    public string ReserveToken { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Reserve token quantity.
+    /// </summary>
+    public decimal? ReserveQuantity { get; set; }
 
     /// <summary>
     /// Time for deferred liquidation

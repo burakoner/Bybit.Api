@@ -13,7 +13,7 @@ internal record BybitLendingTokenContainer
 }
 
 /// <summary>
-/// Bybit lending token
+/// Bybit lending token.
 /// </summary>
 public record BybitLoanToken
 {
@@ -23,16 +23,54 @@ public record BybitLoanToken
     public string ProductId { get; set; } = string.Empty;
 
     /// <summary>
-    /// Spot Tokens
+    /// Margin coin information.
+    /// </summary>
+    [JsonProperty("tokenInfo")]
+    public List<BybitLoanTokenInfo> TokenInfo { get; set; } = [];
+
+    /// <summary>
+    /// Spot tokens. Kept for compatibility with the old documentation shape.
     /// </summary>
     [JsonProperty("spotToken")]
     public List<BybitLendingTokenData> SpotTokens { get; set; } = [];
 
     /// <summary>
-    /// Contract Tokens
+    /// Contract tokens. Kept for compatibility with the old documentation shape.
     /// </summary>
     [JsonProperty("contractToken")]
     public List<BybitLendingTokenData> ContractTokens { get; set; } = [];
+}
+
+/// <summary>
+/// Bybit lending token information.
+/// </summary>
+public record BybitLoanTokenInfo
+{
+    /// <summary>
+    /// Margin coin.
+    /// </summary>
+    public string Token { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Margin coin convert ratio list.
+    /// </summary>
+    public List<BybitLoanConvertRatio> ConvertRatioList { get; set; } = [];
+}
+
+/// <summary>
+/// Bybit lending token conversion ratio tier.
+/// </summary>
+public record BybitLoanConvertRatio
+{
+    /// <summary>
+    /// Ladder.
+    /// </summary>
+    public string Ladder { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Convert ratio.
+    /// </summary>
+    public decimal ConvertRatio { get; set; }
 }
 
 /// <summary>

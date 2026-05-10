@@ -45,7 +45,7 @@ public record BybitLoanProduct
     /// <summary>
     /// Line for deferred liquidation
     /// </summary>
-    public decimal DeferredLiquidationLine { get; set; }
+    public decimal? DeferredLiquidationLine { get; set; }
 
     /// <summary>
     /// Time for deferred liquidation
@@ -61,27 +61,27 @@ public record BybitLoanProduct
     /// <summary>
     /// Restrict line for withdrawal
     /// </summary>
-    public decimal WithdrawLine { get; set; }
+    public decimal? WithdrawLine { get; set; }
 
     /// <summary>
     /// Restrict line for transfer
     /// </summary>
-    public decimal TransferLine { get; set; }
+    public decimal? TransferLine { get; set; }
 
     /// <summary>
     /// Restrict line for Spot buy
     /// </summary>
-    public decimal SpotBuyLine { get; set; }
+    public decimal? SpotBuyLine { get; set; }
 
     /// <summary>
     /// Restrict line for Spot trading
     /// </summary>
-    public decimal SpotSellLine { get; set; }
+    public decimal? SpotSellLine { get; set; }
 
     /// <summary>
     /// Restrict line for USDT Perpetual open position
     /// </summary>
-    public decimal ContractOpenLine { get; set; }
+    public decimal? ContractOpenLine { get; set; }
 
     /// <summary>
     /// Line for liquidation

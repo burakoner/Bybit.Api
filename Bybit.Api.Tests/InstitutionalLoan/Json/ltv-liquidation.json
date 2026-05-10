@@ -1,0 +1,25 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "ltvInfo": [
+      {
+        "ltv": "",
+        "parentUid": "100331354",
+        "subAccountUids": [
+          "100334094",
+          "100334098"
+        ],
+        "unpaidAmount": "",
+        "unpaidInfo": [],
+        "balance": "",
+        "balanceInfo": [],
+        "rst": "",
+        "liqStatus": 3
+      }
+    ],
+    "liqStatus": 3
+  },
+  "retExtInfo": {},
+  "time": 1766462020703
+}

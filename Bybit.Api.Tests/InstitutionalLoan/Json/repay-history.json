@@ -1,0 +1,19 @@
+{
+  "retCode": 0,
+  "retMsg": "",
+  "result": {
+    "repayInfo": [
+      {
+        "repayOrderId": "8189",
+        "repaidTime": "1663126393000",
+        "token": "USDT",
+        "quantity": "30000",
+        "interest": "0",
+        "businessType": "1",
+        "status": "1"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1669366648366
+}

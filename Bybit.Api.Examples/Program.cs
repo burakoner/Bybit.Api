@@ -325,10 +325,15 @@ internal class Program
         });
         var margin_20 = await api.Margin.GetLiabilityInfoAsync("BTC" /* ...optional parameters... */);
 
-        // Lending API Methods (Private)
-        var lending_01 = await api.InstitutionalLoan.GetProductsAsync(/* ...optional parameters... */);
-        var lending_02 = await api.InstitutionalLoan.GetLoanOrdersAsync(/* ...optional parameters... */);
-        var lending_03 = await api.InstitutionalLoan.GetRepayOrdersAsync(/* ...optional parameters... */);
+        // Institutional Loan API Methods (Public / Private)
+        var institutionalLoan_01 = await api.InstitutionalLoan.GetProductsAsync(/* ...optional parameters... */);
+        var institutionalLoan_02 = await api.InstitutionalLoan.GetProductsAsync(new BybitLoanProductRequest { ProductId = "91" });
+        var institutionalLoan_03 = await api.InstitutionalLoan.GetMarginCoinsAsync(/* ...optional parameters... */);
+        var institutionalLoan_04 = await api.InstitutionalLoan.GetLoanOrdersAsync(limit: 10 /* ...optional parameters... */);
+        var institutionalLoan_05 = await api.InstitutionalLoan.GetRepayOrdersAsync(limit: 100 /* ...optional parameters... */);
+        var institutionalLoan_06 = await api.InstitutionalLoan.GetLtvAsync(/* ...optional parameters... */);
+        var institutionalLoan_07 = await api.InstitutionalLoan.BindOrUnbindUidAsync("-----UID-----", BybitLoanUidOperation.Bind /* ...optional parameters... */);
+        var institutionalLoan_08 = await api.InstitutionalLoan.RepayAsync("USDT", 500000m /* ...optional parameters... */);
         #endregion
 
         #region WebSocket API Examples
