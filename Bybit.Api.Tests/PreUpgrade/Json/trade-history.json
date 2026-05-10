@@ -1,0 +1,39 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "symbol": "BTCUSDT",
+        "orderId": "1682553600-BTCUSDT-592334-Sell",
+        "orderLinkId": "",
+        "side": "Sell",
+        "orderPrice": "0.00",
+        "orderQty": "0.000",
+        "leavesQty": "0.000",
+        "orderType": "UNKNOWN",
+        "stopOrderType": "UNKNOWN",
+        "execFee": "0.6364003",
+        "execId": "11f1c4ed-ff20-4d73-acb7-96e43a917f25",
+        "execPrice": "28399.90",
+        "execQty": "0.011",
+        "execType": "Funding",
+        "execValue": "312.3989",
+        "execTime": "1682553600000",
+        "isMaker": false,
+        "feeRate": "0.00203714",
+        "tradeIv": "",
+        "markIv": "",
+        "markPrice": "28399.90",
+        "indexPrice": "",
+        "underlyingPrice": "",
+        "blockTradeId": "",
+        "closedSize": "0.000"
+      }
+    ],
+    "nextPageCursor": "page_token%3D96184191%26",
+    "category": "linear"
+  },
+  "retExtInfo": {},
+  "time": 1682580752717
+}

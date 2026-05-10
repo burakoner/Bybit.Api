@@ -1,0 +1,32 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "nextPageCursor": "21%3A0%2C21%3A0",
+    "list": [
+      {
+        "symbol": "ETH-14JUN23-1750-C",
+        "side": "Buy",
+        "funding": "",
+        "orderLinkId": "",
+        "orderId": "",
+        "fee": "0",
+        "change": "0",
+        "cashFlow": "0",
+        "transactionTime": "1686729604507",
+        "type": "DELIVERY",
+        "feeRate": "0",
+        "bonusChange": "",
+        "size": "0",
+        "qty": "0.5",
+        "cashBalance": "1001.1438885",
+        "currency": "USDC",
+        "category": "option",
+        "tradePrice": "1740.25036667",
+        "tradeId": ""
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1686809006792
+}

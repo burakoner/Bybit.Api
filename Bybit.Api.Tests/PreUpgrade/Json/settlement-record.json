@@ -1,0 +1,21 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "nextPageCursor": "25%3A0%2C25%3A0",
+    "category": "linear",
+    "list": [
+      {
+        "realisedPnl": "45.76",
+        "symbol": "ETHPERP",
+        "side": "Sell",
+        "markPrice": "1668.44",
+        "size": "-0.5",
+        "createdTime": "1686787200000",
+        "sessionAvgPrice": "1668.41"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1686809851749
+}

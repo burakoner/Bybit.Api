@@ -105,6 +105,19 @@ internal class Program
         });
         var position_15 = await api.Position.ConfirmNewRiskLimitAsync(BybitCategory.Linear, "BTCUSDT" /* ...optional parameters... */);
 
+        // Pre-upgrade API Methods (Private)
+        var preUpgrade_01 = await api.PreUpgrade.GetOrderHistoryAsync(BybitCategory.Linear, symbol: "BTCUSDT", orderStatus: BybitOrderStatus.Filled, limit: 20 /* ...optional parameters... */);
+        var preUpgrade_02 = await api.PreUpgrade.GetTradeHistoryAsync(BybitCategory.Linear, symbol: "BTCUSDT", executionType: BybitExecutionType.Funding, limit: 20 /* ...optional parameters... */);
+        var preUpgrade_03 = await api.PreUpgrade.GetClosedPnlAsync(BybitCategory.Linear, "BTCUSDT" /* ...optional parameters... */);
+        var preUpgrade_04 = await api.PreUpgrade.GetTransactionLogAsync(BybitCategory.Option, type: BybitTransactionType.Delivery /* ...optional parameters... */);
+        var preUpgrade_05 = await api.PreUpgrade.GetDeliveryRecordsAsync(BybitCategory.Option /* ...optional parameters... */);
+        var preUpgrade_06 = await api.PreUpgrade.GetSettlementRecordsAsync(BybitCategory.Linear, symbol: "ETHPERP", limit: 20 /* ...optional parameters... */);
+        var preUpgrade_07 = await api.PreUpgrade.GetOrderHistoryAsync(new BybitPreUpgradeOrderHistoryRequest(BybitCategory.Linear)
+        {
+            Symbol = "BTCUSDT",
+            Limit = 20,
+        });
+
         // Account API Methods (Private)
         var account_01 = await api.Account.GetBalancesAsync(/* ...optional parameters... */);
         var account_02 = await api.Account.UpgradeToUnifiedAccountAsync(/* ...optional parameters... */);

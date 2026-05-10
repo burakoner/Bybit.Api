@@ -11,6 +11,7 @@ using Bybit.Api.Trading;
 using Bybit.Api.User;
 using Bybit.Api.System;
 using Bybit.Api.Position;
+using Bybit.Api.PreUpgrade;
 using Bybit.Api.Spread;
 using Bybit.Api.Rfq;
 using Bybit.Api.Web3;
@@ -47,7 +48,10 @@ public class BybitRestApiClient
     /// </summary>
     public BybitPositionRestApiClient Position { get; }
 
-    // TODO: Pre-upgrade
+    /// <summary>
+    /// Pre-upgrade Client
+    /// </summary>
+    public BybitPreUpgradeRestApiClient PreUpgrade { get; }
 
     /// <summary>
     /// Account Client
@@ -143,6 +147,7 @@ public class BybitRestApiClient
         this.Market = new BybitMarketRestApiClient(this);
         this.Trade = new BybitTradeRestApiClient(this);
         this.Position = new BybitPositionRestApiClient(this);
+        this.PreUpgrade = new BybitPreUpgradeRestApiClient(this);
         this.Account = new BybitAccountRestApiClient(this);
         this.Asset = new BybitAssetRestApiClient(this);
         this.User = new BybitUserRestApiClient(this);

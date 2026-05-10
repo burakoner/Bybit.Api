@@ -1,0 +1,31 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "list": [
+      {
+        "symbol": "BTCUSDT",
+        "orderId": "67836246-460e-4c52-a009-af0c3e1d12bc",
+        "side": "Sell",
+        "qty": "0.200",
+        "orderPrice": "27203.40",
+        "orderType": "Market",
+        "execType": "Trade",
+        "closedSize": "0.200",
+        "cumEntryValue": "5588.88",
+        "avgEntryPrice": "27944.40",
+        "cumExitValue": "5726.4252",
+        "avgExitPrice": "28632.13",
+        "closedPnl": "204.25510011",
+        "fillCount": "22",
+        "leverage": "10",
+        "createdTime": "1682487465732",
+        "updatedTime": "1682487465732"
+      }
+    ],
+    "category": "linear",
+    "nextPageCursor": ""
+  },
+  "retExtInfo": {},
+  "time": 1682580912259
+}

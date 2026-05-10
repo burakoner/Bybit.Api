@@ -10,6 +10,7 @@ global using Bybit.Api.InstitutionalLoan;
 global using Bybit.Api.Margin;
 global using Bybit.Api.Market;
 global using Bybit.Api.Position;
+global using Bybit.Api.PreUpgrade;
 global using Bybit.Api.Rfq;
 global using Bybit.Api.Sbe;
 global using Bybit.Api.Spread;

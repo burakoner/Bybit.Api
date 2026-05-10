@@ -67,6 +67,9 @@ Version 5.6.507 - 09 May 2026
 - Added SBE market decoders for BBO RPI, Level 50 orderbook, and public trade binary frames with mantissa/exponent conversion helpers.
 - Added SBE order-entry encoders and decoders for auth, ping/pong, create, replace, cancel, batch order flows, and common error responses.
 - Added SBE topic/path helpers, examples, and focused binary frame tests; live endpoint coverage is not included because Bybit SBE is MMWS/Gateway-only.
+- Added Pre-upgrade REST API coverage against the current Bybit v5 documentation.
+- Added Pre-upgrade endpoints for order history, trade history, closed PnL, transaction logs, option delivery records, and USDC session settlement records.
+- Added typed Pre-upgrade request/response models, examples, focused JSON deserialization tests, and client-side validation tests.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0
