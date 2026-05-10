@@ -14,6 +14,7 @@ global using Bybit.Api.Rfq;
 global using Bybit.Api.Spread;
 global using Bybit.Api.Trading;
 global using Bybit.Api.User;
+global using Bybit.Api.Web3;
 global using System;
 global using System.Collections.Generic;
 global using System.Threading.Tasks;

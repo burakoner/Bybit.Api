@@ -1,0 +1,30 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "totalAssetUsd": "1250.50",
+    "assetList": [
+      {
+        "chainCode": "SOL",
+        "chainIconUrl": "https://example.com/sol.png",
+        "tokenAddress": "0xabc...",
+        "tokenCode": "DEX_123",
+        "tokenSymbol": "PEPE",
+        "tokenDecimals": 18,
+        "tokenIconUrlDay": "https://example.com/pepe-day.png",
+        "tokenIconUrlNight": "https://example.com/pepe-night.png",
+        "tokenAmount": "50000000",
+        "tokenAmountUsd": "500.00",
+        "tradeFlag": 1,
+        "pnl": "75.00",
+        "pnlRatio": "0.15",
+        "costPrice": "0.0000085",
+        "lastPrice": "0.00001",
+        "costTotalValue": "425.00",
+        "assetStatus": 0
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1704067200000
+}

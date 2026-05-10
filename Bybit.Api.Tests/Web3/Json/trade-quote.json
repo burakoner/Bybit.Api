@@ -1,0 +1,42 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "tradeType": 1,
+    "fromTokenCode": "CEX_1",
+    "fromTokenAmount": "100",
+    "fromTokenAmountUsd": "100.00",
+    "toTokenCode": "DEX_123",
+    "toTokenAmount": "12500000",
+    "toTokenAmountUsd": "99.50",
+    "minToTokenAmount": "12375000",
+    "slippage": "0.005",
+    "gas": "0.0003",
+    "gasUsd": "0.30",
+    "platformFee": "0.20",
+    "platformFeeUsd": "0.20",
+    "swapRate": "125000",
+    "lossRate": "0.005",
+    "quoteData": "eyJhbGciOiJIUzI1NiJ9...",
+    "correctingCode": "a1b2c3d4e5f6",
+    "quoteMode": 0,
+    "quoteDataId": "QD_20240101_001",
+    "expireTime": 1704067230000,
+    "modeEstimations": [
+      {
+        "quoteMode": 1,
+        "estimatedGas": "12600000",
+        "estimatedGasUsd": "0.28",
+        "estimatedSlippage": "0.008"
+      },
+      {
+        "quoteMode": 2,
+        "estimatedGas": "12400000",
+        "estimatedGasUsd": "0.35",
+        "estimatedSlippage": "0.003"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1704067200000
+}

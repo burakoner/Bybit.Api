@@ -1,0 +1,20 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "tokenPriceInfoList": [
+      {
+        "chainCode": "ETH",
+        "tokenAddress": "0x6982508145454ce325ddbe47a25d4ec3d2311933",
+        "price": "0.00001",
+        "change24h": "0.15",
+        "vol24h": "125000000",
+        "marketCap": "4200000000",
+        "liquidity": "50000000",
+        "holders": "250000"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1704067200000
+}

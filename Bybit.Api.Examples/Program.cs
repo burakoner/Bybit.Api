@@ -271,6 +271,18 @@ internal class Program
         var bybitCard_05 = await api.BybitCard.GetMallItemsAsync(pageNo: 1, pageSize: 10 /* ...optional parameters... */);
         var bybitCard_06 = await api.BybitCard.GetCashbackDetailAsync("-----BUSINESS-TRANSACTION-ID-----" /* ...optional parameters... */);
 
+        // Web3 API Methods (Private)
+        var web3_01 = await api.Web3.GetTradeQuoteAsync(BybitWeb3TradeType.Purchase, "CEX_1", 100m, "DEX_123", BybitWeb3QuoteMode.Auto /* ...optional parameters... */);
+        var web3_02 = await api.Web3.ExecutePurchaseAsync("CEX_1", 100m, "DEX_123", 0.01m, "-----QUOTE-DATA-----", 0.0003m, BybitWeb3QuoteMode.Auto, "-----CORRECTING-CODE-----" /* ...optional parameters... */);
+        var web3_03 = await api.Web3.ExecuteRedeemAsync("DEX_123", 10000000m, "CEX_1", 0.01m, "-----QUOTE-DATA-----", 0.0003m, BybitWeb3QuoteMode.Auto, "-----CORRECTING-CODE-----" /* ...optional parameters... */);
+        var web3_04 = await api.Web3.GetPaymentTokensAsync("SOL", "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB" /* ...optional parameters... */);
+        var web3_05 = await api.Web3.GetOrdersAsync(limit: 20, pageIndex: 1, tradeType: BybitWeb3TradeType.All, days: 7 /* ...optional parameters... */);
+        var web3_06 = await api.Web3.GetBizTokensAsync(BybitWeb3TokenTagFilter.OnChainHotToken /* ...optional parameters... */);
+        var web3_07 = await api.Web3.GetTokenPricesAsync([new BybitWeb3TokenAddressInfo("ETH", "0x6982508145454ce325ddbe47a25d4ec3d2311933")] /* ...optional parameters... */);
+        var web3_08 = await api.Web3.GetTokenDetailsAsync("ETH", "0x6982508145454ce325ddbe47a25d4ec3d2311933" /* ...optional parameters... */);
+        var web3_09 = await api.Web3.GetAssetsAsync(/* ...optional parameters... */);
+        var web3_10 = await api.Web3.GetAssetDetailAsync("ETH", "0x6982508145454ce325ddbe47a25d4ec3d2311933" /* ...optional parameters... */);
+
         // Crypto Loan API Methods (Public / Private)
         var cryptoLoan_01 = await api.CryptoLoan.GetBorrowableCoinsAsync(currency: "BTC" /* ...optional parameters... */);
         var cryptoLoan_02 = await api.CryptoLoan.GetCollateralCoinsAsync(currency: "BTC" /* ...optional parameters... */);

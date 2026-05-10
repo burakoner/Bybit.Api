@@ -60,6 +60,9 @@ Version 5.6.507 - 09 May 2026
 - Added Bybit Card REST API coverage against the current Bybit v5 documentation.
 - Added Bybit Card endpoints for asset records, point balance, point records, tier info, mall item lists, and cashback details.
 - Added typed Bybit Card request/response models, enums, examples, JSON deserialization tests, request serialization tests, and client-side validation tests.
+- Added Web3 REST API coverage against the current Bybit v5 documentation.
+- Added Web3 Onchain Token endpoints for trade quote, purchase, redeem, payment tokens, order history, business tokens, token prices/details, asset list, and asset detail.
+- Added typed Web3 request/response models, integer-backed Web3 request enum serialization, examples, JSON deserialization tests, request serialization tests, and client-side validation tests.
 
 Version 5.5.1019 - 19 Oct 2025
 - ApSharp updated to 4.1.0

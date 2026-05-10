@@ -1,0 +1,38 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "total": 1,
+    "pageIndex": 1,
+    "orders": [
+      {
+        "orderType": 1,
+        "tradeType": 1,
+        "orderNo": "ORD_20240101_001",
+        "orderStatus": 2,
+        "fromTokenCode": "CEX_1",
+        "fromTokenAmount": "100",
+        "fromTokenSymbol": "USDT",
+        "fromTokenDecimals": 6,
+        "fromChainCode": "ETH",
+        "toTokenCode": "DEX_123",
+        "toTokenAmount": "12450000",
+        "toTokenSymbol": "PEPE",
+        "toTokenDecimals": 18,
+        "toChainCode": "ETH",
+        "gasTokenSymbol": "ETH",
+        "gasOnchain": "0.0003",
+        "gasUsd": "0.30",
+        "platformFee": "0.20",
+        "platformFeeUsd": "0.20",
+        "quoteMode": 0,
+        "createTime": 1704067200,
+        "executionTime": 1704067230,
+        "swapRate": "124500",
+        "actualFromTokenAmount": "100"
+      }
+    ]
+  },
+  "retExtInfo": {},
+  "time": 1704067300000
+}

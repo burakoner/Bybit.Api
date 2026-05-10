@@ -1,0 +1,31 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": [
+    {
+      "tokenCode": "DEX_123",
+      "chainCode": "ETH",
+      "chainIconUrl": "https://example.com/eth.png",
+      "tokenAddress": "0x6982508145454ce325ddbe47a25d4ec3d2311933",
+      "symbol": "PEPE",
+      "tokenDecimals": 18,
+      "tokenIconUrlDay": "https://example.com/pepe-day.png",
+      "tokenIconUrlNight": "https://example.com/pepe-night.png",
+      "createTime": 1704067200,
+      "createTimeOnchain": 1682000000,
+      "riskFlag": 0,
+      "minOrderQuantity": 1,
+      "maxOrderQuantity": 50000,
+      "tokenTags": [
+        1,
+        2
+      ],
+      "payTokenCodes": [
+        "CEX_1",
+        "CEX_2"
+      ]
+    }
+  ],
+  "retExtInfo": {},
+  "time": 1704067200000
+}

@@ -1,0 +1,35 @@
+{
+  "retCode": 0,
+  "retMsg": "OK",
+  "result": [
+    {
+      "tokenCode": "CEX_1",
+      "symbol": "USDT",
+      "tokenDecimals": 6,
+      "tokenIconUrlDay": "https://example.com/usdt-day.png",
+      "tokenIconUrlNight": "https://example.com/usdt-night.png",
+      "limit": "50000",
+      "supportChains": [
+        "ETH",
+        "BSC",
+        "SOL",
+        "TRX"
+      ]
+    },
+    {
+      "tokenCode": "CEX_2",
+      "symbol": "USDC",
+      "tokenDecimals": 6,
+      "tokenIconUrlDay": "https://example.com/usdc-day.png",
+      "tokenIconUrlNight": "https://example.com/usdc-night.png",
+      "limit": "50000",
+      "supportChains": [
+        "ETH",
+        "SOL",
+        "BASE"
+      ]
+    }
+  ],
+  "retExtInfo": {},
+  "time": 1704067200000
+}

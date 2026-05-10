@@ -13,6 +13,7 @@ using Bybit.Api.System;
 using Bybit.Api.Position;
 using Bybit.Api.Spread;
 using Bybit.Api.Rfq;
+using Bybit.Api.Web3;
 
 namespace Bybit.Api;
 
@@ -105,6 +106,11 @@ public class BybitRestApiClient
     /// </summary>
     public BybitCardRestApiClient BybitCard { get; }
 
+    /// <summary>
+    /// Web3 Client
+    /// </summary>
+    public BybitWeb3RestApiClient Web3 { get; }
+
     // TODO: Earn
 
     /// <summary>
@@ -145,6 +151,7 @@ public class BybitRestApiClient
         this.Affiliate = new BybitAffiliateRestApiClient(this);
         this.Broker = new BybitBrokerRestApiClient(this);
         this.BybitCard = new BybitCardRestApiClient(this);
+        this.Web3 = new BybitWeb3RestApiClient(this);
         this.Margin = new BybitMarginRestApiClient(this);
         this.CryptoLoan = new BybitCryptoLoanRestApiClient(this);
         this.InstitutionalLoan = new BybitInstitutionalLoanRestApiClient(this);
